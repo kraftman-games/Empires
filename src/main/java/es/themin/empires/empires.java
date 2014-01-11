@@ -6,6 +6,12 @@ import org.bukkit.plugin.java.JavaPlugin;
  
 public final class empires extends JavaPlugin {
  
+	public boolean myTestBoolFunction(){
+		boolean myBool = true;
+		
+		return myBool;
+		
+	}
 	
 	@Override
     public void onEnable(){
