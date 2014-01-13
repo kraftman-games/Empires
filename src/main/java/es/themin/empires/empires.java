@@ -2,6 +2,8 @@ package es.themin.empires;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
  
 public final class empires extends JavaPlugin {
@@ -15,9 +17,8 @@ public final class empires extends JavaPlugin {
 	
 	@Override
     public void onEnable(){
-        // TODO Insert logic to be performed when the plugin is enabled
-		
-		
+        PluginManager pm = this.getServer().getPluginManager();
+        PluginDescriptionFile desc = this.getDescription();
 		getLogger().info("onEnable has been invoked!");
     }
  
