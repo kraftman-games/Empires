@@ -6,9 +6,11 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import enums.CoreType;
+
 public class Core {
 	
-	enum CoreType {BASIC, MOB, FARM, MONSTER, GRIEF, FORTIFICATION;}
+	
 	private int Id;
 	private CoreType type;
 	private Location location;
@@ -72,7 +74,7 @@ public class Core {
 		
 	}
 	public void setFlag(){
-		
+			
 	}
 	public void build(Player myPlayer){
 		//this will build the core
