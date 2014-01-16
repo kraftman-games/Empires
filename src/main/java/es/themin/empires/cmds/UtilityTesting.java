@@ -1,5 +1,6 @@
 package es.themin.empires.cmds;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,7 +22,8 @@ public class UtilityTesting implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
-			Player player = (Player) sender; 
+			Player player = (Player) sender;
+			EmpirePlayer ep2 = UtilityHashMaps.empireplayers.get(player);
 			if (commandLabel.equalsIgnoreCase("utiltest")) {
 				if (player.isOp()){
 					if (args.length == 0) player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
@@ -60,6 +62,17 @@ public class UtilityTesting implements CommandExecutor{
 								}
 							}else player.sendMessage(ChatColor.RED + "You weren't found :/");return false;
 							
+						}else if (args[0].equalsIgnoreCase("ap")) {
+							if (args.length == 1) {player.sendMessage("Too Few Args"); return false;}
+							else {
+								String name = args[1];
+								Player player2 = Bukkit.getServer().getPlayer(name);
+								if (ep2.isInEmpire()) {
+									ep2.getEmpire().addPlayer(name);
+									player.sendMessage("Added: " + args[1]);
+									player2.sendMessage(player.getName() + " added you to their empire");
+								}
+							}
 						}
 					}
 				}else player.sendMessage(ChatColor.RED + "Must be opped"); return false;
