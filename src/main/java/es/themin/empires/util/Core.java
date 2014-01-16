@@ -24,11 +24,6 @@ public class Core {
 		
 		return Id;
 	}
-	public void setId(int Id){
-		if (UtilityHashMaps.cores.contains(this)) UtilityHashMaps.cores.remove(this);
-		this.Id = Id;
-		UtilityHashMaps.cores.add(this);
-	}
 	public CoreType getType(){
 		return type;
 	}
@@ -36,9 +31,7 @@ public class Core {
 		return location;
 	}
 	public void setLocation(Location l) {
-		if (UtilityHashMaps.cores.contains(this)) UtilityHashMaps.cores.remove(this);
 		this.location = l;
-		UtilityHashMaps.cores.add(this);
 	}
 	public int getLevel(){
 		return level;
@@ -50,9 +43,11 @@ public class Core {
 		return empire;
 	}
 	public void setEmpire(Empire e){
+		Empire e2 = UtilityHashMaps.getEmpireWithId(this.empire.getId());
+		e2.removeCore(this);
 		this.empire = e;
-		UtilityHashMaps.empires.get(UtilityHashMaps.empires.indexOf(this.empire)).removeCore(this);
-		UtilityHashMaps.empires.get(UtilityHashMaps.empires.indexOf(e)).addCore(this);
+		e.addCore(this);
+		Save();
 	}
 	public Location[] getFlagSlots() {
 		CoreType type = getType();
@@ -78,6 +73,13 @@ public class Core {
 	}
 	public void destroy(Material replacement){
 		//destroys shit
+	}
+	public void Save() {
+		if (UtilityHashMaps.containsCoreWithId(this.Id)) {
+			int i = UtilityHashMaps.cores.indexOf(UtilityHashMaps.containsCoreWithId(this.Id));
+			UtilityHashMaps.cores.remove(i);
+		}
+		UtilityHashMaps.cores.add(this);
 	}
 
 }

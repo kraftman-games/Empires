@@ -106,6 +106,58 @@ public class UtilityHashMaps {
 		}
 		return null;
 	}
+	public static Empire getEmpireWithId(int Id) {
+		for (Empire empire : empires) {
+			if (empire.getId() == Id) return empire;
+		}
+		return null;
+	}
+	public static boolean containsEmpireWithId(int Id) {
+		for (Empire empire : empires) {
+			if (empire.getId() == Id) return true;
+		}
+		return false;
+	}
+	public static Core getCoreWithId(int Id) {
+		for (Core core : cores) {
+			if (core.getId() == Id) return core;
+		}
+		return null;
+	}
+	public static boolean containsCoreWithId(int Id) {
+		for (Core core : cores) {
+			if (core.getId() == Id) return true;
+		}
+		return false;
+	}
+	public static int nextUnusedCoreId(){
+		int id = 0;
+		for (int i = 0 ; i != -1; i++) {
+			if (getCoreWithId(i) == null) {
+				id = i;
+				i = -1;
+			}
+		}
+		return id;
+	}
+	public static int nextEmpireCoreId(){
+		int id = 0;
+		for (int i = 0 ; i != -1; i++) {
+			if (getEmpireWithId(i) == null) {
+				id = i;
+				i = -1;
+			}
+		}
+		return id;
+	}
+	public static Empire getEmpireWithCore(Core c) {
+		for (Empire empire : empires) {
+			if (empire.hasCore(c)) {
+				return empire;
+			}
+		}
+		return null;
+	}
 
 	
 

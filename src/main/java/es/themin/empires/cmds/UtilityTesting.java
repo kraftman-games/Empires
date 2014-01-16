@@ -23,7 +23,7 @@ public class UtilityTesting implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			EmpirePlayer ep2 = UtilityHashMaps.empireplayers.get(player);
+			EmpirePlayer ep2 = UtilityHashMaps.empireplayers.get(player.getName());
 			if (commandLabel.equalsIgnoreCase("utiltest")) {
 				if (player.isOp()){
 					if (args.length == 0) player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");

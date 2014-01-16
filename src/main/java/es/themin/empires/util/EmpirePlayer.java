@@ -25,7 +25,6 @@ public class EmpirePlayer {
 		return empire;
 	}
 	public void setEmpire(Empire empire){
-		
 		this.empire = empire;
 		UtilityHashMaps.empireplayers.put(this.player.getName(), this);
 	}
