@@ -1,7 +1,7 @@
 package enums;
 
 public enum CoreType {
-	BASIC,
+	BASE,
 	MOB,
 	FARM,
 	MONSTER,

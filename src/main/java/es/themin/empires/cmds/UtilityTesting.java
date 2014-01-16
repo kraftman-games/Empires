@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import enums.CoreType;
 import es.themin.empires.empires;
 import es.themin.empires.util.Core;
 import es.themin.empires.util.Empire;
@@ -50,6 +51,7 @@ public class UtilityTesting implements CommandExecutor{
 	}
 	private void TannerTests(Player myPlayer){
 		Core myCore = new Core();
+		myCore.setType(CoreType.BASE);
 		myCore.build(myPlayer);
 	}
 	

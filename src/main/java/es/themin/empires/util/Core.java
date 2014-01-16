@@ -12,7 +12,7 @@ public class Core {
 	
 	
 	private int Id;
-	private CoreType type;
+	private CoreType coreType;
 	private Location location;
 	private int level;
 	private Empire empire;
@@ -25,7 +25,7 @@ public class Core {
 	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
 		this.empire = empire;
 		this.Id = Id;
-		this.type = type;
+		this.coreType = type;
 		this.location = location;
 		this.level = level;
 	}
@@ -34,7 +34,10 @@ public class Core {
 		return Id;
 	}
 	public CoreType getType(){
-		return type;
+		return coreType;
+	}
+	public void setType(CoreType myCoreType){
+		this.coreType =  myCoreType;
 	}
 	public Location getLocation(){
 		return location;
@@ -61,7 +64,7 @@ public class Core {
 	}
 	public Location[] getFlagSlots() {
 		CoreType type = getType();
-		if (type == CoreType.BASIC) {
+		if (type == CoreType.BASE) {
 			Location[] slots = {new Location(location.getWorld(), location.getBlockX() + 1, location.getBlockY() + 2, location.getBlockZ()),new Location(location.getWorld(), location.getBlockX() - 1, location.getBlockY() + 2, location.getBlockZ()),new Location(location.getWorld(), location.getBlockX(), location.getBlockY() + 2, location.getBlockZ() + 1), new Location(location.getWorld(), location.getBlockX(), location.getBlockY() + 2, location.getBlockZ()+ 1)  };
 			return slots;
 		}
@@ -79,9 +82,10 @@ public class Core {
 	public void build(Player myPlayer){
 		//this will build the core
 		Location myLocation = myPlayer.getLocation();
+		CoreSchematic myCoreSchematic = new CoreSchematic();
+		myCoreSchematic.build(coreType, myPlayer);
 		this.setLocation(myLocation);
-		Block b = myLocation.getBlock();
-		b.setType(Material.IRON_BLOCK);
+		
 	}
 	public void destroy(Material replacement){
 		//destroys shit

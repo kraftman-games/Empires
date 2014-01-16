@@ -79,7 +79,7 @@ public class UtilityHashMaps {
 				int Id2  = Integer.parseInt(words2[0]);
 				String type = words2[1];
 				CoreType coretype = null;
-				if (type.equalsIgnoreCase("BASIC")) coretype = CoreType.BASIC;
+				if (type.equalsIgnoreCase("BASIC")) coretype = CoreType.BASE;
 				if (type.equalsIgnoreCase("MOB")) coretype = CoreType.MOB;
 				if (type.equalsIgnoreCase("FARM")) coretype = CoreType.FARM;
 				if (type.equalsIgnoreCase("GRIEF")) coretype = CoreType.GRIEF;
