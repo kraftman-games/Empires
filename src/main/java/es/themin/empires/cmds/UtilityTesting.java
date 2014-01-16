@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
+import es.themin.empires.util.Core;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;
 import es.themin.empires.util.UtilityHashMaps;
@@ -35,6 +36,8 @@ public class UtilityTesting implements CommandExecutor{
 							return SendEmpireDetails(player);
 						}else if (args[0].equalsIgnoreCase("ap")) {
 							return  AddPlayerToEmpire(player, args);
+						} else if (args[0].equalsIgnoreCase("tantest")) {
+							TannerTests(player);
 						}
 					}
 				}
@@ -44,6 +47,10 @@ public class UtilityTesting implements CommandExecutor{
 			}
 		}
 		return false;
+	}
+	private void TannerTests(Player myPlayer){
+		Core myCore = new Core();
+		myCore.build(myPlayer);
 	}
 	
 	private void CreateNewEmpire(Player myPlayer, String[] args) {

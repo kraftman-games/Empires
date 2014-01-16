@@ -4,6 +4,7 @@ package es.themin.empires.util;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 
 public class Core {
 	
@@ -13,6 +14,12 @@ public class Core {
 	private Location location;
 	private int level;
 	private Empire empire;
+	
+	// for testing
+	public Core(){
+		
+	}
+	
 	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
 		this.empire = empire;
 		this.Id = Id;
@@ -43,6 +50,7 @@ public class Core {
 		return empire;
 	}
 	public void setEmpire(Empire e){
+		//do we need to get the empire if we already have it? wont e == e2 ?
 		Empire e2 = UtilityHashMaps.getEmpireWithId(this.empire.getId());
 		e2.removeCore(this);
 		this.empire = e;
@@ -66,9 +74,11 @@ public class Core {
 	public void setFlag(){
 		
 	}
-	public void build(){
+	public void build(Player myPlayer){
 		//this will build the core
-		Block b = location.getBlock();
+		Location myLocation = myPlayer.getLocation();
+		this.setLocation(myLocation);
+		Block b = myLocation.getBlock();
 		b.setType(Material.IRON_BLOCK);
 	}
 	public void destroy(Material replacement){
