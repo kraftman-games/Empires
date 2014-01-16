@@ -23,62 +23,93 @@ public class UtilityTesting implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			EmpirePlayer ep2 = UtilityHashMaps.empireplayers.get(player.getName());
 			if (commandLabel.equalsIgnoreCase("utiltest")) {
 				if (player.isOp()){
 					if (args.length == 0) player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
 					else {
 						if (args[0].equalsIgnoreCase("newemp")) {
-							if (args.length == 1) player.sendMessage(plprefix + ChatColor.RED  + "Give a name");
-							else {
-								Empire empire = new Empire(UtilityHashMaps.empires.size() + 1, args[1]);
-								empire.addPlayer(player.getName());
-								UtilityHashMaps.empires.add(empire);
-
-								player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: "  + args[1]);
-							}
+							CreateNewEmpire(player, args);
 						}else if (args[0].equalsIgnoreCase("emps")) {
-							player.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.GOLD + "==========");
-							int i = 0;
-							for (Empire empire : UtilityHashMaps.empires) {
-								player.sendMessage(empire.getName());
-								i++;
-							}
-							if (i == 0) {
-								player.sendMessage(ChatColor.RED + "No Empires :(");
-							}
-							player.sendMessage(ChatColor.GOLD + "=========================");
+							SendEmpireList(player);
 						}else if (args[0].equalsIgnoreCase("emp")) {
-							if (UtilityHashMaps.empireplayers.containsKey(player.getName())) {
-								EmpirePlayer ep = UtilityHashMaps.empireplayers.get(player.getName());
-								if (ep.getEmpire() == null) {
-									player.sendMessage(ChatColor.RED + "Not in an empire"); return false; }
-								else {
-									Empire empire = ep.getEmpire();
-									player.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "==========");
-									player.sendMessage(ChatColor.GREEN + "Cores #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
-									player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
-									player.sendMessage(ChatColor.GOLD + "=========================");
-								}
-							}else player.sendMessage(ChatColor.RED + "You weren't found :/");return false;
-							
+							return SendEmpireDetails(player);
 						}else if (args[0].equalsIgnoreCase("ap")) {
-							if (args.length == 1) {player.sendMessage("Too Few Args"); return false;}
-							else {
-								String name = args[1];
-								Player player2 = Bukkit.getServer().getPlayer(name);
-								if (ep2.isInEmpire()) {
-									ep2.getEmpire().addPlayer(name);
-									player.sendMessage("Added: " + args[1]);
-									player2.sendMessage(player.getName() + " added you to their empire");
-								}
-							}
+							return  AddPlayerToEmpire(player, args);
 						}
 					}
-				}else player.sendMessage(ChatColor.RED + "Must be opped"); return false;
+				}
+				else {
+					player.sendMessage(ChatColor.RED + "Must be opped"); return false;
+				}
 			}
 		}
 		return false;
 	}
+	
+	private void CreateNewEmpire(Player myPlayer, String[] args) {
+		if (args.length == 1) myPlayer.sendMessage(plprefix + ChatColor.RED  + "Give a name");
+		else {
+			//needs check to see if they are in an empire already
+			Empire empire = new Empire(UtilityHashMaps.empires.size() + 1, args[1]);
+			empire.addPlayer(myPlayer.getName());
+			UtilityHashMaps.empires.add(empire);
+
+			myPlayer.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: "  + args[1]);
+		}
+	}
+	
+	private void SendEmpireList(Player myPlayer){
+		myPlayer.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.GOLD + "==========");
+		int i = 0;
+		for (Empire empire : UtilityHashMaps.empires) {
+			myPlayer.sendMessage(empire.getName());
+			i++;
+		}
+		if (i == 0) {
+			myPlayer.sendMessage(ChatColor.RED + "No Empires :(");
+		}
+		myPlayer.sendMessage(ChatColor.GOLD + "=========================");
+	}
+	
+	private boolean SendEmpireDetails(Player myPlayer){
+		if (UtilityHashMaps.empireplayers.containsKey(myPlayer.getName())) {
+			EmpirePlayer ep = UtilityHashMaps.empireplayers.get(myPlayer.getName());
+			if (ep.getEmpire() == null) {
+				myPlayer.sendMessage(ChatColor.RED + "Not in an empire");
+				return false; }
+			else {
+				Empire empire = ep.getEmpire();
+				myPlayer.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "==========");
+				myPlayer.sendMessage(ChatColor.GREEN + "Cores #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
+				myPlayer.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
+				myPlayer.sendMessage(ChatColor.GOLD + "=========================");
+			}
+		}else {
+			myPlayer.sendMessage(ChatColor.RED + "You weren't found :/");
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean AddPlayerToEmpire(Player myPlayer, String myArgs[]){
+		EmpirePlayer ep2 = UtilityHashMaps.empireplayers.get(myPlayer.getName());
+		
+		if (myArgs.length == 1) {
+			myPlayer.sendMessage("Too Few Args"); 
+			return false;
+			}
+		else {
+			String name = myArgs[1];
+			Player player2 = Bukkit.getServer().getPlayer(name);
+			if (ep2.isInEmpire()) {
+				ep2.getEmpire().addPlayer(name);
+				myPlayer.sendMessage("Added: " + myArgs[1]);
+				player2.sendMessage(myPlayer.getName() + " added you to their empire");
+			}
+		}
+		return false;
+	}
+	
+	
 
 }
