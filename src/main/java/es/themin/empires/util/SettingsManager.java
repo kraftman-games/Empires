@@ -25,16 +25,16 @@ public class SettingsManager {
     FileConfiguration config;
     File cfile;
    
-    FileConfiguration data;
+    YamlConfiguration data;
     File dfile;
     
-    FileConfiguration coredata;
+    YamlConfiguration coredata;
     File corefile;
     
-    FileConfiguration playerdata;
+    YamlConfiguration playerdata;
     File pfile;
     
-    FileConfiguration empiredata;
+    YamlConfiguration empiredata;
     File efile;
    
     public void setup(Plugin p) {
