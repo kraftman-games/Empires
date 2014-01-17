@@ -56,14 +56,16 @@ public class UtilityTesting implements CommandExecutor{
 	}
 	
 	private void CreateNewEmpire(Player myPlayer, String[] args) {
+		myPlayer.sendMessage("jen1");
 		if (args.length == 1) myPlayer.sendMessage(plprefix + ChatColor.RED  + "Give a name");
 		else {
+			myPlayer.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: "  + args[1]);
 			//needs check to see if they are in an empire already
-			Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1]);
+			Empire empire = new Empire(UtilManager.empires.size() + 1, args[1]);
 			empire.addPlayer(myPlayer.getName());
 			empire.Save();
 
-			myPlayer.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: "  + args[1]);
+			
 		}
 	}
 	

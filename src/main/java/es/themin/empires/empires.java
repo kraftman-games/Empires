@@ -30,7 +30,7 @@ public final class empires extends JavaPlugin {
 		SettingsManager.getInstance().setup(this);
 		getCommands();
 		pm.registerEvents(new Login_Quit(this), this);
-
+		UtilManager.loadEmpires();
     }
  
     @Override

@@ -67,7 +67,7 @@ public class UtilManager {
 		}
 		SettingsManager.getInstance().getEmpireData().set("empires", list);
 	}
-	public void loadEmpires() {
+	public static void loadEmpires() {
 		List<String> list = SettingsManager.getInstance().getEmpireData().getStringList("empires");
 		for (String s : list) {
 			String[] words = s.split(":");
@@ -99,7 +99,7 @@ public class UtilManager {
 			for (String playername : list3) {
 				empire.addPlayer(playername);
 			}
-			empires.add(empire);
+			empire.Save();
 		}
 	}
 	public static Empire getEmpireWithName(String name) {
