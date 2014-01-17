@@ -34,7 +34,23 @@ public class UtilityTesting implements CommandExecutor{
 						}else if (args[0].equalsIgnoreCase("emps")) {
 							SendEmpireList(player);
 						}else if (args[0].equalsIgnoreCase("emp")) {
-							return SendEmpireDetails(player);
+							if (args.length == 1) {
+								EmpirePlayer ep = UtilManager.empireplayers.get(player.getName());
+								if (ep.getEmpire() == null) {
+									player.sendMessage(ChatColor.RED + "Not in an empire");
+									return false; }
+								else {
+									SendEmpireDetails(player, ep.getEmpire());
+									return false;
+								}
+							}else {
+								if(UtilManager.getEmpireWithName(args[1]) == null) {
+									player.sendMessage("Invalid Empire");
+								}else {
+									SendEmpireDetails(player, UtilManager.getEmpireWithName(args[1]));
+									return false;
+								}
+							}
 						}else if (args[0].equalsIgnoreCase("ap")) {
 							return  AddPlayerToEmpire(player, args);
 						} else if (args[0].equalsIgnoreCase("tantest")) {
@@ -82,19 +98,13 @@ public class UtilityTesting implements CommandExecutor{
 		myPlayer.sendMessage(ChatColor.GOLD + "=========================");
 	}
 	
-	private boolean SendEmpireDetails(Player myPlayer){
+	private boolean SendEmpireDetails(Player myPlayer, Empire empire){
 		if (UtilManager.empireplayers.containsKey(myPlayer.getName())) {
 			EmpirePlayer ep = UtilManager.empireplayers.get(myPlayer.getName());
-			if (ep.getEmpire() == null) {
-				myPlayer.sendMessage(ChatColor.RED + "Not in an empire");
-				return false; }
-			else {
-				Empire empire = ep.getEmpire();
-				myPlayer.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "==========");
-				myPlayer.sendMessage(ChatColor.GREEN + "Cores #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
-				myPlayer.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
-				myPlayer.sendMessage(ChatColor.GOLD + "=========================");
-			}
+			myPlayer.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "==========");
+			myPlayer.sendMessage(ChatColor.GREEN + "Cores #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
+			myPlayer.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
+			myPlayer.sendMessage(ChatColor.GOLD + "=========================");
 		}else {
 			myPlayer.sendMessage(ChatColor.RED + "You weren't found :/");
 			return false;
