@@ -48,7 +48,6 @@ public class Empire {
 		}
 		players.add(p);
 		EmpirePlayer ep = UtilManager.empireplayers.get(p);
-		ep.setEmpire(this);
 		Bukkit.getServer().broadcastMessage("set");
 		UtilManager.empireplayers.put(p, ep);
 	}
