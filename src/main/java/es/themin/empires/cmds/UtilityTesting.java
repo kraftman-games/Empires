@@ -61,7 +61,7 @@ public class UtilityTesting implements CommandExecutor{
 		else {
 			myPlayer.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: "  + args[1]);
 			//needs check to see if they are in an empire already
-			Empire empire = new Empire(UtilManager.empires.size() + 1, args[1]);
+			Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1]);
 			empire.addPlayer(myPlayer.getName());
 			empire.Save();
 
