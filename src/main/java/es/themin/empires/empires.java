@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import es.themin.empires.Listeners.Login_Quit;
 import es.themin.empires.cmds.UtilityTesting;
 import es.themin.empires.util.SettingsManager;
+import es.themin.empires.util.UtilManager;
  
 public final class empires extends JavaPlugin {
  
@@ -29,11 +30,14 @@ public final class empires extends JavaPlugin {
 		SettingsManager.getInstance().setup(this);
 		getCommands();
 		pm.registerEvents(new Login_Quit(this), this);
+
     }
  
     @Override
     public void onDisable() {
         // TODO Insert logic to be performed when the plugin is disabled
+		UtilManager.saveEmpires();
+		SettingsManager.getInstance().saveAll();
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){

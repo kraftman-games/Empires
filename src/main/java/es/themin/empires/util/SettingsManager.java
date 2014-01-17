@@ -197,4 +197,10 @@ public class SettingsManager {
     public PluginDescriptionFile getDesc() {
             return p.getDescription();
     }
+    public void saveAll(){
+    	saveConfig();
+    	saveEmpireData();
+    	savePlayerData();
+    	saveCoreData();
+    }
 }

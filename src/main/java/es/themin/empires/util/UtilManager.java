@@ -35,7 +35,7 @@ public class UtilManager {
 		}
 		SettingsManager.getInstance().getCoreData().set("cores", list);
 	}*/
-	public void saveEmpires() {
+	public static void saveEmpires() {
 		List<String> list = new ArrayList<String>();
 		for (Empire empire : empires) {
 			StringBuilder str = new StringBuilder();

@@ -3,3 +3,4 @@ main: es.themin.empires.empires
 version: 0.0.2
 commands:
    utiltest:
+      description: does shit
