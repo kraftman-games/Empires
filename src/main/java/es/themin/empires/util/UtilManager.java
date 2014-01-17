@@ -15,6 +15,8 @@ public class UtilManager {
 	public static ArrayList<Empire> empires = new ArrayList<Empire>();
 	public static HashMap<String, EmpirePlayer> empireplayers = new HashMap<String, EmpirePlayer>();
 	public static ArrayList<Core> cores = new ArrayList<Core>();
+	public static ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
+	
 	
 /*	public void saveCores() {
 		List<String> list = new ArrayList<String>();
@@ -91,7 +93,7 @@ public class UtilManager {
 				int level = Integer.parseInt(words[6]);
 				Core core = new Core(Id2, coretype, location, level, empire);
 				cores.add(core);
-				empire.addCore(core);
+				empire.ac(core);
 			}
 			List<String> list3 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".players");
 			for (String playername : list3) {
@@ -158,7 +160,29 @@ public class UtilManager {
 		}
 		return null;
 	}
-
+//amps
+	public static Amplifier getAmplifierWithId(int Id) {
+		for (Amplifier amp : amps) {
+			if (amp.getId() == Id) return amp;
+		}
+		return null;
+	}
+	public static int nextUnusedAmplifierId(){
+		int id = 0;
+		for (int i = 0 ; i != -1; i++) {
+			if (getAmplifierWithId(i) == null) {
+				id = i;
+				i = -1;
+			}
+		}
+		return id;
+	}
+	public static boolean containsAmplifierWithId(int Id) {
+		for (Amplifier amp: amps) {
+			if (amp.getId() == Id) return true;
+		}
+		return false;
+	}
 	
 
 }

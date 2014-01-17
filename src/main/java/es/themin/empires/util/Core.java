@@ -55,10 +55,10 @@ public class Core {
 	}
 	public void setEmpire(Empire e){
 		//do we need to get the empire if we already have it? wont e == e2 ?
-		Empire e2 = UtilManager.getEmpireWithId(this.empire.getId());
+		Empire e2 = this.empire;
 		e2.removeCore(this);
 		this.empire = e;
-		e.addCore(this);
+		e.ac(this);
 		Save();
 	}
 	public Location[] getFlagSlots() {
