@@ -44,7 +44,7 @@ public class Login_Quit implements Listener{
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		if (UtilManager.empireplayers.containsKey(event.getPlayer()) && UtilManager.empireplayers.get(player).getEmpire() != null) {
+		if (UtilManager.empireplayers.containsKey(event.getPlayer())/* && UtilManager.empireplayers.get(player).getEmpire() != null*/) {
 			SettingsManager.getInstance().getPlayerData().set(player.getName() + ".empire", UtilManager.empireplayers.get(player).getEmpire().getName());
 			SettingsManager.getInstance().savePlayerData();
 		}
