@@ -130,7 +130,6 @@ public class SettingsManager {
     }
 
     public void saveCoreData() {
-    	corefile = new File(p.getDataFolder(), "coredata.yml");
         try {
                 coredata.save(corefile);
         }
@@ -148,7 +147,6 @@ public class SettingsManager {
     }
 
     public void savePlayerData() {
-    	pfile = new File(p.getDataFolder(), "playerdata.yml");
         try {
                 playerdata.save(pfile);
         }
@@ -166,7 +164,6 @@ public class SettingsManager {
     }
 
     public void saveEmpireData() {
-    	efile = new File(p.getDataFolder(), "empiredata.yml");
         try {
                 empiredata.save(efile);
         }

@@ -1,5 +1,6 @@
 package es.themin.empires.Listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,6 +36,9 @@ public class Login_Quit implements Listener{
 				}
 			}
 		}
+		Bukkit.broadcastMessage("test 1");
+		SettingsManager.getInstance().getPlayerData().set("test 1", "true");
+		SettingsManager.getInstance().savePlayerData();
 	}
 	
 	@EventHandler
