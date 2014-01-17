@@ -143,14 +143,23 @@ public class UtilManager {
 		return id;
 	}
 	public static int nextUnusedEmpireId(){
-		int id = 0;
-		for (int i = 0 ; i != -1; i++) {
-			if (getEmpireWithId(i) == null) {
-				id = i;
-				i = -1;
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		for (Empire empire : empires) {
+			ids.add(empire.getId());
+		}
+		int maxid = 1;
+		for (int i : ids) {
+			if (i > maxid) {
+				maxid = i;
 			}
 		}
-		return id;
+		for (int i = 1; i <= maxid; i++) {
+			if (!(ids.contains(i))) {
+				return i;
+			}
+		}
+		return 1;
+		
 	}
 	public static Empire getEmpireWithCore(Core c) {
 		for (Empire empire : empires) {
