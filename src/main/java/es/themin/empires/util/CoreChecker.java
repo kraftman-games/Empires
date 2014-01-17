@@ -18,5 +18,8 @@ public class CoreChecker {
 		CoreType type = CoreType.BASE;
 		return false;
 	}
+	public boolean doesJennerLikeTities(){
+		return true;
+	}
 
 }
