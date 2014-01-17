@@ -3,7 +3,6 @@ package es.themin.empires.util;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import enums.CoreType;
@@ -56,7 +55,7 @@ public class Core {
 	}
 	public void setEmpire(Empire e){
 		//do we need to get the empire if we already have it? wont e == e2 ?
-		Empire e2 = UtilityHashMaps.getEmpireWithId(this.empire.getId());
+		Empire e2 = UtilManager.getEmpireWithId(this.empire.getId());
 		e2.removeCore(this);
 		this.empire = e;
 		e.addCore(this);
@@ -91,11 +90,11 @@ public class Core {
 		//destroys shit
 	}
 	public void Save() {
-		if (UtilityHashMaps.containsCoreWithId(this.Id)) {
-			int i = UtilityHashMaps.cores.indexOf(UtilityHashMaps.containsCoreWithId(this.Id));
-			UtilityHashMaps.cores.remove(i);
+		if (UtilManager.containsCoreWithId(this.Id)) {
+			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
+			UtilManager.cores.remove(i);
 		}
-		UtilityHashMaps.cores.add(this);
+		UtilManager.cores.add(this);
 	}
 
 }

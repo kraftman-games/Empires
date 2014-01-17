@@ -35,16 +35,16 @@ public class Empire {
 		else return false;
 	}
 	public void addPlayer(String p){
-		for (Empire emp : UtilityHashMaps.empires) {
+		for (Empire emp : UtilManager.empires) {
 			if (emp.getPlayers().contains(p)) {
 				emp.removePlayer(p);
 			}
 		}
 		players.add(p);
-		EmpirePlayer ep = UtilityHashMaps.empireplayers.get(p);
+		EmpirePlayer ep = UtilManager.empireplayers.get(p);
 		ep.setEmpire(this);
 		Bukkit.getServer().broadcastMessage("set");
-		UtilityHashMaps.empireplayers.put(p, ep);
+		UtilManager.empireplayers.put(p, ep);
 	}
 	public void removePlayer(String p) {
 		players.remove(p);
@@ -76,11 +76,11 @@ public class Empire {
 		return i;
 	}
 	public void Save(){
-		if (UtilityHashMaps.containsEmpireWithId(this.Id)) {
-			int i = UtilityHashMaps.empires.indexOf(UtilityHashMaps.getEmpireWithId(this.Id));
-			UtilityHashMaps.empires.remove(i);
+		if (UtilManager.containsEmpireWithId(this.Id)) {
+			int i = UtilManager.empires.indexOf(UtilManager.getEmpireWithId(this.Id));
+			UtilManager.empires.remove(i);
 		}
-		UtilityHashMaps.empires.add(this);
+		UtilManager.empires.add(this);
 	}
 }
 

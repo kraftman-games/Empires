@@ -12,7 +12,7 @@ import es.themin.empires.empires;
 import es.themin.empires.util.Core;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;
-import es.themin.empires.util.UtilityHashMaps;
+import es.themin.empires.util.UtilManager;
 
 public class UtilityTesting implements CommandExecutor{
 	
@@ -59,9 +59,9 @@ public class UtilityTesting implements CommandExecutor{
 		if (args.length == 1) myPlayer.sendMessage(plprefix + ChatColor.RED  + "Give a name");
 		else {
 			//needs check to see if they are in an empire already
-			Empire empire = new Empire(UtilityHashMaps.empires.size() + 1, args[1]);
+			Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1]);
 			empire.addPlayer(myPlayer.getName());
-			UtilityHashMaps.empires.add(empire);
+			empire.Save();
 
 			myPlayer.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: "  + args[1]);
 		}
@@ -70,7 +70,7 @@ public class UtilityTesting implements CommandExecutor{
 	private void SendEmpireList(Player myPlayer){
 		myPlayer.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.GOLD + "==========");
 		int i = 0;
-		for (Empire empire : UtilityHashMaps.empires) {
+		for (Empire empire : UtilManager.empires) {
 			myPlayer.sendMessage(empire.getName());
 			i++;
 		}
@@ -81,8 +81,8 @@ public class UtilityTesting implements CommandExecutor{
 	}
 	
 	private boolean SendEmpireDetails(Player myPlayer){
-		if (UtilityHashMaps.empireplayers.containsKey(myPlayer.getName())) {
-			EmpirePlayer ep = UtilityHashMaps.empireplayers.get(myPlayer.getName());
+		if (UtilManager.empireplayers.containsKey(myPlayer.getName())) {
+			EmpirePlayer ep = UtilManager.empireplayers.get(myPlayer.getName());
 			if (ep.getEmpire() == null) {
 				myPlayer.sendMessage(ChatColor.RED + "Not in an empire");
 				return false; }
@@ -101,7 +101,7 @@ public class UtilityTesting implements CommandExecutor{
 	}
 	
 	public boolean AddPlayerToEmpire(Player myPlayer, String myArgs[]){
-		EmpirePlayer ep2 = UtilityHashMaps.empireplayers.get(myPlayer.getName());
+		EmpirePlayer ep2 = UtilManager.empireplayers.get(myPlayer.getName());
 		
 		if (myArgs.length == 1) {
 			myPlayer.sendMessage("Too Few Args"); 

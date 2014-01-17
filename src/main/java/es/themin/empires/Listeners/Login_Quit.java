@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import es.themin.empires.empires;
 import es.themin.empires.util.EmpirePlayer;
 import es.themin.empires.util.SettingsManager;
-import es.themin.empires.util.UtilityHashMaps;
+import es.themin.empires.util.UtilManager;
 
 public class Login_Quit implements Listener{
 	
@@ -21,17 +21,17 @@ public class Login_Quit implements Listener{
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
-		if (!(UtilityHashMaps.empireplayers.containsKey(event.getPlayer()))) {
+		if (!(UtilManager.empireplayers.containsKey(event.getPlayer()))) {
 			if (SettingsManager.getInstance().getPlayerData().get(player.getName()) == null) {
 				EmpirePlayer ep = new EmpirePlayer(player, null);
-				UtilityHashMaps.empireplayers.put(player.getName(), ep);
+				UtilManager.empireplayers.put(player.getName(), ep);
 			}else {
 				if (SettingsManager.getInstance().getPlayerData().getString(player.getName() + ".empire") == null) {
 					EmpirePlayer ep = new EmpirePlayer(player, null);
-					UtilityHashMaps.empireplayers.put(player.getName(), ep);
+					UtilManager.empireplayers.put(player.getName(), ep);
 				}else {
-					EmpirePlayer ep = new EmpirePlayer(player, UtilityHashMaps.getEmpireWithName(SettingsManager.getInstance().getPlayerData().getString(player.getName() + ".empire")));
-					UtilityHashMaps.empireplayers.put(player.getName(), ep);
+					EmpirePlayer ep = new EmpirePlayer(player, UtilManager.getEmpireWithName(SettingsManager.getInstance().getPlayerData().getString(player.getName() + ".empire")));
+					UtilManager.empireplayers.put(player.getName(), ep);
 				}
 			}
 		}
@@ -40,8 +40,8 @@ public class Login_Quit implements Listener{
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		if (UtilityHashMaps.empireplayers.containsKey(event.getPlayer()) && UtilityHashMaps.empireplayers.get(player).getEmpire() != null) {
-			SettingsManager.getInstance().getPlayerData().set(player.getName() + ".empire", UtilityHashMaps.empireplayers.get(player).getEmpire().getName());
+		if (UtilManager.empireplayers.containsKey(event.getPlayer()) && UtilManager.empireplayers.get(player).getEmpire() != null) {
+			SettingsManager.getInstance().getPlayerData().set(player.getName() + ".empire", UtilManager.empireplayers.get(player).getEmpire().getName());
 			SettingsManager.getInstance().savePlayerData();
 		}
 	}
