@@ -141,7 +141,7 @@ public class Core {
 		}
 	}
 	
-	public void destroy(Material replacement){
+	public void destroy(){
 		Location myLocation = this.getLocation();
 		
 		if (this.schematic != null){
@@ -168,7 +168,8 @@ public class Core {
 			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
 			UtilManager.cores.remove(i);
 		}
-		
+		this.setProtection(false);
+		this.destroy();
 	}
 
 	public void LoadBlockProtection() {
