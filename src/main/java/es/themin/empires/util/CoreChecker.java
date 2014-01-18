@@ -2,7 +2,7 @@ package es.themin.empires.util;
 
 import org.bukkit.block.Block;
 
-import enums.CoreType;
+import es.themin.empires.enums.CoreType;
 
 public class CoreChecker {
 	

@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.material.MaterialData;
 
-import enums.CoreType;
+import es.themin.empires.enums.CoreType;
 
 public class Amplifier {
 	

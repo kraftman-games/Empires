@@ -7,8 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import enums.CoreType;
 import es.themin.empires.empires;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Core;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;

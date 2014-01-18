@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import enums.CoreType;
+import es.themin.empires.enums.CoreType;
 
 public class CoreSchematic {
 

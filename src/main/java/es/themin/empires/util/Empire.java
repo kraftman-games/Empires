@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import enums.CoreType;
+import es.themin.empires.enums.CoreType;
 
 public class Empire {
 	
