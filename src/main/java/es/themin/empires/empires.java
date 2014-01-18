@@ -15,6 +15,7 @@ import es.themin.empires.util.testing.UtilityTesting;
  
 public final class empires extends JavaPlugin {
  
+	public static empires plugin;
 	public boolean myTestBoolFunction(){
 		boolean myBool = true;
 		

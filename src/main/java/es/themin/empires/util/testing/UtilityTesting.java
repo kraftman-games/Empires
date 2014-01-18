@@ -19,7 +19,7 @@ import es.themin.empires.util.UtilManager;
 
 public class UtilityTesting implements CommandExecutor{
 	
-	private String plprefix = empires.plprefix;
+	private static String plprefix = empires.plprefix;
 	private static ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 	public static void setUp(){
 		commands.add(new newemp());
