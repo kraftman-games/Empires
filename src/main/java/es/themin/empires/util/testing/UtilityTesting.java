@@ -20,6 +20,7 @@ public class UtilityTesting implements CommandExecutor{
 	private static ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 	public static void setUp(){
 		commands.add(new newemp());
+		commands.add(new emp());
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
