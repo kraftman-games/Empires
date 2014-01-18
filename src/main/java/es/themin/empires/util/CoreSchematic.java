@@ -1,6 +1,8 @@
 package es.themin.empires.util;
 
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,52 +14,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 import es.themin.empires.enums.CoreType;
 
 public class CoreSchematic {
-
-	public CoreSchematic() {
-		
-		
-		
-	}
 	
-	public void build(CoreType myCoreType, Player myPlayer){
-		
-		Location myLocation = myPlayer.getLocation();
-		
-		//rotate the core so its in front of the player.
-		
-		switch(myCoreType){
-		case FARM:
-			
-		case MOB:
-			
-		case MONSTER:
-			
-		case GRIEF:
-			
-		case FORTIFICATION:
-			
-		case BASE:
-			buildBaseCore(myLocation);
-		
-		}
-	}
+	private static ArrayList<CoreBlock> BaseCore = new ArrayList<CoreBlock>()
+			{{
+		add(new CoreBlock(0,0,0,Material.IRON_BLOCK));
+		add(new CoreBlock(0,0,0,Material.IRON_BLOCK));
+	}};
+	
+	public static ArrayList<CoreBlock> getSchematic(CoreType myCoreType){
 
-	private void buildBaseCore(Location myLocation) {
-		// TODO Auto-generated method stub
-		Block b = myLocation.getBlock();
-		b.setType(Material.IRON_BLOCK);
-		
-		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
-		
-		FixedMetadataValue   myMetaData = new FixedMetadataValue (myPlugin, "BASE");
-		b.setMetadata("coreType", myMetaData);
-	}
-	public void build(Core myCore){
-		
-		CoreType myCoreType = myCore.getType();
-		
-		//rotate the core so its in front of the player.
-		
+		ArrayList<CoreBlock> mySchem = null;
 		switch(myCoreType){
 		case FARM:
 			
@@ -70,22 +36,10 @@ public class CoreSchematic {
 		case FORTIFICATION:
 			
 		case BASE:
-			buildBaseCore(myCore);
-		
+			return mySchem = BaseCore;	
 		}
-	}
-	private void buildBaseCore(Core core) {
-		// TODO Auto-generated method stub
-		Location myLocation = core.getLocation();
-		Block b = myLocation.getBlock();
-		b.setType(Material.IRON_BLOCK);
 		
-		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
-		
-		FixedMetadataValue   myMetaData = new FixedMetadataValue (myPlugin, "BASE");
-		FixedMetadataValue   myMetaData2 = new FixedMetadataValue (myPlugin, core.getId());
-		b.setMetadata("coreType", myMetaData);
-		b.setMetadata("core", myMetaData2);
+		return null;
 	}
 }
 

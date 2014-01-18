@@ -12,7 +12,7 @@ public class tannertest extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		Core myCore = new Core();
 		myCore.setType(CoreType.BASE);
-		myCore.build(player);
+		//myCore.build(player);
 		return false;
 	}
 

@@ -1,9 +1,15 @@
 
 package es.themin.empires.util;
 
+import java.util.ArrayList;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.enums.CoreType;
 
@@ -15,7 +21,16 @@ public class Core {
 	private Location location;
 	private int level;
 	private Empire empire;
+	private ArrayList<CoreBlock> schematic;
 	
+	public ArrayList<CoreBlock> getSchematic() {
+		return schematic;
+	}
+
+	public void setSchematic(ArrayList<CoreBlock> schematic) {
+		this.schematic = schematic;
+	}
+
 	// for testing
 	public Core(){
 		
@@ -27,6 +42,7 @@ public class Core {
 		this.coreType = type;
 		this.location = location;
 		this.level = level;
+		this.schematic = CoreSchematic.getSchematic(type);
 	}
 	public int getId(){
 		
@@ -78,21 +94,63 @@ public class Core {
 	public void setFlag(){
 			
 	}
-	public void build(Player myPlayer){
-		//this will build the core
-		Location myLocation = myPlayer.getLocation();
-		CoreSchematic myCoreSchematic = new CoreSchematic();
-		myCoreSchematic.build(coreType, myPlayer);
-		this.setLocation(myLocation);
+//	public void build(Player myPlayer){
+//		//this will build the core
+//		Location myLocation = myPlayer.getLocation();
+//		CoreSchematic myCoreSchematic = new CoreSchematic();
+//		myCoreSchematic.build(coreType, myPlayer);
+//		this.setLocation(myLocation);
+//		
+//	}
+	
+	public void setProtection(){
+		Location myLocation = this.getLocation();
 		
+		if (this.schematic != null){
+			for (CoreBlock myBlock : this.schematic){
+				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
+													myLocation.getY() + myBlock.getOffsetY(),
+													myLocation.getZ() + myBlock.getOffsetZ());
+				Block b = newLocation.getBlock();
+				
+				JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
+				
+				FixedMetadataValue   myMetaData = new FixedMetadataValue (myPlugin, "BASE");
+				FixedMetadataValue   myMetaData2 = new FixedMetadataValue (myPlugin, this.getId());
+				b.setMetadata("coreType", myMetaData);
+				b.setMetadata("core", myMetaData2);
+			}
+		}
 	}
+	
 	public void build() {
-		CoreSchematic myCoreSchematic = new CoreSchematic();
-		myCoreSchematic.build(this);
+		Location myLocation = this.getLocation();
+		
+		if (this.schematic != null){
+			for (CoreBlock myBlock : this.schematic){
+				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
+													myLocation.getY() + myBlock.getOffsetY(),
+													myLocation.getZ() + myBlock.getOffsetZ());
+				Block b = newLocation.getBlock();
+				b.setType(myBlock.getMaterial());
+			}
+		}
 	}
+	
 	public void destroy(Material replacement){
-		//destroys shit
+		Location myLocation = this.getLocation();
+		
+		if (this.schematic != null){
+			for (CoreBlock myBlock : this.schematic){
+				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
+													myLocation.getY() + myBlock.getOffsetY(),
+													myLocation.getZ() + myBlock.getOffsetZ());
+				Block b = newLocation.getBlock();
+				b.setType(Material.AIR);
+			}
+		}
 	}
+	
 	public void Save() {
 		if (UtilManager.containsCoreWithId(this.Id)) {
 			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
@@ -106,6 +164,11 @@ public class Core {
 			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
 			UtilManager.cores.remove(i);
 		}
+		
+	}
+
+	public void LoadBlockProtection() {
+		// TODO Auto-generated method stub
 		
 	}
 

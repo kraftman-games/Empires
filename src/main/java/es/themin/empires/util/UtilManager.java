@@ -93,7 +93,8 @@ public class UtilManager {
 				Location location = new Location(world2, x2, y2, z2);
 				int level = Integer.parseInt(words[6]);
 				Core core = new Core(Id2, coretype, location, level, empire);
-			    core.build();
+				core.LoadBlockProtection();
+			    //core.build();
 				cores.add(core);
 				empire.ac(core);
 			}
