@@ -25,7 +25,7 @@ public final class empires extends JavaPlugin {
 	@Override
     public void onEnable(){
         PluginManager pm = this.getServer().getPluginManager();
-        PluginDescriptionFile desc = this.getDescription();
+        //PluginDescriptionFile desc = this.getDescription();
 		getLogger().info("onEnable has been invoked!");
 		SettingsManager.getInstance().setup(this);
 		getCommands();
