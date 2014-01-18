@@ -1,14 +1,18 @@
 package es.themin.empires;
 
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.Login_Quit;
+import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.UtilityTesting;
@@ -35,6 +39,7 @@ public final class empires extends JavaPlugin {
 		pm.registerEvents(new BlockListener(this), this);
 		UtilManager.loadEmpires();
 		UtilityTesting.setUp();
+		loadPlayers();
     }
  
     @Override
@@ -42,6 +47,7 @@ public final class empires extends JavaPlugin {
         // TODO Insert logic to be performed when the plugin is disabled
 		UtilManager.saveEmpires();
 		SettingsManager.getInstance().saveAll();
+		savePlayers();
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
@@ -58,5 +64,21 @@ public final class empires extends JavaPlugin {
     	UtilityTesting utiltest = new UtilityTesting();
 		utiltest.setUp();
 		getCommand("utiltest").setExecutor(utiltest);
+    }
+    public void savePlayers(){
+    	for (String playername : UtilManager.empireplayers.keySet()) {
+    		SettingsManager.getInstance().getPlayerData().set(playername + ".empire", UtilManager.empireplayers.get(playername).getId());
+    	}
+    	SettingsManager.getInstance().savePlayerData();
+    }
+    public void loadPlayers(){
+    	for (Player player : Bukkit.getOnlinePlayers()) {
+    		String name = player.getName();
+    		if (SettingsManager.getInstance().getPlayerData().get(name + ".empire") != null) {
+    			Empire empire = UtilManager.getEmpireWithId(SettingsManager.getInstance().getPlayerData().getInt(name + ".empire"));
+    			UtilManager.empireplayers.put(name, empire);
+    			player.sendMessage(plprefix + ChatColor.GREEN + "You were found to be in an empire");
+    		}
+    	}
     }
 }
