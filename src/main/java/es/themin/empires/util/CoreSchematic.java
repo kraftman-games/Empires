@@ -83,7 +83,7 @@ public class CoreSchematic {
 		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
 		
 		FixedMetadataValue   myMetaData = new FixedMetadataValue (myPlugin, "BASE");
-		FixedMetadataValue   myMetaData2 = new FixedMetadataValue (myPlugin, core);
+		FixedMetadataValue   myMetaData2 = new FixedMetadataValue (myPlugin, core.getId());
 		b.setMetadata("coreType", myMetaData);
 		b.setMetadata("core", myMetaData2);
 	}

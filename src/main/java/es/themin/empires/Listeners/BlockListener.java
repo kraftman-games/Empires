@@ -35,7 +35,8 @@ public class BlockListener implements Listener {
 			if (value.getOwningPlugin().equals(plugin)){
 				for (MetadataValue value2 : values2) {
 					if (value2.getOwningPlugin().equals(plugin)) {
-						Core core = (Core) value2;
+						int id = Integer.parseInt(value2.asString());
+						Core core = UtilManager.getCoreWithId(id);
 						if (core.getEmpire() == UtilManager.empireplayers.get(player.getName())){
 							String myCoreType = value.asString();
 							Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
