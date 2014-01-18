@@ -17,15 +17,15 @@ public class CoreSchematic {
 	
 	private static ArrayList<CoreBlock> BaseCore = new ArrayList<CoreBlock>()
 			{{
-		add(new CoreBlock(0,0,0,Material.IRON_BLOCK));
-		add(new CoreBlock(0,0,1,Material.DIRT));
-		add(new CoreBlock(0,0,-1,Material.DIRT));
-		add(new CoreBlock(1,0,0,Material.DIRT));
-		add(new CoreBlock(1,0,-1,Material.DIRT));
-		add(new CoreBlock(1,0,1,Material.DIRT));
-		add(new CoreBlock(-1,0,0,Material.DIRT));
-		add(new CoreBlock(-1,0,1,Material.DIRT));
-		add(new CoreBlock(-1,0,-1,Material.DIRT));
+		add(new CoreBlock(0,-1,0,Material.IRON_BLOCK));
+		add(new CoreBlock(0,-1,1,Material.DIRT));
+		add(new CoreBlock(0,-1,-1,Material.DIRT));
+		add(new CoreBlock(1,-1,0,Material.DIRT));
+		add(new CoreBlock(1,-1,-1,Material.DIRT));
+		add(new CoreBlock(1,-1,1,Material.DIRT));
+		add(new CoreBlock(-1,-1,0,Material.DIRT));
+		add(new CoreBlock(-1,-1,1,Material.DIRT));
+		add(new CoreBlock(-1,-1,-1,Material.DIRT));
 	}};
 	
 	public static ArrayList<CoreBlock> getSchematic(CoreType myCoreType){

@@ -35,12 +35,14 @@ public class BlockListener implements Listener {
 		CoreType myCoreType = CoreUtils.getCoreTypeFromBlock(myBlock, plugin);
 		Core myCore = CoreUtils.getCoreFromBlock(myBlock, plugin);
 		
-		if (myCore.getEmpire() == UtilManager.empireplayers.get(player.getName())){
-			Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
-			myCore.Delete();
-		}else {
-			Bukkit.broadcastMessage("cannot delete core block of type: " + myCoreType);
-			event.setCancelled(true);
+		if (myCore != null){
+			if (myCore.getEmpire() == UtilManager.empireplayers.get(player.getName())){
+				Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
+				myCore.Delete();
+			}else {
+				Bukkit.broadcastMessage("cannot delete core block of type: " + myCoreType);
+				event.setCancelled(true);
+			}
 		}
 	}
 }

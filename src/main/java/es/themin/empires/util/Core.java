@@ -165,11 +165,11 @@ public class Core {
 	public void Delete() {
 		this.setProtection(false);
 		this.destroy();
-//		UtilManager.getEmpireWithCore(this).removeCore(this);
-//		if (UtilManager.containsCoreWithId(this.Id)) {
-//			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
-//			UtilManager.cores.remove(i);
-//		}
+		UtilManager.getEmpireWithCore(this).removeCore(this);
+		if (UtilManager.containsCoreWithId(this.Id)) {
+			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
+			UtilManager.cores.remove(i);
+		}
 		
 	}
 
