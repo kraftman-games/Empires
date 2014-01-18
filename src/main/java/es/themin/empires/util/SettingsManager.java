@@ -36,6 +36,9 @@ public class SettingsManager {
     
     YamlConfiguration empiredata;
     File efile;
+    
+    YamlConfiguration worlddata;
+    File wfile;
    
     public void setup(Plugin p) {
 		if (!p.getDataFolder().exists()) {
@@ -98,6 +101,19 @@ public class SettingsManager {
                 }
                 catch (IOException e) {
                         Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create empiredata.yml!");
+                }
+        }
+       
+       	empiredata = YamlConfiguration.loadConfiguration(efile);
+       	
+        wfile = new File(p.getDataFolder(), "worlddata.yml");
+        
+        if (!efile.exists()) {
+                try {
+                        efile.createNewFile();
+                }
+                catch (IOException e) {
+                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create worlddata.yml!");
                 }
         }
        
@@ -174,6 +190,25 @@ public class SettingsManager {
 
     public void reloadEmpireData() {
         empiredata = YamlConfiguration.loadConfiguration(efile);
+    }
+ //#############################   
+    
+    //######################world DAT
+    public FileConfiguration getWorldData() {
+        return worlddata;
+    }
+
+    public void saveWorldData() {
+        try {
+                empiredata.save(wfile);
+        }
+        catch (IOException e) {
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
+        }
+    }
+
+    public void reloadWorldData() {
+        worlddata = YamlConfiguration.loadConfiguration(wfile);
     }
  //#############################   
    

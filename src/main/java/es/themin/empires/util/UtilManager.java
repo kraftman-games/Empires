@@ -16,6 +16,7 @@ public class UtilManager {
 	public static HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
 	public static ArrayList<Core> cores = new ArrayList<Core>();
 	public static ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
+	public static ArrayList<World> worlds = new ArrayList<World>();
 	
 	
 /*	public void saveCores() {
@@ -149,11 +150,11 @@ public class UtilManager {
 		return id;
 	}
 	public static int nextUnusedEmpireId(){
-		//if the empires have a unique id, we can just use the size of the array
-		//its not size -1 since its 0 indexed
-		//this can probably just go inside the create empire call
-		//no bc if an empire is deleted it will send the ids all screwy
-		return empires.size();
+		int i = 0;
+		while (getEmpireWithId(i) != null){
+			i++;
+		}
+		return i;
 		
 	}
 	public static Empire getEmpireWithCore(Core c) {

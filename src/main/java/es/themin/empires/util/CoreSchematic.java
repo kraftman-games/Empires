@@ -1,10 +1,13 @@
 package es.themin.empires.util;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.enums.CoreType;
 
@@ -43,6 +46,11 @@ public class CoreSchematic {
 		// TODO Auto-generated method stub
 		Block b = myLocation.getBlock();
 		b.setType(Material.IRON_BLOCK);
+		
+		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
+		
+		FixedMetadataValue   myMetaData = new FixedMetadataValue (myPlugin, "BASE");
+		b.setMetadata("coreType", myMetaData);
 	}
 }
 
