@@ -1,5 +1,6 @@
 package es.themin.empires.util.testing;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -13,9 +14,10 @@ public class tannertest extends SubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
+		
 		ItemStack myItem = new ItemStack(Material.FLINT);
 		player.getInventory().addItem(myItem);
-		
+		player.sendMessage( ChatColor.RED + "You won teh shardz!");
 		return false;
 	}
 
