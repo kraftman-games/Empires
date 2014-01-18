@@ -2,7 +2,6 @@
 package es.themin.empires.util;
 
 import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -47,9 +46,9 @@ public class Empire {
 			}
 		}
 		players.add(p);
-		EmpirePlayer ep = UtilManager.empireplayers.get(p);
+		Save();
 		Bukkit.getServer().broadcastMessage("set");
-		UtilManager.empireplayers.put(p, ep);
+		
 	}
 	public void removePlayer(String p) {
 		players.remove(p);

@@ -1,5 +1,6 @@
 package es.themin.empires.cmds;
 
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,7 +12,6 @@ import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Core;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.EmpirePlayer;
 import es.themin.empires.util.UtilManager;
 
 public class UtilityTesting implements CommandExecutor{
@@ -34,7 +34,7 @@ public class UtilityTesting implements CommandExecutor{
 						}else if (args[0].equalsIgnoreCase("emps")) {
 							SendEmpireList(player);
 						}else if (args[0].equalsIgnoreCase("emp")) {
-							if (args.length == 1) {
+							/*if (args.length == 1) {
 								EmpirePlayer ep = UtilManager.empireplayers.get(player.getName());
 								if (ep.getEmpire() == null) {
 									player.sendMessage(ChatColor.RED + "Not in an empire");
@@ -50,9 +50,9 @@ public class UtilityTesting implements CommandExecutor{
 									SendEmpireDetails(player, UtilManager.getEmpireWithName(args[1]));
 									return false;
 								}
-							}
+							}*/
 						}else if (args[0].equalsIgnoreCase("ap")) {
-							return  AddPlayerToEmpire(player, args);
+							//return  AddPlayerToEmpire(player, args);
 						} else if (args[0].equalsIgnoreCase("tantest")) {
 							TannerTests(player);
 						}
@@ -99,20 +99,14 @@ public class UtilityTesting implements CommandExecutor{
 	}
 	
 	private boolean SendEmpireDetails(Player myPlayer, Empire empire){
-		if (UtilManager.empireplayers.containsKey(myPlayer.getName())) {
-			EmpirePlayer ep = UtilManager.empireplayers.get(myPlayer.getName());
-			myPlayer.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "==========");
-			myPlayer.sendMessage(ChatColor.GREEN + "Cores #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
-			myPlayer.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
-			myPlayer.sendMessage(ChatColor.GOLD + "=========================");
-		}else {
-			myPlayer.sendMessage(ChatColor.RED + "You weren't found :/");
-			return false;
-		}
+		myPlayer.sendMessage(ChatColor.GOLD + "==========" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "==========");
+		myPlayer.sendMessage(ChatColor.GREEN + "Cores #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
+		myPlayer.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
+		myPlayer.sendMessage(ChatColor.GOLD + "=========================");
 		return false;
 	}
 	
-	public boolean AddPlayerToEmpire(Player myPlayer, String myArgs[]){
+	/*public boolean AddPlayerToEmpire(Player myPlayer, String myArgs[]){
 		EmpirePlayer ep2 = UtilManager.empireplayers.get(myPlayer.getName());
 		
 		if (myArgs.length == 1) {
@@ -129,7 +123,7 @@ public class UtilityTesting implements CommandExecutor{
 			}
 		}
 		return false;
-	}
+	}*/
 	
 	
 
