@@ -15,6 +15,7 @@ import org.bukkit.metadata.MetadataValue;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Core;
+import es.themin.empires.util.CoreUtils;
 import es.themin.empires.util.UtilManager;
 
 public class BlockListener implements Listener {
@@ -31,8 +32,8 @@ public class BlockListener implements Listener {
 		Player player = event.getPlayer();
 		Block myBlock = event.getBlock();
 		
-		CoreType myCoreType = getCoreType(myBlock);
-		Core myCore = getCore(myBlock);
+		CoreType myCoreType = CoreUtils.getCoreTypeFromBlock(myBlock, plugin);
+		Core myCore = CoreUtils.getCoreFromBlock(myBlock, plugin);
 		
 		if (myCore.getEmpire() == UtilManager.empireplayers.get(player.getName())){
 			Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
@@ -41,37 +42,6 @@ public class BlockListener implements Listener {
 			Bukkit.broadcastMessage("cannot delete core block of type: " + myCoreType);
 			event.setCancelled(true);
 		}
-		
-	}
-	
-	private Core getCore(Block myBlock){
-		List<MetadataValue> values = myBlock.getMetadata("coreType");
-		for(MetadataValue value : values){
-			if (value.getOwningPlugin().equals(plugin)){
-				int id = Integer.parseInt(value.asString());
-				Core core = UtilManager.getCoreWithId(id);
-				return core;			
-			}
-		}
-		return null;
-	}
-	
-	private CoreType getCoreType(Block myBlock){
-		List<MetadataValue> values = myBlock.getMetadata("coreType");
-		for(MetadataValue value : values){
-			if (value.getOwningPlugin().equals(plugin)){
-				String myCoreType = value.asString();
-				switch (myCoreType){
-				case "BASE":
-					return CoreType.BASE;
-				default:
-					return null;
-				}
-			
-			}
-		
-		}
-		return null;
 	}
 }
 
