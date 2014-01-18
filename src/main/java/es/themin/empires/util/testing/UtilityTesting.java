@@ -32,7 +32,9 @@ public class UtilityTesting implements CommandExecutor{
 					else {
 						SubCommand scmd = get(args[0]);
 						if (scmd == null) player.sendMessage(plprefix + ChatColor.RED + "Invalid Command");
-						scmd.onCommand(player, args);
+						else {
+							scmd.onCommand(player, args);
+						}
 					}
 				}
 				else {
