@@ -34,7 +34,8 @@ public class UtilityTesting implements CommandExecutor{
 			Player player = (Player) sender;
 			if (commandLabel.equalsIgnoreCase("utiltest")) {
 				if (player.isOp()){
-					if (args.length == 0) player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
+					if (args.length == 0) {player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");}
+					
 					else {
 						SubCommand scmd = get(args[0]);
 						if (scmd == null) player.sendMessage(plprefix + ChatColor.RED + "Invalid Command");
