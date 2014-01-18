@@ -40,6 +40,7 @@ public class BlockListener implements Listener {
 						if (core.getEmpire() == UtilManager.empireplayers.get(player.getName())){
 							String myCoreType = value.asString();
 							Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
+							core.Delete();
 						}else {
 							String myCoreType = value.asString();
 							Bukkit.broadcastMessage("cannot delete core block of type: " + myCoreType);
