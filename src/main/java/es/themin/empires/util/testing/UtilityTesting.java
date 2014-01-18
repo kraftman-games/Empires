@@ -24,6 +24,7 @@ public class UtilityTesting implements CommandExecutor{
 		commands.add(new emps());
 		commands.add(new addplayer());
 		commands.add(new tannertest());
+		commands.add(new generatebasecore());
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

@@ -128,8 +128,15 @@ public class UtilManager {
 		return false;
 	}
 	public static Core getCoreWithId(int Id) {
+
 		for (Core core : cores) {
 			if (core.getId() == Id) return core;
+		}
+		return null;
+	}
+	public static Core getCoreWithLocation(Location l) {
+		for (Core core : cores) {
+			if (core.getLocation() == l) return core;
 		}
 		return null;
 	}
@@ -140,14 +147,11 @@ public class UtilManager {
 		return false;
 	}
 	public static int nextUnusedCoreId(){
-		int id = 0;
-		for (int i = 0 ; i != -1; i++) {
-			if (getCoreWithId(i) == null) {
-				id = i;
-				i = -1;
-			}
+		int i = 0;
+		while (getCoreWithId(i) != null){
+			i++;
 		}
-		return id;
+		return i;
 	}
 	public static int nextUnusedEmpireId(){
 		int i = 0;

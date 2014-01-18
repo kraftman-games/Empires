@@ -39,7 +39,7 @@ public class CoreSchematic {
 		case BASE:
 			buildBaseCore(myLocation);
 		
-	}
+		}
 	}
 
 	private void buildBaseCore(Location myLocation) {
@@ -51,6 +51,41 @@ public class CoreSchematic {
 		
 		FixedMetadataValue   myMetaData = new FixedMetadataValue (myPlugin, "BASE");
 		b.setMetadata("coreType", myMetaData);
+	}
+	public void build(Core myCore){
+		
+		CoreType myCoreType = myCore.getType();
+		
+		//rotate the core so its in front of the player.
+		
+		switch(myCoreType){
+		case FARM:
+			
+		case MOB:
+			
+		case MONSTER:
+			
+		case GRIEF:
+			
+		case FORTIFICATION:
+			
+		case BASE:
+			buildBaseCore(myCore);
+		
+		}
+	}
+	private void buildBaseCore(Core core) {
+		// TODO Auto-generated method stub
+		Location myLocation = core.getLocation();
+		Block b = myLocation.getBlock();
+		b.setType(Material.IRON_BLOCK);
+		
+		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
+		
+		FixedMetadataValue   myMetaData = new FixedMetadataValue (myPlugin, "BASE");
+		FixedMetadataValue   myMetaData2 = new FixedMetadataValue (myPlugin, core);
+		b.setMetadata("coreType", myMetaData);
+		b.setMetadata("core", myMetaData2);
 	}
 }
 

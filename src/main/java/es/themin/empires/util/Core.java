@@ -86,6 +86,10 @@ public class Core {
 		this.setLocation(myLocation);
 		
 	}
+	public void build() {
+		CoreSchematic myCoreSchematic = new CoreSchematic();
+		myCoreSchematic.build(this);
+	}
 	public void destroy(Material replacement){
 		//destroys shit
 	}
@@ -95,6 +99,14 @@ public class Core {
 			UtilManager.cores.remove(i);
 		}
 		UtilManager.cores.add(this);
+	}
+	public void Delete() {
+		UtilManager.getEmpireWithCore(this).removeCore(this);
+		if (UtilManager.containsCoreWithId(this.Id)) {
+			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
+			UtilManager.cores.remove(i);
+		}
+		
 	}
 
 }
