@@ -109,6 +109,12 @@ public class UtilManager {
 		}
 		return null;
 	}
+	public static boolean containsEmpireWithName(String name) {
+		for (Empire empire : empires) {
+			if (empire.getName() == name) return true;
+		}
+		return false;
+	}
 	public static Empire getEmpireWithId(int Id) {
 		for (Empire empire : empires) {
 			if (empire.getId() == Id) return empire;

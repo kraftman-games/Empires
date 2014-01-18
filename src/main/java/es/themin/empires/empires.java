@@ -9,9 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.Login_Quit;
-import es.themin.empires.cmds.UtilityTesting;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
+import es.themin.empires.util.testing.UtilityTesting;
  
 public final class empires extends JavaPlugin {
  
@@ -21,7 +21,7 @@ public final class empires extends JavaPlugin {
 		return myBool;
 		
 	}
-	public static String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
+	public String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
 	
 	@Override
     public void onEnable(){
@@ -33,6 +33,7 @@ public final class empires extends JavaPlugin {
 		pm.registerEvents(new Login_Quit(this), this);
 		pm.registerEvents(new BlockListener(this), this);
 		UtilManager.loadEmpires();
+		UtilityTesting.setUp();
     }
  
     @Override
