@@ -32,29 +32,28 @@ public class BlockListener implements Listener {
 		Block myBlock = event.getBlock();
 		
 		CoreType myCoreType = getCoreType(myBlock);
+		Core myCore = getCore(myBlock);
 		
-		List<MetadataValue> values = myBlock.getMetadata("coreType");
-		List<MetadataValue> values2 = myBlock.getMetadata("core");
-		for(MetadataValue value : values){
-			if (value.getOwningPlugin().equals(plugin)){
-				for (MetadataValue value2 : values2) {
-					if (value2.getOwningPlugin().equals(plugin)) {
-						int id = Integer.parseInt(value2.asString());
-						Core core = UtilManager.getCoreWithId(id);
-						if (core.getEmpire() == UtilManager.empireplayers.get(player.getName())){
-							//String myCoreType = value.asString();
-							//Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
-							core.Delete();
-						}else {
-							//String myCoreType = value.asString();
-							//Bukkit.broadcastMessage("cannot delete core block of type: " + myCoreType);
-							event.setCancelled(true);
-						}
-					}
-				}
-			}
+		if (myCore.getEmpire() == UtilManager.empireplayers.get(player.getName())){
+			Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
+			myCore.Delete();
+		}else {
+			Bukkit.broadcastMessage("cannot delete core block of type: " + myCoreType);
+			event.setCancelled(true);
 		}
 		
+	}
+	
+	private Core getCore(Block myBlock){
+		List<MetadataValue> values = myBlock.getMetadata("coreType");
+		for(MetadataValue value : values){
+			if (value.getOwningPlugin().equals(plugin)){
+				int id = Integer.parseInt(value.asString());
+				Core core = UtilManager.getCoreWithId(id);
+				return core;			
+			}
+		}
+		return null;
 	}
 	
 	private CoreType getCoreType(Block myBlock){
