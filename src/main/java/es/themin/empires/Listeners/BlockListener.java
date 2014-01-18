@@ -45,7 +45,7 @@ public class BlockListener implements Listener {
 		          for(ItemStack inven : i.getContents()){
 		              if(inven.getType().equals(Material.FLINT)){
 		            	  ItemMeta myMeta = inven.getItemMeta();
-		            	  if (myMeta.getDisplayName().equals("Core Shard")){
+		            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard")){
 		            		  Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
 		            		  player.getInventory().remove(inven);
 		      				 myCore.Delete();
