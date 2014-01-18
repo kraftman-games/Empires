@@ -120,8 +120,8 @@ public class Core {
 					b.setMetadata("coreType", myMetaData);
 					b.setMetadata("core", myMetaData2);}
 				else {
-					b.setMetadata("coreType", null);
-					b.setMetadata("core", null);
+					b.removeMetadata("coreType", myPlugin);
+					b.removeMetadata("core", myPlugin);
 				}
 			}
 		}
