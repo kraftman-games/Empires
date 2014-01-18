@@ -7,6 +7,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.Login_Quit;
 import es.themin.empires.cmds.UtilityTesting;
 import es.themin.empires.util.SettingsManager;
@@ -30,6 +31,7 @@ public final class empires extends JavaPlugin {
 		SettingsManager.getInstance().setup(this);
 		getCommands();
 		pm.registerEvents(new Login_Quit(this), this);
+		pm.registerEvents(new BlockListener(this), this);
 		UtilManager.loadEmpires();
     }
  

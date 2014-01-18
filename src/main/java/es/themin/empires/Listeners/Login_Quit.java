@@ -15,8 +15,8 @@ import es.themin.empires.util.UtilManager;
 public class Login_Quit implements Listener{
 	
 	private empires plugin;
-	public Login_Quit(empires registerEvents){
-		this.plugin = registerEvents;
+	public Login_Quit(empires myPlugin){
+		this.plugin = myPlugin;
 	}
 	
 	@EventHandler
