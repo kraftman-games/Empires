@@ -20,9 +20,6 @@ import es.themin.empires.util.UtilManager;
 public class UtilityTesting implements CommandExecutor{
 	
 	private empires plugin;
-	public UtilityTesting(empires plugin){
-		this.plugin = plugin;
-	}
 	private String plprefix = plugin.plprefix;
 	private static ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 	public static void setUp(){

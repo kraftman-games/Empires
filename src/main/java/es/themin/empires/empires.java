@@ -54,6 +54,8 @@ public final class empires extends JavaPlugin {
     }
     
     public void getCommands() {
-    	this.getCommand("utiltest").setExecutor(new UtilityTesting(this));
+    	UtilityTesting utiltest = new UtilityTesting();
+		utiltest.setUp();
+		getCommand("utiltest").setExecutor(utiltest);
     }
 }
