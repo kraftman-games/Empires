@@ -10,7 +10,7 @@ import es.themin.empires.util.UtilManager;
 
 public class emp extends SubCommand{
 	private empires plugin;
-	private String plprefix = plugin.plprefix;
+	public String plprefix = plugin.plprefix;
 	public boolean onCommand(Player player, String[] args) {
 		if (args.length == 1) {
 			if (!(UtilManager.empireplayers.containsKey(player.getName()))) {

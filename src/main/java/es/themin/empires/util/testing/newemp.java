@@ -10,7 +10,7 @@ import es.themin.empires.util.UtilManager;
 
 public class newemp extends SubCommand{
 	private empires plugin;
-	private String plprefix = plugin.plprefix;
+	public String plprefix = plugin.plprefix;
 	public boolean onCommand(Player player, String[] args) {
 		if (args.length == 1) {
 			player.sendMessage(plprefix + ChatColor.RED + "Please give a name");
