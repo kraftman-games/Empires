@@ -16,6 +16,7 @@ public class UtilManager {
 	public static HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
 	public static ArrayList<Core> cores = new ArrayList<Core>();
 	public static ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
+	public static ArrayList<World> worlds = new ArrayList<World>();
 	
 	
 /*	public void saveCores() {
