@@ -25,7 +25,7 @@ public class emps extends SubCommand{
 
 	@Override
 	public String name() {
-		return "emp";
+		return "emps";
 	}
 
 	@Override
