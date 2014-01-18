@@ -1,6 +1,9 @@
 package es.themin.empires.util.testing;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.enums.CoreType;
@@ -10,9 +13,9 @@ public class tannertest extends SubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		//Core myCore = new Core();
-		//myCore.setType(CoreType.BASE);
-		//myCore.build(player);
+		ItemStack myItem = new ItemStack(Material.FLINT);
+		player.getInventory().addItem(myItem);
+		
 		return false;
 	}
 
