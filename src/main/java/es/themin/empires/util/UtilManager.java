@@ -143,22 +143,10 @@ public class UtilManager {
 		return id;
 	}
 	public static int nextUnusedEmpireId(){
-		ArrayList<Integer> ids = new ArrayList<Integer>();
-		for (Empire empire : empires) {
-			ids.add(empire.getId());
-		}
-		int maxid = 1;
-		for (int i : ids) {
-			if (i > maxid) {
-				maxid = i;
-			}
-		}
-		for (int i = 1; i <= maxid; i++) {
-			if (!(ids.contains(i))) {
-				return i;
-			}
-		}
-		return 1;
+		//if the empires have a unique id, we can just use the size of the array
+		//its not size -1 since its 0 indexed
+		//this can probably just go inside the create empire call
+		return empires.size();
 		
 	}
 	public static Empire getEmpireWithCore(Core c) {
