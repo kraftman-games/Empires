@@ -23,6 +23,9 @@ public class CoreSchematic {
 		add(new CoreBlock(1,0,0,Material.OBSIDIAN));
 		add(new CoreBlock(-1,0,0,Material.OBSIDIAN));
 		add(new CoreBlock(1,0,1,Material.OBSIDIAN));
+		add(new CoreBlock(1,0,1,Material.OBSIDIAN));
+		add(new CoreBlock(1,0,1,Material.OBSIDIAN));
+		add(new CoreBlock(1,0,1,Material.OBSIDIAN));
 	}};
 	
 	public static ArrayList<CoreBlock> getSchematic(CoreType myCoreType){

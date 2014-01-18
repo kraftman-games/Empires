@@ -26,7 +26,6 @@ public class generatebasecore extends SubCommand{
 		}
 		Core myCore = new Core(UtilManager.nextUnusedCoreId(), CoreType.BASE, player.getLocation(), 1, empire);
 		empire.addCore(myCore);
-		myCore.build();
 		return false;
 		
 	}

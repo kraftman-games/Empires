@@ -31,10 +31,6 @@ public class Core {
 		this.schematic = schematic;
 	}
 
-	// for testing
-	public Core(){
-		
-	}
 	
 	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
 		this.empire = empire;
@@ -43,6 +39,8 @@ public class Core {
 		this.location = location;
 		this.level = level;
 		this.schematic = CoreSchematic.getSchematic(type);
+		this.setProtection(true);
+		this.build();
 	}
 	public int getId(){
 		
@@ -103,7 +101,7 @@ public class Core {
 //		
 //	}
 	
-	public void setProtection(){
+	public void setProtection(boolean setProtected){
 		Location myLocation = this.getLocation();
 		
 		if (this.schematic != null){
@@ -115,10 +113,16 @@ public class Core {
 				
 				JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
 				
-				FixedMetadataValue   myMetaData = new FixedMetadataValue (myPlugin, "BASE");
-				FixedMetadataValue   myMetaData2 = new FixedMetadataValue (myPlugin, this.getId());
-				b.setMetadata("coreType", myMetaData);
-				b.setMetadata("core", myMetaData2);
+			
+				FixedMetadataValue myMetaData = new FixedMetadataValue (myPlugin, "BASE");
+				FixedMetadataValue myMetaData2 = new FixedMetadataValue (myPlugin, this.getId());
+				if (setProtected){				
+					b.setMetadata("coreType", myMetaData);
+					b.setMetadata("core", myMetaData2);}
+				else {
+					b.setMetadata("coreType", null);
+					b.setMetadata("core", null);
+				}
 			}
 		}
 	}
