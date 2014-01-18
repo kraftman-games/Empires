@@ -19,6 +19,7 @@ public class Login_Quit implements Listener{
 		this.plugin = registerEvents;
 	}
 	
+	
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
@@ -35,6 +36,9 @@ public class Login_Quit implements Listener{
 		Player player = event.getPlayer();
 		if (UtilManager.empireplayers.containsKey(event.getPlayer().getName())/* && UtilManager.empireplayers.get(player).getEmpire() != null*/) {
 			SettingsManager.getInstance().getPlayerData().set(player.getName() + ".empire", UtilManager.empireplayers.get(player.getName()).getId());
+			SettingsManager.getInstance().savePlayerData();
+		}else {
+			SettingsManager.getInstance().getPlayerData().set(player.getName(), null);
 			SettingsManager.getInstance().savePlayerData();
 		}
 	}

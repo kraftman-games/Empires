@@ -45,8 +45,10 @@ public class Empire {
 				emp.removePlayer(p);
 			}
 		}
+
 		players.add(p);
 		Save();
+
 		Bukkit.getServer().broadcastMessage("set");
 		
 	}
