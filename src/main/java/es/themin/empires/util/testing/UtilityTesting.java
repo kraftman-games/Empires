@@ -23,6 +23,7 @@ public class UtilityTesting implements CommandExecutor{
 		commands.add(new emp());
 		commands.add(new emps());
 		commands.add(new addplayer());
+		commands.add(new tannertest());
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -47,11 +48,7 @@ public class UtilityTesting implements CommandExecutor{
 		}
 		return false;
 	}
-	private void TannerTests(Player myPlayer){
-		Core myCore = new Core();
-		myCore.setType(CoreType.BASE);
-		myCore.build(myPlayer);
-	}
+
 	private SubCommand get(String name) {
 		for (SubCommand cmd : commands) {
 			if (cmd.name().equalsIgnoreCase(name)) return cmd;
