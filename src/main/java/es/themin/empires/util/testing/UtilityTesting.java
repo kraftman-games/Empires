@@ -21,6 +21,8 @@ public class UtilityTesting implements CommandExecutor{
 	public static void setUp(){
 		commands.add(new newemp());
 		commands.add(new emp());
+		commands.add(new emps());
+		commands.add(new addplayer());
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
