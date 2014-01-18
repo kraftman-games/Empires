@@ -80,7 +80,7 @@ public class UtilityTesting implements CommandExecutor{
 			Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1]);
 			empire.addPlayer(myPlayer.getName());
 			empire.Save();
-
+			UtilManager.empireplayers.put(myPlayer.getName(), empire);
 			
 		}
 	}
