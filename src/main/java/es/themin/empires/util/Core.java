@@ -167,7 +167,7 @@ public class Core {
 		this.destroy();
 		UtilManager.getEmpireWithCore(this).removeCore(this);
 		if (UtilManager.containsCoreWithId(this.Id)) {
-			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
+			int i = UtilManager.cores.indexOf(this);
 			UtilManager.cores.remove(i);
 		}
 		
