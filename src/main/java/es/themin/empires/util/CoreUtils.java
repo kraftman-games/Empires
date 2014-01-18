@@ -12,10 +12,10 @@ public class CoreUtils {
 
 	
 	public static Core getCoreFromBlock(Block myBlock, empires plugin){
-		List<MetadataValue> values = myBlock.getMetadata("coreType");
+		List<MetadataValue> values = myBlock.getMetadata("core");
 		for(MetadataValue value : values){
 			if (value.getOwningPlugin().equals(plugin)){
-				int id = Integer.parseInt(value.asString());
+				int id = value.asInt();
 				Core core = UtilManager.getCoreWithId(id);
 				return core;			
 			}
