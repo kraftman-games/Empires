@@ -9,17 +9,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Core;
-import es.themin.empires.util.Empire;
-import es.themin.empires.util.UtilManager;
 
 public class UtilityTesting implements CommandExecutor{
 	
-	private static String plprefix = empires.plprefix;
+	public String plprefix = empires.plprefix;
 	private static ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 	public static void setUp(){
 		commands.add(new newemp());
