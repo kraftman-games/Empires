@@ -31,11 +31,11 @@ public class BlockListener implements Listener {
 	}
 	
 	
-	@EventHandler
-	public void onBlockBreak(BlockBreakEvent event){
-		
-			
-	}
+//	@EventHandler
+//	public void onBlockBreak(BlockBreakEvent event){
+//		
+//			
+//	}
 }
 
 
