@@ -110,9 +110,9 @@ public class UtilManager {
 				if (type.equalsIgnoreCase("GRIEF")) coretype = CoreType.GRIEF;
 				if (type.equalsIgnoreCase("FORTIFICATION")) coretype = CoreType.FORTIFICATION;
 				World world2 = Bukkit.getServer().getWorld(words2[2]);
-				int x2 = Integer.parseInt(words[3]);
-				int y2 = Integer.parseInt(words[4]);
-				int z2 = Integer.parseInt(words[5]);
+				int x2 = Integer.parseInt(words2[3]); // - 0:BASE:world:-249:78:223:1:0:kraft
+				int y2 = Integer.parseInt(words2[4]);
+				int z2 = Integer.parseInt(words2[5]);
 				Location location = new Location(world2, x2, y2, z2);
 				int level = Integer.parseInt(words[6]);
 				Core core = new Core(Id2, coretype, location, level, empire);
