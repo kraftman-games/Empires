@@ -46,6 +46,8 @@ public final class empires extends JavaPlugin {
 		UtilManager.loadEmpires();
 		UtilityTesting.setUp();
 		loadPlayers();
+		String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
+		(new File(pluginFolder)).mkdirs();
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
     }
@@ -118,7 +120,7 @@ public final class empires extends JavaPlugin {
 					str.append(date.getDay() + "-");
 					str.append(date.getMonth() + "-");
 					str.append(date.getYear());
-					File efile = new File(plugin.getDataFolder() + "/backup-" + str.toString() + File.separator + "empiredata.yml");
+					File efile = new File(plugin.getDataFolder() + "/backups/backup-" + str.toString() + File.separator + "empiredata.yml");
 					SettingsManager.getInstance().saveEmpireDataToFile(efile);
 					SettingsManager.getInstance().getData().set("lastbackup", System.currentTimeMillis());
 				}
