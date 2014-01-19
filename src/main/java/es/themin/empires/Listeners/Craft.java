@@ -29,6 +29,7 @@ public class Craft implements Listener{
 		Player player = (Player) event.getView().getPlayer();
 		
 		player.sendMessage("Crafted");
+		event.setCancelled(true);
 		if (event.getRecipe() == Recipes.amplifierRecipe()) {
 			ItemStack myItem = new ItemStack(Material.FLINT);
 			ItemMeta myMeta = myItem.getItemMeta();
