@@ -64,7 +64,7 @@ public class SettingsManager {
         }
        
         data = YamlConfiguration.loadConfiguration(dfile);
-        //core data bellow
+        /*core data bellow no longer used
         corefile = new File(p.getDataFolder(), "coredata.yml");
         
         if (!corefile.exists()) {
@@ -76,7 +76,7 @@ public class SettingsManager {
                 }
         }
        
-        coredata = YamlConfiguration.loadConfiguration(corefile);
+        coredata = YamlConfiguration.loadConfiguration(corefile);*/
         
         //player data bellow
         pfile = new File(p.getDataFolder(), "playerdata.yml");
@@ -106,18 +106,30 @@ public class SettingsManager {
        
        	empiredata = YamlConfiguration.loadConfiguration(efile);
        	
-        wfile = new File(p.getDataFolder(), "worlddata.yml");
+        wfile = new File(p.getDataFolder(), "worldconfig.yml");
         
-        if (!efile.exists()) {
+        if (!wfile.exists()) {
                 try {
-                        efile.createNewFile();
+                        wfile.createNewFile();
+                        worlddata = YamlConfiguration.loadConfiguration(wfile);
+                       	getWorldData().addDefault("worlds.world.allowcoreplace", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowcommanduse", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.BASE", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.MOB", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.FARM", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.MONSTER", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.FORTIFICATION", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.GRIEF", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.OUTPOST", bool(1));
+                       	getWorldData().options().copyDefaults();
+                       	saveWorldData();
                 }
                 catch (IOException e) {
                         Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create worlddata.yml!");
                 }
         }
        
-       	empiredata = YamlConfiguration.loadConfiguration(efile);
+        worlddata = YamlConfiguration.loadConfiguration(wfile);
         
         //
         
@@ -170,6 +182,14 @@ public class SettingsManager {
                 Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
         }
     }
+    public void savePlayerDataToFile(File file) {
+        try {
+                playerdata.save(file);
+        }
+        catch (IOException e) {
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
+        }
+    }
 
     public void reloadPlayerData() {
         playerdata = YamlConfiguration.loadConfiguration(pfile);
@@ -208,7 +228,15 @@ public class SettingsManager {
 
     public void saveWorldData() {
         try {
-                empiredata.save(wfile);
+                worlddata.save(wfile);
+        }
+        catch (IOException e) {
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
+        }
+    }
+    public void saveWorldDataToFile(File file) {
+        try {
+                worlddata.save(file);
         }
         catch (IOException e) {
                 Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
@@ -232,6 +260,14 @@ public class SettingsManager {
                     Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save config.yml!");
             }
     }
+    public void saveConfigToFile(File f) {
+        try {
+                config.save(f);
+        }
+        catch (IOException e) {
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save config.yml!");
+        }
+}
    
     public void reloadConfig() {
             config = YamlConfiguration.loadConfiguration(cfile);
@@ -245,5 +281,11 @@ public class SettingsManager {
     	saveEmpireData();
     	savePlayerData();
     	saveCoreData();
+    }
+    public boolean bool(int i) {
+    	if (i == 1) {
+    		return true;
+    	}
+    	return false;
     }
 }
