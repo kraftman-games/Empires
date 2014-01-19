@@ -23,7 +23,7 @@ public class Recipes {
 	    precipe.addIngredient(1, Material.FLINT);
 	    Bukkit.getServer().addRecipe(precipe);
 	}
-	public static Recipe amplifierRecipe(){
+	public static ShapelessRecipe amplifierRecipe(){
 		ItemStack amp = new ItemStack(Material.BRICK, 1);
 		ItemMeta meta2 = amp.getItemMeta();
 	    meta2.setDisplayName(ChatColor.ITALIC + "Amplifier");
@@ -32,8 +32,7 @@ public class Recipes {
 
 	    ShapelessRecipe precipe = new ShapelessRecipe(amp);
 	    precipe.addIngredient(1, Material.FLINT);
-	    Recipe recipe = precipe;
-	    return recipe;
+	    return precipe;
 	    
 	}
 }
