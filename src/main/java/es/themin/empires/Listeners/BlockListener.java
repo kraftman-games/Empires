@@ -41,13 +41,14 @@ public class BlockListener implements Listener {
 		
 		if (myCore != null){
 			if (myCore.getEmpire() == UtilManager.empireplayers.get(player.getName())){
-				Inventory i = player.getInventory();
-		          for(ItemStack inven : i.getContents()){
-		              if(inven.getType().equals(Material.FLINT)){
-		            	  ItemMeta myMeta = inven.getItemMeta();
-		            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard")){
+				Inventory myInventory = player.getInventory();
+		          for(ItemStack myStack : myInventory.getContents()){
+		              if(myStack!= null && myStack.getType().equals(Material.FLINT)){
+		            	  ItemMeta myMeta = myStack.getItemMeta();
+		            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard") && myStack.getAmount() > 1){
 		            		  Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
-		            		  player.getInventory().remove(inven);
+		            		  myStack.setAmount(myStack.getAmount()-2);
+		            		  player.updateInventory();
 		      				 myCore.Delete();
 		      				 break;
 		            	  }
