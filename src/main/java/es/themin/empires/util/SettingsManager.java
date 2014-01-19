@@ -41,15 +41,34 @@ public class SettingsManager {
     File wfile;
    
     public void setup(Plugin p) {
-		if (!p.getDataFolder().exists()) {
-			p.getDataFolder().mkdir();
+    	config = p.getConfig();
+		cfile = new File(p.getDataFolder() + File.separator + "config.yml");
+
+		if(!p.getDataFolder().exists()) {
+			try {
+				p.getDataFolder().createNewFile();
+			} 
+			catch (IOException e) {
+				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not load folder");
+			}
 		}
-        cfile = new File(p.getDataFolder(), "config.yml");
-        config = p.getConfig();
-        config.options().copyDefaults(true);
-        saveConfig();
-       
-        
+		if (!cfile.exists()) {
+			try {
+				cfile.createNewFile();
+			} catch (IOException e) {
+				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not load config.yml");
+				e.printStackTrace();
+				
+			}
+		}
+		getConfig().options().copyDefaults();
+		config.options().copyDefaults(true);
+//		config.addDefault("chat.enable", "true");
+//		config.addDefault("chat.worlds.world", "&bOverWorld");
+//		config.addDefault("chat.worlds.world_nether", "&bOverWorld");
+//		config.addDefault("chat.worlds.world_the_emd", "&bThe End");
+		config.options().copyHeader();
+		saveConfig();
         //random data file bellow :/
         
         dfile = new File(p.getDataFolder(), "data.yml");
