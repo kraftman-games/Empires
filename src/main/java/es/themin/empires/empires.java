@@ -11,10 +11,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.Listeners.BlockListener;
+import es.themin.empires.Listeners.Craft;
 import es.themin.empires.Listeners.Login_Quit;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
+import es.themin.empires.util.testing.Recipes;
 import es.themin.empires.util.testing.UtilityTesting;
  
 public final class empires extends JavaPlugin {
@@ -37,9 +39,11 @@ public final class empires extends JavaPlugin {
 		getCommands();
 		pm.registerEvents(new Login_Quit(this), this);
 		pm.registerEvents(new BlockListener(this), this);
+		pm.registerEvents(new Craft(this), this);
 		UtilManager.loadEmpires();
 		UtilityTesting.setUp();
 		loadPlayers();
+		Recipes.setupamplifierRecipe();
     }
  
     @Override
@@ -48,6 +52,7 @@ public final class empires extends JavaPlugin {
 		UtilManager.saveEmpires();
 		SettingsManager.getInstance().saveAll();
 		savePlayers();
+		Bukkit.getServer().clearRecipes();
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
