@@ -12,26 +12,33 @@ import org.bukkit.inventory.meta.ItemMeta;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Core;
+import es.themin.empires.util.Empire;
+import es.themin.empires.util.UtilManager;
 
 public class tannertest extends SubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		
-		ItemStack myItem = new ItemStack(Material.FLINT);
-		ItemMeta myMeta = myItem.getItemMeta();
-		myMeta.setDisplayName("Core Shard");
-		
-		ArrayList<String> myLore = new ArrayList<String>();
-		myLore.add(ChatColor.GREEN + "A faint glow eminates from within");
-		
-		myMeta.setLore(myLore);
-		
-		myItem.setItemMeta(myMeta);
-		
-		player.getInventory().addItem(myItem);
-		player.sendMessage( ChatColor.RED + "You won teh shardz!");
+		Empire empire = UtilManager.empireplayers.get(player.getName());
+		Core myCore = new Core(UtilManager.nextUnusedCoreId(), CoreType.GRIEF, player.getLocation(), 1, empire);
+		empire.addCore(myCore);
 		return false;
+		
+		
+//		ItemStack myItem = new ItemStack(Material.FLINT);
+//		ItemMeta myMeta = myItem.getItemMeta();
+//		myMeta.setDisplayName("Core Shard");
+//		
+//		ArrayList<String> myLore = new ArrayList<String>();
+//		myLore.add(ChatColor.GREEN + "A faint glow eminates from within");
+//		
+//		myMeta.setLore(myLore);
+//		
+//		myItem.setItemMeta(myMeta);
+//		
+//		player.getInventory().addItem(myItem);
+//		player.sendMessage( ChatColor.RED + "You won teh shardz!");
+//		return false;
 	}
 
 	@Override
