@@ -186,6 +186,8 @@ public class Core {
 	public void onBlockBreak(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		
+		player.sendMessage("clicked core block of type "+this.getType());
+		
 		if (this.getEmpire() == UtilManager.empireplayers.get(player.getName())){
 			Inventory myInventory = player.getInventory();
 	          for(ItemStack myStack : myInventory.getContents()){

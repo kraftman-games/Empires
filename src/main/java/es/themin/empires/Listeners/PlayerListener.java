@@ -51,10 +51,8 @@ public class PlayerListener implements Listener{
 	@EventHandler
 	  public void onPlayerInteractEvent(PlayerInteractEvent event){
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK){
-			Player player = event.getPlayer();
 			
 			Block myBlock = event.getClickedBlock();
-			
 			Core myCore = CoreUtils.getCoreFromBlock(myBlock, plugin);
 			
 			if (myCore != null){
