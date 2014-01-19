@@ -93,7 +93,12 @@ public final class empires extends JavaPlugin {
     	}
     }
     private void scheduleBackUps() {
-    	getLogger().info(plprefix + ChatColor.GREEN + "Automatic backups enabled");
+    	getLogger().info("[Empires] Automatic backups enabled");
+    	for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+    		if (player.isOp()) {
+    			player.sendMessage(plprefix + ChatColor.GREEN + "Automatic backups enabled");
+    		}
+    	}
     	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 
 			@SuppressWarnings("deprecation")
@@ -102,7 +107,12 @@ public final class empires extends JavaPlugin {
 				
 				long lastbackup = SettingsManager.getInstance().getData().getLong("lastbackup");
 				if (System.currentTimeMillis() - lastbackup > 604800000) {
-					getLogger().info(plprefix + ChatColor.GREEN + "Backing Up");
+					getLogger().info("[Empires] Backing Up");
+					for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+			    		if (player.isOp()) {
+			    			player.sendMessage(plprefix + ChatColor.GREEN + "Backing Up");
+			    		}
+			    	}
 					Date date = new Date(System.currentTimeMillis());
 					StringBuilder str = new StringBuilder();
 					str.append(date.getDay() + "-");
@@ -114,7 +124,7 @@ public final class empires extends JavaPlugin {
 				}
 			}
     		
-    	}, 12000L, 12000L);
+    	}, 100L, 12000L);
     	
     }
     
