@@ -22,7 +22,7 @@ public class newemp extends SubCommand{
 			player.sendMessage(plprefix + ChatColor.RED + "Empire already exists");
 			return false;
 		}
-		Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1]);
+		Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1], player.getName());
 		empire.addPlayer(player.getName());
 		UtilManager.empireplayers.put(player.getName(), empire);
 		empire.Save();

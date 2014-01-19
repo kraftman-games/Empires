@@ -14,13 +14,16 @@ public class Empire {
 //For use in this class	
 	private int Id;
 	private String name;
+	private String owner;
 	private ArrayList<String> players = new ArrayList<String>();
 	private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
+	private ArrayList<Rank> ranks = new ArrayList<Rank>();
 
-	public Empire(int Id, String name){
+	public Empire(int Id, String name, String owner){
 		this.Id = Id;
 		this.name = name;
+		this.owner = owner;
 	}
 	
 	public int getId(){
@@ -28,6 +31,13 @@ public class Empire {
 	}
 	public String getName(){
 		return name;
+	}
+	public String getOwner(){
+		return owner;
+	}
+	public void setOwner(String owner){
+		this.owner = owner;
+		Save();
 	}
 	public ArrayList<String> getPlayers(){
 		return players;
@@ -48,8 +58,6 @@ public class Empire {
 
 		players.add(p);
 		Save();
-
-		Bukkit.getServer().broadcastMessage("set");
 		
 	}
 	public void removePlayer(String p) {
@@ -117,6 +125,45 @@ public class Empire {
 			}
 		}
 		return false;
+	}
+	public ArrayList<Rank> getRanks(){
+		return ranks;
+	}
+	public void addRank(Rank rank) {
+		ranks.add(rank);
+		Save();
+	}
+	public void removeRank(Rank rank) {
+		ranks.remove(rank);
+		Save();
+	}
+	public boolean containsRankWithName(String name) {
+		for (Rank r : ranks) {
+			if (r.getName() == name) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean containsRankWithWeight(int weight) {
+		for (Rank r : ranks) {
+			if (r.getWeight() == weight) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public Rank getRankOfPlayer(String playername) {
+		for (Rank rank : ranks) {
+			if (rank.getPlayers().contains(playername)) return rank;
+		}
+		return null;
+	}
+	public void setRankOfPlayer(String playername, Rank rank) {
+		for (Rank rank2 : ranks) {
+			rank2.removePlayer(playername);
+		}
+		rank.addPlayer(playername);
 	}
 	
 }
