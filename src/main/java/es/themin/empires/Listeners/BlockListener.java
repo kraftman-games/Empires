@@ -54,7 +54,9 @@ public class BlockListener implements Listener {
 		            	  }
 		              }
 		          }
-				
+		          
+		          event.setCancelled(true);
+				  player.sendMessage("You cannot afford to remove your core");
 			}else {
 				Bukkit.broadcastMessage("cannot delete core block of type: " + myCoreType);
 				event.setCancelled(true);
