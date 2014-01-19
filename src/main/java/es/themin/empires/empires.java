@@ -120,7 +120,9 @@ public final class empires extends JavaPlugin {
 					str.append(date.getDay() + "-");
 					str.append(date.getMonth() + "-");
 					str.append(date.getYear());
-					File efile = new File(plugin.getDataFolder() + "/backups/backup-" + str.toString() + File.separator + "empiredata.yml");
+					String epath = plugin.getDataFolder() + "/backups/backup-" + str.toString();
+					(new File(epath)).mkdirs();
+					File efile = new File(epath + File.separator + "empiredata.yml");
 					SettingsManager.getInstance().saveEmpireDataToFile(efile);
 					SettingsManager.getInstance().getData().set("lastbackup", System.currentTimeMillis());
 					getLogger().info("[Empires] Backed Up");
