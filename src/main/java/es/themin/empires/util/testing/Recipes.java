@@ -32,7 +32,8 @@ public class Recipes {
 
 	    ShapelessRecipe precipe = new ShapelessRecipe(amp);
 	    precipe.addIngredient(1, Material.FLINT);
-	    return precipe;
+	    Recipe recipe = precipe;
+	    return recipe;
 	    
 	}
 }
