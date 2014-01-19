@@ -93,13 +93,16 @@ public final class empires extends JavaPlugin {
     	}
     }
     private void scheduleBackUps() {
+    	getLogger().info(plprefix + ChatColor.GREEN + "Automatic backups enabled");
     	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 
 			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
+				
 				long lastbackup = SettingsManager.getInstance().getData().getLong("lastbackup");
 				if (System.currentTimeMillis() - lastbackup > 604800000) {
+					getLogger().info(plprefix + ChatColor.GREEN + "Backing Up");
 					Date date = new Date(System.currentTimeMillis());
 					StringBuilder str = new StringBuilder();
 					str.append(date.getDay() + "-");
