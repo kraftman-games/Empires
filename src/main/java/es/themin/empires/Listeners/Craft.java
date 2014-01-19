@@ -26,7 +26,8 @@ public class Craft implements Listener{
 	
 	@EventHandler
 	public void onPlayerCraft(CraftItemEvent event) {
-		Player player = (Player) event.getWhoClicked();
+		Player player = (Player) event.getView().getPlayer();
+		
 		player.sendMessage("Crafted");
 		if (event.getRecipe() == Recipes.amplifierRecipe()) {
 			ItemStack myItem = new ItemStack(Material.FLINT);
