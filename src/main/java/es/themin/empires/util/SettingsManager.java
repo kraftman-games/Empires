@@ -45,6 +45,15 @@ public class SettingsManager {
 			p.getDataFolder().mkdir();
 		}
         cfile = new File(p.getDataFolder(), "config.yml");
+        if (!cfile.exists()) {
+			try {
+				cfile.createNewFile();
+			} catch (IOException e) {
+				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not load config.yml");
+				e.printStackTrace();
+				
+			}
+		}
         config = p.getConfig();
         config.options().copyDefaults(true);
         saveConfig();
