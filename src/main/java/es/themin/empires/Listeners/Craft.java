@@ -27,20 +27,20 @@ public class Craft implements Listener{
 	@EventHandler
 	public void onPlayerCraft(CraftItemEvent event) {
 		Player player = (Player) event.getView().getPlayer();
+		ItemStack myItem = new ItemStack(Material.FLINT);
+		ItemMeta myMeta = myItem.getItemMeta();
+		myMeta.setDisplayName("Core Shard");
 		
+		ArrayList<String> myLore = new ArrayList<String>();
+		myLore.add(ChatColor.GREEN + "A faint glow eminates from within");
+		
+		myMeta.setLore(myLore);
+		
+		myItem.setItemMeta(myMeta);
 		player.sendMessage("Crafted");
-		if (event.getRecipe() == Recipes.amplifierRecipe()) {
+		if (event.getCurrentItem() == myItem) {
 			player.sendMessage("craft attempt");
-			ItemStack myItem = new ItemStack(Material.FLINT);
-			ItemMeta myMeta = myItem.getItemMeta();
-			myMeta.setDisplayName("Core Shard");
 			
-			ArrayList<String> myLore = new ArrayList<String>();
-			myLore.add(ChatColor.GREEN + "A faint glow eminates from within");
-			
-			myMeta.setLore(myLore);
-			
-			myItem.setItemMeta(myMeta);
 			if (!(event.getInventory().contains(myItem)) || !(UtilManager.empireplayers.containsKey(player.getName())) || !(UtilManager.empireplayers.get(player.getName()).hasCoreOfType(CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), UtilManager.empireplayers.get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), UtilManager.empireplayers.get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
 				event.setCancelled(true);
 				event.setCurrentItem(null);
