@@ -120,7 +120,7 @@ public final class empires extends JavaPlugin {
 					str.append(date.getDay() + "-");
 					str.append(date.getMonth() + "-");
 					str.append(date.getYear());
-					String epath = plugin.getDataFolder() + "/backups/backup-" + str.toString();
+					String epath = Bukkit.getServer().getPluginManager().getPlugin("Empires").getDataFolder().getAbsolutePath() + "/backups/backup-" + str.toString();
 					(new File(epath)).mkdirs();
 					File efile = new File(epath + File.separator + "empiredata.yml");
 					SettingsManager.getInstance().saveEmpireDataToFile(efile);
