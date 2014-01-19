@@ -22,6 +22,7 @@ public class tannertest extends SubCommand{
 		Empire empire = UtilManager.empireplayers.get(player.getName());
 		Core myCore = new Core(UtilManager.nextUnusedCoreId(), CoreType.GRIEF, player.getLocation(), 1, empire);
 		empire.addCore(myCore);
+		player.sendMessage("testing grief block");
 		return false;
 		
 		
