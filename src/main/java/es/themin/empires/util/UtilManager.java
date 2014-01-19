@@ -114,7 +114,7 @@ public class UtilManager {
 				int y2 = Integer.parseInt(words2[4]);
 				int z2 = Integer.parseInt(words2[5]);
 				Location location = new Location(world2, x2, y2, z2);
-				int level = Integer.parseInt(words[6]);
+				int level = Integer.parseInt(words2[6]);
 				Core core = new Core(Id2, coretype, location, level, empire);
 			    core.build();
 				cores.add(core);
