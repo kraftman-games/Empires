@@ -1,6 +1,7 @@
 package es.themin.empires.Listeners;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,20 +28,24 @@ public class Craft implements Listener{
 	@EventHandler
 	public void onPlayerCraft(CraftItemEvent event) {
 		Player player = (Player) event.getView().getPlayer();
-		ItemStack myItem = new ItemStack(Material.FLINT);
-		ItemMeta myMeta = myItem.getItemMeta();
-		myMeta.setDisplayName("Core Shard");
-		
-		ArrayList<String> myLore = new ArrayList<String>();
-		myLore.add(ChatColor.GREEN + "A faint glow eminates from within");
-		
-		myMeta.setLore(myLore);
-		
-		myItem.setItemMeta(myMeta);
-		player.sendMessage("Crafted");
-		if (event.getCurrentItem() == myItem) {
+		ItemStack amp = new ItemStack(Material.BRICK, 1);
+		ItemMeta meta2 = amp.getItemMeta();
+	    meta2.setDisplayName(ChatColor.ITALIC + "Amplifier");
+	    meta2.setLore(Arrays.asList(ChatColor.GREEN + "This", "is very special", "Use it wisely."));
+	    amp.setItemMeta(meta2);
+		if (event.getCurrentItem() == amp) {
 			player.sendMessage("craft attempt");
+			ItemStack myItem = new ItemStack(Material.FLINT);
+			ItemMeta myMeta = myItem.getItemMeta();
+			myMeta.setDisplayName("Core Shard");
 			
+			ArrayList<String> myLore = new ArrayList<String>();
+			myLore.add(ChatColor.GREEN + "A faint glow eminates from within");
+			
+			myMeta.setLore(myLore);
+			
+			myItem.setItemMeta(myMeta);
+			player.sendMessage("Crafted");
 			if (!(event.getInventory().contains(myItem)) || !(UtilManager.empireplayers.containsKey(player.getName())) || !(UtilManager.empireplayers.get(player.getName()).hasCoreOfType(CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), UtilManager.empireplayers.get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), UtilManager.empireplayers.get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
 				event.setCancelled(true);
 				event.setCurrentItem(null);
