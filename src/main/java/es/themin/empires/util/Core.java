@@ -143,7 +143,7 @@ public class Core {
 													myLocation.getY() + myBlock.getOffsetY(),
 													myLocation.getZ() + myBlock.getOffsetZ());
 				Block b = newLocation.getBlock();
-				if (myBlock != null){
+				if (myBlock.getMaterial() != null){
 					b.setType(myBlock.getMaterial());
 				}
 			}
