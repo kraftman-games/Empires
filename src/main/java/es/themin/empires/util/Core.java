@@ -23,6 +23,11 @@ import es.themin.empires.enums.CoreType;
 
 public class Core {
 	
+	/* TODO
+	* add a recovery cost per core
+	* add an upgrade cost per core (per level too - use modifier)
+	* 
+	*/
 	
 	private int Id;
 	private CoreType coreType;
@@ -186,31 +191,35 @@ public class Core {
 	public void onBlockBreak(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		
-		player.sendMessage("clicked core block of type "+this.getType());
+		if (this.getType() == CoreType.GRIEF){
+			// treat it normally for residents
+			// allow insta break for enemies if not a protection block
+		} else {
 		
-		if (this.getEmpire() == UtilManager.empireplayers.get(player.getName())){
-			Inventory myInventory = player.getInventory();
-	          for(ItemStack myStack : myInventory.getContents()){
-	              if(myStack!= null && myStack.getType().equals(Material.FLINT)){
-	            	  ItemMeta myMeta = myStack.getItemMeta();
-	            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard") && myStack.getAmount() > 1){
-	            		  Bukkit.broadcastMessage("deleted core block of type: " + this.getType());
-	            		  if(myStack.getAmount() == 2) {
-	            			  myInventory.remove(myStack);
-	            		  } else {
-	            			  myStack.setAmount(myStack.getAmount()-2);
-	            		  }
-	            		  player.updateInventory();
-	            		  this.Delete();
-	            	  }
-	              }
-	          }
-	          
-	          event.setCancelled(true);
-			  player.sendMessage("You cannot afford to remove your core");
-		}else {
-			Bukkit.broadcastMessage("cannot delete core block of type: " + this.getType());
-			event.setCancelled(true);
+			if (this.getEmpire() == UtilManager.empireplayers.get(player.getName())){
+				Inventory myInventory = player.getInventory();
+		          for(ItemStack myStack : myInventory.getContents()){
+		              if(myStack!= null && myStack.getType().equals(Material.FLINT)){
+		            	  ItemMeta myMeta = myStack.getItemMeta();
+		            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard") && myStack.getAmount() > 1){
+		            		  Bukkit.broadcastMessage("deleted core block of type: " + this.getType());
+		            		  if(myStack.getAmount() == 2) {
+		            			  myInventory.remove(myStack);
+		            		  } else {
+		            			  myStack.setAmount(myStack.getAmount()-2);
+		            		  }
+		            		  player.updateInventory();
+		            		  this.Delete();
+		            	  }
+		              }
+		          }
+		          
+		          event.setCancelled(true);
+				  player.sendMessage("You cannot afford to remove your core");
+			}else {
+				Bukkit.broadcastMessage("cannot delete core block of type: " + this.getType());
+				event.setCancelled(true);
+			} 
 		}
 		
 	}
