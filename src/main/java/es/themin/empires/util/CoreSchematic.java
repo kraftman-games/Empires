@@ -57,11 +57,11 @@ public class CoreSchematic {
 		for(int x = -16; x <=16; x++){
 			for(int z = -16; z <=16; z++){
 				for(int y = -16; y <=16; y++){
-					GriefCore.add(new CoreBlock(0,-1,0,null));
+					GriefCore.add(new CoreBlock(x,y,z,null));
 				}
 			}
 		}
-		
+		GriefCore.add(new CoreBlock(0,-1,0,Material.BRICK));
 		return GriefCore;
 	}
 }
