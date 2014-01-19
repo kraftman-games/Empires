@@ -27,6 +27,7 @@ public class Craft implements Listener{
 	@EventHandler
 	public void onPlayerCraft(CraftItemEvent event) {
 		Player player = (Player) event.getWhoClicked();
+		player.sendMessage("Crafted");
 		if (event.getRecipe() == Recipes.amplifierRecipe()) {
 			ItemStack myItem = new ItemStack(Material.FLINT);
 			ItemMeta myMeta = myItem.getItemMeta();
