@@ -22,20 +22,4 @@ public class CoreUtils {
 		}
 		return null;
 	}
-	
-	public static CoreType getCoreTypeFromBlock(Block myBlock, empires plugin){
-		List<MetadataValue> values = myBlock.getMetadata("coreType");
-		for(MetadataValue value : values){
-			if (value.getOwningPlugin().equals(plugin)){
-				String myCoreType = value.asString();
-				switch (myCoreType){
-				case "BASE":
-					return CoreType.BASE;
-				default:
-					return null;
-				}
-			}
-		}
-		return null;
-	}
 }

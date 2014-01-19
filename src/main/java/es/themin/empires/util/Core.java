@@ -113,23 +113,6 @@ public class Core {
 		Location myLocation = this.getLocation();
 		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
 		
-		if(this.getType() == CoreType.GRIEF){
-			for (int x = -16; x <= 16; x++){
-				for (int z = -16; z <= 16; z++){
-					for (int y = 0; y <= 256; y++){
-						
-						Location tempLocation = new Location(myLocation.getWorld(), myLocation.getX() + x, myLocation.getY() + y, myLocation.getZ() + z);
-						Block b = tempLocation.getBlock();
-						
-						FixedMetadataValue myMetaData = new FixedMetadataValue (myPlugin, this.getEmpire().getId());
-						b.setMetadata("empire", myMetaData);
-						
-					}
-				}				
-			}
-			
-			
-		}
 		
 		if (this.schematic != null){
 			for (CoreBlock myBlock : this.schematic){
@@ -141,9 +124,9 @@ public class Core {
 				
 				
 			
-				FixedMetadataValue myMetaData2 = new FixedMetadataValue (myPlugin, this.getId());
+				FixedMetadataValue myMetaData = new FixedMetadataValue (myPlugin, this.getId());
 				if (setProtected){
-					b.setMetadata("core", myMetaData2);}
+					b.setMetadata("core", myMetaData);}
 				else {
 					b.removeMetadata("core", myPlugin);
 				}
@@ -160,7 +143,9 @@ public class Core {
 													myLocation.getY() + myBlock.getOffsetY(),
 													myLocation.getZ() + myBlock.getOffsetZ());
 				Block b = newLocation.getBlock();
-				b.setType(myBlock.getMaterial());
+				if (myBlock != null){
+					b.setType(myBlock.getMaterial());
+				}
 			}
 		}
 	}
