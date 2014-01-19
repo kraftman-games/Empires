@@ -4,6 +4,7 @@ package es.themin.empires.util;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -110,6 +111,25 @@ public class Core {
 	
 	public void setProtection(boolean setProtected){
 		Location myLocation = this.getLocation();
+		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
+		
+		if(this.getType() == CoreType.GRIEF){
+			for (int x = -16; x <= 16; x++){
+				for (int z = -16; z <= 16; z++){
+					for (int y = 0; y <= 256; y++){
+						
+						Location tempLocation = new Location(myLocation.getWorld(), myLocation.getX() + x, myLocation.getY() + y, myLocation.getZ() + z);
+						Block b = tempLocation.getBlock();
+						
+						FixedMetadataValue myMetaData = new FixedMetadataValue (myPlugin, this.getEmpire().getId());
+						b.setMetadata("empire", myMetaData);
+						
+					}
+				}				
+			}
+			
+			
+		}
 		
 		if (this.schematic != null){
 			for (CoreBlock myBlock : this.schematic){
@@ -118,7 +138,7 @@ public class Core {
 													myLocation.getZ() + myBlock.getOffsetZ());
 				Block b = newLocation.getBlock();
 				
-				JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
+				
 				
 			
 				FixedMetadataValue myMetaData2 = new FixedMetadataValue (myPlugin, this.getId());

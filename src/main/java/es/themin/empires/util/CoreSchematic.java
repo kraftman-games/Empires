@@ -28,6 +28,11 @@ public class CoreSchematic {
 		add(new CoreBlock(-1,-1,-1,Material.DIRT));
 	}};
 	
+	private static ArrayList<CoreBlock> GriefCore = new ArrayList<CoreBlock>()
+			{{
+		add(new CoreBlock(0,-1,0,Material.BRICK));
+	}};
+	
 	public static ArrayList<CoreBlock> getSchematic(CoreType myCoreType){
 
 		ArrayList<CoreBlock> mySchem = null;
@@ -39,11 +44,11 @@ public class CoreSchematic {
 		case MONSTER:
 			
 		case GRIEF:
-			
+			return GriefCore;
 		case FORTIFICATION:
 			
 		case BASE:
-			return mySchem = BaseCore;	
+			return BaseCore;	
 		}
 		
 		return null;
