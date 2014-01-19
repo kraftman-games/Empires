@@ -72,7 +72,9 @@ public final class empires extends JavaPlugin {
     }
     public void savePlayers(){
     	for (String playername : UtilManager.empireplayers.keySet()) {
-    		SettingsManager.getInstance().getPlayerData().set(playername + ".empire", UtilManager.empireplayers.get(playername).getId());
+    		if (!(UtilManager.empireplayers.isEmpty()) && UtilManager.empireplayers.get(playername) != null) {
+    			SettingsManager.getInstance().getPlayerData().set(playername + ".empire", UtilManager.empireplayers.get(playername).getId());
+    		}
     	}
     	SettingsManager.getInstance().savePlayerData();
     }
