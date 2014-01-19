@@ -12,10 +12,10 @@ import es.themin.empires.empires;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
-public class Login_Quit implements Listener{
+public class PlayerListener implements Listener{
 	
 	private empires plugin;
-	public Login_Quit(empires myPlugin){
+	public PlayerListener(empires myPlugin){
 		this.plugin = myPlugin;
 	}
 	

@@ -15,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.Craft;
-import es.themin.empires.Listeners.Login_Quit;
+import es.themin.empires.Listeners.PlayerListener;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
@@ -40,7 +40,7 @@ public final class empires extends JavaPlugin {
 		getLogger().info("onEnable has been invoked!");
 		SettingsManager.getInstance().setup(this);
 		getCommands();
-		pm.registerEvents(new Login_Quit(this), this);
+		pm.registerEvents(new PlayerListener(this), this);
 		pm.registerEvents(new BlockListener(this), this);
 		pm.registerEvents(new Craft(this), this);
 		UtilManager.loadEmpires();
