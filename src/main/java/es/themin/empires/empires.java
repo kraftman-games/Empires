@@ -1,6 +1,9 @@
 package es.themin.empires;
 
 
+import java.io.File;
+import java.sql.Date;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -44,6 +47,7 @@ public final class empires extends JavaPlugin {
 		UtilityTesting.setUp();
 		loadPlayers();
 		Recipes.setupamplifierRecipe();
+		scheduleBackUps();
     }
  
     @Override
@@ -67,7 +71,7 @@ public final class empires extends JavaPlugin {
     
     public void getCommands() {
     	UtilityTesting utiltest = new UtilityTesting();
-		utiltest.setUp();
+		UtilityTesting.setUp();
 		getCommand("utiltest").setExecutor(utiltest);
     }
     public void savePlayers(){
@@ -88,4 +92,27 @@ public final class empires extends JavaPlugin {
     		}
     	}
     }
+    private void scheduleBackUps() {
+    	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void run() {
+				long lastbackup = SettingsManager.getInstance().getData().getLong("lastbackup");
+				if (System.currentTimeMillis() - lastbackup > 604800000) {
+					Date date = new Date(System.currentTimeMillis());
+					StringBuilder str = new StringBuilder();
+					str.append(date.getDay() + "-");
+					str.append(date.getMonth() + "-");
+					str.append(date.getYear());
+					File efile = new File(plugin.getDataFolder() + "/backup-" + str.toString() + File.separator + "empiredata.yml");
+					SettingsManager.getInstance().saveEmpireDataToFile(efile);
+					SettingsManager.getInstance().getData().set("lastbackup", System.currentTimeMillis());
+				}
+			}
+    		
+    	}, 12000L, 12000L);
+    	
+    }
+    
 }

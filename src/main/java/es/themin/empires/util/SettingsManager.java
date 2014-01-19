@@ -124,7 +124,7 @@ public class SettingsManager {
         
     }
 //###############################   
-    /*public FileConfiguration getData() {
+    public FileConfiguration getData() {
             return data;
     }
    
@@ -139,7 +139,7 @@ public class SettingsManager {
    
     public void reloadData() {
             data = YamlConfiguration.loadConfiguration(dfile);
-    }*/
+    }
 //############################CORE DAT
     public FileConfiguration getCoreData() {
         return coredata;
@@ -182,6 +182,14 @@ public class SettingsManager {
     public void saveEmpireData() {
         try {
                 empiredata.save(efile);
+        }
+        catch (IOException e) {
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
+        }
+    }
+    public void saveEmpireDataToFile(File file) {
+        try {
+                empiredata.save(file);
         }
         catch (IOException e) {
                 Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
