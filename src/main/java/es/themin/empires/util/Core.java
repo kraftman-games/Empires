@@ -8,6 +8,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -170,8 +174,34 @@ public class Core {
 		
 	}
 
-	public void LoadBlockProtection() {
-		// TODO Auto-generated method stub
+
+	public void onBlockBreak(BlockBreakEvent event) {
+		Player player = event.getPlayer();
+		
+		if (this.getEmpire() == UtilManager.empireplayers.get(player.getName())){
+			Inventory myInventory = player.getInventory();
+	          for(ItemStack myStack : myInventory.getContents()){
+	              if(myStack!= null && myStack.getType().equals(Material.FLINT)){
+	            	  ItemMeta myMeta = myStack.getItemMeta();
+	            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard") && myStack.getAmount() > 1){
+	            		  Bukkit.broadcastMessage("deleted core block of type: " + this.getType());
+	            		  if(myStack.getAmount() == 2) {
+	            			  myInventory.remove(myStack);
+	            		  } else {
+	            			  myStack.setAmount(myStack.getAmount()-2);
+	            		  }
+	            		  player.updateInventory();
+	            		  this.Delete();
+	            	  }
+	              }
+	          }
+	          
+	          event.setCancelled(true);
+			  player.sendMessage("You cannot afford to remove your core");
+		}else {
+			Bukkit.broadcastMessage("cannot delete core block of type: " + this.getType());
+			event.setCancelled(true);
+		}
 		
 	}
 

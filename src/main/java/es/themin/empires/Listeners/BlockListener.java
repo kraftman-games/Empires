@@ -36,36 +36,12 @@ public class BlockListener implements Listener {
 		Player player = event.getPlayer();
 		Block myBlock = event.getBlock();
 		
-		CoreType myCoreType = CoreUtils.getCoreTypeFromBlock(myBlock, plugin);
 		Core myCore = CoreUtils.getCoreFromBlock(myBlock, plugin);
 		
 		if (myCore != null){
-			if (myCore.getEmpire() == UtilManager.empireplayers.get(player.getName())){
-				Inventory myInventory = player.getInventory();
-		          for(ItemStack myStack : myInventory.getContents()){
-		              if(myStack!= null && myStack.getType().equals(Material.FLINT)){
-		            	  ItemMeta myMeta = myStack.getItemMeta();
-		            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard") && myStack.getAmount() > 1){
-		            		  Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
-		            		  if(myStack.getAmount() == 2) {
-		            			  myInventory.remove(myStack);
-		            		  } else {
-		            			  myStack.setAmount(myStack.getAmount()-2);
-		            		  }
-		            		  player.updateInventory();
-		      				 myCore.Delete();
-		      				 return;
-		            	  }
-		              }
-		          }
-		          
-		          event.setCancelled(true);
-				  player.sendMessage("You cannot afford to remove your core");
-			}else {
-				Bukkit.broadcastMessage("cannot delete core block of type: " + myCoreType);
-				event.setCancelled(true);
-			}
+			myCore.onBlockBreak(event);
 		}
+			
 	}
 }
 
