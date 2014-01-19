@@ -114,13 +114,10 @@ public class Core {
 				JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
 				
 			
-				FixedMetadataValue myMetaData = new FixedMetadataValue (myPlugin, "BASE");
 				FixedMetadataValue myMetaData2 = new FixedMetadataValue (myPlugin, this.getId());
-				if (setProtected){				
-					b.setMetadata("coreType", myMetaData);
+				if (setProtected){
 					b.setMetadata("core", myMetaData2);}
 				else {
-					b.removeMetadata("coreType", myPlugin);
 					b.removeMetadata("core", myPlugin);
 				}
 			}
