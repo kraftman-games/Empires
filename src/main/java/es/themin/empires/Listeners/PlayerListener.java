@@ -2,13 +2,18 @@ package es.themin.empires.Listeners;
 
 
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.empires;
+import es.themin.empires.util.Core;
+import es.themin.empires.util.CoreUtils;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
@@ -43,5 +48,22 @@ public class PlayerListener implements Listener{
 		}
 	}
 		
-
+	@EventHandler
+	  public void onPlayerInteractEvent(PlayerInteractEvent event){
+		if (event.getAction() == Action.LEFT_CLICK_BLOCK){
+			Player player = event.getPlayer();
+			
+			Block myBlock = event.getClickedBlock();
+			
+			Core myCore = CoreUtils.getCoreFromBlock(myBlock, plugin);
+			
+			if (myCore != null){
+				myCore.onBlockBreak(event);
+			}
+		}
+	}
 }
+
+
+
+

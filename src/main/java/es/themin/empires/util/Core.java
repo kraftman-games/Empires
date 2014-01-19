@@ -8,7 +8,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -175,7 +178,7 @@ public class Core {
 	}
 
 
-	public void onBlockBreak(BlockBreakEvent event) {
+	public void onBlockBreak(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		
 		if (this.getEmpire() == UtilManager.empireplayers.get(player.getName())){

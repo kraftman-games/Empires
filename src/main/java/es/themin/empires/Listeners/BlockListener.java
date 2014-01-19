@@ -33,14 +33,7 @@ public class BlockListener implements Listener {
 	
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event){
-		Player player = event.getPlayer();
-		Block myBlock = event.getBlock();
 		
-		Core myCore = CoreUtils.getCoreFromBlock(myBlock, plugin);
-		
-		if (myCore != null){
-			myCore.onBlockBreak(event);
-		}
 			
 	}
 }
