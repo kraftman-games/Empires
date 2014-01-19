@@ -33,8 +33,10 @@ public class BlockListener implements Listener {
 	
 //	@EventHandler
 //	public void onBlockBreak(BlockBreakEvent event){
-//		
-//			
+//		we need to think about the regeneration mechanic
+//		one option is to store every break and place an enemy makes
+//      and then slowly revert depending on rate
+//      will need to add a property to the empire for blocks placed and blocks broken by enemies
 //	}
 }
 

@@ -53,6 +53,8 @@ public class CoreSchematic {
 	
 	private static ArrayList<CoreBlock>  GetGriefCore(){
 		//special case just for the grief core
+		
+		//need to add a method of distinguishing between the core itself and the protected blocks
 		ArrayList<CoreBlock> GriefCore = new ArrayList<CoreBlock>();
 		for(int x = -16; x <=16; x++){
 			for(int z = -16; z <=16; z++){
