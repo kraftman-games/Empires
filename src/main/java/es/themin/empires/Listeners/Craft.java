@@ -33,7 +33,7 @@ public class Craft implements Listener{
 	    meta2.setDisplayName(ChatColor.ITALIC + "Amplifier");
 	    meta2.setLore(Arrays.asList(ChatColor.GREEN + "This", "is very special", "Use it wisely."));
 	    amp.setItemMeta(meta2);
-		if (event.getCurrentItem() == amp) {
+		if (event.getCursor() == amp) {
 			player.sendMessage("craft attempt");
 			ItemStack myItem = new ItemStack(Material.FLINT);
 			ItemMeta myMeta = myItem.getItemMeta();
