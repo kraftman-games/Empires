@@ -95,10 +95,10 @@ public final class empires extends JavaPlugin {
     	}
     }
     private void scheduleBackUps() {
-    	if (SettingsManager.getInstance().getConfig().getString("enable_back_ups").equalsIgnoreCase("true")) {
+    	if (getConfig().getString("enable_back_ups").equalsIgnoreCase("true")) {
     		
 			try {
-				final Long l = Long.parseLong(SettingsManager.getInstance().getConfig().getString("time_between_back_ups_in_hours")) * 3600000;
+				final Long l = Long.parseLong(getConfig().getString("time_between_back_ups_in_hours")) * 3600000;
 				getLogger().info("[Empires] Automatic backups enabled");
 	        	for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 	        		if (player.isOp()) {
