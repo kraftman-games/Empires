@@ -123,6 +123,12 @@ public final class empires extends JavaPlugin {
 					File efile = new File(plugin.getDataFolder() + "/backups/backup-" + str.toString() + File.separator + "empiredata.yml");
 					SettingsManager.getInstance().saveEmpireDataToFile(efile);
 					SettingsManager.getInstance().getData().set("lastbackup", System.currentTimeMillis());
+					getLogger().info("[Empires] Backed Up");
+					for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+			    		if (player.isOp()) {
+			    			player.sendMessage(plprefix + ChatColor.GREEN + "Backed Up");
+			    		}
+			    	}
 				}
 			}
     		
