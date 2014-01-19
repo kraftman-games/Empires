@@ -33,6 +33,9 @@ public class Craft implements Listener{
 	    meta2.setDisplayName(ChatColor.ITALIC + "Amplifier");
 	    meta2.setLore(Arrays.asList(ChatColor.GREEN + "This", "is very special", "Use it wisely."));
 	    amp.setItemMeta(meta2);
+	    player.sendMessage("Crafted");
+	    player.sendMessage(event.getRecipe().toString());
+	    player.sendMessage(Recipes.amplifierRecipe().toString());
 	    player.sendMessage(event.getCursor().getItemMeta().getDisplayName());
 	    player.sendMessage(event.getCurrentItem().getItemMeta().getDisplayName());
 		if (event.getCursor() == amp) {
