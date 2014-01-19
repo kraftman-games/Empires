@@ -29,8 +29,8 @@ public class Craft implements Listener{
 		Player player = (Player) event.getView().getPlayer();
 		
 		player.sendMessage("Crafted");
-		event.setCancelled(true);
 		if (event.getRecipe() == Recipes.amplifierRecipe()) {
+			player.sendMessage("craft attempt");
 			ItemStack myItem = new ItemStack(Material.FLINT);
 			ItemMeta myMeta = myItem.getItemMeta();
 			myMeta.setDisplayName("Core Shard");
@@ -43,6 +43,7 @@ public class Craft implements Listener{
 			myItem.setItemMeta(myMeta);
 			if (!(event.getInventory().contains(myItem)) || !(UtilManager.empireplayers.containsKey(player.getName())) || !(UtilManager.empireplayers.get(player.getName()).hasCoreOfType(CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), UtilManager.empireplayers.get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), UtilManager.empireplayers.get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
 				event.setCancelled(true);
+				event.setCurrentItem(null);
 				player.sendMessage(ChatColor.RED + "To craft an amplifier you must place a true shard in your Base core's crafting table");
 			}
 		}

@@ -31,6 +31,7 @@ public class Recipes {
 	    amp.setItemMeta(meta2);
 
 	    ShapelessRecipe precipe = new ShapelessRecipe(amp);
+	    precipe.addIngredient(1, Material.FLINT);
 	    return precipe;
 	    
 	}
