@@ -109,6 +109,7 @@ public class UtilManager {
 				if (type.equalsIgnoreCase("MONSTER")) coretype = CoreType.MONSTER;
 				if (type.equalsIgnoreCase("GRIEF")) coretype = CoreType.GRIEF;
 				if (type.equalsIgnoreCase("FORTIFICATION")) coretype = CoreType.FORTIFICATION;
+				if (type.equalsIgnoreCase("OUTPOST")) coretype = CoreType.OUTPOST;
 				World world2 = Bukkit.getServer().getWorld(words2[2]);
 				int x2 = Integer.parseInt(words2[3]); // - 0:BASE:world:-249:78:223:1:0:kraft
 				int y2 = Integer.parseInt(words2[4]);

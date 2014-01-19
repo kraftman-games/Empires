@@ -6,5 +6,6 @@ public enum CoreType {
 	FARM,
 	MONSTER,
 	GRIEF,
-	FORTIFICATION
+	FORTIFICATION,
+	OUTPOST
 }
