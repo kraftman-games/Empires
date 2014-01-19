@@ -47,10 +47,14 @@ public class BlockListener implements Listener {
 		            	  ItemMeta myMeta = myStack.getItemMeta();
 		            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard") && myStack.getAmount() > 1){
 		            		  Bukkit.broadcastMessage("deleted core block of type: " + myCoreType);
-		            		  myStack.setAmount(myStack.getAmount()-2);
+		            		  if(myStack.getAmount() == 2) {
+		            			  myInventory.remove(myStack);
+		            		  } else {
+		            			  myStack.setAmount(myStack.getAmount()-2);
+		            		  }
 		            		  player.updateInventory();
 		      				 myCore.Delete();
-		      				 break;
+		      				 return;
 		            	  }
 		              }
 		          }
