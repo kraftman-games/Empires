@@ -34,6 +34,7 @@ public class BlockListener implements Listener {
 		this.plugin = myPlugin;
 	}
 	private static HashMap<Block, Material> burnt = new HashMap<Block, Material>();
+	private static HashMap<Block, Material> recentlyfixed = new HashMap<Block, Material>();
 	
 //	@EventHandler
 //	public void onBlockBreak(BlockBreakEvent event){
@@ -45,10 +46,13 @@ public class BlockListener implements Listener {
 	
 	@EventHandler
 	public void onBlockBurn(BlockBurnEvent event) {
-		if (SettingsManager.getInstance().getConfig().getString("regeneration.enable").equalsIgnoreCase("true") && SettingsManager.getInstance().getConfig().getString("regeneration.burn.enable").equalsIgnoreCase("true")) {
-			Random r = new Random();
-			final Block b = event.getBlock();
-			final Material m = b.getType();
+		Random r = new Random();
+		final Block b = event.getBlock();
+		final Material m = b.getType();
+		if(recentlyfixed.containsKey(b)) {
+			event.setCancelled(true);
+		}else if (SettingsManager.getInstance().getConfig().getString("regeneration.enable").equalsIgnoreCase("true") && SettingsManager.getInstance().getConfig().getString("regeneration.burn.enable").equalsIgnoreCase("true")) {
+			
 			burnt.put(b,m);
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
@@ -70,8 +74,17 @@ public class BlockListener implements Listener {
 							}
 						}
 						b.setType(m);
+						recentlyfixed.put(b, m);
+						Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+
+							@Override
+							public void run() {
+								recentlyfixed.remove(b);
+								
+							}
+							
+						}, 400L);
 						burnt.remove(b);
-						Bukkit.broadcastMessage("Burn fixed");
 					}
 					
 				}
@@ -79,6 +92,10 @@ public class BlockListener implements Listener {
 			}, SettingsManager.getInstance().getConfig().getInt("regeneration.burn.delay") * 20 + r.nextInt(600));
 		}
 	}
+	/*@EventHandler
+	public void onBlockExplode(BlockExplodeEvent event) {
+		
+	}*/
 	//for disable
 	public static void fixBurns(){
 		for (Block b : burnt.keySet()) {
