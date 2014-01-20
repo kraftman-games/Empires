@@ -47,6 +47,7 @@ public class SettingsManager {
 		if(!p.getDataFolder().exists()) {
 			try {
 				p.getDataFolder().createNewFile();
+				p.getLogger().info("[Empires] config.yml not found, making you one");
 			} 
 			catch (IOException e) {
 				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not load folder");
@@ -76,6 +77,7 @@ public class SettingsManager {
         if (!dfile.exists()) {
                 try {
                         dfile.createNewFile();
+        				p.getLogger().info("[Empires] data.yml not found, making you one");
                 }
                 catch (IOException e) {
                         Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create data.yml!");
@@ -103,6 +105,7 @@ public class SettingsManager {
         if (!pfile.exists()) {
                 try {
                         pfile.createNewFile();
+        				p.getLogger().info("[Empires] playerdata.yml not found, making you one");
                 }
                 catch (IOException e) {
                         Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create playerdata.yml!");
@@ -117,6 +120,7 @@ public class SettingsManager {
         if (!efile.exists()) {
                 try {
                         efile.createNewFile();
+        				p.getLogger().info("[Empires] empiredata.yml not found, making you one");
                 }
                 catch (IOException e) {
                         Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create empiredata.yml!");
@@ -142,6 +146,7 @@ public class SettingsManager {
                        	getWorldData().addDefault("worlds.world.allowplaceofcore.OUTPOST", bool(1));
                        	getWorldData().options().copyDefaults();
                        	saveWorldData();
+        				p.getLogger().info("[Empires] worldconfig.yml not found, making you one");
                 }
                 catch (IOException e) {
                         Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create worlddata.yml!");

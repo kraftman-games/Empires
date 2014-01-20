@@ -3,6 +3,7 @@ package es.themin.empires;
 
 import java.io.File;
 import java.sql.Date;
+import java.sql.Time;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -123,8 +124,9 @@ public final class empires extends JavaPlugin {
 	    			    		}
 	    			    	}
 	    					Date date = new Date(System.currentTimeMillis());
+	    					Time time = new Time(date.getTime());
 	    					StringBuilder str = new StringBuilder();
-//	    					str.append(date.getHours() + ":" + date.getMinutes() + "-");
+	    					str.append(time.getHours() + ":" + time.getMinutes() + "-");
 	    					str.append(date.getDay() + "-");
 	    					str.append(date.getMonth() + "-");
 	    					str.append(date.getYear());

@@ -54,7 +54,21 @@ public class BlockListener implements Listener {
 
 				@Override
 				public void run() {
-					if (b.getType() == Material.AIR) {
+					if (b.getType() == Material.AIR || b.getType() == Material.FIRE) {
+						int x1 = b.getX() - 2;
+						int y1 = b.getY() - 2;
+						int z1 = b.getZ() - 2;
+						int x2 = b.getX() + 2;
+						int y2 = b.getY() + 2;
+						int z2 = b.getZ() + 2;
+						for (int xPoint = x1; xPoint < x2 ; xPoint++) {
+							for (int yPoint = y1; yPoint < y2 ; yPoint++) {
+								for (int zPoint = z1 ; zPoint < z2 ; zPoint++) {
+									Block target = b.getWorld().getBlockAt(xPoint, yPoint, zPoint);
+									if (target.getType() == Material.FIRE) b.setType(Material.AIR);
+								}
+							}
+						}
 						b.setType(m);
 						burnt.remove(b);
 						Bukkit.broadcastMessage("Burn fixed");
