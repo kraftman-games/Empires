@@ -98,10 +98,10 @@ public class BlockListener implements Listener {
 	}*/
 	//for disable
 	public static void fixBurns(){
+		Bukkit.getServer().getScheduler().cancelAllTasks();
 		for (Block b : burnt.keySet()) {
-			if (b.getType() == Material.AIR) {
+			if (b.getType() == Material.AIR || b.getType() == Material.FIRE) {
 				b.setType(burnt.get(b));
-				burnt.remove(b);
 			}
 		}
 	}
