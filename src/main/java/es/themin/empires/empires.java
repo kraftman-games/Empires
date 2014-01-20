@@ -50,6 +50,7 @@ public final class empires extends JavaPlugin {
 		(new File(pluginFolder)).mkdirs();
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
+
     }
  
     @Override
@@ -59,6 +60,7 @@ public final class empires extends JavaPlugin {
 		SettingsManager.getInstance().saveAll();
 		savePlayers();
 		Bukkit.getServer().clearRecipes();
+		BlockListener.fixBurns();
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
@@ -122,7 +124,7 @@ public final class empires extends JavaPlugin {
 	    			    	}
 	    					Date date = new Date(System.currentTimeMillis());
 	    					StringBuilder str = new StringBuilder();
-	    					str.append(date.getHours() + ":" + date.getMinutes() + "-");
+//	    					str.append(date.getHours() + ":" + date.getMinutes() + "-");
 	    					str.append(date.getDay() + "-");
 	    					str.append(date.getMonth() + "-");
 	    					str.append(date.getYear());
