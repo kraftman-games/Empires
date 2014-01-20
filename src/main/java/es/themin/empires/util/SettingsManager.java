@@ -172,7 +172,7 @@ public class SettingsManager {
             data = YamlConfiguration.loadConfiguration(dfile);
     }
 //############################CORE DAT
-    public FileConfiguration getCoreData() {
+/*    public FileConfiguration getCoreData() {
         return coredata;
     }
 
@@ -187,7 +187,7 @@ public class SettingsManager {
 
     public void reloadCoreData() {
         coredata = YamlConfiguration.loadConfiguration(corefile);
-    }
+    }*/
   //#########################PLAYER DAT
     public FileConfiguration getPlayerData() {
         return playerdata;
@@ -299,7 +299,8 @@ public class SettingsManager {
     	saveConfig();
     	saveEmpireData();
     	savePlayerData();
-    	saveCoreData();
+    	saveWorldData();
+    	saveData();
     }
     public boolean bool(int i) {
     	if (i == 1) {
