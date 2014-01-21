@@ -80,6 +80,25 @@ public class CoreSchematic {
 		ArrayList<CoreBlock> GriefCore = new ArrayList<CoreBlock>();
 		for(int x = -16; x <=16; x++){
 			for(int z = -16; z <=16; z++){
+				for(int y = -256; y <=256; y++){
+					CoreBlock myCoreBlock = new CoreBlock(x,y,z,null);
+					if (x == 0 && z == 0 && y == -1){
+						myCoreBlock.setMaterial(Material.BRICK);
+					}
+					GriefCore.add(myCoreBlock);
+				}
+			}
+		}
+		return GriefCore;
+	}
+	
+	private static ArrayList<CoreBlock>  GetBaseCore(){
+		//special case just for the grief core
+		
+		//need to add a method of distinguishing between the core itself and the protected blocks
+		ArrayList<CoreBlock> GriefCore = new ArrayList<CoreBlock>();
+		for(int x = -32; x <=32; x++){
+			for(int z = -32; z <=32; z++){
 				for(int y = -16; y <=16; y++){
 					CoreBlock myCoreBlock = new CoreBlock(x,y,z,null);
 					if (x == 0 && z == 0 && y == -1){

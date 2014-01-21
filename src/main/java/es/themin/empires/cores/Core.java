@@ -54,8 +54,6 @@ public class Core {
 		this.setSchematic(CoreSchematic.getSchematic(type));
 		this.setDestroyCost(CoreSchematic.getDestroyCost(type));
 		this.setPlaceType(CoreSchematic.getPlaceType(type));
-		this.protect(true);
-		this.build();
 	}
 	
 	public CoreType getCoreType() {
@@ -190,6 +188,16 @@ public class Core {
 			}
 		}
 		return true;
+	}
+	
+	
+	public boolean deploy(){
+		if (this.canPlace()){
+			this.protect(true);
+			this.build();
+			return true;
+		} 
+		return false;
 	}
 	
 	public PlaceType getPlaceType() {
