@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.util.BlockUtils;
+import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
@@ -54,9 +55,14 @@ public class PlayerListener implements Listener{
 			
 			Block myBlock = event.getClickedBlock();
 			Core myCore = BlockUtils.getCoreFromBlock(myBlock, plugin);
+			Empire myEmpire = BlockUtils.getEmpireFromBlock(myBlock, plugin);
+			
+			//if its in the players empire and its a normal block, do nothing
+			//if its in the players empire and its a core, try and delete it
+			//if its an enemy block and its base protection, insta break (if the empire can be attacked)
 			
 			if (myCore != null){
-				myCore.onBlockBreak(event);
+				myCore.playerInteract(event);
 			}
 		}
 	}

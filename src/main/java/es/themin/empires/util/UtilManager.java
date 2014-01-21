@@ -7,6 +7,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
@@ -51,7 +52,9 @@ public class UtilManager {
 			SettingsManager.getInstance().getEmpireData().set(str.toString() + ".name", empire.getOwner());
 			List<String> list2 = new ArrayList<String>();
 			for (String player : empire.getPlayers()) {
+				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
 				list2.add(player);
+				
 			}
 			SettingsManager.getInstance().getEmpireData().set(str.toString() + ".players", list2);
 			List<String> list3 = new ArrayList<String>();

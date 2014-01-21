@@ -222,19 +222,17 @@ public class Core {
 
 				FixedMetadataValue myCoreID = new FixedMetadataValue (myPlugin, this.getId());
 				FixedMetadataValue myEmpireID = new FixedMetadataValue (myPlugin, this.getEmpire().getId());
+				FixedMetadataValue myGriefMeta = new FixedMetadataValue (myPlugin, myBlock.getProtection());
+				
 				if (setProtected){
 					b.setMetadata("core", myCoreID);
-					b.setMetadata("empire", myEmpireID);}
+					b.setMetadata("empire", myEmpireID);
+					b.setMetadata("protection", myGriefMeta);}
 				else {
 					b.removeMetadata("core", myPlugin);
-					b.removeMetadata("protected", myPlugin);
 					b.removeMetadata("empire", myPlugin);
-				}
-				
-				if (this.getType() == CoreType.BASE || this.getType() == CoreType.GRIEF){
-					FixedMetadataValue myGriefMeta = new FixedMetadataValue (myPlugin, true);
-					b.setMetadata("protected", myGriefMeta);
-				}
+					b.removeMetadata("protection", myPlugin);
+				}					
 			}
 		}
 	}
@@ -290,7 +288,7 @@ public class Core {
 	}
 
 
-	public void onBlockBreak(PlayerInteractEvent event) {
+	public void playerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		
 		if (this.getType() == CoreType.GRIEF){

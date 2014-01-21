@@ -13,21 +13,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
+import es.themin.empires.enums.ProtectionType;
 
 public class CoreSchematic {
 	
-	private static ArrayList<CoreBlock> BaseCore = new ArrayList<CoreBlock>()
-			{{
-		add(new CoreBlock(0,-1,0,Material.IRON_BLOCK));
-		add(new CoreBlock(0,-1,1,Material.DIRT));
-		add(new CoreBlock(0,-1,-1,Material.DIRT));
-		add(new CoreBlock(1,-1,0,Material.DIRT));
-		add(new CoreBlock(1,-1,-1,Material.DIRT));
-		add(new CoreBlock(1,-1,1,Material.DIRT));
-		add(new CoreBlock(-1,-1,0,Material.DIRT));
-		add(new CoreBlock(-1,-1,1,Material.DIRT));
-		add(new CoreBlock(-1,-1,-1,Material.DIRT));
-	}};
+	
 	
 	
 	
@@ -46,7 +36,7 @@ public class CoreSchematic {
 		case FORTIFICATION:
 			
 		case BASE:
-			return BaseCore;	
+			return GetBaseCore();	
 		}
 		
 		return null;
@@ -81,14 +71,15 @@ public class CoreSchematic {
 		for(int x = -16; x <=16; x++){
 			for(int z = -16; z <=16; z++){
 				for(int y = -256; y <=256; y++){
-					CoreBlock myCoreBlock = new CoreBlock(x,y,z,null);
-					if (x == 0 && z == 0 && y == -1){
-						myCoreBlock.setMaterial(Material.BRICK);
-					}
-					GriefCore.add(myCoreBlock);
+					GriefCore.add(new CoreBlock(x,y,z,null, ProtectionType.BASE));
 				}
 			}
 		}
+		
+		CoreBlock myCoreBlock = new CoreBlock(0,-1,0,Material.BRICK, ProtectionType.CORE);
+		
+		GriefCore.add(myCoreBlock);
+		
 		return GriefCore;
 	}
 	
@@ -96,19 +87,26 @@ public class CoreSchematic {
 		//special case just for the grief core
 		
 		//need to add a method of distinguishing between the core itself and the protected blocks
-		ArrayList<CoreBlock> GriefCore = new ArrayList<CoreBlock>();
+		ArrayList<CoreBlock> BaseCore = new ArrayList<CoreBlock>();
 		for(int x = -32; x <=32; x++){
 			for(int z = -32; z <=32; z++){
-				for(int y = -16; y <=16; y++){
-					CoreBlock myCoreBlock = new CoreBlock(x,y,z,null);
-					if (x == 0 && z == 0 && y == -1){
-						myCoreBlock.setMaterial(Material.BRICK);
-					}
-					GriefCore.add(myCoreBlock);
+				for(int y = -256; y <=256; y++){
+					BaseCore.add(new CoreBlock(x,y,z,null,ProtectionType.BASE));
 				}
 			}
 		}
-		return GriefCore;
+		
+		BaseCore.add(new CoreBlock(0,-1,0,Material.IRON_BLOCK,ProtectionType.CORE));
+		BaseCore.add(new CoreBlock(0,-1,1,Material.DIRT,ProtectionType.CORE));
+		BaseCore.add(new CoreBlock(0,-1,-1,Material.DIRT,ProtectionType.CORE));
+		BaseCore.add(new CoreBlock(1,-1,0,Material.DIRT,ProtectionType.CORE));
+		BaseCore.add(new CoreBlock(1,-1,-1,Material.DIRT,ProtectionType.CORE));
+		BaseCore.add(new CoreBlock(1,-1,1,Material.DIRT,ProtectionType.CORE));
+		BaseCore.add(new CoreBlock(-1,-1,0,Material.DIRT,ProtectionType.CORE));
+		BaseCore.add(new CoreBlock(-1,-1,1,Material.DIRT,ProtectionType.CORE));
+		BaseCore.add(new CoreBlock(-1,-1,-1,Material.DIRT,ProtectionType.CORE));
+		
+		return BaseCore;
 	}
 
 	public static PlaceType getPlaceType(CoreType myCoreType) {
