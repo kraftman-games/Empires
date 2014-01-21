@@ -21,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.PlayerUtils;
 import es.themin.empires.util.UtilManager;
 
 public class Core {
@@ -37,7 +38,29 @@ public class Core {
 	private int level;
 	private Empire empire;
 	private ArrayList<CoreBlock> schematic;
+	private boolean empireOnly;
+	private int destroyCost;
 	
+	public CoreType getCoreType() {
+		return coreType;
+	}
+
+	public void setCoreType(CoreType coreType) {
+		this.coreType = coreType;
+	}
+
+	public boolean isEmpireOnly() {
+		return empireOnly;
+	}
+
+	public void setEmpireOnly(boolean empireOnly) {
+		this.empireOnly = empireOnly;
+	}
+
+	public void setId(int id) {
+		Id = id;
+	}
+
 	public ArrayList<CoreBlock> getSchematic() {
 		return schematic;
 	}
@@ -54,7 +77,7 @@ public class Core {
 		this.location = location;
 		this.level = level;
 		this.schematic = CoreSchematic.getSchematic(type);
-		this.setProtection(true);
+		this.protect(true);
 		this.build();
 	}
 	public int getId(){
@@ -116,7 +139,7 @@ public class Core {
 //		
 //	}
 	
-	public void setProtection(boolean setProtected){
+	public void protect(boolean setProtected){
 		Location myLocation = this.getLocation();
 		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
 		
@@ -179,7 +202,7 @@ public class Core {
 		UtilManager.cores.add(this);
 	}
 	public void Delete() {
-		this.setProtection(false);
+		this.protect(false);
 		this.destroy();
 		UtilManager.getEmpireWithCore(this).removeCore(this);
 		if (UtilManager.containsCoreWithId(this.Id)) {
@@ -197,33 +220,29 @@ public class Core {
 			// treat it normally for residents
 			// allow insta break for enemies if not a protection block
 		} else {
-		
+			
 			if (this.getEmpire() == UtilManager.empireplayers.get(player.getName())){
-				Inventory myInventory = player.getInventory();
-		          for(ItemStack myStack : myInventory.getContents()){
-		              if(myStack!= null && myStack.getType().equals(Material.FLINT)){
-		            	  ItemMeta myMeta = myStack.getItemMeta();
-		            	  if (myMeta.getDisplayName() != null && myMeta.getDisplayName().equals("Core Shard") && myStack.getAmount() > 1){
-		            		  Bukkit.broadcastMessage("deleted core block of type: " + this.getType());
-		            		  if(myStack.getAmount() == 2) {
-		            			  myInventory.remove(myStack);
-		            		  } else {
-		            			  myStack.setAmount(myStack.getAmount()-2);
-		            		  }
-		            		  player.updateInventory();
-		            		  this.Delete();
-		            	  }
-		              }
-		          }
-		          
-		          event.setCancelled(true);
-				  player.sendMessage("You cannot afford to remove your core");
+				if (PlayerUtils.deductShards(player, this.getDestroyCost())){
+					this.Delete();
+					event.setCancelled(true);
+					Bukkit.broadcastMessage("deleted core block of type: " + this.getType());
+				} else {
+					player.sendMessage("You cannot afford to remove this core");
+				} 
 			}else {
 				Bukkit.broadcastMessage("cannot delete core block of type: " + this.getType());
 				event.setCancelled(true);
 			} 
 		}
 		
+	}
+
+	public int getDestroyCost() {
+		return destroyCost;
+	}
+
+	public void setDestroyCost(int destroyCost) {
+		this.destroyCost = destroyCost;
 	}
 
 }

@@ -51,6 +51,27 @@ public class CoreSchematic {
 		return null;
 	}
 	
+	public static int getDestroyCost(CoreType myCoreType){
+
+		ArrayList<CoreBlock> mySchem = null;
+		switch(myCoreType){
+		case FARM:
+			
+		case MOB:
+			
+		case MONSTER:
+			
+		case GRIEF:
+			return 0;
+		case FORTIFICATION:
+			
+		case BASE:
+			return 2;	
+		}
+		
+		return 0;
+	}
+	
 	private static ArrayList<CoreBlock>  GetGriefCore(){
 		//special case just for the grief core
 		
