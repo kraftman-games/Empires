@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
-import es.themin.empires.cores.Core;
-import es.themin.empires.enums.CoreType;
 
 public class UtilityTesting implements CommandExecutor{
 	
