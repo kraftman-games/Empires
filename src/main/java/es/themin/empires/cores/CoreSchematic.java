@@ -70,9 +70,7 @@ public class CoreSchematic {
 		ArrayList<CoreBlock> GriefCore = new ArrayList<CoreBlock>();
 		for(int x = -16; x <=16; x++){
 			for(int z = -16; z <=16; z++){
-				for(int y = -256; y <=256; y++){
-					GriefCore.add(new CoreBlock(x,y,z,null, ProtectionType.BASE));
-				}
+				GriefCore.add(new CoreBlock(x,0,z,null, ProtectionType.BASE));
 			}
 		}
 		
@@ -90,9 +88,7 @@ public class CoreSchematic {
 		ArrayList<CoreBlock> BaseCore = new ArrayList<CoreBlock>();
 		for(int x = -32; x <=32; x++){
 			for(int z = -32; z <=32; z++){
-				for(int y = -256; y <=256; y++){
-					BaseCore.add(new CoreBlock(x,y,z,null,ProtectionType.BASE));
-				}
+				BaseCore.add(new CoreBlock(x,0,z,null,ProtectionType.BASE));
 			}
 		}
 		
