@@ -12,20 +12,21 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.enums.PlaceType;
 
 public class CoreSchematic {
 	
 	private static ArrayList<CoreBlock> BaseCore = new ArrayList<CoreBlock>()
 			{{
-		add(new CoreBlock(0,-1,0,Material.IRON_BLOCK, "core", "BASE"));
-		add(new CoreBlock(0,-1,1,Material.DIRT, "core", "BASE"));
-		add(new CoreBlock(0,-1,-1,Material.DIRT, "core", "BASE"));
-		add(new CoreBlock(1,-1,0,Material.DIRT, "core", "BASE"));
-		add(new CoreBlock(1,-1,-1,Material.DIRT, "core", "BASE"));
-		add(new CoreBlock(1,-1,1,Material.DIRT, "core", "BASE"));
-		add(new CoreBlock(-1,-1,0,Material.DIRT, "core", "BASE"));
-		add(new CoreBlock(-1,-1,1,Material.DIRT, "core", "BASE"));
-		add(new CoreBlock(-1,-1,-1,Material.DIRT, "core", "BASE"));
+		add(new CoreBlock(0,-1,0,Material.IRON_BLOCK));
+		add(new CoreBlock(0,-1,1,Material.DIRT));
+		add(new CoreBlock(0,-1,-1,Material.DIRT));
+		add(new CoreBlock(1,-1,0,Material.DIRT));
+		add(new CoreBlock(1,-1,-1,Material.DIRT));
+		add(new CoreBlock(1,-1,1,Material.DIRT));
+		add(new CoreBlock(-1,-1,0,Material.DIRT));
+		add(new CoreBlock(-1,-1,1,Material.DIRT));
+		add(new CoreBlock(-1,-1,-1,Material.DIRT));
 	}};
 	
 	
@@ -81,20 +82,33 @@ public class CoreSchematic {
 			for(int z = -16; z <=16; z++){
 				for(int y = -16; y <=16; y++){
 					CoreBlock myCoreBlock = new CoreBlock(x,y,z,null);
-					myCoreBlock.setMetaKey("core");
-					myCoreBlock.setMetaValue("grief");
 					if (x == 0 && z == 0 && y == -1){
-						myCoreBlock.setMetaKey("core");
-						myCoreBlock.setMetaValue("griefcore");
 						myCoreBlock.setMaterial(Material.BRICK);
 					}
-					
 					GriefCore.add(myCoreBlock);
 				}
 			}
 		}
-		GriefCore.add(new CoreBlock(0,-1,0,Material.BRICK));
 		return GriefCore;
+	}
+
+	public static PlaceType getPlaceType(CoreType myCoreType) {
+		switch(myCoreType){
+		case FARM:
+			return PlaceType.INSIDE;
+		case MOB:
+			return PlaceType.INSIDE;
+		case MONSTER:
+			return PlaceType.INSIDE;
+		case GRIEF:
+			return PlaceType.EDGE;
+		case FORTIFICATION:
+			return PlaceType.INSIDE;
+		case BASE:
+			return PlaceType.OUTSIDE;	
+		}
+		
+		return PlaceType.INSIDE;
 	}
 }
 

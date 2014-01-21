@@ -20,6 +20,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.enums.PlaceType;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.PlayerUtils;
 import es.themin.empires.util.UtilManager;
@@ -38,7 +39,7 @@ public class Core {
 	private int level;
 	private Empire empire;
 	private ArrayList<CoreBlock> schematic;
-	private boolean empireOnly;
+	private PlaceType placeType;
 	private int destroyCost;
 	
 	
@@ -50,6 +51,7 @@ public class Core {
 		this.level = level;
 		this.setSchematic(CoreSchematic.getSchematic(type));
 		this.setDestroyCost(CoreSchematic.getDestroyCost(type));
+		this.setPlaceType(CoreSchematic.getPlaceType(type));
 		this.protect(true);
 		this.build();
 	}
@@ -62,13 +64,7 @@ public class Core {
 		this.coreType = coreType;
 	}
 
-	public boolean isEmpireOnly() {
-		return empireOnly;
-	}
-
-	public void setEmpireOnly(boolean empireOnly) {
-		this.empireOnly = empireOnly;
-	}
+	
 
 	public void setId(int id) {
 		Id = id;
@@ -143,6 +139,44 @@ public class Core {
 //		
 //	}
 	
+	public boolean canPlace(){
+		//if its an amp/base/outpost, check distance to nearest enemy amps
+		//if its not, check its within the boundaries of the players empire
+		//if its an amp it must have an edge next to another amp
+		Location myLocation = this.getLocation();
+		
+		for (int x = -50; x <= 50; x++){
+			for (int z = -50; z <= 50; z++){
+				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + x,
+						myLocation.getY() ,
+						myLocation.getZ() +z);
+				Block b = newLocation.getBlock();
+				if b.Get
+			}
+		}
+				
+				
+		
+		
+		if (this.schematic != null){
+			for (CoreBlock myBlock : this.schematic){
+				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
+													myLocation.getY() + myBlock.getOffsetY(),
+													myLocation.getZ() + myBlock.getOffsetZ());
+				Block b = newLocation.getBlock();
+				
+			}
+		}
+	}
+	
+	public PlaceType getPlaceType() {
+		return placeType;
+	}
+
+	public void setPlaceType(PlaceType placeType) {
+		this.placeType = placeType;
+	}
+
 	public void protect(boolean setProtected){
 		Location myLocation = this.getLocation();
 		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
@@ -154,15 +188,21 @@ public class Core {
 													myLocation.getY() + myBlock.getOffsetY(),
 													myLocation.getZ() + myBlock.getOffsetZ());
 				Block b = newLocation.getBlock();
-				
-				
-				
-			
-				FixedMetadataValue myMetaData = new FixedMetadataValue (myPlugin, this.getId());
+
+				FixedMetadataValue myCoreID = new FixedMetadataValue (myPlugin, this.getId());
+				FixedMetadataValue myEmpireID = new FixedMetadataValue (myPlugin, this.getEmpire().getId());
 				if (setProtected){
-					b.setMetadata("core", myMetaData);}
+					b.setMetadata("core", myCoreID);
+					b.setMetadata("empire", myEmpireID);}
 				else {
 					b.removeMetadata("core", myPlugin);
+					b.removeMetadata("protected", myPlugin);
+					b.removeMetadata("empire", myPlugin);
+				}
+				
+				if (this.getType() == CoreType.BASE || this.getType() == CoreType.GRIEF){
+					FixedMetadataValue myGriefMeta = new FixedMetadataValue (myPlugin, true);
+					b.setMetadata("protected", myGriefMeta);
 				}
 			}
 		}

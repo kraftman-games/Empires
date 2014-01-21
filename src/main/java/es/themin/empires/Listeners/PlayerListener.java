@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
-import es.themin.empires.cores.CoreUtils;
+import es.themin.empires.util.BlockUtils;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
@@ -53,7 +53,7 @@ public class PlayerListener implements Listener{
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK){
 			
 			Block myBlock = event.getClickedBlock();
-			Core myCore = CoreUtils.getCoreFromBlock(myBlock, plugin);
+			Core myCore = BlockUtils.getCoreFromBlock(myBlock, plugin);
 			
 			if (myCore != null){
 				myCore.onBlockBreak(event);

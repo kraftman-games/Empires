@@ -7,24 +7,7 @@ public class CoreBlock {
 	private int offsetY;
 	private int offsetZ;
 	private Material material;	
-	private String metaKey;
-	public String getMetaKey() {
-		return metaKey;
-	}
-
-	public void setMetaKey(String metaKey) {
-		this.metaKey = metaKey;
-	}
-
-	public String getMetaValue() {
-		return metaValue;
-	}
-
-	public void setMetaValue(String metaValue) {
-		this.metaValue = metaValue;
-	}
-
-	private String metaValue;
+	
 	
 	
 	public CoreBlock(int x, int y, int z, Material material){
@@ -32,15 +15,6 @@ public class CoreBlock {
 		this.offsetY = y;
 	    this.offsetZ = z;
 	    this.material = material;
-	}
-	
-	public CoreBlock(int x, int y, int z, Material material, String metaKey, String metaValue){
-		this.offsetX = x;
-		this.offsetY = y;
-	    this.offsetZ = z;
-	    this.material = material;
-	    this.metaKey = metaKey;
-	    this.metaValue = metaValue;
 	}
 
 	public int getOffsetX() {
