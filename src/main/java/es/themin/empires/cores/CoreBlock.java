@@ -33,6 +33,15 @@ public class CoreBlock {
 	    this.offsetZ = z;
 	    this.material = material;
 	}
+	
+	public CoreBlock(int x, int y, int z, Material material, String metaKey, String metaValue){
+		this.offsetX = x;
+		this.offsetY = y;
+	    this.offsetZ = z;
+	    this.material = material;
+	    this.metaKey = metaKey;
+	    this.metaValue = metaValue;
+	}
 
 	public int getOffsetX() {
 		return offsetX;

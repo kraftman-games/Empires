@@ -17,15 +17,15 @@ public class CoreSchematic {
 	
 	private static ArrayList<CoreBlock> BaseCore = new ArrayList<CoreBlock>()
 			{{
-		add(new CoreBlock(0,-1,0,Material.IRON_BLOCK));
-		add(new CoreBlock(0,-1,1,Material.DIRT));
-		add(new CoreBlock(0,-1,-1,Material.DIRT));
-		add(new CoreBlock(1,-1,0,Material.DIRT));
-		add(new CoreBlock(1,-1,-1,Material.DIRT));
-		add(new CoreBlock(1,-1,1,Material.DIRT));
-		add(new CoreBlock(-1,-1,0,Material.DIRT));
-		add(new CoreBlock(-1,-1,1,Material.DIRT));
-		add(new CoreBlock(-1,-1,-1,Material.DIRT));
+		add(new CoreBlock(0,-1,0,Material.IRON_BLOCK, "core", "BASE"));
+		add(new CoreBlock(0,-1,1,Material.DIRT, "core", "BASE"));
+		add(new CoreBlock(0,-1,-1,Material.DIRT, "core", "BASE"));
+		add(new CoreBlock(1,-1,0,Material.DIRT, "core", "BASE"));
+		add(new CoreBlock(1,-1,-1,Material.DIRT, "core", "BASE"));
+		add(new CoreBlock(1,-1,1,Material.DIRT, "core", "BASE"));
+		add(new CoreBlock(-1,-1,0,Material.DIRT, "core", "BASE"));
+		add(new CoreBlock(-1,-1,1,Material.DIRT, "core", "BASE"));
+		add(new CoreBlock(-1,-1,-1,Material.DIRT, "core", "BASE"));
 	}};
 	
 	
@@ -80,7 +80,16 @@ public class CoreSchematic {
 		for(int x = -16; x <=16; x++){
 			for(int z = -16; z <=16; z++){
 				for(int y = -16; y <=16; y++){
-					GriefCore.add(new CoreBlock(x,y,z,null));
+					CoreBlock myCoreBlock = new CoreBlock(x,y,z,null);
+					myCoreBlock.setMetaKey("core");
+					myCoreBlock.setMetaValue("grief");
+					if (x == 0 && z == 0 && y == -1){
+						myCoreBlock.setMetaKey("core");
+						myCoreBlock.setMetaValue("griefcore");
+						myCoreBlock.setMaterial(Material.BRICK);
+					}
+					
+					GriefCore.add(myCoreBlock);
 				}
 			}
 		}

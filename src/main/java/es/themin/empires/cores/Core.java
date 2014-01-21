@@ -41,6 +41,19 @@ public class Core {
 	private boolean empireOnly;
 	private int destroyCost;
 	
+	
+	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
+		this.empire = empire;
+		this.Id = Id;
+		this.coreType = type;
+		this.location = location;
+		this.level = level;
+		this.setSchematic(CoreSchematic.getSchematic(type));
+		this.setDestroyCost(CoreSchematic.getDestroyCost(type));
+		this.protect(true);
+		this.build();
+	}
+	
 	public CoreType getCoreType() {
 		return coreType;
 	}
@@ -70,16 +83,7 @@ public class Core {
 	}
 
 	
-	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
-		this.empire = empire;
-		this.Id = Id;
-		this.coreType = type;
-		this.location = location;
-		this.level = level;
-		this.schematic = CoreSchematic.getSchematic(type);
-		this.protect(true);
-		this.build();
-	}
+	
 	public int getId(){
 		
 		return Id;
@@ -180,19 +184,7 @@ public class Core {
 		}
 	}
 	
-	public void destroy(){
-		Location myLocation = this.getLocation();
-		
-		if (this.schematic != null){
-			for (CoreBlock myBlock : this.schematic){
-				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
-													myLocation.getY() + myBlock.getOffsetY(),
-													myLocation.getZ() + myBlock.getOffsetZ());
-				Block b = newLocation.getBlock();
-				b.setType(Material.AIR);
-			}
-		}
-	}
+
 	
 	public void Save() {
 		if (UtilManager.containsCoreWithId(this.Id)) {
@@ -210,6 +202,20 @@ public class Core {
 			UtilManager.cores.remove(i);
 		}
 		
+	}
+	
+	public void destroy(){
+		Location myLocation = this.getLocation();
+		
+		if (this.schematic != null){
+			for (CoreBlock myBlock : this.schematic){
+				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
+													myLocation.getY() + myBlock.getOffsetY(),
+													myLocation.getZ() + myBlock.getOffsetZ());
+				Block b = newLocation.getBlock();
+				b.setType(Material.AIR);
+			}
+		}
 	}
 
 
