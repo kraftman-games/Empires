@@ -19,8 +19,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
+import es.themin.empires.util.BlockUtils;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.PlayerUtils;
 import es.themin.empires.util.UtilManager;
@@ -144,20 +146,36 @@ public class Core {
 		//if its not, check its within the boundaries of the players empire
 		//if its an amp it must have an edge next to another amp
 		Location myLocation = this.getLocation();
+
+		empires myPlugin = (empires) Bukkit.getPluginManager().getPlugin("Empires");
 		
+		int overLap = 0;
+		
+		// check if its too close to another empire
+		if (this.getPlaceType() == PlaceType.OUTSIDE || this.getPlaceType() == PlaceType.EDGE)
 		for (int x = -50; x <= 50; x++){
 			for (int z = -50; z <= 50; z++){
 				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + x,
 						myLocation.getY() ,
 						myLocation.getZ() +z);
 				Block b = newLocation.getBlock();
-				if b.Get
+				Empire blockEmpire = (BlockUtils.getEmpireFromBlock(b, myPlugin));
+				if (blockEmpire != null){
+					if (blockEmpire != this.getEmpire()){
+						//probably wanna return the reason at some point
+						return false;
+					} else {
+						overLap++;
+					}
+				}
 			}
 		}
-				
-				
 		
+		if (this.getPlaceType() == PlaceType.EDGE && overLap > 6){
+			return true;
+		}
 		
+				
 		if (this.schematic != null){
 			for (CoreBlock myBlock : this.schematic){
 				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
@@ -165,8 +183,13 @@ public class Core {
 													myLocation.getZ() + myBlock.getOffsetZ());
 				Block b = newLocation.getBlock();
 				
+				Empire myEmpire = BlockUtils.getEmpireFromBlock(b, myPlugin);
+				if (myEmpire == null){
+					return false;
+				}
 			}
 		}
+		return true;
 	}
 	
 	public PlaceType getPlaceType() {

@@ -24,13 +24,13 @@ public class BlockUtils {
 		return null;
 	}
 	
-	public static Core getEmpireFromBlock(Block myBlock, empires plugin){
-		List<MetadataValue> values = myBlock.getMetadata("core");
+	public static Empire getEmpireFromBlock(Block myBlock, empires plugin){
+		List<MetadataValue> values = myBlock.getMetadata("empire");
 		for(MetadataValue value : values){
 			if (value.getOwningPlugin().equals(plugin)){
 				int id = value.asInt();
-				Core core = UtilManager.getCoreWithId(id);
-				return core;			
+				Empire empire = UtilManager.getEmpireWithId(id);
+				return empire;			
 			}
 		}
 		return null;
