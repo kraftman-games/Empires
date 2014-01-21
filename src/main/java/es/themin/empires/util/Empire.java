@@ -2,9 +2,11 @@
 package es.themin.empires.util;
 
 import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 
 public class Empire {

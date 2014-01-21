@@ -12,8 +12,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.empires;
-import es.themin.empires.util.Core;
-import es.themin.empires.util.CoreUtils;
+import es.themin.empires.cores.Core;
+import es.themin.empires.cores.CoreUtils;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 

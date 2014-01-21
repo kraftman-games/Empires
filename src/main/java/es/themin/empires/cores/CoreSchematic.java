@@ -1,4 +1,4 @@
-package es.themin.empires.util;
+package es.themin.empires.cores;
 
 
 import java.util.ArrayList;

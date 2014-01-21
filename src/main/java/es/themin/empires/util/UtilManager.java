@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 

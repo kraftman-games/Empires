@@ -8,8 +8,8 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreDamageType;
-import es.themin.empires.util.Core;
 
 public class CoreDamageEvent extends Event implements Cancellable{
 	

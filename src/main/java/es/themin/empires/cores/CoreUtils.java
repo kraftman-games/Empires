@@ -1,4 +1,4 @@
-package es.themin.empires.util;
+package es.themin.empires.cores;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.bukkit.metadata.MetadataValue;
 
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.util.UtilManager;
 
 public class CoreUtils {
 

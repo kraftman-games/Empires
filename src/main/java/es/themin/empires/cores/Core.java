@@ -1,5 +1,5 @@
 
-package es.themin.empires.util;
+package es.themin.empires.cores;
 
 import java.util.ArrayList;
 
@@ -20,6 +20,8 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.util.Empire;
+import es.themin.empires.util.UtilManager;
 
 public class Core {
 	

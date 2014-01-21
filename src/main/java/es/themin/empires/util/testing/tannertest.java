@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import es.themin.empires.cmds.SubCommand;
+import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
-import es.themin.empires.util.Core;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 

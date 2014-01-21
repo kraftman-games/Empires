@@ -20,9 +20,9 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 
 import es.themin.empires.empires;
+import es.themin.empires.cores.Core;
+import es.themin.empires.cores.CoreUtils;
 import es.themin.empires.enums.CoreType;
-import es.themin.empires.util.Core;
-import es.themin.empires.util.CoreUtils;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
