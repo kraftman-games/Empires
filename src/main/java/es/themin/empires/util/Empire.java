@@ -21,6 +21,7 @@ public class Empire {
 	private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
+	private boolean isProtected;
 
 	public Empire(int Id, String name, String owner){
 		this.Id = Id;
