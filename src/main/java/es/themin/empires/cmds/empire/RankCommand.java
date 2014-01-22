@@ -93,8 +93,10 @@ public class RankCommand extends EmpireSubCommand{
 								empire.setRankOfPlayer(args[3], rank);
 								empire.Save();
 								player.sendMessage(plprefix + ChatColor.GREEN + "'" + args[3] + "' now has rank of " + args[1]);
+								return false;
 							}else {
 								player.sendMessage(plprefix + ChatColor.RED + "'" + args[3] + "' is not in your empire, use full names");
+								return false;
 							}
 						}
 					}if (args[2].equalsIgnoreCase("remove")) {
@@ -131,7 +133,7 @@ public class RankCommand extends EmpireSubCommand{
 						Rank rank = empire.getRankWithName(args[1]);
 						int i = 0;
 						for (EmpirePermission ep : eps) {
-							if (ep.toString() == args[3]) {
+							if (ep.toString().equalsIgnoreCase(args[3])) {
 								i++;
 								if (args[4].equalsIgnoreCase("true")) {
 									rank.addPermission(ep);
