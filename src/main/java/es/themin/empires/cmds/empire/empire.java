@@ -27,8 +27,10 @@ public class empire implements CommandExecutor{
 
 				for (EmpireSubCommand scmd : commands) {
 					StringBuilder str = new StringBuilder();
-					for (String variable : scmd.variables()) {
-						str.append("(" + variable + ") ");
+					if (scmd.variables() != null) {
+						for (String variable : scmd.variables()) {
+							str.append("(" + variable + ") ");
+						}
 					}
 					if (UtilManager.empireplayers.get(player.getName()).getRankOfPlayer(player.getName()).getPermissions().contains(scmd.permission()) || scmd.permission() == null || UtilManager.empireplayers.get(player.getName()).getOwner() == player.getName()) {
 						player.sendMessage(ChatColor.GOLD + "/empire " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
