@@ -148,6 +148,14 @@ public class Empire {
 		}
 		return false;
 	}
+	public boolean hasRankWithNameAp(String name) {
+		for (Rank r : ranks) {
+			if (r.getName().equalsIgnoreCase(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public boolean hasRankWithWeight(int weight) {
 		for (Rank r : ranks) {
 			if (r.getWeight() == weight) {
