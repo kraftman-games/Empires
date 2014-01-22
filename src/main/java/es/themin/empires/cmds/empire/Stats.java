@@ -31,7 +31,7 @@ public class Stats extends EmpireSubCommand{
 			Score Exp = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
 			Exp.setScore(empire.getExp());
 			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + UtilManager.empires.size() +" : "));
-			ranking.setScore(empire.getRank());
+			ranking.setScore(empire.getRanking());
 			Score cores = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Cores: "));
 			cores.setScore(empire.numberOfCores());
 			Score players = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Players: "));

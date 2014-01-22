@@ -175,7 +175,7 @@ public class Empire {
 		}
 		return i;
 	}
-	public int getRank() {
+	public int getRanking() {
 		int xp = 0;
 		int rank = 1;
 		int total = 1;
@@ -210,7 +210,20 @@ public class Empire {
 		xp = xp + this.numberOfAmplifiers() * 2;
 		return xp;
 	}
-	
+	public Rank getRankWithName(String name) {
+		for (Rank rank : ranks) {
+			if (rank.getName() == name)return rank;
+		}
+		return null;
+	}
+	public void removePlayerFromRank(String p, Rank r) {
+		for (Rank rank : ranks) {
+			if (rank.getName() == r.getName()) {
+				rank.removePlayer(p);
+			}
+		}
+		Save();
+	}
 }
 
 

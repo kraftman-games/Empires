@@ -132,7 +132,7 @@ public class UtilManager {
 			List<String> list4 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".ranks");
 			for (String rankstring : list4) {
 				String[] words2 = rankstring.split(":");
-				Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1]);
+				Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1], empire);
 				List<String> list5 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".rank." + rankstring + ".players");
 				for (String playername : list5) {
 					rank.addPlayer(playername);

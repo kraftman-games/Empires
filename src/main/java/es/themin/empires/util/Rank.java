@@ -8,11 +8,13 @@ public class Rank {
 	
 	private int weight;
 	private String name;
+	private Empire empire;
 	private ArrayList<String> players = new ArrayList<String>();
 	private ArrayList<EmpirePermission> permissions = new ArrayList<EmpirePermission>();
-	public Rank(int weight, String name) {
+	public Rank(int weight, String name, Empire empire) {
 		this.weight = weight;
 		this.name = name;
+		this.empire = empire;
 	}
 	public int getWeight(){
 		return weight;
@@ -43,5 +45,22 @@ public class Rank {
 	}
 	public void removePermissions(EmpirePermission permission) {
 		permissions.remove(permission);
+	}
+	public ArrayList<EmpirePermission> getInheritedPermissions() {
+		ArrayList<EmpirePermission> inperms = new ArrayList<EmpirePermission>();
+		for (Rank rank : empire.getRanks()) {
+			if (rank.getWeight() < this.weight) {
+				for (EmpirePermission ep : rank.getPermissions()) {
+					if (!(inperms.contains(ep))) {
+						inperms.add(ep);
+					}
+				}
+			}
+		}
+		return inperms;
+	}
+	public boolean hasPermission(EmpirePermission ep) {
+		if (permissions.contains(ep)) return true;
+		return false;
 	}
 }
