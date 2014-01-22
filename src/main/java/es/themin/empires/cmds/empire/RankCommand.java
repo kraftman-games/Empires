@@ -118,17 +118,13 @@ public class RankCommand extends EmpireSubCommand{
 						player.sendMessage(plprefix + ChatColor.GREEN + "'" + args[3] + "' no longer holds rank of "  + args[1]);
 						return false;
 					}if (args[2].equalsIgnoreCase("set")) {
-						player.sendMessage(args[0]);
-						player.sendMessage(args[1]);
-						player.sendMessage(args[3]);
-						player.sendMessage(args[4]);
 						if (args.length == 3) {
 							player.sendMessage(plprefix + ChatColor.RED + "please specifiy a permission");
 							return false;
 						}if (args.length == 4) {
 							player.sendMessage(plprefix + ChatColor.RED + "please specifiy a value (true/false)");
 							return false;
-						}if (!(empire.hasRankWithName(args[1]))) {
+						}if (!(empire.hasRankWithNameAp(args[1]))) {
 							player.sendMessage(plprefix + ChatColor.RED + "rank not found");
 							return false;
 						}
