@@ -38,6 +38,7 @@ public class Core {
 	private int Id;
 	private CoreType coreType;
 	private Location location;
+	private Integer size;
 	private int level;
 	private Empire empire;
 	private ArrayList<CoreBlock> schematic;
@@ -46,6 +47,7 @@ public class Core {
 	
 	
 	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
+		this.size = 16;
 		this.empire = empire;
 		this.Id = Id;
 		this.coreType = type;

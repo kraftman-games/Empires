@@ -3,6 +3,7 @@ package es.themin.empires.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,7 +20,7 @@ public class UtilManager {
 	public static HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
 	public static ArrayList<Core> cores = new ArrayList<Core>();
 	public static ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
-	public static ArrayList<World> worlds = new ArrayList<World>();
+	public static HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
 	
 	
 /*	public void saveCores() {
@@ -94,6 +95,13 @@ public class UtilManager {
 		SettingsManager.getInstance().getEmpireData().set("empires", list);
 	}
 	public static void loadEmpires() {
+		List<World> myWorlds = Bukkit.getServer().getWorlds();
+		
+		for(World myWorld : myWorlds){
+			worlds.put(myWorld.getUID(), new CoreWorld());
+		}
+		
+		
 		List<String> list = SettingsManager.getInstance().getEmpireData().getStringList("empires");
 		for (String s : list) {
 			String[] words = s.split(":");
@@ -122,6 +130,7 @@ public class UtilManager {
 				int level = Integer.parseInt(words2[6]);
 				Core core = new Core(Id2, coretype, location, level, empire);
 			    core.build();
+			    worlds.get(world2.getUID()).addCore(core);
 				cores.add(core);
 				empire.ac(core);
 			}

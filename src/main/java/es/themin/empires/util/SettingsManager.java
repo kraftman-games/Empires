@@ -64,10 +64,7 @@ public class SettingsManager {
 		}
 		getConfig().options().copyDefaults();
 		config.options().copyDefaults(true);
-//		config.addDefault("chat.enable", "true");
-//		config.addDefault("chat.worlds.world", "&bOverWorld");
-//		config.addDefault("chat.worlds.world_nether", "&bOverWorld");
-//		config.addDefault("chat.worlds.world_the_emd", "&bThe End");
+		
 		config.options().copyHeader();
 		saveConfig();
         //random data file bellow :/
@@ -85,19 +82,7 @@ public class SettingsManager {
         }
        
         data = YamlConfiguration.loadConfiguration(dfile);
-        /*core data bellow no longer used
-        corefile = new File(p.getDataFolder(), "coredata.yml");
         
-        if (!corefile.exists()) {
-                try {
-                        corefile.createNewFile();
-                }
-                catch (IOException e) {
-                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create coredata.yml!");
-                }
-        }
-       
-        coredata = YamlConfiguration.loadConfiguration(corefile);*/
         
         //player data bellow
         pfile = new File(p.getDataFolder(), "playerdata.yml");
