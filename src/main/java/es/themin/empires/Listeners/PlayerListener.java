@@ -1,6 +1,9 @@
 package es.themin.empires.Listeners;
 
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -14,6 +17,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.util.BlockUtils;
+import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
@@ -54,16 +58,29 @@ public class PlayerListener implements Listener{
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK){
 			
 			Block myBlock = event.getClickedBlock();
-			Core myCore = BlockUtils.getCoreFromBlock(myBlock, plugin);
-			Empire myEmpire = BlockUtils.getEmpireFromBlock(myBlock, plugin);
+			
+			UUID myUUID = myBlock.getLocation().getWorld().getUID();
+			CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
+			
+			ArrayList<Integer> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
+			
+			for(Integer i : myCores){
+				//faster than global core list since there are less
+				Core myCore = myCoreWorld.getCoreByID(i);
+				Integer x = myCore.getLocation().getBlockX();
+				Integer z = myCore.getLocation().getBlockZ();
+				if (x - myCore.getSize() < myBlock.getX() && x + myCore.getSize() > myBlock.getX()){
+					if (z - myCore.getSize() < myBlock.getZ() && z + myCore.getSize() > myBlock.getZ()){
+						//the player is within the bounds of the core
+					}
+				}
+			}
+			
 			
 			//if its in the players empire and its a normal block, do nothing
 			//if its in the players empire and its a core, try and delete it
 			//if its an enemy block and its base protection, insta break (if the empire can be attacked)
 			
-			if (myCore != null){
-				myCore.playerInteract(event);
-			}
 		}
 	}
 }

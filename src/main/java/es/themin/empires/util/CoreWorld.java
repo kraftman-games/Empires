@@ -23,6 +23,10 @@ public class CoreWorld {
 	public HashMap<Integer, Core> getCores() {
 		return Cores;
 	}
+	
+	public Core getCoreByID(Integer coreID){
+		return Cores.get(coreID);
+	}
 
 	public void addCore(Core myCore){
 		this.Cores.put(myCore.getId(), myCore);
@@ -68,6 +72,12 @@ public class CoreWorld {
 				}
 			}
 		}
+	}
+	
+	public ArrayList<Integer> getCoresInGrid(int x, int z){
+		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
+		
+		return CoreGrid.get(gridPoint);
 	}
 
 }
