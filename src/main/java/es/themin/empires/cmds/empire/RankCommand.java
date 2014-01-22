@@ -33,9 +33,10 @@ public class RankCommand extends EmpireSubCommand{
 							player.sendMessage(ChatColor.RED + "No custom ranks");
 						}
 						return false;
-					}if (args[1].equalsIgnoreCase("perms")) {
+					}else if (args[1].equalsIgnoreCase("perms")) {
 						perms(player);
-					}if (args[2].equalsIgnoreCase("perms")) {
+						return false;
+					}else if (args[2].equalsIgnoreCase("perms")) {
 						if (!(empire.hasRankWithNameAp(args[1]))) {
 							player.sendMessage(plprefix + ChatColor.RED + "rank not found");
 							return false;
@@ -49,7 +50,8 @@ public class RankCommand extends EmpireSubCommand{
 								player.sendMessage("- " + ChatColor.LIGHT_PURPLE + ep + ChatColor.AQUA + " : " + ChatColor.DARK_RED + "false");
 							}
 						}
-					}if (args[2].equalsIgnoreCase("create")) {
+						return false;
+					}else if (args[2].equalsIgnoreCase("create")) {
 						if (empire.hasRankWithNameAp(args[1])) {
 							player.sendMessage(plprefix + ChatColor.RED + "This rank already exists");
 							return false;
@@ -69,7 +71,7 @@ public class RankCommand extends EmpireSubCommand{
 						empire.Save();
 						player.sendMessage(plprefix + ChatColor.GREEN + "Rank '" + args[1] + "' with weight '" + weight + "' was succesfuly created");
 						return false;
-					}if (args[2].equalsIgnoreCase("delete") || args[2].equalsIgnoreCase("del")) {
+					}else if (args[2].equalsIgnoreCase("delete") || args[2].equalsIgnoreCase("del")) {
 						if (empire.hasRankWithNameAp(args[1])) {
 							empire.removeRank(empire.getRankWithName(args[1]));
 							empire.Save();
@@ -79,7 +81,7 @@ public class RankCommand extends EmpireSubCommand{
 							player.sendMessage(plprefix + ChatColor.RED + "'" + args[1] + "' is not a rank"); 
 							return false;
 						}
-					}if (args[2].equalsIgnoreCase("add")) {
+					}else if (args[2].equalsIgnoreCase("add")) {
 						if (!(empire.hasRankWithNameAp(args[1]))) {
 							player.sendMessage(plprefix + ChatColor.RED + "rank not found");
 							return false;
@@ -99,7 +101,7 @@ public class RankCommand extends EmpireSubCommand{
 								return false;
 							}
 						}
-					}if (args[2].equalsIgnoreCase("remove")) {
+					}else if (args[2].equalsIgnoreCase("remove")) {
 						if (!(empire.hasRankWithNameAp(args[1]))) {
 							player.sendMessage(plprefix + ChatColor.RED + "rank not found");
 							return false;
@@ -119,7 +121,7 @@ public class RankCommand extends EmpireSubCommand{
 						empire.Save();
 						player.sendMessage(plprefix + ChatColor.GREEN + "'" + args[3] + "' no longer holds rank of "  + args[1]);
 						return false;
-					}if (args[2].equalsIgnoreCase("set")) {
+					}else if (args[2].equalsIgnoreCase("set")) {
 						if (args.length == 3) {
 							player.sendMessage(plprefix + ChatColor.RED + "please specifiy a permission");
 							return false;
@@ -138,12 +140,12 @@ public class RankCommand extends EmpireSubCommand{
 								if (args[4].equalsIgnoreCase("true")) {
 									rank.addPermission(ep);
 									empire.Save();
-									player.sendMessage(plprefix + ChatColor.GREEN + args[1] + " now have the permission" + args[3]);
+									player.sendMessage(plprefix + ChatColor.GREEN + "'"  + args[1] + " now have the permission '" + args[3] + "'");
 									return false;
 								}else if (args[4].equalsIgnoreCase("false")) {
 									rank.removePermissions(ep);
 									empire.Save();
-									player.sendMessage(plprefix + ChatColor.GREEN + args[1] + " now do not have the permission" + args[3]);
+									player.sendMessage(plprefix + ChatColor.GREEN + args[1] + " now do not have the permission " + args[3]);
 									return false;
 								}else {
 									player.sendMessage(plprefix + ChatColor.RED + "Please give a valid value (true/false)");
@@ -154,6 +156,7 @@ public class RankCommand extends EmpireSubCommand{
 						if (i == 0) {
 							player.sendMessage(plprefix + ChatColor.RED + "'" + args[3] + "' is not a valid permission do '/empire rank perms'");
 						}
+						return false;
 					}
 					else {
 						info(player);
