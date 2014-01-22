@@ -118,6 +118,10 @@ public class RankCommand extends EmpireSubCommand{
 						player.sendMessage(plprefix + ChatColor.GREEN + "'" + args[3] + "' no longer holds rank of "  + args[1]);
 						return false;
 					}if (args[2].equalsIgnoreCase("set")) {
+						player.sendMessage(args[0]);
+						player.sendMessage(args[1]);
+						player.sendMessage(args[3]);
+						player.sendMessage(args[4]);
 						if (args.length == 3) {
 							player.sendMessage(plprefix + ChatColor.RED + "please specifiy a permission");
 							return false;
@@ -196,7 +200,7 @@ public class RankCommand extends EmpireSubCommand{
 		player.sendMessage(ChatColor.GOLD + "/empire rank " + ChatColor.LIGHT_PURPLE + "(rank) " + ChatColor.GOLD + "delete" + ChatColor.WHITE + " - " + ChatColor.AQUA + "deletes this rank");
 		player.sendMessage(ChatColor.GOLD + "/empire rank " + ChatColor.LIGHT_PURPLE + "(rank) " + ChatColor.GOLD + "add" + ChatColor.LIGHT_PURPLE + " (player) "+ ChatColor.WHITE + " - " + ChatColor.AQUA + "add a player to the rank");
 		player.sendMessage(ChatColor.GOLD + "/empire rank " + ChatColor.LIGHT_PURPLE + "(rank) " + ChatColor.GOLD + "remove" + ChatColor.LIGHT_PURPLE + " (player) "+ ChatColor.WHITE + " - " + ChatColor.AQUA + "removes a player from the rank");
-		player.sendMessage(ChatColor.GOLD + "/empire rank " + ChatColor.LIGHT_PURPLE + "(rank) " + ChatColor.GOLD + "set" + ChatColor.LIGHT_PURPLE + " (player) (true/false)"+ ChatColor.WHITE + " - " + ChatColor.AQUA + "gives / removes a permission to / from the rank");
+		player.sendMessage(ChatColor.GOLD + "/empire rank " + ChatColor.LIGHT_PURPLE + "(rank) " + ChatColor.GOLD + "set" + ChatColor.LIGHT_PURPLE + " (permission) (true/false)"+ ChatColor.WHITE + " - " + ChatColor.AQUA + "gives / removes a permission to / from the rank");
 		player.sendMessage(ChatColor.GOLD + "/empire rank " + ChatColor.LIGHT_PURPLE + "(rank) " + ChatColor.GOLD + "perms" + ChatColor.WHITE + " - " + ChatColor.AQUA + "list's the permissions of a rank");
 
 	}
