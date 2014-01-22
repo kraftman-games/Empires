@@ -2,8 +2,11 @@
 package es.themin.empires.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.cores.Core;
@@ -22,11 +25,15 @@ public class Empire {
 	private ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
 	private boolean isProtected;
+	
+	
 
+	
 	public Empire(int Id, String name, String owner){
 		this.Id = Id;
 		this.name = name;
 		this.owner = owner;
+		this.setProtected(true);
 	}
 	
 	public int getId(){
@@ -241,6 +248,14 @@ public class Empire {
 			}
 		}
 		Save();
+	}
+
+	public boolean isProtected() {
+		return isProtected;
+	}
+
+	public void setProtected(boolean isProtected) {
+		this.isProtected = isProtected;
 	}
 }
 

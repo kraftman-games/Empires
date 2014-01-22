@@ -2,6 +2,7 @@
 package es.themin.empires.cores;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -47,6 +48,14 @@ public class Core {
 	private ArrayList<CoreBlock> schematic;
 	private PlaceType placeType;
 	private int destroyCost;
+	
+	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
+	
+	public void addGriefedBlock(Block myBlock){
+		GriefedBlocks.put(myBlock.getLocation(), myBlock);
+		//start a recovery timer if there isnt one already
+		
+	}
 	
 	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
 		this.size = 16;
