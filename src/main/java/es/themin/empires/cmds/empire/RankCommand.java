@@ -17,7 +17,7 @@ public class RankCommand extends EmpireSubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		if (UtilManager.empireplayers.containsKey(player.getName())) {
 			Empire empire = UtilManager.empireplayers.get(player.getName());
-			if (empire.getOwner() == player.getName()) {
+			if (empire.getOwner().equalsIgnoreCase(player.getName())) {
 				if (args.length == 1) {
 					player.sendMessage(ChatColor.GOLD + "/empire rank " + ChatColor.LIGHT_PURPLE + "(rank) " + ChatColor.GOLD + "create" + ChatColor.LIGHT_PURPLE + " (weight) "+ ChatColor.WHITE + " - " + ChatColor.AQUA + "creates a new rank");
 					return false;
