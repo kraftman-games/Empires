@@ -58,6 +58,14 @@ public class Core {
 		this.setPlaceType(CoreSchematic.getPlaceType(type));
 	}
 	
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
+	}
+
 	public CoreType getCoreType() {
 		return coreType;
 	}
