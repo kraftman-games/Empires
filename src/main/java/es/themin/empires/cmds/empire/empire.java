@@ -32,9 +32,7 @@ public class empire implements CommandExecutor{
 							str.append("(" + variable + ") ");
 						}
 					}
-					if (UtilManager.empireplayers.get(player.getName()).getRankOfPlayer(player.getName()).getPermissions().contains(scmd.permission()) || scmd.permission() == null || UtilManager.empireplayers.get(player.getName()).getOwner() == player.getName()) {
-						player.sendMessage(ChatColor.GOLD + "/empire " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
-					}
+					player.sendMessage(ChatColor.GOLD + "/empire " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
 				}
 			}
 			else {
