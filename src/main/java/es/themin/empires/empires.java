@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.Craft;
 import es.themin.empires.Listeners.PlayerListener;
+import es.themin.empires.cmds.empire.empire;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
@@ -39,7 +40,6 @@ public final class empires extends JavaPlugin {
 		pm.registerEvents(new BlockListener(this), this);
 		pm.registerEvents(new Craft(this), this);
 		UtilManager.loadEmpires();
-		UtilityTesting.setUp();
 		loadPlayers();
 		String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
 		(new File(pluginFolder)).mkdirs();
@@ -62,6 +62,9 @@ public final class empires extends JavaPlugin {
     	UtilityTesting utiltest = new UtilityTesting();
 		UtilityTesting.setUp();
 		getCommand("utiltest").setExecutor(utiltest);
+		empire empire_ce = new empire();
+		empire.setUp();
+		getCommand("empire").setExecutor(empire_ce);
     }
     public void savePlayers(){
     	for (String playername : UtilManager.empireplayers.keySet()) {

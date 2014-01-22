@@ -140,7 +140,7 @@ public class Empire {
 		ranks.remove(rank);
 		Save();
 	}
-	public boolean containsRankWithName(String name) {
+	public boolean hasRankWithName(String name) {
 		for (Rank r : ranks) {
 			if (r.getName() == name) {
 				return true;
@@ -148,7 +148,7 @@ public class Empire {
 		}
 		return false;
 	}
-	public boolean containsRankWithWeight(int weight) {
+	public boolean hasRankWithWeight(int weight) {
 		for (Rank r : ranks) {
 			if (r.getWeight() == weight) {
 				return true;
