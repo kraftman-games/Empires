@@ -31,6 +31,7 @@ public class emp extends SubCommand{
 					str.append(ChatColor.RED + "No players :(");
 				}
 				player.sendMessage(str.toString());
+				player.sendMessage(ChatColor.GREEN + "Owner: " + ChatColor.LIGHT_PURPLE + empire.getOwner());
 			}		
 		}else {
 			if (UtilManager.containsEmpireWithName(args[1])) {
