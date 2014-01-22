@@ -65,6 +65,8 @@ public final class empires extends JavaPlugin {
 		empire empire_ce = new empire();
 		empire.setUp();
 		getCommand("empire").setExecutor(empire_ce);
+		getCommand("e").setExecutor(empire_ce);
+		getCommand("emp").setExecutor(empire_ce);
     }
     public void savePlayers(){
     	for (String playername : UtilManager.empireplayers.keySet()) {

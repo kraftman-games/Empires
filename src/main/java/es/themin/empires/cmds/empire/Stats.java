@@ -30,7 +30,7 @@ public class Stats extends EmpireSubCommand{
 			obj.setDisplayName(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + "Empire Stats" + ChatColor.GOLD + "====");
 			Score Exp = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
 			Exp.setScore(empire.getExp());
-			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking (/" + UtilManager.empireplayers.size() +"): "));
+			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + UtilManager.empires.size() +" : "));
 			ranking.setScore(empire.getRank());
 			Score cores = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Cores: "));
 			cores.setScore(empire.numberOfCores());
@@ -46,7 +46,7 @@ public class Stats extends EmpireSubCommand{
 					player.setScoreboard(sbm.getNewScoreboard());
 				}
 				
-			}, 600L);
+			}, 400L);
 		}else {
 			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 		}
