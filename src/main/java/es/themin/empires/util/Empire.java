@@ -45,7 +45,7 @@ public class Empire {
 	public ArrayList<String> getPlayers(){
 		return players;
 	}
-	public ArrayList<Amplifier> geAmplifiers(){
+	public ArrayList<Amplifier> getAmplifiers(){
 		return amps;
 	}
 	public boolean hasPlayer(String p) {
@@ -167,6 +167,48 @@ public class Empire {
 			rank2.removePlayer(playername);
 		}
 		rank.addPlayer(playername);
+	}
+	public int numberOfAmplifiers() {
+		int i = 0;
+		for (Amplifier amp : amps) {
+			i++;
+		}
+		return i;
+	}
+	public int getRank() {
+		int xp = 0;
+		int rank = 1;
+		int total = 1;
+		int pos = 1;
+		xp = this.numberOfPlayers() * 5;
+		for (Core core : cores) {
+			xp = xp + core.getLevel() * 2;
+		}
+		xp = xp + this.numberOfAmplifiers() * 2;
+		for (Empire empire : UtilManager.empires) {
+			int xp2;
+			xp2 = empire.numberOfPlayers() * 5;
+			for (Core core : empire.getCores()) {
+				xp2 = xp2 + core.getLevel() * 2;
+			}
+			xp2 = xp2 + empire.numberOfAmplifiers() * 2;
+			if (xp2 > xp) {
+				rank  = rank + pos;
+				pos = 1;
+			}if (xp2 == xp) {
+				pos ++;
+			}
+		}
+		return rank;
+	}
+	public int getExp() {
+		int xp = 0;
+		xp = this.numberOfPlayers() * 5;
+		for (Core core : cores) {
+			xp = xp + core.getLevel() * 2;
+		}
+		xp = xp + this.numberOfAmplifiers() * 2;
+		return xp;
 	}
 	
 }

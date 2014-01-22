@@ -16,19 +16,37 @@ import es.themin.empires.util.UtilManager;
 
 public class Stats extends EmpireSubCommand{
 
+	private empires plugin;
 	public String plprefix = empires.plprefix;
 	@Override
-	public boolean onCommand(Player player, String[] args) {
+	public boolean onCommand(final Player player, String[] args) {
 		if (UtilManager.empireplayers.containsKey(player.getName())) {
 			Empire empire = UtilManager.empireplayers.get(player.getName());
-			ScoreboardManager sbm = Bukkit.getScoreboardManager();
+			final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 			Scoreboard sb = sbm.getNewScoreboard();
-			Objective obj = sb.registerNewObjective(ChatColor.GOLD + "jen", "Players");
+			
+			Objective obj = sb.registerNewObjective(plprefix, "stats");
 			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-			obj.setDisplayName("Empire Stats");
-			Score score = obj.getScore(Bukkit.getOfflinePlayer("Cores: "));
-			score.setScore(empire.numberOfCores());
+			obj.setDisplayName(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + "Empire Stats" + ChatColor.GOLD + "====");
+			Score Exp = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
+			Exp.setScore(empire.getExp());
+			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking (/" + UtilManager.empireplayers.size() +"): "));
+			ranking.setScore(empire.getRank());
+			Score cores = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Cores: "));
+			cores.setScore(empire.numberOfCores());
+			Score players = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Players: "));
+			players.setScore(empire.numberOfPlayers());
+			
+			
 			player.setScoreboard(sb);
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Bukkit.getPluginManager().getPlugin("Empires"), new Runnable() {
+
+				@Override
+				public void run() {
+					player.setScoreboard(sbm.getNewScoreboard());
+				}
+				
+			}, 600L);
 		}else {
 			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 		}
