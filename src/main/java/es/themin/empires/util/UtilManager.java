@@ -94,6 +94,12 @@ public class UtilManager {
 		}
 		SettingsManager.getInstance().getEmpireData().set("empires", list);
 	}
+	public static HashMap<UUID, CoreWorld> getWorlds() {
+		return worlds;
+	}
+	public static void setWorlds(HashMap<UUID, CoreWorld> worlds) {
+		UtilManager.worlds = worlds;
+	}
 	public static void loadEmpires() {
 		List<World> myWorlds = Bukkit.getServer().getWorlds();
 		

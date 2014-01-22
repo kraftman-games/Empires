@@ -2,11 +2,13 @@
 package es.themin.empires.cores;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -23,6 +25,7 @@ import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
 import es.themin.empires.util.BlockUtils;
+import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.PlayerUtils;
 import es.themin.empires.util.UtilManager;
@@ -44,7 +47,6 @@ public class Core {
 	private ArrayList<CoreBlock> schematic;
 	private PlaceType placeType;
 	private int destroyCost;
-	
 	
 	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
 		this.size = 16;
@@ -205,6 +207,11 @@ public class Core {
 		if (this.canPlace()){
 			this.protect(true);
 			this.build();
+			//add to coreworld
+			UUID myUUID = this.location.getWorld().getUID();
+			CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
+			myCoreWorld.addCore(this);
+			
 			return true;
 		} 
 		return false;
@@ -285,6 +292,10 @@ public class Core {
 	
 	public void destroy(){
 		Location myLocation = this.getLocation();
+		
+		UUID myUUID = this.location.getWorld().getUID();
+		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
+		myCoreWorld.removeCore(this);
 		
 		if (this.schematic != null){
 			for (CoreBlock myBlock : this.schematic){
