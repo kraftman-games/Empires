@@ -27,9 +27,27 @@ public class Empire {
 	private boolean isProtected;
 	private String ownerprefix;
 	private String defaultprefix;
+	private boolean atWar;
+	private Empire enemyEmpire;
 	
 
 	
+	public Empire getEnemyEmpire() {
+		return enemyEmpire;
+	}
+
+	public void setEnemyEmpire(Empire enemyEmpire) {
+		this.enemyEmpire = enemyEmpire;
+	}
+
+	public boolean isAtWar() {
+		return atWar;
+	}
+
+	public void setAtWar(boolean atWar) {
+		this.atWar = atWar;
+	}
+
 	public Empire(int Id, String name, String owner){
 		this.Id = Id;
 		this.name = name;
@@ -276,6 +294,28 @@ public class Empire {
 	public void setDefaultPrefix(String s) {
 		this.defaultprefix = s;
 		Save();
+	}
+
+	public boolean canPlayerAttack(Player myPlayer) {
+		Empire playerEmpire = UtilManager.empireplayers.get(myPlayer.getName());
+		if (!this.isProtected()){
+			if (this.isAtWar()){
+				if (playerEmpire == this.getEnemyEmpire()){
+					return true;
+				} else {
+					myPlayer.sendMessage("This war is not yours to fight!");
+					return false;
+				}
+				
+			} else if (playerEmpire.isProtected){
+				myPlayer.sendMessage("You cannot attack an empire until yours is rebuilt!");
+				return false;
+			}
+		} else {
+			myPlayer.sendMessage("There is no honor in attack this fallen empire");
+			return false;
+		}
+		return false;
 	}
 }
 

@@ -70,13 +70,16 @@ public class PlayerListener implements Listener{
 		
 		
 		Block myBlock = event.getClickedBlock();
-		Empire myBlockEmpire = UtilManager.empireplayers.get(event.getPlayer().getName());
-		
+		Empire myPlayerEmpire = UtilManager.empireplayers.get(event.getPlayer().getName());
+		Player myPlayer = event.getPlayer();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
 		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
 		
 		ArrayList<Integer> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
 		
+		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
+		
+		Core selectedCore = null;
 		
 		//not sure how to deal with overlapping cores for attackers
 		//we will need to decide how they destroy
@@ -89,33 +92,37 @@ public class PlayerListener implements Listener{
 			//faster than global core list since there are less
 			Core myCore = myCoreWorld.getCoreByID(i);
 			
-			Integer x = myCore.getLocation().getBlockX();
-			Integer z = myCore.getLocation().getBlockZ();
-			
-			
-			if (x - myCore.getSize() < myBlock.getX() && x + myCore.getSize() > myBlock.getX()){
-				if (z - myCore.getSize() < myBlock.getZ() && z + myCore.getSize() > myBlock.getZ()){
-					//the player is within the bounds of the core
-					
-					if (myCore.getEmpire().equals(myBlockEmpire)){
-						event.getPlayer().sendMessage("You cannot destroy your own cores");
-						break;
-					} else {
-						if (myBlockEmpire.isProtected()){
-							event.getPlayer().sendMessage("You cannot attack this empire");
-							break;
-						} else {
-							if (myCore.getCoreType() == CoreType.GRIEF){
-								isEnemyEmpire = true;
-								griefCore = myCore;
-							} else {
-								
-							}
-						}
-					}
+			if (myCore.isAreaBlock(myBlock)){
+				if (myCore.isCoreBlock(myBlock)){
+					//the block belongs to the core
+				} else {
+					//its in the cores area but not a core block
+					//add to the list we found
+					myMatchingCores.add(myCore);
 				}
 			}
 		}
+		
+		if (myMatchingCores.size() < 1){
+			//its not part of any core, act normal
+			//and return
+		} else if (myMatchingCores.size() > 1){
+			//we need to choose which core this is
+			//for now just choose the first.
+			selectedCore = myMatchingCores.get(0);
+		} else {
+			selectedCore = myMatchingCores.get(0);
+		}
+		
+		// we now have the core that contains the block the player is trying to destroy
+		if (selectedCore.getEmpire().equals(myPlayerEmpire)){
+			//its their empire, let them do what they want
+		} else {
+			//its an enemy empire, which can either be protected (repairing) at war, or ready for war.
+			if (selectedCore.getEmpire().canPlayerAttack(myPlayer)){
+				
+			}
+		}		
 		
 		//check block meta data for special cases
 		if (isEnemyEmpire && !isSpecialCore && griefCore != null){
@@ -126,5 +133,22 @@ public class PlayerListener implements Listener{
 }
 
 
+//the player is within the bounds of the core
 
+//if (myCore.getEmpire().equals(myBlockEmpire)){
+//	event.getPlayer().sendMessage("You cannot destroy your own cores");
+//	break;
+//} else {
+//	if (myBlockEmpire.isProtected()){
+//		event.getPlayer().sendMessage("You cannot attack this empire");
+//		break;
+//	} else {
+//		if (myCore.getCoreType() == CoreType.GRIEF){
+//			isEnemyEmpire = true;
+//			griefCore = myCore;
+//		} else {
+//			
+//		}
+//	}
+//}
 

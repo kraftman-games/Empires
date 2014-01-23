@@ -43,7 +43,7 @@ public class CoreWorld {
 		int x = myCore.getLocation().getBlockX();
 		int z = myCore.getLocation().getBlockZ();
 		
-		int coreSize = myCore.getSize();
+		int coreSize = myCore.getAreaSize();
 		
 		for (int i = x-coreSize;i < x + coreSize; i +=coreSize){
 			for (int j = z-coreSize;j < z + coreSize; j += coreSize){
@@ -61,7 +61,7 @@ public class CoreWorld {
 		int x = myCore.getLocation().getBlockX();
 		int z = myCore.getLocation().getBlockZ();
 		
-		int coreSize = myCore.getSize();
+		int coreSize = myCore.getAreaSize();
 		
 		for (int i = x-coreSize;i < x + coreSize; i +=coreSize){
 			for (int j = z-coreSize;j < z + coreSize; z += coreSize){

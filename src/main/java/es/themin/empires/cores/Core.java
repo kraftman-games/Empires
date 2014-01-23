@@ -42,7 +42,8 @@ public class Core {
 	private int Id;
 	private CoreType coreType;
 	private Location location;
-	private Integer size;
+	private Integer coreSize;
+	private Integer areaSize;
 	private int level;
 	private Empire empire;
 	private ArrayList<CoreBlock> schematic;
@@ -57,8 +58,24 @@ public class Core {
 		
 	}
 	
+	public Integer getCoreSize() {
+		return coreSize;
+	}
+
+	public void setCoreSize(Integer coreSize) {
+		this.coreSize = coreSize;
+	}
+
+	public Integer getAreaSize() {
+		return areaSize;
+	}
+
+	public void setAreaSize(Integer areaSize) {
+		this.areaSize = areaSize;
+	}
+
 	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
-		this.size = 16;
+		this.coreSize = 16;
 		this.empire = empire;
 		this.Id = Id;
 		this.coreType = type;
@@ -69,13 +86,7 @@ public class Core {
 		this.setPlaceType(CoreSchematic.getPlaceType(type));
 	}
 	
-	public Integer getSize() {
-		return size;
-	}
-
-	public void setSize(Integer size) {
-		this.size = size;
-	}
+	
 
 	public CoreType getCoreType() {
 		return coreType;
@@ -348,6 +359,34 @@ public class Core {
 
 	public void setDestroyCost(int destroyCost) {
 		this.destroyCost = destroyCost;
+	}
+	
+	public boolean isCoreBlock(Block myBlock){
+		Integer x = this.getLocation().getBlockX();
+		Integer z = this.getLocation().getBlockZ();
+		Integer y = this.getLocation().getBlockY();
+		
+		if (x - this.getCoreSize() < myBlock.getX() && x + this.getCoreSize() > myBlock.getX()){
+			if (z - this.getCoreSize() < myBlock.getZ() && z + this.getCoreSize() > myBlock.getZ()){
+				if (y - this.getCoreSize() < myBlock.getY() && z + this.getCoreSize() > myBlock.getY()){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean isAreaBlock(Block myBlock){
+		Integer x = this.getLocation().getBlockX();
+		Integer z = this.getLocation().getBlockZ();
+		Integer y = this.getLocation().getBlockY();
+		
+		if (x - this.getAreaSize() < myBlock.getX() && x + this.getAreaSize() > myBlock.getX()){
+			if (z - this.getAreaSize() < myBlock.getZ() && z + this.getAreaSize() > myBlock.getZ()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
