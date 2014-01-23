@@ -19,6 +19,7 @@ public class empire implements CommandExecutor{
 		commands.add(new list());
 		commands.add(new RankCommand());
 		commands.add(new Stats());
+		commands.add(new ChatCommand());
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("empire") || commandLabel.equalsIgnoreCase("emp") || commandLabel.equalsIgnoreCase("e")) {
