@@ -47,7 +47,6 @@ public final class empires extends JavaPlugin {
 		(new File(pluginFolder)).mkdirs();
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
-		Bukkit.getServer().getPluginCommand("global").
     }
  
     @Override
