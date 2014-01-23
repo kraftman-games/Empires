@@ -9,12 +9,14 @@ public class Rank {
 	private int weight;
 	private String name;
 	private Empire empire;
+	private String prefix;
 	private ArrayList<String> players = new ArrayList<String>();
 	private ArrayList<EmpirePermission> permissions = new ArrayList<EmpirePermission>();
-	public Rank(int weight, String name, Empire empire) {
+	public Rank(int weight, String name, Empire empire, String prefix) {
 		this.weight = weight;
 		this.name = name;
 		this.empire = empire;
+		this.prefix = prefix;
 	}
 	public int getWeight(){
 		return weight;
@@ -62,5 +64,11 @@ public class Rank {
 	public boolean hasPermission(EmpirePermission ep) {
 		if (permissions.contains(ep)) return true;
 		return false;
+	}
+	public String getPreifx() {
+		return prefix;
+	}
+	public void setPrefix(String prefix){
+		this.prefix = prefix;
 	}
 }

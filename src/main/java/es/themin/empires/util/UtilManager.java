@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -78,6 +79,7 @@ public class UtilManager {
 				StringBuilder str3 = new StringBuilder();
 				str3.append(rank.getWeight() + ":");
 				str3.append(rank.getName() + ":");
+				str3.append(rank.getPreifx());
 				list4.add(str3.toString());
 				List<String> list5 = new ArrayList<String>();
 				for (String p : rank.getPlayers()) {
@@ -147,7 +149,7 @@ public class UtilManager {
 			List<String> list4 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".ranks");
 			for (String rankstring : list4) {
 				String[] words2 = rankstring.split(":");
-				Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1], empire);
+				Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1], empire, words2[2]);
 				List<String> list5 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".rank." + rankstring + ".players");
 				for (String playername : list5) {
 					rank.addPlayer(playername);
@@ -259,6 +261,30 @@ public class UtilManager {
 		}
 		return false;
 	}
-	
+	public static String colourUp(String string) {
+		string.replaceAll("&0", ChatColor.BLACK + "");
+		string.replaceAll("&1", ChatColor.DARK_BLUE + "");
+		string.replaceAll("&2", ChatColor.DARK_GREEN + "");
+		string.replaceAll("&3", ChatColor.DARK_AQUA + "");
+		string.replaceAll("&4", ChatColor.DARK_RED + "");
+		string.replaceAll("&5", ChatColor.DARK_PURPLE + "");
+		string.replaceAll("&6", ChatColor.GOLD + "");
+		string.replaceAll("&7", ChatColor.GRAY + "");
+		string.replaceAll("&8", ChatColor.DARK_GRAY + "");
+		string.replaceAll("&9", ChatColor.BLUE + "");
+		string.replaceAll("&a", ChatColor.GREEN + "");
+		string.replaceAll("&b", ChatColor.AQUA + "");
+		string.replaceAll("&c", ChatColor.RED + "");
+		string.replaceAll("&d", ChatColor.LIGHT_PURPLE + "");
+		string.replaceAll("&e", ChatColor.YELLOW + "");
+		string.replaceAll("&f", ChatColor.WHITE + "");
+		string.replaceAll("&k", ChatColor.MAGIC + "");
+		string.replaceAll("&l", ChatColor.BOLD + "");
+		string.replaceAll("&m", ChatColor.STRIKETHROUGH + "");
+		string.replaceAll("&n", ChatColor.UNDERLINE + "");
+		string.replaceAll("&o", ChatColor.ITALIC + "");
+		string.replaceAll("&r", ChatColor.RESET + "");
+		return string;
+	}
 
 }

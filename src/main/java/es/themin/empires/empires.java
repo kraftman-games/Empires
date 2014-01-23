@@ -15,6 +15,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.Listeners.BlockListener;
+import es.themin.empires.Listeners.Chat;
 import es.themin.empires.Listeners.Craft;
 import es.themin.empires.Listeners.PlayerListener;
 import es.themin.empires.cmds.empire.empire;
@@ -39,13 +40,14 @@ public final class empires extends JavaPlugin {
 		pm.registerEvents(new PlayerListener(this), this);
 		pm.registerEvents(new BlockListener(this), this);
 		pm.registerEvents(new Craft(this), this);
+		pm.registerEvents(new Chat(this), this);
 		UtilManager.loadEmpires();
 		loadPlayers();
 		String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
 		(new File(pluginFolder)).mkdirs();
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
-
+		Bukkit.getServer().getPluginCommand("global").
     }
  
     @Override

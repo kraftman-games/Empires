@@ -66,7 +66,7 @@ public class RankCommand extends EmpireSubCommand{
 							player.sendMessage(plprefix + ChatColor.RED  +"'" + args[3] + "' is not a valid weight do '/empire rank weight' for more details");
 							return false;
 						}
-						Rank rank = new Rank(weight, args[1], empire);
+						Rank rank = new Rank(weight, args[1], empire, args[1]);
 						empire.addRank(rank);
 						empire.Save();
 						player.sendMessage(plprefix + ChatColor.GREEN + "Rank '" + args[1] + "' with weight '" + weight + "' was succesfuly created");
@@ -177,7 +177,7 @@ public class RankCommand extends EmpireSubCommand{
 
 	@Override
 	public String info() {
-		return "Allows you to alter the permissions of players in your empire";
+		return "Alter permissions of players";
 	}
 
 	@Override

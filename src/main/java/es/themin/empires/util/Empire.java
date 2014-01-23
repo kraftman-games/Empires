@@ -25,7 +25,8 @@ public class Empire {
 	private ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
 	private boolean isProtected;
-	
+	private String ownerprefix;
+	private String defaultprefix;
 	
 
 	
@@ -256,6 +257,25 @@ public class Empire {
 
 	public void setProtected(boolean isProtected) {
 		this.isProtected = isProtected;
+	}
+	public void broadcastMessage(String message) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (players.contains(player.getName())) player.sendMessage(message);
+		}
+	}
+	public String getOwnerPrefix() {
+		return ownerprefix;
+	}
+	public String getDefaultPrefix() {
+		return defaultprefix;
+	}
+	public void setOwnerPrefix(String s) {
+		this.ownerprefix = s;
+		Save();
+	}
+	public void setDefaultPrefix(String s) {
+		this.defaultprefix = s;
+		Save();
 	}
 }
 
