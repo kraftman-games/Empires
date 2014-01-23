@@ -179,6 +179,12 @@ public class Core {
 			}
 		}
 		
+		if (this.getPlaceType() == PlaceType.EDGE){
+			if (myCoreWorld.isEdgeOfEmpire(this)){
+				return true;
+			}
+		}
+		
 		
 		
 		//if its an amp/base/outpost, check distance to nearest enemy amps

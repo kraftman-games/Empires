@@ -47,10 +47,10 @@ public class CoreWorld {
 		int x = myCore.getLocation().getBlockX();
 		int z = myCore.getLocation().getBlockZ();
 		
-		int coreSize = myCore.getAreaSize();
+		int areaSize = myCore.getAreaSize();
 		
-		for (int i = x-coreSize;i < x + coreSize; i +=coreSize){
-			for (int j = z-coreSize;j < z + coreSize; j += coreSize){
+		for (int i = x-areaSize;i < x + areaSize; i +=areaSize){
+			for (int j = z-areaSize;j < z + areaSize; j += areaSize){
 				Point gridPoint = new Point((int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
 				//only add the core if its not listed already
 				if (!CoreGrid.get(gridPoint).containsKey((myCore.getId()))){
@@ -67,8 +67,8 @@ public class CoreWorld {
 		
 		int coreSize = myCore.getAreaSize();
 		
-		for (int i = x-coreSize;i < x + coreSize; i +=coreSize){
-			for (int j = z-coreSize;j < z + coreSize; z += coreSize){
+		for (int i = x-coreSize;i <= x + coreSize; i +=coreSize){
+			for (int j = z-coreSize;j <= z + coreSize; z += coreSize){
 				Point gridPoint = new Point((int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
 				//remove the core if it exists
 				if (CoreGrid.get(gridPoint).containsKey(myCore.getId())){
@@ -102,6 +102,37 @@ public class CoreWorld {
 				HashMap<Integer, Core> myCores = this.getCoresInGrid(i, j);
 				for(Core myFoundCore : myCores.values()){
 					if (myCore.getEmpire().equals(myFoundCore.getEmpire())){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean isEdgeOfEmpire(Core myCore) {
+		//get all nearby cores
+		
+		int areaSize = myCore.getAreaSize();
+		int c1x1 = myCore.getLocation().getBlockX()-areaSize;
+		int c1x2 = myCore.getLocation().getBlockX()+areaSize;
+		int c1z1 = myCore.getLocation().getBlockZ()-areaSize;
+		int c1z2 = myCore.getLocation().getBlockZ()+areaSize;
+		
+		
+		
+		for (int i = c1x1;i <= c1x2; i +=areaSize){
+			for (int j = c1z1;j <= c1z2; j += areaSize){
+				HashMap<Integer, Core> coreList = getCoresInGrid((int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
+				for (Core c : coreList.values()){
+					int c2areaSize = c.getAreaSize();
+					int c2x1 = c.getLocation().getBlockX()-c2areaSize;
+					int c2x2 = c.getLocation().getBlockX()+c2areaSize;
+					int c2z1 = c.getLocation().getBlockZ()-c2areaSize;
+					int c2z2 = c.getLocation().getBlockZ()+c2areaSize;
+					
+					//if the square is not outside of the other square
+					if(!(c1x2 < c2x1 || c1x1 > c2x2 || c1z2 < c2z1 || c1z1 > c2z2)){
 						return true;
 					}
 				}
