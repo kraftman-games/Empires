@@ -64,29 +64,18 @@ public class PlayerListener implements Listener{
 	}
 	
 	private void handleBlockClick(PlayerInteractEvent event){
-		//if its in the players empire and its a normal block, do nothing
-		//if its in the players empire and its a core, try and delete it
-		//if its an enemy block and its base protection, insta break (if the empire can be attacked)
-		
 		
 		Block myBlock = event.getClickedBlock();
-		Empire myPlayerEmpire = UtilManager.empireplayers.get(event.getPlayer().getName());
+		Empire eventPlayerEmpire = UtilManager.empireplayers.get(event.getPlayer().getName());
 		Player myPlayer = event.getPlayer();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
 		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
-		
 		ArrayList<Integer> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
-		
 		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
 		
 		Core selectedCore = null;
 		
-		//not sure how to deal with overlapping cores for attackers
-		//we will need to decide how they destroy
-		
-		boolean isEnemyEmpire = false;
-		boolean isSpecialCore = false;
-		Core griefCore = null;
+		boolean isCoreBlock = false;
 		
 		for(Integer i : myCores){
 			//faster than global core list since there are less
@@ -94,61 +83,46 @@ public class PlayerListener implements Listener{
 			
 			if (myCore.isAreaBlock(myBlock)){
 				if (myCore.isCoreBlock(myBlock)){
-					//the block belongs to the core
+					isCoreBlock = true;
 				} else {
-					//its in the cores area but not a core block
-					//add to the list we found
 					myMatchingCores.add(myCore);
 				}
 			}
 		}
 		
-		if (myMatchingCores.size() < 1){
-			//its not part of any core, act normal
-			//and return
-		} else if (myMatchingCores.size() > 1){
-			//we need to choose which core this is
-			//for now just choose the first.
-			selectedCore = myMatchingCores.get(0);
-		} else {
-			selectedCore = myMatchingCores.get(0);
-		}
+		selectedCore = chooseCore(myMatchingCores);
 		
-		// we now have the core that contains the block the player is trying to destroy
-		if (selectedCore.getEmpire().equals(myPlayerEmpire)){
-			//its their empire, let them do what they want
+		//get block metadata to see if its special.
+		
+		// if its the players own empire
+		if (selectedCore.getEmpire().equals(eventPlayerEmpire)){
+			if (isCoreBlock){
+				myPlayer.sendMessage("You cannot destroy your own core!");
+				return;
+			} else {
+				//check its not some special block we havnt incented yet
+			}
 		} else {
 			//its an enemy empire, which can either be protected (repairing) at war, or ready for war.
 			if (selectedCore.getEmpire().canPlayerAttack(myPlayer)){
-				
+				selectedCore.getEmpire().startWar(eventPlayerEmpire);
 			}
-		}		
-		
-		//check block meta data for special cases
-		if (isEnemyEmpire && !isSpecialCore && griefCore != null){
-			griefCore.addGriefedBlock(myBlock);
-			myBlock.setType(Material.AIR);
-		}		
+		}			
+	}
+	
+	private Core chooseCore(ArrayList<Core> myCores){
+		//we need to choose which overlapping core is the one we want
+		//eventually it might need to be a bit more complex
+		//for now just choose the first.
+		Core myCore = null;
+		if (myCores.size() > 1){
+			
+			myCore = myCores.get(0); //maybe a different selection in future
+		} else {
+			myCore = myCores.get(0);
+		}
+		return myCore;
 	}
 }
 
-
-//the player is within the bounds of the core
-
-//if (myCore.getEmpire().equals(myBlockEmpire)){
-//	event.getPlayer().sendMessage("You cannot destroy your own cores");
-//	break;
-//} else {
-//	if (myBlockEmpire.isProtected()){
-//		event.getPlayer().sendMessage("You cannot attack this empire");
-//		break;
-//	} else {
-//		if (myCore.getCoreType() == CoreType.GRIEF){
-//			isEnemyEmpire = true;
-//			griefCore = myCore;
-//		} else {
-//			
-//		}
-//	}
-//}
 

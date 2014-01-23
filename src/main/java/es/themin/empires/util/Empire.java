@@ -317,6 +317,23 @@ public class Empire {
 		}
 		return false;
 	}
+	/**
+	 * sets up a war between two empires
+	 * @param eventPlayerEmpire
+	 */
+	public void startWar(Empire eventPlayerEmpire) {
+		this.setAtWar(true);
+		eventPlayerEmpire.setAtWar(true);
+		this.setEnemyEmpire(eventPlayerEmpire);
+		eventPlayerEmpire.setEnemyEmpire(eventPlayerEmpire);
+	}
+	
+	public void endWar(Empire eventPlayerEmpire){
+		this.setAtWar(false);
+		eventPlayerEmpire.setAtWar(false);
+		this.setEnemyEmpire(null);
+		eventPlayerEmpire.setEnemyEmpire(null);
+	}
 }
 
 
