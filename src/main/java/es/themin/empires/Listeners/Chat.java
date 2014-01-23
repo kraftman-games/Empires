@@ -29,7 +29,7 @@ public class Chat implements Listener{
 				
 				Empire empire = UtilManager.empireplayers.get(player.getName());
 				String rank;
-				if (empire.getRankOfPlayer(player.getName()) == null) {
+				if (!(empire.playerHasARank(player.getName()))) {
 					if (empire.getOwner().equalsIgnoreCase(player.getName())) {
 						if (empire.getOwnerPrefix() == null) rank = "king";
 						else rank = empire.getOwnerPrefix();
