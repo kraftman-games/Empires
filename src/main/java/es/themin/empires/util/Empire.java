@@ -317,12 +317,7 @@ public class Empire {
 		}
 		return false;
 	}
-	public boolean playerHasARank(String player) {
-		for (Rank rank : ranks) {
-			if (rank.getPlayers().contains(player)) return true;
-		}
-		return false;
-	}
+	
 	/**
 	 * sets up a war between two empires
 	 * @param eventPlayerEmpire
