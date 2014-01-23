@@ -138,7 +138,6 @@ public class Core {
 		return empire;
 	}
 	public void setEmpire(Empire e){
-		//do we need to get the empire if we already have it? wont e == e2 ?
 		Empire e2 = this.empire;
 		e2.removeCore(this);
 		this.empire = e;
@@ -162,22 +161,29 @@ public class Core {
 	public void setFlag(){
 			
 	}
-//	public void build(Player myPlayer){
-//		//this will build the core
-//		Location myLocation = myPlayer.getLocation();
-//		CoreSchematic myCoreSchematic = new CoreSchematic();
-//		myCoreSchematic.build(coreType, myPlayer);
-//		this.setLocation(myLocation);
-//		
-//	}
 	
 	public boolean canPlace(){
+		//needs a complete re write for new system.
+		Location myLocation = this.getLocation();
+		empires myPlugin = (empires) Bukkit.getPluginManager().getPlugin("Empires");
+		
+		ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
+		
+		UUID myUUID = this.getLocation().getWorld().getUID();
+		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
+		
+		// check if its too close to another empire
+		if (this.getPlaceType() == PlaceType.OUTSIDE || this.getPlaceType() == PlaceType.EDGE){
+			if (myCoreWorld.isNearEnemyCore(this)){
+				return false;
+			}
+		}
+		
+		
+		
 		//if its an amp/base/outpost, check distance to nearest enemy amps
 		//if its not, check its within the boundaries of the players empire
 		//if its an amp it must have an edge next to another amp
-		Location myLocation = this.getLocation();
-
-		empires myPlugin = (empires) Bukkit.getPluginManager().getPlugin("Empires");
 		
 		int overLap = 0;
 		

@@ -2,6 +2,7 @@ package es.themin.empires.Listeners;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -70,16 +71,15 @@ public class PlayerListener implements Listener{
 		Player myPlayer = event.getPlayer();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
 		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
-		ArrayList<Integer> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
+		HashMap<Integer, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
 		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
 		
 		Core selectedCore = null;
 		
 		boolean isCoreBlock = false;
 		
-		for(Integer i : myCores){
+		for(Core myCore : myCores.values()){
 			//faster than global core list since there are less
-			Core myCore = myCoreWorld.getCoreByID(i);
 			
 			if (myCore.isAreaBlock(myBlock)){
 				if (myCore.isCoreBlock(myBlock)){
