@@ -340,6 +340,13 @@ public class Empire {
 		this.setEnemyEmpire(null);
 		eventPlayerEmpire.setEnemyEmpire(null);
 	}
+	
+	public boolean playerHasARank(String player) {
+		for (Rank rank : ranks) {
+			if (rank.getPlayers().contains(player)) return true;
+		}
+		return false;
+	}
 }
 
 
