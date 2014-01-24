@@ -5,4 +5,4 @@ regeneration:
    burn:
       enable: 'true'
       delay: 10
-   
+gridsize: 32
