@@ -19,6 +19,7 @@ import es.themin.empires.Listeners.Chat;
 import es.themin.empires.Listeners.Craft;
 import es.themin.empires.Listeners.PlayerListener;
 import es.themin.empires.cmds.GlobalCommand;
+import es.themin.empires.cmds.GridCommand;
 import es.themin.empires.cmds.empire.empire;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
@@ -70,6 +71,7 @@ public final class empires extends JavaPlugin {
 		getCommand("e").setExecutor(empire_ce);
 		getCommand("emp").setExecutor(empire_ce);
 		getCommand("all").setExecutor(new GlobalCommand(this));
+		getCommand("grid").setExecutor(new GridCommand(this));
     }
     public void savePlayers(){
     	for (String playername : UtilManager.empireplayers.keySet()) {
