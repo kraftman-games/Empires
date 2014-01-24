@@ -78,7 +78,11 @@ public class CoreWorld {
 			for (int j = z-areaSize;j < z + areaSize; j += areaSize){
 				Point gridPoint = new Point((int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
 				//only add the core if its not listed already
-				if (!CoreGrid.get(gridPoint).containsKey((myCore.getId()))){
+				if (CoreGrid.get(gridPoint) == null) {
+					CoreGrid.put(gridPoint, new HashMap<Integer,Core>());
+					CoreGrid.get(gridPoint).put(myCore.getId(), myCore);
+				}
+				else if (!CoreGrid.get(gridPoint).containsKey((myCore.getId()))){
 					CoreGrid.get(gridPoint).put(myCore.getId(), myCore);
 				}
 			}
@@ -89,7 +93,11 @@ public class CoreWorld {
 		int z = myAmp.getLocation().getBlockZ();
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
 		//only add the core if its not listed already
-		if (!AmpGrid.get(gridPoint).containsKey((myAmp.getId()))){
+		if (AmpGrid.get(gridPoint) == null) {
+			AmpGrid.put(gridPoint, new HashMap<Integer,Amplifier>());
+			AmpGrid.get(gridPoint).put(myAmp.getId(), myAmp);
+		}
+		else if (!AmpGrid.get(gridPoint).containsKey((myAmp.getId()))){
 			AmpGrid.get(gridPoint).put(myAmp.getId(), myAmp);
 		}
 		
