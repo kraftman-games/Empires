@@ -67,7 +67,9 @@ public class Core {
 	}
 
 	public Integer getAreaSize() {
-		return areaSize;
+		//return areaSize;
+		//what is this
+		return 1;
 	}
 
 	public void setAreaSize(Integer areaSize) {
