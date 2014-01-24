@@ -23,8 +23,7 @@ public class GridLocaitonCommand extends EmpireSubCommand{
 
 	@Override
 	public String info() {
-		// TODO Auto-generated method stub
-		return null;
+		return "gives you your grid location";
 	}
 
 	@Override
