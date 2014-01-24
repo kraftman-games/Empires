@@ -2,9 +2,11 @@ package es.themin.empires.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -116,6 +118,8 @@ public class SettingsManager {
        	
         wfile = new File(p.getDataFolder(), "worldconfig.yml");
         
+        
+        
         if (!wfile.exists()) {
                 try {
                         wfile.createNewFile();
@@ -141,8 +145,6 @@ public class SettingsManager {
         worlddata = YamlConfiguration.loadConfiguration(wfile);
         
         //
-        
-        
     }
 //###############################   
     public FileConfiguration getData() {

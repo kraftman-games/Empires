@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Location;
+
 import es.themin.empires.cores.Core;
 
 public class CoreWorld {
@@ -139,6 +141,12 @@ public class CoreWorld {
 			}
 		}
 		return false;
+	}
+	public Point getCoords(Location location) {
+		int x = location.getBlockX();
+		int z = location.getBlockZ();
+		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
+		return gridPoint;
 	}
 }
 
