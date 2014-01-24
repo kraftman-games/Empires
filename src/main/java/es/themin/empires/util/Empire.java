@@ -29,7 +29,7 @@ public class Empire {
 	private String defaultprefix;
 	private boolean atWar;
 	private Empire enemyEmpire;
-	
+	private boolean vunerable;
 
 	
 	public Empire getEnemyEmpire() {

@@ -23,6 +23,7 @@ import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.BlockUtils;
+import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
@@ -37,13 +38,17 @@ public class BlockListener implements Listener {
 	private static HashMap<Block, Byte> burntdata = new HashMap<Block, Byte>();
 	private static HashMap<Block, Material> recentlyfixed = new HashMap<Block, Material>();
 	
-//	@EventHandler
-//	public void onBlockBreak(BlockBreakEvent event){
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event){
 //		we need to think about the regeneration mechanic
 //		one option is to store every break and place an enemy makes
 //      and then slowly revert depending on rate
 //      will need to add a property to the empire for blocks placed and blocks broken by enemies
-//	}
+		Player player = event.getPlayer();
+		CoreWorld cw = UtilManager.worlds.get(player.getWorld().getUID());
+		String name =  cw.getEmpireControllingBlock(event.getBlock()).getName();
+		player.sendMessage("Controlling empire: " + name);
+	}
 	
 	@EventHandler
 	public void onBlockBurn(BlockBurnEvent event) {

@@ -6,3 +6,4 @@ regeneration:
       enable: 'true'
       delay: 10
 gridsize: 32
+plot_size: 15

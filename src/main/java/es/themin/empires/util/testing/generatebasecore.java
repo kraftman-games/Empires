@@ -1,13 +1,17 @@
 package es.themin.empires.util.testing;
 
+import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
@@ -26,6 +30,10 @@ public class generatebasecore extends SubCommand{
 		}
 		Core myCore = new Core(UtilManager.nextUnusedCoreId(), CoreType.BASE, player.getLocation(), 1, empire);
 		empire.addCore(myCore);
+		World world = player.getWorld();
+		UUID uuid = world.getUID();
+		CoreWorld cw = UtilManager.worlds.get(uuid);
+		cw.addCore(myCore);
 		return false;
 		
 	}
