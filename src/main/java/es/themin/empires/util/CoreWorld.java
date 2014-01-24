@@ -234,13 +234,13 @@ public class CoreWorld {
 		ArrayList<Point> grids = new ArrayList<Point>();
 		for (int i = x-1; i < x+1 ; i++) {
 			for (int j = z-1; j < z+1 ; j++) {
-				Set<Integer> ampkeys = getAmplifiersInGrid(i,j).keySet();
+				/*Set<Integer> ampkeys = getAmplifiersInGrid(i,j).keySet();
 				for (int e : ampkeys) {
 					Amplifier amp = getAmplifiersInGrid(i,j).get(e);
 					int ampx = amp.getLocation().getBlockX();
 					int ampz = amp.getLocation().getBlockZ();
 					if (getDifferenceBetween(x, ampx) <= radius || getDifferenceBetween(z, ampz) <= radius) return amp.getEmpire(); 
-				}
+				}*/
 				Set<Integer> corekeys = getCoresInGrid(i,j).keySet();
 				for (int e : corekeys) {
 					Core core = getCoresInGrid(i,j).get(e);
