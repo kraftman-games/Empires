@@ -180,57 +180,35 @@ public class Core {
 		}
 		
 		if (this.getPlaceType() == PlaceType.EDGE){
-			if (myCoreWorld.isEdgeOfEmpire(this)){
-				return true;
+			if (!myCoreWorld.isEdgeOfEmpire(this)){
+				return false;
 			}
 		}
 		
 		
+		//we need to check that the cores themselves dont overlap
+		//and that PlaceType.INSIDE cores are fully inside of the empire
 		
-		//if its an amp/base/outpost, check distance to nearest enemy amps
-		//if its not, check its within the boundaries of the players empire
-		//if its an amp it must have an edge next to another amp
-		
-		int overLap = 0;
-		
-		// check if its too close to another empire
-		if (this.getPlaceType() == PlaceType.OUTSIDE || this.getPlaceType() == PlaceType.EDGE)
-		for (int x = -50; x <= 50; x++){
-			for (int z = -50; z <= 50; z++){
-				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + x,
-						myLocation.getY() ,
-						myLocation.getZ() +z);
-				Block b = newLocation.getBlock();
-				Empire blockEmpire = (BlockUtils.getEmpireFromBlock(b, myPlugin));
-				if (blockEmpire != null){
-					if (blockEmpire != this.getEmpire()){
-						//probably wanna return the reason at some point
-						return false;
-					} else {
-						overLap++;
-					}
-				}
-			}
-		}
-		
-		if (this.getPlaceType() == PlaceType.EDGE && overLap > 6){
-			return true;
+		if (this.getPlaceType() == PlaceType.INSIDE){
+//			if (!myCoreWorld.isInsideEmpire(this)){
+//				return false;
+//			}
 		}
 		
 				
-		if (this.schematic != null){
-			for (CoreBlock myBlock : this.schematic){
-				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
-													myLocation.getY() + myBlock.getOffsetY(),
-													myLocation.getZ() + myBlock.getOffsetZ());
-				Block b = newLocation.getBlock();
-				
-				Empire myEmpire = BlockUtils.getEmpireFromBlock(b, myPlugin);
-				if (myEmpire == null){
-					return false;
-				}
-			}
-		}
+//		if (this.schematic != null){
+//			for (CoreBlock myBlock : this.schematic){
+//				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
+//													myLocation.getY() + myBlock.getOffsetY(),
+//													myLocation.getZ() + myBlock.getOffsetZ());
+//				Block b = newLocation.getBlock();
+//				
+//				Empire myEmpire = BlockUtils.getEmpireFromBlock(b, myPlugin);
+//				if (myEmpire == null){
+//					return false;
+//				}
+//			}
+//		}
 		return true;
 	}
 	
