@@ -132,6 +132,16 @@ public class CoreWorld {
 		
 		return AmpGrid.get(gridPoint);
 	}
+	public boolean hasCoresInGrid(int x, int z) {
+		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
+		if (CoreGrid.get(gridPoint) != null) return true;
+		return false;
+	}
+	public boolean hasAmplifiersInGrid(int x, int z) {
+		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
+		if (AmpGrid.get(gridPoint) != null) return true;
+		return false;
+	}
 	
 	public HashMap<Integer, Core> getEnemyCoresInGrid(int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
@@ -234,20 +244,24 @@ public class CoreWorld {
 		ArrayList<Point> grids = new ArrayList<Point>();
 		for (int i = x-1; i < x+1 ; i++) {
 			for (int j = z-1; j < z+1 ; j++) {
-				/*Set<Integer> ampkeys = getAmplifiersInGrid(i,j).keySet();
-				for (int e : ampkeys) {
-					Amplifier amp = getAmplifiersInGrid(i,j).get(e);
-					int ampx = amp.getLocation().getBlockX();
-					int ampz = amp.getLocation().getBlockZ();
-					if (getDifferenceBetween(x, ampx) <= radius || getDifferenceBetween(z, ampz) <= radius) return amp.getEmpire(); 
-				}*/
-				Set<Integer> corekeys = getCoresInGrid(i,j).keySet();
-				for (int e : corekeys) {
-					Core core = getCoresInGrid(i,j).get(e);
-					int corex = core.getLocation().getBlockX();
-					int corez = core.getLocation().getBlockZ();
-					if (getDifferenceBetween(x, corez) <= radius || getDifferenceBetween(z, corex) <= radius) {
-						if (core.getType() == CoreType.BASE) return core.getEmpire();
+				if (hasAmplifiersInGrid(i,j)) {
+					Set<Integer> ampkeys = getAmplifiersInGrid(i,j).keySet();
+					for (int e : ampkeys) {
+						Amplifier amp = getAmplifiersInGrid(i,j).get(e);
+						int ampx = amp.getLocation().getBlockX();
+						int ampz = amp.getLocation().getBlockZ();
+						if (getDifferenceBetween(x, ampx) <= radius || getDifferenceBetween(z, ampz) <= radius) return amp.getEmpire(); 
+					}
+				}
+				if (hasCoresInGrid(i,j)) {
+					Set<Integer> corekeys = getCoresInGrid(i,j).keySet();
+					for (int e : corekeys) {
+						Core core = getCoresInGrid(i,j).get(e);
+						int corex = core.getLocation().getBlockX();
+						int corez = core.getLocation().getBlockZ();
+						if (getDifferenceBetween(x, corez) <= radius || getDifferenceBetween(z, corex) <= radius) {
+							if (core.getType() == CoreType.BASE) return core.getEmpire();
+						}
 					}
 				}
 			}
