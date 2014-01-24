@@ -46,7 +46,12 @@ public class BlockListener implements Listener {
 //      will need to add a property to the empire for blocks placed and blocks broken by enemies
 		Player player = event.getPlayer();
 		CoreWorld cw = UtilManager.worlds.get(player.getWorld().getUID());
-		String name =  cw.getEmpireControllingBlock(event.getBlock()).getName();
+		String name;
+		if (!(cw.getEmpireControllingBlock(event.getBlock()).getName() == null)) {
+			name = cw.getEmpireControllingBlock(event.getBlock()).getName();
+		}else {
+			name = null;
+		}
 		player.sendMessage("Controlling empire: " + name);
 	}
 	
