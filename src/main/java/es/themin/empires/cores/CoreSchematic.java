@@ -140,7 +140,7 @@ public class CoreSchematic {
 		
 		return PlaceType.INSIDE;
 	}
-	public void loadSchematics() {
+	public static void loadSchematics() {
 		String epath = Bukkit.getServer().getPluginManager().getPlugin("Empires").getDataFolder().getAbsolutePath() + "/cores";
 		(new File(epath)).mkdirs();
 		File bcore = new File(epath + File.separator + "BASE.schematic");
@@ -149,7 +149,7 @@ public class CoreSchematic {
 			Bukkit.getServer().getPluginManager().disablePlugin(Bukkit.getServer().getPluginManager().getPlugin("Empires"));
 		}else {
 			try {
-				this.baseschem = loadSchematic(bcore);
+				baseschem = loadSchematic(bcore);
 			} catch (IOException e) {
 				Bukkit.getServer().getLogger().info("error 1 loading schematics");
 				e.printStackTrace();
