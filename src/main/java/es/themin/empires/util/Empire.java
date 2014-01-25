@@ -302,7 +302,8 @@ public class Empire {
 			if (this.isAtWar()){
 				if (playerEmpire == this.getEnemyEmpire()){
 					return true;
-				} else {
+				}
+				else {
 					myPlayer.sendMessage("This war is not yours to fight!");
 					return false;
 				}
@@ -327,6 +328,7 @@ public class Empire {
 		eventPlayerEmpire.setAtWar(true);
 		this.setEnemyEmpire(eventPlayerEmpire);
 		eventPlayerEmpire.setEnemyEmpire(eventPlayerEmpire);
+		Save();
 	}
 	
 	public void endWar(Empire eventPlayerEmpire){
@@ -334,6 +336,7 @@ public class Empire {
 		eventPlayerEmpire.setAtWar(false);
 		this.setEnemyEmpire(null);
 		eventPlayerEmpire.setEnemyEmpire(null);
+		Save();
 	}
 	
 	public boolean playerHasARank(String player) {
