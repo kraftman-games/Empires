@@ -17,17 +17,13 @@ import es.themin.empires.enums.CoreType;
 public class CoreWorld {
 	
 	private HashMap<Integer, Core> Cores;
-	private HashMap<Integer, Amplifier> Amps;
 	private Map<Point, HashMap<Integer, Core>> CoreGrid;
-	private Map<Point, HashMap<Integer, Amplifier>> AmpGrid;
 	private Integer GridSize = SettingsManager.getInstance().getConfig().getInt("gridsize");
 	
 
 	public CoreWorld() {
 		CoreGrid = new HashMap<Point, HashMap<Integer, Core>>();
-		AmpGrid = new HashMap<Point, HashMap<Integer, Amplifier>>();
 		Cores = new HashMap<Integer, Core>();
-		Amps = new HashMap<Integer, Amplifier>();
 	}
 
 	public Integer getGridSize() {
@@ -37,35 +33,21 @@ public class CoreWorld {
 	public HashMap<Integer, Core> getCores() {
 		return Cores;
 	}
-	public HashMap<Integer, Amplifier> getAmplifiers() {
-		return Amps;
-	}
-	
+
 	public Core getCoreByID(Integer coreID){
 		return Cores.get(coreID);
 	}
-	public Amplifier getAmplifierByID(Integer ampID){
-		return Amps.get(ampID);
-	}
-	
+
 	public void addCore(Core myCore){
 		this.Cores.put(myCore.getId(), myCore);
 		this.addCoreToGrid(myCore);
 	}
-	public void addAmplifier(Amplifier myAmp){
-		this.Amps.put(myAmp.getId(), myAmp);
-		this.addAmplifierToGrid(myAmp);
-	}
-	
+
 
 
 	public void removeCore(Core myCore){
 		this.Cores.remove(myCore.getId());
 		this.removeCoreFromGrid(myCore);
-	}
-	public void removeAmplifier(Amplifier myAmp){
-		this.Amps.remove(myAmp.getId());
-		this.removeAmplifierFromGrid(myAmp);
 	}
 
 	private void addCoreToGrid(Core myCore) {
@@ -88,20 +70,6 @@ public class CoreWorld {
 			}
 		}
 	}
-	private void addAmplifierToGrid(Amplifier myAmp) {
-		int x = myAmp.getLocation().getBlockX();
-		int z = myAmp.getLocation().getBlockZ();
-		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		//only add the core if its not listed already
-		if (AmpGrid.get(gridPoint) == null) {
-			AmpGrid.put(gridPoint, new HashMap<Integer,Amplifier>());
-			AmpGrid.get(gridPoint).put(myAmp.getId(), myAmp);
-		}
-		else if (!AmpGrid.get(gridPoint).containsKey((myAmp.getId()))){
-			AmpGrid.get(gridPoint).put(myAmp.getId(), myAmp);
-		}
-		
-	}
 	
 	private void removeCoreFromGrid(Core myCore) {
 
@@ -120,36 +88,18 @@ public class CoreWorld {
 			}
 		}
 	}
-	public void removeAmplifierFromGrid(Amplifier myAmp) {
-		int x = myAmp.getLocation().getBlockX();
-		int z = myAmp.getLocation().getBlockZ();
-		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		//remove the core if it exists
-		if (AmpGrid.get(gridPoint).containsKey((myAmp.getId()))){
-			AmpGrid.get(gridPoint).remove(myAmp.getId());
-		}
-	}
-	
+
 	public HashMap<Integer, Core> getCoresInGrid(int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
 		
 		return CoreGrid.get(gridPoint);
-	}
-	public HashMap<Integer, Amplifier> getAmplifiersInGrid(int x, int z){
-		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		
-		return AmpGrid.get(gridPoint);
 	}
 	public boolean hasCoresInGrid(int x, int z) {
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
 		if (CoreGrid.get(gridPoint) != null) return true;
 		return false;
 	}
-	public boolean hasAmplifiersInGrid(int x, int z) {
-		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		if (AmpGrid.get(gridPoint) != null) return true;
-		return false;
-	}
+
 	
 	public HashMap<Integer, Core> getEnemyCoresInGrid(int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
@@ -213,69 +163,7 @@ public class CoreWorld {
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
 		return gridPoint;
 	}
-	public boolean blockIsUnderControl(Block b) {
-		int radius = SettingsManager.getInstance().getConfig().getInt("plot_size");
-		Location location = b.getLocation();
-		int x = location.getBlockX();
-		int z = location.getBlockZ();
-		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		ArrayList<Point> grids = new ArrayList<Point>();
-		for (int i = x-1; i < x+1 ; i++) {
-			for (int j = z-1; j < z+1 ; j++) {
-				Set<Integer> ampkeys = getAmplifiersInGrid(i,j).keySet();
-				for (int e : ampkeys) {
-					Amplifier amp = getAmplifiersInGrid(i,j).get(e);
-					int ampx = amp.getLocation().getBlockX();
-					int ampz = amp.getLocation().getBlockZ();
-					if (getDifferenceBetween(x, ampx) <= radius || getDifferenceBetween(z, ampz) <= radius) return true; 
-				}
-				Set<Integer> corekeys = getCoresInGrid(i,j).keySet();
-				for (int e : corekeys) {
-					Core core = getCoresInGrid(i,j).get(e);
-					int corex = core.getLocation().getBlockX();
-					int corez = core.getLocation().getBlockZ();
-					if (getDifferenceBetween(x, corez) <= radius || getDifferenceBetween(z, corex) <= radius) {
-						if (core.getType() == CoreType.BASE) return true;
-					}
-				}
-			}
-		}
-		return false;
-		
-	}
-	public Empire getEmpireControllingBlock(Block b) {
-		int radius = SettingsManager.getInstance().getConfig().getInt("plot_size");
-		Location location = b.getLocation();
-		int x = location.getBlockX();
-		int z = location.getBlockZ();
-		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		ArrayList<Point> grids = new ArrayList<Point>();
-		for (int i = x-1; i < x+1 ; i++) {
-			for (int j = z-1; j < z+1 ; j++) {
-				if (hasAmplifiersInGrid(i,j)) {
-					Set<Integer> ampkeys = getAmplifiersInGrid(i,j).keySet();
-					for (int e : ampkeys) {
-						Amplifier amp = getAmplifiersInGrid(i,j).get(e);
-						int ampx = amp.getLocation().getBlockX();
-						int ampz = amp.getLocation().getBlockZ();
-						if (getDifferenceBetween(x, ampx) <= radius || getDifferenceBetween(z, ampz) <= radius) return amp.getEmpire(); 
-					}
-				}
-				if (hasCoresInGrid(i,j)) {
-					Set<Integer> corekeys = getCoresInGrid(i,j).keySet();
-					for (int e : corekeys) {
-						Core core = getCoresInGrid(i,j).get(e);
-						int corex = core.getLocation().getBlockX();
-						int corez = core.getLocation().getBlockZ();
-						if (getDifferenceBetween(x, corez) <= radius || getDifferenceBetween(z, corex) <= radius) {
-							if (core.getType() == CoreType.BASE) return core.getEmpire();
-						}
-					}
-				}
-			}
-		}
-		return null;
-	}
+	
 	public int getDifferenceBetween(int int1, int int2) {
 		if (int1 > int2) return int1-int2;
 		if (int2 > int1) return int2-int1;
