@@ -143,7 +143,7 @@ public class CoreSchematic {
 	public static void loadSchematics() {
 		String epath = Bukkit.getServer().getPluginManager().getPlugin("Empires").getDataFolder().getAbsolutePath() + "/cores";
 		(new File(epath)).mkdirs();
-		File bcore = new File(epath + File.separator + "BASE.schematic");
+		File bcore = new File(epath + File.separator + "BASE.zip");
 		if (!bcore.exists()) {
 			Bukkit.getServer().getLogger().info("Base schematic not found");
 			Bukkit.getServer().getPluginManager().disablePlugin(Bukkit.getServer().getPluginManager().getPlugin("Empires"));
