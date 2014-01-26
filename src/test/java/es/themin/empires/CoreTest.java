@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 
 import es.themin.empires.cores.Core;
@@ -43,8 +45,14 @@ public class CoreTest {
 		
 		Mockito.when(myPlayer.getName()).thenReturn("kraft");
 		Mockito.when(myPlayer.getWorld()).thenReturn(myWorld);
-		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);
-		
+		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
+
+//		Mockito.when(myPlayer.sendMessage(Mockito.anyString())).tehnAnswer(new Answer<void>() {
+//		      @Override
+//		      public void answer(InvocationOnMock invocation) throws Throwable {
+//		    	  System.out.println((String) invocation.getArguments()[0]);
+//		      }
+//		    });
 		UtilManager.addWorld(myWorld);
 		
 		
@@ -62,5 +70,18 @@ public class CoreTest {
 		assertTrue(myCore.getEmpire() == myEmpire);
 		
 	}
+	
+	@Test
+	public void createGriefCoreOutsideEmpire(){
+		
+		CoreType myCoreType = CoreType.GRIEF;
+		
+		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
+		
+		assertTrue(myCore == null);
+		
+		
+	}
+	
 	
 }

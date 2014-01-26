@@ -176,6 +176,10 @@ public class CoreWorld {
 		for (int i = c1x1;i <= c1x2; i +=areaSize){
 			for (int j = c1z1;j <= c1z2; j += areaSize){
 				HashMap<Integer, Core> coreList = getFriendlyCoresInGrid(myCore.getEmpire(),(int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
+				if (coreList == null){
+					return false;
+				}
+				
 				for (Core c : coreList.values()){
 					if (!(c == myCore)){
 						int c2areaSize = c.getAreaSize();

@@ -124,6 +124,10 @@ public class PlayerListener implements Listener{
 			}
 		}
 		
+		if (myMatchingCores == null || myMatchingCores.size() < 1){
+			return;
+		}
+		
 		selectedCore = chooseCore(myMatchingCores);
 		
 		//get block metadata to see if its special.
