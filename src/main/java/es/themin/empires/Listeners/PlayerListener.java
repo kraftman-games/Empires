@@ -6,24 +6,29 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
+import es.themin.empires.enums.BattleType;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.BlockUtils;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
+import es.themin.empires.wars.Battle;
+import es.themin.empires.wars.War;
 
 public class PlayerListener implements Listener{
 	
@@ -31,7 +36,7 @@ public class PlayerListener implements Listener{
 	public PlayerListener(empires myPlugin){
 		this.plugin = myPlugin;
 	}
-	
+	public String warprefix= plugin.warprefix;
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent event) {
@@ -63,7 +68,36 @@ public class PlayerListener implements Listener{
 			handleBlockClick(event);
 		}
 	}
-	
+	@EventHandler
+	public void onPlayerDeathEvent(PlayerDeathEvent event) {
+		Player player = event.getEntity();
+		if (player.getKiller() instanceof Player) {
+			Player killer = (Player) player.getKiller();
+			if (UtilManager.empireplayers.containsKey(player.getName()) && UtilManager.empireplayers.containsKey(killer.getName())) {
+				Empire attacker = UtilManager.empireplayers.get(killer.getName());
+				Empire defender = UtilManager.empireplayers.get(player.getName());
+				if (attacker.isAtWarWith(defender)) {
+					War war = attacker.getWarAgainst(defender);
+					if (!(attacker.isInABattle()) && !(defender.isInABattle())) {
+						Battle battle = new Battle(attacker, defender, war, BattleType.DEATHMATCH);
+						battle.start();
+						for (Empire empire : war.getAllEmpires()) {
+							if (empire != attacker && empire != defender) {
+								empire.broadcastMessage(warprefix + ChatColor.RED + "A Battle has broken out between " + attacker.getName() + " and "  + defender.getName() + ". Both sides fight to the death");
+							}
+						}
+						attacker.broadcastMessage(warprefix + ChatColor.RED + killer.getName() + " Has begun a battle against " + defender.getName() + " slaughter them to to tip the balance of the war in your favour");
+						defender.broadcastMessage(warprefix + ChatColor.RED + player.getName() + " Was killed by a member of " + attacker.getName() + " slaughter them to to tip the balance of the war in your favour");
+					}else if (attacker.isInBattleWith(defender)) {
+						Battle battle = war.getOnGoingBattle();
+						
+					}
+					
+				}
+			}
+		}
+		
+	}
 	private void handleBlockClick(PlayerInteractEvent event){
 		
 		Block myBlock = event.getClickedBlock();
@@ -105,7 +139,7 @@ public class PlayerListener implements Listener{
 		} else {
 			//its an enemy empire, which can either be protected (repairing) at war, or ready for war.
 			if (selectedCore.getEmpire().canPlayerAttack(myPlayer)){
-				selectedCore.getEmpire().startWar(eventPlayerEmpire);
+				//selectedCore.getEmpire().startWar(eventPlayerEmpire);
 			}
 		}			
 	}
@@ -123,6 +157,7 @@ public class PlayerListener implements Listener{
 		}
 		return myCore;
 	}
+	
 }
 
 

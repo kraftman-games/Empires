@@ -15,12 +15,14 @@ import org.bukkit.metadata.FixedMetadataValue;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.wars.War;
 
 public class UtilManager {
 	
 	public static ArrayList<Empire> empires = new ArrayList<Empire>();
 	public static HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
 	public static ArrayList<Core> cores = new ArrayList<Core>();
+	public static ArrayList<War> wars = new ArrayList<War>();
 	public static ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
 	public static HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
 	

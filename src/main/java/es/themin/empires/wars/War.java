@@ -31,6 +31,9 @@ public class War {
 	public void start() {
 		this.onGoing = true;
 		this.start = System.currentTimeMillis();
+		for (Empire empire : getAllEmpires()) {
+			empire.addWar(this);
+		}
 	}
 	public void end() {
 		this.onGoing = false;
@@ -38,6 +41,9 @@ public class War {
 		if (empire1wins > empire2wins) this.victor = empire1; this.endedintie = false;
 		if (empire2wins > empire1wins) this.victor = empire1; this.endedintie = false;
 		if (empire1wins == empire2wins) this.victor = null; this.endedintie = true;
+		for (Empire empire : getAllEmpires()) {
+			empire.removeWar(this);
+		}
 	}
 	public void endWithVictor(Empire empire) {
 		this.onGoing = false;
@@ -127,5 +133,39 @@ public class War {
 	public ArrayList<Battle> getBattle(){
 		return battles;
 	}
-	
+	public ArrayList<Empire> getAllEmpires() {
+		ArrayList<Empire> list = new ArrayList<Empire>();
+		list.add(empire1);
+		list.add(empire2);
+		for (Empire empire : this.empire1allies) {
+			if (!(list.contains(empire))) {
+				list.add(empire);
+			}
+		}for (Empire empire : this.empire2allies) {
+			if (!(list.contains(empire))) {
+				list.add(empire);
+			}
+		}
+		return list;
+	}
+	public ArrayList<Empire> getAllEmpiresOnTeam1() {
+		ArrayList<Empire> list = new ArrayList<Empire>();
+		list.add(empire1);
+		for (Empire empire : this.empire1allies) {
+			if (!(list.contains(empire))) {
+				list.add(empire);
+			}
+		}
+		return list;
+	}
+	public ArrayList<Empire> getAllEmpiresOnTeam2() {
+		ArrayList<Empire> list = new ArrayList<Empire>();
+		list.add(empire2);
+		for (Empire empire : this.empire2allies) {
+			if (!(list.contains(empire))) {
+				list.add(empire);
+			}
+		}
+		return list;
+	}
 }

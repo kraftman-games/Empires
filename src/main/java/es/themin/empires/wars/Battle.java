@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.SettingsManager;
 
 public class Battle {
 	
@@ -32,22 +33,42 @@ public class Battle {
 		this.team1points = 0;
 		this.team2points = 0;
 		this.onGoing = false;
+		
 	}
 	public void start() {
 		this.onGoing = true;
 		this.start = System.currentTimeMillis();
+		if (type == BattleType.DEATHMATCH) {
+			if (SettingsManager.getInstance().getConfig().getString("wars.battles.deathmatch.use_multiplier").equalsIgnoreCase("true")) {
+				int multiplier = SettingsManager.getInstance().getConfig().getInt("wars.battles.deathmatch.kills_for_win_mulitplier");
+				int team1 = 0;
+				int team2 = 0;
+				for (Empire empire : getAllEmpiresOnTeam1()) {
+					team1 = team1 + empire.getNumberOfOnlinePlayers();
+				}for (Empire empire : getAllEmpiresOnTeam2()) {
+					team2 = team2 + empire.getNumberOfOnlinePlayers();
+				}
+				int added = team1 + team2;
+				int average = (int) added / 2;
+				this.killsforwin = (int) multiplier * average;
+			}else {
+				this.killsforwin = SettingsManager.getInstance().getConfig().getInt("wars.battles.deathmatch.kills_for_win");
+			}
+		}
 	}
-	public void endDeathMatch() {
-		this.onGoing = false;
-		if (team1points > team2points) this.victor = empire1; this.endsinatie = false; war.addWinsToTeam1(1);
-		if (team2points > team1points) this.victor = empire2; this.endsinatie = false; war.addWinsToTeam2(1);
-		if (team1points == team2points) this.victor = null; this.endsinatie = true;
-		this.end = System.currentTimeMillis();
+	public void end() {
+		if (type == BattleType.DEATHMATCH) {
+			this.onGoing = false;
+			if (team1points > team2points) this.victor = empire1; this.endsinatie = false; war.addWinsToTeam1(1);
+			if (team2points > team1points) this.victor = empire2; this.endsinatie = false; war.addWinsToTeam2(1);
+			if (team1points == team2points) this.victor = null; this.endsinatie = true;
+			this.end = System.currentTimeMillis();
+		}else if (type == BattleType.OBLITERATION) {
+			
+		}
 		
 	}
-	public void endObliteration() {
-		
-	}
+
 	public boolean endedInATie() {
 		return endsinatie;
 	}
@@ -59,12 +80,16 @@ public class Battle {
 	}
 	public void addPointsToTeam1(int points) {
 		this.team1points = this.team1points + points;
-		if (type == BattleType.DEATHMATCH) {
-			
+	}
+	public void addPointsToTeamWithEmpire(Empire empire, int points) {
+		if (getAllEmpiresOnTeam1().contains(empire)) {
+			this.team1points = this.team1points + points;
+		}else if (getAllEmpiresOnTeam2().contains(empire)) {
+			this.team2points = this.team2points + points;
 		}
 	}
 	public void addPointsToTeam2(int points) {
-		this.team1points = this.team1points + points;
+		this.team2points = this.team2points + points;
 	}
 	public void addEmpireToTeam1(Empire empire) {
 		empire1allies.add(empire);
@@ -95,5 +120,43 @@ public class Battle {
 	}
 	public War getWar() {
 		return war;
+	}
+	public ArrayList<Empire> getAllEmpires() {
+		ArrayList<Empire> list = new ArrayList<Empire>();
+		list.add(empire1);
+		list.add(empire2);
+		for (Empire empire : this.empire1allies) {
+			if (!(list.contains(empire))) {
+				list.add(empire);
+			}
+		}for (Empire empire : this.empire2allies) {
+			if (!(list.contains(empire))) {
+				list.add(empire);
+			}
+		}
+		return list;
+	}
+	public ArrayList<Empire> getAllEmpiresOnTeam1() {
+		ArrayList<Empire> list = new ArrayList<Empire>();
+		list.add(empire1);
+		for (Empire empire : this.empire1allies) {
+			if (!(list.contains(empire))) {
+				list.add(empire);
+			}
+		}
+		return list;
+	}
+	public ArrayList<Empire> getAllEmpiresOnTeam2() {
+		ArrayList<Empire> list = new ArrayList<Empire>();
+		list.add(empire2);
+		for (Empire empire : this.empire2allies) {
+			if (!(list.contains(empire))) {
+				list.add(empire);
+			}
+		}
+		return list;
+	}
+	public void CheckForEnd() {
+		
 	}
 }

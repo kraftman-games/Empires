@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
+import es.themin.empires.wars.Battle;
+import es.themin.empires.wars.War;
 
 public class Empire {
 	
@@ -32,6 +34,12 @@ public class Empire {
 	private Empire enemyEmpire;
 	private boolean vunerable;
 	private EmpireState empireState;
+	private int warwins;
+	private int warlosses;
+	private int battlewins;
+	private int battlelosses;
+	private ArrayList<War> wars;
+	private ArrayList<Empire> allies;
 
 	
 	public Empire getEnemyEmpire() {
@@ -42,13 +50,7 @@ public class Empire {
 		this.enemyEmpire = enemyEmpire;
 	}
 
-	public boolean isAtWar() {
-		return atWar;
-	}
-
-	public void setAtWar(boolean atWar) {
-		this.atWar = atWar;
-	}
+	
 
 	public Empire(int Id, String empireName, String ownerName){
 		if (UtilManager.getCoreWithId(Id) != null){
@@ -71,10 +73,17 @@ public class Empire {
 		this.Id = Id;
 		this.name = empireName;
 		this.owner = ownerName;
+		this.atWar =false;
+		this.warwins = 0;
+		this.warlosses = 0;
+		this.battlelosses = 0;
+		this.battlewins = 0;
+		this.wars = new ArrayList<War>();
 		this.setProtected(true);
 		UtilManager.empires.add(this);
 		this.addPlayer(ownerName);
 		UtilManager.empireplayers.put(ownerName, this);
+		this.allies = new ArrayList<Empire>();
 	}
 	
 	public Empire(String empireName, Player myPlayer){
@@ -316,13 +325,7 @@ public class Empire {
 		Save();
 	}
 
-	public boolean isProtected() {
-		return isProtected;
-	}
 
-	public void setProtected(boolean isProtected) {
-		this.isProtected = isProtected;
-	}
 	public void broadcastMessage(String message) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (players.contains(player.getName())) player.sendMessage(message);
@@ -370,7 +373,7 @@ public class Empire {
 	 * sets up a war between two empires
 	 * @param eventPlayerEmpire
 	 */
-	public void startWar(Empire eventPlayerEmpire) {
+	/*public void startWar(Empire eventPlayerEmpire) {
 		this.setAtWar(true);
 		eventPlayerEmpire.setAtWar(true);
 		this.setEnemyEmpire(eventPlayerEmpire);
@@ -384,7 +387,7 @@ public class Empire {
 		this.setEnemyEmpire(null);
 		eventPlayerEmpire.setEnemyEmpire(null);
 		Save();
-	}
+	}*/
 	
 	public boolean playerHasARank(String player) {
 		for (Rank rank : ranks) {
@@ -399,6 +402,102 @@ public class Empire {
 
 	public void setEmpireState(EmpireState empireState) {
 		this.empireState = empireState;
+	}
+	public boolean isProtected() {
+		return isProtected;
+	}
+
+	public void setProtected(boolean isProtected) {
+		this.isProtected = isProtected;
+	}
+	public boolean isAtWar() {
+		if (wars.isEmpty()) return false;
+		return true;
+	}
+	/*public void setAtWar(boolean atWar) {
+		this.atWar = atWar;
+	}*/
+	public ArrayList<War> getWar() {
+		return wars;
+	}
+	public void addWar(War war) {
+		this.atWar = true;
+		this.wars.add(war);
+	}
+	public void removeWar(War war) {
+		this.wars.remove(war);
+		if (wars.isEmpty()) this.atWar = false;
+	}
+	public boolean isInABattle() {
+		if (isAtWar()) {
+			for (War war : this.wars) {
+				if (war.hasBattleOnGoing()) return true;
+			}
+		}
+		return false;
+	}
+	public Battle getCurrentBattle() {
+		if (isAtWar()) {
+			for (War war : this.wars) {
+				if (war.hasBattleOnGoing()) {
+					return war.getOnGoingBattle();
+				}
+			}
+		}
+		return null;
+	}
+	public ArrayList<Empire> getAllies() {
+		return allies;
+	}
+	public void addAlly(Empire empire) {
+		allies.add(empire);
+	}
+	public void removeAlly(Empire empire) {
+		allies.remove(empire);
+	}
+	public boolean hasAllies() {
+		if (!(allies.isEmpty())) return true;
+		return false;
+	}
+	public boolean isAlliedWith(Empire empire) {
+		if (allies.contains(empire)) return true;
+		return false;
+	}
+	public boolean isAtWarWith(Empire empire) {
+		if (isAtWar()) {
+			for (War war : wars) {
+				if (war.getAllEmpiresOnTeam1().contains(this) && war.getAllEmpiresOnTeam2().contains(empire)) return true;
+				else if (war.getAllEmpiresOnTeam2().contains(this) && war.getAllEmpiresOnTeam1().contains(empire)) return true;
+			}
+		}
+		return false;
+	}
+	public War getWarAgainst(Empire empire) {
+		if (isAtWar()) {
+			for (War war : wars) {
+				if (war.getAllEmpiresOnTeam1().contains(this) && war.getAllEmpiresOnTeam2().contains(empire)) return war;
+				else if (war.getAllEmpiresOnTeam2().contains(this) && war.getAllEmpiresOnTeam1().contains(empire)) return war;
+			}
+		}
+		return null;
+	}
+	public boolean isInBattleWith(Empire empire) {
+		if (isAtWarWith(empire)) {
+			War war = getWarAgainst(empire);
+			if (war.hasBattleOnGoing()) {
+				Battle battle = war.getOnGoingBattle();
+				if (battle.getAllEmpiresOnTeam1().contains(this) && battle.getAllEmpiresOnTeam2().contains(empire)) return true;
+				if (battle.getAllEmpiresOnTeam2().contains(this) && battle.getAllEmpiresOnTeam1().contains(empire)) return true;
+			}
+		}
+		return false;
+	}
+	public int getNumberOfOnlinePlayers(){
+		int number = 0;
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (players.contains(player.getName())) number++;
+		}
+		return number;
 	}
 }
 
