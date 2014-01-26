@@ -66,9 +66,9 @@ public class CoreWorld {
 				//only add the core if its not listed already
 				if (CoreGrid.get(gridPoint) == null) {
 					CoreGrid.put(gridPoint, new HashMap<Integer,Core>());
-					CoreGrid.get(gridPoint).put(myCore.getId(), myCore);
 				}
-				else if (!CoreGrid.get(gridPoint).containsKey((myCore.getId()))){
+				
+				if (!CoreGrid.get(gridPoint).containsKey((myCore.getId()))){
 					CoreGrid.get(gridPoint).put(myCore.getId(), myCore);
 				}
 			}
@@ -94,13 +94,15 @@ public class CoreWorld {
 	}
 
 	public HashMap<Integer, Core> getCoresInGrid(int x, int z){
-		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		
+		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));	
 		return CoreGrid.get(gridPoint);
 	}
+	
 	public boolean hasCoresInGrid(int x, int z) {
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		if (CoreGrid.get(gridPoint) != null) return true;
+		if (!(CoreGrid.get(gridPoint) == null) && CoreGrid.get(gridPoint).values().size() > 0) {
+			return true;
+		}
 		return false;
 	}
 
@@ -133,12 +135,10 @@ public class CoreWorld {
 	
 	public HashMap<Integer, Core> getFriendlyCoresInGrid(Empire myEmpire, Point myPoint){
 		return getFriendlyCoresInGrid(myEmpire, myPoint.x, myPoint.y);
-		
 	}
 	
 	
 	public boolean isNearEnemyCore(Core myCore){
-		
 		int range = this.getGridSize();
 		
 		for (int i = -range;i <= range; i+=range){
@@ -167,17 +167,19 @@ public class CoreWorld {
 		
 		for (int i = c1x1;i <= c1x2; i +=areaSize){
 			for (int j = c1z1;j <= c1z2; j += areaSize){
-				HashMap<Integer, Core> coreList = getCoresInGrid((int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
+				HashMap<Integer, Core> coreList = getFriendlyCoresInGrid(myCore.getEmpire(),(int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
 				for (Core c : coreList.values()){
-					int c2areaSize = c.getAreaSize();
-					int c2x1 = c.getLocation().getBlockX()-c2areaSize;
-					int c2x2 = c.getLocation().getBlockX()+c2areaSize;
-					int c2z1 = c.getLocation().getBlockZ()-c2areaSize;
-					int c2z2 = c.getLocation().getBlockZ()+c2areaSize;
-					
-					//if the square is not outside of the other square
-					if(!(c1x2 < c2x1 || c1x1 > c2x2 || c1z2 < c2z1 || c1z1 > c2z2)){
-						return true;
+					if (!(c == myCore)){
+						int c2areaSize = c.getAreaSize();
+						int c2x1 = c.getLocation().getBlockX()-c2areaSize;
+						int c2x2 = c.getLocation().getBlockX()+c2areaSize;
+						int c2z1 = c.getLocation().getBlockZ()-c2areaSize;
+						int c2z2 = c.getLocation().getBlockZ()+c2areaSize;
+						
+						//if the square is not outside of the other square
+						if(!(c1x2 < c2x1 || c1x1 > c2x2 || c1z2 < c2z1 || c1z1 > c2z2)){
+							return true;
+						}
 					}
 				}
 			}
@@ -211,7 +213,7 @@ public class CoreWorld {
 		for (int i = x-areaSize;i <= x + areaSize; i +=areaSize){
 			for (int j = z-areaSize;j <= z + areaSize; z += areaSize){
 				Point myPoint = new Point(i,j);
-				if (!isInEmpire(myCore.getEmpire(), myPoint)){
+				if (!isInEmpire(myCore, myPoint)){
 					return false;
 				}
 				
@@ -228,25 +230,27 @@ public class CoreWorld {
 	 * @param myPoint
 	 * @return
 	 */
-	public boolean isInEmpire(Empire myEmpire, Point myPoint){
+	public boolean isInEmpire(Core myCore, Point myPoint){
 		
 		int x = (int) myPoint.getX();
 		int z = (int) myPoint.getY();
 		
-		HashMap<Integer, Core> myEmpireCores = getFriendlyCoresInGrid(myEmpire, x, z);
+		HashMap<Integer, Core> myEmpireCores = getFriendlyCoresInGrid(myCore.getEmpire(), x, z);
 		if (myEmpireCores == null ){
 			return false;
 		}
 		
-		for (Core myCore : myEmpireCores.values()){
-			int areaSize = myCore.getAreaSize();
-			int x1 = myCore.getLocation().getBlockX()-areaSize;
-			int x2 = myCore.getLocation().getBlockX()+areaSize;
-			int z1 = myCore.getLocation().getBlockZ()-areaSize;
-			int z2 = myCore.getLocation().getBlockZ()+areaSize;
-			
-			if (x > x1 && x < x2 && z > z1 && z < z2){
-				return true;
+		for (Core myFriendlyCore : myEmpireCores.values()){
+			if (myFriendlyCore != myCore){
+				int areaSize = myFriendlyCore.getAreaSize();
+				int x1 = myFriendlyCore.getLocation().getBlockX()-areaSize;
+				int x2 = myFriendlyCore.getLocation().getBlockX()+areaSize;
+				int z1 = myFriendlyCore.getLocation().getBlockZ()-areaSize;
+				int z2 = myFriendlyCore.getLocation().getBlockZ()+areaSize;
+				
+				if (x > x1 && x < x2 && z > z1 && z < z2){
+					return true;
+				}
 			}
 		}
 		
