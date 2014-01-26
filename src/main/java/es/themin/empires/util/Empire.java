@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.enums.EmpireState;
 
 public class Empire {
 	
@@ -30,6 +31,7 @@ public class Empire {
 	private boolean atWar;
 	private Empire enemyEmpire;
 	private boolean vunerable;
+	private EmpireState empireState;
 
 	
 	public Empire getEnemyEmpire() {
@@ -389,6 +391,14 @@ public class Empire {
 			if (rank.getPlayers().contains(player)) return true;
 		}
 		return false;
+	}
+
+	public EmpireState getEmpireState() {
+		return empireState;
+	}
+
+	public void setEmpireState(EmpireState empireState) {
+		this.empireState = empireState;
 	}
 }
 

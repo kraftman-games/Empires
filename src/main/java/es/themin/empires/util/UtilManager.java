@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import es.themin.empires.cores.Core;
@@ -285,6 +286,9 @@ public class UtilManager {
 		string.replaceAll("&o", ChatColor.ITALIC + "");
 		string.replaceAll("&r", ChatColor.RESET + "");
 		return string;
+	}
+	public static Empire getEmpireWithPlayer(Player myPlayer) {
+		return empireplayers.get(myPlayer.getName());		
 	}
 
 }

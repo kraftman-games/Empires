@@ -7,6 +7,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import es.themin.empires.cores.Core;
+import es.themin.empires.enums.CoreType;
+
 public class PlayerUtils {
 
 	
@@ -33,4 +36,7 @@ public class PlayerUtils {
         }
         return false;
 	}
+	
+	
+
 }

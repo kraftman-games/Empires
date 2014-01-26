@@ -2,42 +2,60 @@ package es.themin.empires;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
+
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 
+import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.PlayerUtils;
+import es.themin.empires.util.UtilManager;
 
 public class CoreTest {
 
-	Empire testEmpire;
+	private Empire myEmpire;
+	private Player myPlayer;
+	private World myWorld;
+	private Location  myLocation;
+	
 	
 	@Before
-	public void createEmpire(){
-		int empireID = 1;
-		String empireName = "testEmpire";
-		String ownerName = "kraft";
+	public void setupEnvironment(){
+		UtilManager.empires = new ArrayList<Empire>();
+		UtilManager.empireplayers = new HashMap<String, Empire>();
+		UtilManager.cores = new ArrayList<Core>();
+		UtilManager.worlds = new HashMap<UUID,CoreWorld>();
+		myPlayer= PowerMockito.mock(Player.class);
+		myWorld = PowerMockito.mock(World.class);
 		
-		testEmpire = new Empire(empireID, empireName, ownerName);
-	}
-	
-	@Test
-	public void myFirstUnitTest(){
+		myLocation = new Location(myWorld, 0, 0, 0);
 		
-		Utilities newEmpires = new Utilities();
-		assertTrue(newEmpires.myTestBool());
+		Mockito.when(myPlayer.getName()).thenReturn("kraft");
+		Mockito.when(myPlayer.getWorld()).thenReturn(myWorld);
+		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);
+		
+		
+		myEmpire = new Empire("testEmp", myPlayer);
 	}
 	
 	@Test
 	public void createCore(){
-		//TestPlayer myPlayer = new TestPlayer();
-		//Location myLocation = new Location(1,2,3);
-		//myPlayer.setLocation(myLocation);
 		
-		//Core(int Id, CoreType type, Location location, int level, Empire empire) {
+		CoreType myCoreType = CoreType.BASE;
+		
+		//Core myCore = PlayerUtils.createCore(myPlayer, myCoreType);
+		
+		
 		
 	}
 	
