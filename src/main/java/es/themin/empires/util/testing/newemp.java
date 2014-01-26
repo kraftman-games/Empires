@@ -14,7 +14,7 @@ public class newemp extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		try {
 			//validation moved to constructor
-			Empire empire = new Empire(args[1], player);
+			Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1], player.getName());
 			empire.Save();
 			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
 		} catch (Exception e) {
