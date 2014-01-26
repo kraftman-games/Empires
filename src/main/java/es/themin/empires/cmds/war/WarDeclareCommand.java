@@ -64,12 +64,12 @@ public class WarDeclareCommand extends EmpireSubCommand{
 
 	@Override
 	public String[] aliases() {
-		return null;
+		return new String[] {"declare"};
 	}
 
 	@Override
 	public String[] variables() {
-		return new String[] {"declare"};
+		return null;
 	}
 
 	@Override

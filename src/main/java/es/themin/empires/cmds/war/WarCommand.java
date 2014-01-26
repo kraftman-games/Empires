@@ -22,6 +22,7 @@ public class WarCommand implements CommandExecutor{
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	public static void setUp(){
 		commands.add(new WarDeclareCommand());
+		commands.add(new list());
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("war")) {
