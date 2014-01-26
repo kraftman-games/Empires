@@ -24,7 +24,7 @@ public class WarCommand implements CommandExecutor{
 		commands.add(new WarDeclareCommand());
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		if (commandLabel.equals("empire") || commandLabel.equalsIgnoreCase("emp") || commandLabel.equalsIgnoreCase("e")) {
+		if (commandLabel.equals("war")) {
 			Player player = (Player) sender;
 			if (args.length == 0) {
 				player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
