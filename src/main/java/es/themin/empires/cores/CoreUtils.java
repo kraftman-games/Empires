@@ -99,9 +99,9 @@ public class CoreUtils {
 		//and that PlaceType.INSIDE cores are fully inside of the empire
 		
 		if (myCore.getPlaceType() == PlaceType.INSIDE){
-//			if (!myCoreWorld.isInsideEmpire(this)){
-//				return false;
-//			}
+			if (!myCoreWorld.isInsideEmpire(myCore)){
+				return false;
+			}
 		}
 		
 				
@@ -121,3 +121,20 @@ public class CoreUtils {
 		return true;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

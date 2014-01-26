@@ -103,12 +103,35 @@ public class CoreWorld {
 	}
 
 	
-	public HashMap<Integer, Core> getEnemyCoresInGrid(int x, int z){
+	public HashMap<Integer, Core> getEnemyCoresInGrid(Empire myEmpire, int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
+		HashMap<Integer, Core> allCores = CoreGrid.get(gridPoint);
+		HashMap<Integer, Core> enemyCores = new HashMap<Integer, Core>();
 		
-		
-		
+		for (Core myCore : allCores.values()){
+			if (myCore.getEmpire() != myEmpire){
+				enemyCores.put(myCore.getId(), myCore);
+			}
+		}
 		return CoreGrid.get(gridPoint);
+	}
+	
+	public HashMap<Integer, Core> getFriendlyCoresInGrid(Empire myEmpire, int x, int z){
+		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
+		HashMap<Integer, Core> allCores = CoreGrid.get(gridPoint);
+		HashMap<Integer, Core> enemyCores = new HashMap<Integer, Core>();
+		
+		for (Core myCore : allCores.values()){
+			if (myCore.getEmpire() == myEmpire){
+				enemyCores.put(myCore.getId(), myCore);
+			}
+		}
+		return CoreGrid.get(gridPoint);
+	}
+	
+	public HashMap<Integer, Core> getFriendlyCoresInGrid(Empire myEmpire, Point myPoint){
+		return getFriendlyCoresInGrid(myEmpire, myPoint.x, myPoint.y);
+		
 	}
 	
 	
@@ -172,7 +195,80 @@ public class CoreWorld {
 		return 0;
 	}
 
+	/**
+	 * Checks if the core's bounds are within the empire
+	 * @param myCore
+	 * @return
+	 */
+	public boolean isInsideEmpire(Core myCore) {
+		
+		int areaSize = myCore.getAreaSize();
+		int x = myCore.getLocation().getBlockX();
+		int z = myCore.getLocation().getBlockZ();
+		
+		for (int i = x-areaSize;i <= x + areaSize; i +=areaSize){
+			for (int j = z-areaSize;j <= z + areaSize; z += areaSize){
+				Point myPoint = new Point(i,j);
+				if (!isInEmpire(myCore.getEmpire(), myPoint)){
+					return false;
+				}
+				
+			}
+		}
+		
+		return true;
+	}
+	
+	
+	/**
+	 * returns true if the point is inside the empire provided
+	 * @param myEmpire
+	 * @param myPoint
+	 * @return
+	 */
+	public boolean isInEmpire(Empire myEmpire, Point myPoint){
+		
+		int x = (int) myPoint.getX();
+		int z = (int) myPoint.getY();
+		
+		HashMap<Integer, Core> myEmpireCores = getFriendlyCoresInGrid(myEmpire, x, z);
+		if (myEmpireCores == null ){
+			return false;
+		}
+		
+		for (Core myCore : myEmpireCores.values()){
+			int areaSize = myCore.getAreaSize();
+			int x1 = myCore.getLocation().getBlockX()-areaSize;
+			int x2 = myCore.getLocation().getBlockX()+areaSize;
+			int z1 = myCore.getLocation().getBlockZ()-areaSize;
+			int z2 = myCore.getLocation().getBlockZ()+areaSize;
+			
+			if (x > x1 && x < x2 && z > z1 && z < z2){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
