@@ -6,7 +6,7 @@ public class EmpireUtils {
 
 	public static boolean empireCanAfford(CoreType myCoreType) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

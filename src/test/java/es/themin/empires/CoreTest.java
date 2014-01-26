@@ -45,6 +45,8 @@ public class CoreTest {
 		Mockito.when(myPlayer.getWorld()).thenReturn(myWorld);
 		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);
 		
+		UtilManager.addWorld(myWorld);
+		
 		
 		myEmpire = new Empire("testEmp", myPlayer);
 	}
@@ -56,12 +58,9 @@ public class CoreTest {
 		
 		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
 		
-		
+		assertTrue(myCore != null);
+		assertTrue(myCore.getEmpire() == myEmpire);
 		
 	}
 	
-	@Test
-	public void tryCorePlace(){
-		
-	}
 }

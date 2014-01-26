@@ -20,7 +20,7 @@ public class CoreWorld {
 	
 	private HashMap<Integer, Core> Cores;
 	private Map<Point, HashMap<Integer, Core>> CoreGrid;
-	private Integer GridSize = SettingsManager.getInstance().getConfig().getInt("gridsize");
+	private Integer GridSize = 100;
 	
 	
 	//TODO: IMPORTANT. check if the core its overlapping is itself
@@ -123,11 +123,15 @@ public class CoreWorld {
 	public HashMap<Integer, Core> getFriendlyCoresInGrid(Empire myEmpire, int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
 		HashMap<Integer, Core> allCores = CoreGrid.get(gridPoint);
-		HashMap<Integer, Core> enemyCores = new HashMap<Integer, Core>();
+		HashMap<Integer, Core> friendlyCores = new HashMap<Integer, Core>();
+		
+		if (allCores == null){
+			return null;
+		}
 		
 		for (Core myCore : allCores.values()){
 			if (myCore.getEmpire() == myEmpire){
-				enemyCores.put(myCore.getId(), myCore);
+				friendlyCores.put(myCore.getId(), myCore);
 			}
 		}
 		return CoreGrid.get(gridPoint);
@@ -144,6 +148,10 @@ public class CoreWorld {
 		for (int i = -range;i <= range; i+=range){
 			for (int j = -range;j <= range; j+=range){
 				HashMap<Integer, Core> myCores = this.getCoresInGrid(i, j);
+				if (myCores == null ){
+					return false;
+				}
+				
 				for(Core myFoundCore : myCores.values()){
 					if (myCore.getEmpire().equals(myFoundCore.getEmpire())){
 						return true;

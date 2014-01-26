@@ -55,7 +55,6 @@ public class CoreUtils {
 			return null;
 		}
 		
-		
 		//create the core
 		 myCore = new Core(myPlayer, myCoreType);
 				
@@ -78,9 +77,6 @@ public class CoreUtils {
 	
 	public static boolean canPlace(Player myPlayer, Core myCore){
 		//needs a complete re write for new system.
-		Location myLocation = myCore.getLocation();
-		empires myPlugin = (empires) Bukkit.getPluginManager().getPlugin("Empires");
-		
 		ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
@@ -121,6 +117,10 @@ public class CoreUtils {
 	
 	public static boolean coresOverlap(CoreWorld myCoreWorld, Core myCore){
 		HashMap<Integer, Core> myCores = myCoreWorld.getFriendlyCoresInGrid(myCore.getEmpire(), myCore.getLocation());
+		
+		if (myCores == null){
+			return false;
+		}
 		
 		int coreSize = myCore.getCoreSize();
 		int c1x1 = myCore.getLocation().getBlockX()-coreSize;
