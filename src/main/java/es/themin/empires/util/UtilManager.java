@@ -105,6 +105,12 @@ public class UtilManager {
 	public static void setWorlds(HashMap<UUID, CoreWorld> worlds) {
 		UtilManager.worlds = worlds;
 	}
+	
+	public static void addWorld(World myWorld){
+		worlds.put(myWorld.getUID(), new CoreWorld());
+	}
+	
+	
 	public static void loadEmpires() {
 		List<World> myWorlds = Bukkit.getServer().getWorlds();
 		
