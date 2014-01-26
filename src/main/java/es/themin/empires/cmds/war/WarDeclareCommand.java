@@ -69,7 +69,7 @@ public class WarDeclareCommand extends EmpireSubCommand{
 
 	@Override
 	public String[] variables() {
-		return null;
+		return new String[] {"declare"};
 	}
 
 	@Override
