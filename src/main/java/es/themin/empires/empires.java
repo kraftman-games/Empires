@@ -32,6 +32,7 @@ public final class empires extends JavaPlugin {
  
 	public static empires plugin;
 	public static String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
+	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
 	
 	@Override
     public void onEnable(){
