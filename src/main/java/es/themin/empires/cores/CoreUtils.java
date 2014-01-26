@@ -1,6 +1,7 @@
 package es.themin.empires.cores;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -95,32 +96,62 @@ public class CoreUtils {
 		}
 		
 		
-		//we need to check that the cores themselves dont overlap
-		//and that PlaceType.INSIDE cores are fully inside of the empire
-		
 		if (myCore.getPlaceType() == PlaceType.INSIDE){
 			if (!myCoreWorld.isInsideEmpire(myCore)){
+				myPlayer.sendMessage("Cannot place outside of empire");
 				return false;
 			}
 		}
 		
-				
-//		if (this.schematic != null){
-//			for (CoreBlock myBlock : this.schematic){
-//				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
-//													myLocation.getY() + myBlock.getOffsetY(),
-//													myLocation.getZ() + myBlock.getOffsetZ());
-//				Block b = newLocation.getBlock();
-//				
-//				Empire myEmpire = BlockUtils.getEmpireFromBlock(b, myPlugin);
-//				if (myEmpire == null){
-//					return false;
-//				}
-//			}
-//		}
+		//we need to check that the cores themselves dont overlap
+		if (coresOverlap(myCoreWorld, myCore )){
+			myPlayer.sendMessage("Cores cannot overlap!");
+		}
+		
+		// i think we're done??!
+		
 		return true;
 	}
+	
+	public static boolean coresOverlap(CoreWorld myCoreWorld, Core myCore){
+		HashMap<Integer, Core> myCores = myCoreWorld.getFriendlyCoresInGrid(myCore.getEmpire(), myCore.getLocation());
+		
+		int coreSize = myCore.getCoreSize();
+		int c1x1 = myCore.getLocation().getBlockX()-coreSize;
+		int c1x2 = myCore.getLocation().getBlockX()+coreSize;
+		int c1z1 = myCore.getLocation().getBlockZ()-coreSize;
+		int c1z2 = myCore.getLocation().getBlockZ()+coreSize;
+		
+		for(Core friendlyCore : myCores.values()){
+			
+			int coreSize2 = myCore.getCoreSize();
+			int c2x1 = myCore.getLocation().getBlockX()-coreSize2;
+			int c2x2 = myCore.getLocation().getBlockX()+coreSize2;
+			int c2z1 = myCore.getLocation().getBlockZ()-coreSize2;
+			int c2z2 = myCore.getLocation().getBlockZ()+coreSize2;
+			
+			if(!(c1x2 < c2x1 || c1x1 > c2x2 || c1z2 < c2z1 || c1z1 > c2z2)){
+				return true;
+			}
+		}
+		return false;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

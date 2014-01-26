@@ -251,6 +251,10 @@ public class CoreWorld {
 		return false;
 	}
 
+	public HashMap<Integer, Core> getFriendlyCoresInGrid(Empire empire,	Location location) {
+		return getFriendlyCoresInGrid(empire, location.getBlockX(), location.getBlockZ());
+	}
+
 }
 
 
