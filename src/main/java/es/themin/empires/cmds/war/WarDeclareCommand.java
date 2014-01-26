@@ -28,7 +28,7 @@ public class WarDeclareCommand extends EmpireSubCommand{
 					return false;
 				}
 			}
-			if (args.length == 0) {
+			if (args.length == 1) {
 				player.sendMessage(plprefix + ChatColor.RED + "Please define an empire");
 				return false;
 			}
