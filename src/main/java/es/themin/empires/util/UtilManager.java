@@ -183,13 +183,13 @@ public class UtilManager {
 	}
 	public static Empire getEmpireWithName(String name) {
 		for (Empire empire : empires) {
-			if (empire.getName() == name) return empire;
+			if (empire.getName().equalsIgnoreCase(name)) return empire;
 		}
 		return null;
 	}
 	public static boolean containsEmpireWithName(String name) {
 		for (Empire empire : empires) {
-			if (empire.getName() == name) return true;
+			if (empire.getName().equalsIgnoreCase(name)) return true;
 		}
 		return false;
 	}

@@ -53,7 +53,7 @@ public class Empire {
 	
 
 	public Empire(int Id, String empireName, String ownerName){
-		if (UtilManager.getCoreWithId(Id) != null){
+		if (UtilManager.getEmpireWithId(Id) != null){
 			throw new IllegalArgumentException("Empire with this ID already exists");
 		}
 		
@@ -68,7 +68,6 @@ public class Empire {
 		if (UtilManager.empireplayers.containsKey(ownerName)){
 			throw new IllegalArgumentException("Player already in empire");
 		}
-		
 		
 		this.Id = Id;
 		this.name = empireName;
@@ -499,6 +498,7 @@ public class Empire {
 		}
 		return number;
 	}
+
 }
 
 

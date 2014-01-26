@@ -28,6 +28,7 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.wars.Battle;
+import es.themin.empires.wars.Battle.BattleTeam;
 import es.themin.empires.wars.War;
 
 public class PlayerListener implements Listener{
@@ -79,8 +80,22 @@ public class PlayerListener implements Listener{
 				if (attacker.isAtWarWith(defender)) {
 					War war = attacker.getWarAgainst(defender);
 					if (!(attacker.isInABattle()) && !(defender.isInABattle())) {
-						Battle battle = new Battle(attacker, defender, war, BattleType.DEATHMATCH);
+						Empire team1 = null;
+						Empire team2 = null;
+						BattleTeam attackingteam = null;
+						if (war.getAllEmpiresOnTeam1().contains(attacker)) {
+							team1 = attacker;
+							attackingteam = BattleTeam.team1;
+							team2 = defender;
+						}else if (war.getAllEmpiresOnTeam1().contains(defender)){
+							team1= defender;
+							attackingteam = BattleTeam.team2;
+							team2 = attacker;
+						}
+						Battle battle = new Battle(team1, team2, war, BattleType.DEATHMATCH, attackingteam);
 						battle.start();
+						war.addBattle(battle);
+						war.Save();
 						for (Empire empire : war.getAllEmpires()) {
 							if (empire != attacker && empire != defender) {
 								empire.broadcastMessage(warprefix + ChatColor.RED + "A Battle has broken out between " + attacker.getName() + " and "  + defender.getName() + ". Both sides fight to the death");
@@ -90,7 +105,9 @@ public class PlayerListener implements Listener{
 						defender.broadcastMessage(warprefix + ChatColor.RED + player.getName() + " Was killed by a member of " + attacker.getName() + " slaughter them to to tip the balance of the war in your favour");
 					}else if (attacker.isInBattleWith(defender)) {
 						Battle battle = war.getOnGoingBattle();
-						
+						if (battle.getType() == BattleType.DEATHMATCH) {
+							battle.addPointsToTeamWithEmpire(attacker, 1);
+						}
 					}
 					
 				}
