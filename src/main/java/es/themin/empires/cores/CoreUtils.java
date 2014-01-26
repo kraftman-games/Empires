@@ -60,7 +60,7 @@ public class CoreUtils {
 				
 		
 		//check if the core can physically be placed here
-		if (!canPlace(myPlayer, myCore)){
+		if (canPlace(myPlayer, myCore) == false){
 			return null;
 		}
 		

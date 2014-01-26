@@ -27,9 +27,12 @@ import es.themin.empires.util.UtilManager;
 public class CoreTest {
 
 	private Empire myEmpire;
+	private Empire myEnemyEmpire;
 	private Player myPlayer;
+	private Player myEnemyPlayer;
 	private World myWorld;
 	private Location  myLocation;
+	private Location myEnemyLocation;
 	
 	
 	@Before
@@ -38,14 +41,24 @@ public class CoreTest {
 		UtilManager.empireplayers = new HashMap<String, Empire>();
 		UtilManager.cores = new ArrayList<Core>();
 		UtilManager.worlds = new HashMap<UUID,CoreWorld>();
-		myPlayer= PowerMockito.mock(Player.class);
+		
 		myWorld = PowerMockito.mock(World.class);
+		UtilManager.addWorld(myWorld);
 		
 		myLocation = new Location(myWorld, 0, 0, 0);
+		myEnemyLocation = new Location(myWorld, 0, 0, 60);
 		
+		myPlayer= PowerMockito.mock(Player.class);
 		Mockito.when(myPlayer.getName()).thenReturn("kraft");
 		Mockito.when(myPlayer.getWorld()).thenReturn(myWorld);
 		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
+		myEmpire = new Empire("testEmp", myPlayer);
+		
+		myEnemyPlayer= PowerMockito.mock(Player.class);
+		Mockito.when(myEnemyPlayer.getName()).thenReturn("kraftEnemy");
+		Mockito.when(myEnemyPlayer.getWorld()).thenReturn(myWorld);
+		Mockito.when(myEnemyPlayer.getLocation()).thenReturn(myEnemyLocation);	
+		myEnemyEmpire = new Empire("testEnemyEmp", myEnemyPlayer);
 
 //		Mockito.when(myPlayer.sendMessage(Mockito.anyString())).tehnAnswer(new Answer<void>() {
 //		      @Override
@@ -56,7 +69,7 @@ public class CoreTest {
 		UtilManager.addWorld(myWorld);
 		
 		
-		myEmpire = new Empire("testEmp", myPlayer);
+		
 	}
 	
 	@Test
@@ -73,15 +86,84 @@ public class CoreTest {
 	
 	@Test
 	public void createGriefCoreOutsideEmpire(){
-		
 		CoreType myCoreType = CoreType.GRIEF;
+		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
+		assertTrue(myCore == null);
+	}
+	
+	@Test
+	public void createGriefCoreEdgeofEmpire(){
+		CoreType myCoreType = CoreType.BASE;
 		
 		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
+		myCore.setCoreSize(32);
 		
-		assertTrue(myCore == null);
+		
+		myLocation = new Location(myWorld, 29, 0, 29);
+		Core myGriefCore = CoreUtils.placeCore(myPlayer, CoreType.GRIEF);
+		
+		assertTrue(myGriefCore.getEmpire() == myEmpire);
+	
+	}
+	
+	@Test
+	public void createGriefCoreOutsideofEmpire(){
+		CoreType myCoreType = CoreType.BASE;
+		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
+		myLocation = new Location(myWorld, 600, 600, 600);
+		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
+		Core myGriefCore = CoreUtils.placeCore(myPlayer, CoreType.GRIEF);
+		
+		assertTrue(myGriefCore == null);
+	
+	}
+	
+	@Test
+	public void createBaseCoreOutsideofEmpire(){
+		CoreType myCoreType = CoreType.BASE;
+		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
+		myLocation = new Location(myWorld, 600, 600, 600);
+		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
+		Core myGriefCore = CoreUtils.placeCore(myPlayer, CoreType.BASE);
+		
+		assertTrue(myGriefCore != null);
+		assertTrue(myGriefCore.getEmpire() == myEmpire);
+	
+	}
+	
+	@Test
+	public void createNonGriefCoreOutsideofEmpire(){
+		CoreType myCoreType = CoreType.BASE;
+		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
+		myLocation = new Location(myWorld, 600, 600, 600);
+		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
+		Core myGriefCore = CoreUtils.placeCore(myPlayer, CoreType.FARM);
+		
+		assertTrue(myGriefCore == null);
+	}
+	
+	@Test
+	public void createCoreNearEnemyEmpire(){
+		CoreType myCoreType = CoreType.BASE;
+		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
 		
 		
+		Core myEnemyCore = CoreUtils.placeCore(myEnemyPlayer, myCoreType);
+		
+		assertTrue(myEnemyCore == null);
 	}
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
