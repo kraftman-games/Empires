@@ -5,7 +5,9 @@ import org.junit.Test;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 import static org.junit.Assert.*;
+
 import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 
 public class EmpiresTest {
 	
@@ -16,11 +18,13 @@ public class EmpiresTest {
 		
 		String empireName = "testEmpire";
 		TestPlayer myTestPlayer = new TestPlayer();
-		myTestPlayer.setName("kraft");
+		Player myPlayer= PowerMockito.mock(Player.class);
 		
-		Empire empire = new Empire(empireName, myTestPlayer);
+		Mockito.when(myPlayer.getName()).thenReturn("kraft");
+		
+		Empire empire = new Empire(empireName, myPlayer);
 		assertTrue(empire.getName() == empireName);
-		assertTrue(empire.getOwner() == myTestPlayer.getName());
+		assertTrue(empire.getOwner() == myPlayer.getName());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

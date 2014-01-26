@@ -52,9 +52,14 @@ import org.bukkit.util.Vector;
 public class TestPlayer implements Player {
 
 	private String name;
+	private Location location;
 	
 	public void setName(String name){
 		this.name = name;
+	}
+	
+	public void setLocation(Location myLocation){
+		this.location = myLocation;
 	}
 	
 	@Override
@@ -433,8 +438,7 @@ public class TestPlayer implements Player {
 
 	@Override
 	public Location getLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return location;
 	}
 
 	@Override
