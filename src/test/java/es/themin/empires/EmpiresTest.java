@@ -44,13 +44,27 @@ public class EmpiresTest {
 		assertTrue(empire.getName() == empireName);
 		empire = new Empire(empireName, myTestPlayer);
 	}
-//	
-//	@Test
-//	public void createEmpireFromConfig(){
-//		
-//		Utilities newEmpires = new Utilities();
-//		assertTrue(newEmpires.myTestBool());
-//	}
-//	
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void createEmpirePlayerAlreadyInEmpire(){
+		
+		String empireName = "testEmpire";
+		TestPlayer myTestPlayer = new TestPlayer();
+		myTestPlayer.setName("kraft");
+		
+		Empire empire = new Empire(empireName, myTestPlayer);
+		assertTrue(empire.getName() == empireName);
+		empireName = "testEmpire2";
+		empire = new Empire(empireName, myTestPlayer);
+	}
+
+	
+	
 	
 }
+
+
+
+
+
+

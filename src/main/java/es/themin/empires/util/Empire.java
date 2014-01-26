@@ -53,10 +53,13 @@ public class Empire {
 		this.name = name;
 		this.owner = owner;
 		this.setProtected(true);
+		UtilManager.empires.add(this);
+		this.addPlayer(owner);
+		UtilManager.empireplayers.put(owner, this);
 	}
 	
 	public Empire(String empireName, Player myPlayer){
-		if (empireName.trim().length() < 1){
+		if (empireName == null || empireName.trim().length() < 1){
 			myPlayer.sendMessage("your empire must have a name");
 			throw new IllegalArgumentException("No empire name");
 		}
@@ -66,6 +69,14 @@ public class Empire {
 			throw new IllegalArgumentException("Name has no content.");
 		}
 		
+		if (UtilManager.empireplayers.containsKey(myPlayer.getName())){
+			myPlayer.sendMessage("You are already in an empire");
+			throw new IllegalArgumentException("Player already in empire");
+		}
+		
+		UtilManager.empires.add(this);
+		this.addPlayer(myPlayer.getName());
+		UtilManager.empireplayers.put(myPlayer.getName(), this);
 		this.Id = UtilManager.nextUnusedCoreId();
 		this.name = empireName;
 		this.owner = myPlayer.getName();

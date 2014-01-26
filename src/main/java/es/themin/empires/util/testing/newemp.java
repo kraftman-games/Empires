@@ -12,21 +12,14 @@ public class newemp extends SubCommand{
 	private empires plugin;
 	public String plprefix = plugin.plprefix;
 	public boolean onCommand(Player player, String[] args) {
-		if (args.length == 1) {
-			player.sendMessage(plprefix + ChatColor.RED + "Please give a name");
-			return false;
-		}if (UtilManager.empireplayers.containsKey(player.getName())) {
-			player.sendMessage(plprefix + ChatColor.RED  +"You are already in an empire");
-			return false;
-		}if (UtilManager.containsEmpireWithName(args[1])) {
-			player.sendMessage(plprefix + ChatColor.RED + "Empire already exists");
-			return false;
+		try {
+			//validation moved to constructor
+			Empire empire = new Empire(args[1], player);
+			empire.Save();
+			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
+		} catch (Exception e) {
+			
 		}
-		Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1], player.getName());
-		empire.addPlayer(player.getName());
-		UtilManager.empireplayers.put(player.getName(), empire);
-		empire.Save();
-		player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
 		return false;
 	}
 
