@@ -83,7 +83,7 @@ public class Empire {
 		
 		if (UtilManager.getEmpireWithName(empireName)!= null){
 			myPlayer.sendMessage("Empire name already exists");
-			throw new IllegalArgumentException("Name has no content.");
+			throw new IllegalArgumentException("Empire already exists");
 		}
 		
 		if (UtilManager.empireplayers.containsKey(myPlayer.getName())){

@@ -33,7 +33,7 @@ public class CoreTest {
 	
 	@Test
 	public void createCore(){
-		TestPlayer myPlayer = new TestPlayer();
+		//TestPlayer myPlayer = new TestPlayer();
 		//Location myLocation = new Location(1,2,3);
 		//myPlayer.setLocation(myLocation);
 		
