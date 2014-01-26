@@ -94,6 +94,8 @@ public class PlayerListener implements Listener{
 						}
 						Battle battle = new Battle(team1, team2, war, BattleType.DEATHMATCH, attackingteam);
 						battle.start();
+						war.addBattle(battle);
+						war.Save();
 						for (Empire empire : war.getAllEmpires()) {
 							if (empire != attacker && empire != defender) {
 								empire.broadcastMessage(warprefix + ChatColor.RED + "A Battle has broken out between " + attacker.getName() + " and "  + defender.getName() + ". Both sides fight to the death");
