@@ -7,3 +7,15 @@ regeneration:
       delay: 10
 gridsize: 32
 plot_size: 15
+wars:
+   battles:
+      deathmatch:
+         use_multiplier: 'true'
+         kills_for_win_multiplier: 5
+         kill_for_win: 30
+      obliteration:
+         use_multipliers: 'true'
+         kills_for_win_multiplier: 5
+         damage_for_win_multiplier: 5
+         kill_for_win: 30
+         damage_for_win: 100

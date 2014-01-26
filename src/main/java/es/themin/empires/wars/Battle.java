@@ -20,6 +20,8 @@ public class Battle {
 	private int team1points;
 	private int team2points;
 	private boolean endsinatie;
+	private int killsforwin;
+	private int damageforwin;
 	public Battle(Empire empire1, Empire empire2, War war, BattleType type) {
 		this.empire1 = empire1;
 		this.empire2 = empire2;
@@ -35,14 +37,18 @@ public class Battle {
 		this.onGoing = true;
 		this.start = System.currentTimeMillis();
 	}
-	public void end() {
+	public void endDeathMatch() {
 		this.onGoing = false;
 		if (team1points > team2points) this.victor = empire1; this.endsinatie = false; war.addWinsToTeam1(1);
 		if (team2points > team1points) this.victor = empire2; this.endsinatie = false; war.addWinsToTeam2(1);
 		if (team1points == team2points) this.victor = null; this.endsinatie = true;
 		this.end = System.currentTimeMillis();
+		
 	}
-	public boolean endInATie() {
+	public void endObliteration() {
+		
+	}
+	public boolean endedInATie() {
 		return endsinatie;
 	}
 	public void setTeam1Points(int points) {
@@ -53,6 +59,9 @@ public class Battle {
 	}
 	public void addPointsToTeam1(int points) {
 		this.team1points = this.team1points + points;
+		if (type == BattleType.DEATHMATCH) {
+			
+		}
 	}
 	public void addPointsToTeam2(int points) {
 		this.team1points = this.team1points + points;
