@@ -58,9 +58,50 @@ public class EmpiresTest {
 		empire = new Empire(empireName, myTestPlayer);
 	}
 
+	@Test
+	public void loadEmpirefromConfig(){
+		int empireID = 1;
+		String empireName = "testEmpire";
+		String ownerName = "kraft";
+		
+		Empire empire = new Empire(empireID, empireName, ownerName);
+		assertTrue(empire.getId() == empireID);
+	}
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void loadEmpirefromConfigDuplicateID(){
+		int empireID = 1;
+		String empireName = "testEmpire";
+		String ownerName = "kraft";
+		
+		Empire empire = new Empire(empireID, empireName, ownerName);
+		
+		empire = new Empire(empireID, empireName, ownerName);
+	}
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void loadEmpirefromConfigDuplicateName(){
+		int empireID = 1;
+		String empireName = "testEmpire";
+		String ownerName = "kraft";
+		
+		Empire empire = new Empire(empireID, empireName, ownerName);
+		empireID = 2;
+		empire = new Empire(empireID, empireName, ownerName);
+	}
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void loadEmpirefromConfigDuplicateOwner(){
+		int empireID = 1;
+		String empireName = "testEmpire";
+		String ownerName = "kraft";
+		
+		Empire empire = new Empire(empireID, empireName, ownerName);
+		empireID = 2;
+		empireName = "testEmpire2";
+		empire = new Empire(empireID, empireName, ownerName);
+		assertTrue(empire.getId() == empireID);
+	}
 }
 
 

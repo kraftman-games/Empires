@@ -48,14 +48,31 @@ public class Empire {
 		this.atWar = atWar;
 	}
 
-	public Empire(int Id, String name, String owner){
+	public Empire(int Id, String empireName, String ownerName){
+		if (UtilManager.getCoreWithId(Id) != null){
+			throw new IllegalArgumentException("Empire with this ID already exists");
+		}
+		
+		if (empireName == null || empireName.trim().length() < 1){
+			throw new IllegalArgumentException("No empire name");
+		}
+		
+		if (ownerName == null || ownerName.trim().length() < 1){
+			throw new IllegalArgumentException("No player name provided");
+		}
+		
+		if (UtilManager.empireplayers.containsKey(ownerName)){
+			throw new IllegalArgumentException("Player already in empire");
+		}
+		
+		
 		this.Id = Id;
-		this.name = name;
-		this.owner = owner;
+		this.name = empireName;
+		this.owner = ownerName;
 		this.setProtected(true);
 		UtilManager.empires.add(this);
-		this.addPlayer(owner);
-		UtilManager.empireplayers.put(owner, this);
+		this.addPlayer(ownerName);
+		UtilManager.empireplayers.put(ownerName, this);
 	}
 	
 	public Empire(String empireName, Player myPlayer){
