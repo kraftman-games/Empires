@@ -3,6 +3,7 @@ package es.themin.empires.wars;
 import java.util.ArrayList;
 
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.UtilManager;
 
 public class War {
 
@@ -167,5 +168,11 @@ public class War {
 			}
 		}
 		return list;
+	}
+	public void Save() {
+		if (UtilManager.wars.contains(this)) {
+			UtilManager.wars.remove(this);
+		}
+		UtilManager.wars.add(this);
 	}
 }

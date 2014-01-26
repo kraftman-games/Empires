@@ -499,6 +499,7 @@ public class Empire {
 		}
 		return number;
 	}
+
 }
 
 

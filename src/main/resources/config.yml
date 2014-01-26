@@ -10,11 +10,11 @@ plot_size: 15
 wars:
    battles:
       deathmatch:
-         use_multiplier: 'true'
+         use_multiplier: 'false'
          kills_for_win_multiplier: 5
          kill_for_win: 30
       obliteration:
-         use_multipliers: 'true'
+         use_multipliers: 'false'
          kills_for_win_multiplier: 5
          damage_for_win_multiplier: 5
          kill_for_win: 30
