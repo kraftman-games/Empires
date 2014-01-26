@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 
 import es.themin.empires.cores.Core;
+import es.themin.empires.cores.CoreUtils;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
@@ -53,7 +54,7 @@ public class CoreTest {
 		
 		CoreType myCoreType = CoreType.BASE;
 		
-		//Core myCore = PlayerUtils.createCore(myPlayer, myCoreType);
+		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
 		
 		
 		

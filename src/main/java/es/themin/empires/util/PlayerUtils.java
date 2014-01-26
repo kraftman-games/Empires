@@ -36,6 +36,12 @@ public class PlayerUtils {
         }
         return false;
 	}
+
+	public static boolean PlayerCanPlaceCore(Player myPlayer,
+			CoreType myCoreType) {
+		// TODO add permission checks for ranks here
+		return true;
+	}
 	
 	
 
