@@ -1,15 +1,26 @@
 package es.themin.empires;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import es.themin.empires.Utilities;
+public class CoreTest {
 
-public class empiresTest {
 	
 	@Test
 	public void myFirstUnitTest(){
 		
 		Utilities newEmpires = new Utilities();
 		assertTrue(newEmpires.myTestBool());
+	}
+	
+	@Test
+	public void createCore(){
+		
+	}
+	
+	@Test
+	public void tryCorePlace(){
+		
 	}
 }

@@ -55,6 +55,23 @@ public class Empire {
 		this.setProtected(true);
 	}
 	
+	public Empire(String empireName, Player myPlayer){
+		if (empireName.trim().length() < 1){
+			myPlayer.sendMessage("your empire must have a name");
+			throw new IllegalArgumentException("No empire name");
+		}
+		
+		if (UtilManager.getEmpireWithName(empireName)!= null){
+			myPlayer.sendMessage("Empire name already exists");
+			throw new IllegalArgumentException("Name has no content.");
+		}
+		
+		this.Id = UtilManager.nextUnusedCoreId();
+		this.name = empireName;
+		this.owner = myPlayer.getName();
+		this.setProtected(true);
+	}
+	
 	public int getId(){
 		return Id;
 	}
