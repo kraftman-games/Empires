@@ -96,7 +96,6 @@ public class Core {
 	public Core(Player myPlayer, CoreType myCoreType) {
 		this.coreSize = 16;
 		this.empire = UtilManager.getEmpireWithPlayer(myPlayer);
-		this.Id = UtilManager.nextUnusedCoreId();
 		this.coreType = myCoreType;
 		this.location = myPlayer.getLocation();
 		this.level = 1;
@@ -183,13 +182,10 @@ public class Core {
 	
 	
 	public boolean deploy(){
-		//if (CoreUtils.canPlace(this)){
-			this.protect(true);
+		
 			this.build();
 			//add to coreworld
-			UUID myUUID = this.location.getWorld().getUID();
-			CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
-			myCoreWorld.addCore(this);
+			
 			
 			return true;
 		//} 
@@ -202,35 +198,6 @@ public class Core {
 
 	public void setPlaceType(PlaceType placeType) {
 		this.placeType = placeType;
-	}
-
-	public void protect(boolean setProtected){
-		Location myLocation = this.getLocation();
-		JavaPlugin myPlugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("Empires");
-		
-		
-		if (this.schematic != null){
-			for (CoreBlock myBlock : this.schematic){
-				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
-													myLocation.getY() + myBlock.getOffsetY(),
-													myLocation.getZ() + myBlock.getOffsetZ());
-				Block b = newLocation.getBlock();
-
-				FixedMetadataValue myCoreID = new FixedMetadataValue (myPlugin, this.getId());
-				FixedMetadataValue myEmpireID = new FixedMetadataValue (myPlugin, this.getEmpire().getId());
-				FixedMetadataValue myGriefMeta = new FixedMetadataValue (myPlugin, myBlock.getProtection());
-				
-				if (setProtected){
-					b.setMetadata("core", myCoreID);
-					b.setMetadata("empire", myEmpireID);
-					b.setMetadata("protection", myGriefMeta);}
-				else {
-					b.removeMetadata("core", myPlugin);
-					b.removeMetadata("empire", myPlugin);
-					b.removeMetadata("protection", myPlugin);
-				}					
-			}
-		}
 	}
 	
 	public void build() {
@@ -259,7 +226,6 @@ public class Core {
 		UtilManager.cores.add(this);
 	}
 	public void Delete() {
-		this.protect(false);
 		this.destroy();
 		UtilManager.getEmpireWithCore(this).removeCore(this);
 		if (UtilManager.containsCoreWithId(this.Id)) {

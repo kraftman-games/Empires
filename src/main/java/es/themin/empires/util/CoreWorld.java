@@ -22,6 +22,8 @@ public class CoreWorld {
 	private Map<Point, HashMap<Integer, Core>> CoreGrid;
 	private Integer GridSize = SettingsManager.getInstance().getConfig().getInt("gridsize");
 	
+	
+	//TODO: IMPORTANT. check if the core its overlapping is itself
 
 	public CoreWorld() {
 		CoreGrid = new HashMap<Point, HashMap<Integer, Core>>();
