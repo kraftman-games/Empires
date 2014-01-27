@@ -23,9 +23,10 @@ public class tannertest extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		
 		int x = Integer.parseInt(args[1]);
+		int y = Integer.parseInt(args[2]);
+
 		int z = Integer.parseInt(args[2]);
-		int y = 255;
-		player.sendMessage("size: "+ x + "second: " + z);
+		player.sendMessage("x: "+ x + "y: " + y + "z: "+z);
 		
 		
 		
