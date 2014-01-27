@@ -25,7 +25,7 @@ public class tannertest extends SubCommand{
 		//int x = Integer.parseInt(args[0]);
 		//int z = Integer.parseInt(args[1]);
 		//int y = 255;
-		player.sendMessage("first: "+ args[0] + "second: " + args[0]);
+		player.sendMessage("size: "+ args.length + "second: " + args[0].length());
 		
 //		Location newLoc = new Location(player.getWorld(), x, y, z);
 //		
