@@ -60,6 +60,7 @@ public class tannertest extends SubCommand{
 		for (int y = 255; y >= 1; y--){
 			Location myLocation = new Location(myPlayer.getWorld(), x, y, z);
 			Chunk myChunk = myLocation.getChunk();
+			myPlayer.sendMessage("test: "+myChunk.isLoaded());
 			if (myChunk.isLoaded() == false){
 				myChunk.load(true);
 				myPlayer.sendMessage("test");
