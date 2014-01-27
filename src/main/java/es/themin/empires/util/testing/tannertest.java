@@ -62,7 +62,7 @@ public class tannertest extends SubCommand{
 			Chunk myChunk = myLocation.getChunk();
 			if (myChunk.isLoaded() == false){
 				myChunk.load(true);
-				
+				myPlayer.sendMessage("test");
 				if (myLocation.getBlock().getType() != Material.AIR){
 					if (myLocation.getBlock().getType() == Material.GRASS){
 						//myPlayer.getWorld().loadChunk(myChunk);
