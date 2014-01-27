@@ -24,17 +24,18 @@ public class tannertest extends SubCommand{
 		
 		int x = Integer.parseInt(args[1]);
 		int z = Integer.parseInt(args[2]);
-		//int y = 255;
+		int y = 255;
 		player.sendMessage("size: "+ x + "second: " + z);
-		for(String myString : args){
-			player.sendMessage(myString);
-		}
 		
-//		Location newLoc = new Location(player.getWorld(), x, y, z);
-//		
-//		Chunk myChunk = newLoc.getBlock().getChunk();
-//		
-//		myChunk.load(true);
+		
+		
+		Location newLoc = new Location(player.getWorld(), x, y, z);
+		
+		Chunk myChunk = newLoc.getBlock().getChunk();
+		
+		myChunk.load(true);
+		
+		player.sendMessage(myChunk.isLoaded()+ " block type: "+newLoc.getBlock().getType());
 		
 		
 		
