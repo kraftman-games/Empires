@@ -62,8 +62,8 @@ public class tannertest extends SubCommand{
 					
 					if (myLocation.getBlock().getType() != Material.AIR){
 						if (myLocation.getBlock().getType() == Material.GRASS){
-							myPlayer.getWorld().refreshChunk(myLocation.getChunk().getX(), myLocation.getChunk().getZ());
-							myPlayer.getWorld().loadChunk(myLocation.getChunk());
+							//myPlayer.getWorld().refreshChunk(myLocation.getChunk().getX(), myLocation.getChunk().getZ());
+							//myPlayer.getWorld().loadChunk(myLocation.getChunk());
 							myPlayer.teleport(myLocation);
 							return true;
 						} else {
