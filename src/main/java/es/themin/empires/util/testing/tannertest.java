@@ -60,24 +60,22 @@ public class tannertest extends SubCommand{
 		for (int y = 255; y >= 1; y--){
 			Location myLocation = new Location(myPlayer.getWorld(), x, y, z);
 			Chunk myChunk = myLocation.getChunk();
-			myPlayer.sendMessage("test: "+myChunk.isLoaded());
-			if (myChunk.isLoaded() == false){
-				myChunk.load(true);
-				myPlayer.sendMessage("test");
-				if (myLocation.getBlock().getType() != Material.AIR){
-					if (myLocation.getBlock().getType() == Material.GRASS){
-						//myPlayer.getWorld().loadChunk(myChunk);
-						//myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
-						myPlayer.sendMessage("X: "+x+"Z: "+z);
-						myPlayer.teleport(myLocation);
-						return true;
-					} else {
-						return false;
-					}
+		
+			myChunk.load(true);
+			
+			if (myLocation.getBlock().getType() != Material.AIR){
+				if (myLocation.getBlock().getType() == Material.GRASS){
+					//myPlayer.getWorld().loadChunk(myChunk);
+					//myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
+					myPlayer.sendMessage("X: "+x+"Z: "+z);
+					myPlayer.teleport(myLocation);
+					return true;
+				} else {
+					return false;
 				}
-				
 			}
-		}	
+			
+		}
 		
 		return false;
 	}
