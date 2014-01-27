@@ -56,7 +56,7 @@ public class tannertest extends SubCommand{
 		
 		for (int y = 255; y >= 1; y--){
 			Location myLocation = new Location(myPlayer.getWorld(), x, y, z);
-			if (myLocation.getChunk().isLoaded() == false){
+			
 				myLocation.getChunk().load(true);
 				
 				myPlayer.getWorld().refreshChunk(myLocation.getChunk().getX(), myLocation.getChunk().getZ());
@@ -71,7 +71,7 @@ public class tannertest extends SubCommand{
 				}
 					
 				
-			}
+			
 		}	
 		
 		return false;
