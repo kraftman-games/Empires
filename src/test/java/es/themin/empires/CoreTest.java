@@ -109,10 +109,12 @@ public class CoreTest {
 	
 	@Test
 	public void createGriefCoreOutsideofEmpire(){
+		//base core to act as empire
 		CoreType myCoreType = CoreType.BASE;
 		Core myCore = CoreUtils.placeCore(myPlayer, myCoreType);
 		myLocation = new Location(myWorld, 600, 600, 600);
-		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
+		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);
+		//grief core with new location far away from grief core
 		Core myGriefCore = CoreUtils.placeCore(myPlayer, CoreType.GRIEF);
 		
 		assertTrue(myGriefCore == null);

@@ -19,13 +19,19 @@ public class tannertest extends SubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		Empire empire = UtilManager.empireplayers.get(player.getName());
-		Core myCore = new Core(UtilManager.nextUnusedCoreId(), CoreType.GRIEF, player.getLocation(), 1, empire);
-		empire.addCore(myCore);
-		myCore.Save();
-		player.sendMessage("testing grief block");
-		return false;
 		
+		int x = Integer.parseInt(args[0]);
+		int z = Integer.parseInt(args[1]);
+		player.sendMessage("first: "+ x + "second: " + z);
+		
+		return false;
+//		Empire empire = UtilManager.empireplayers.get(player.getName());
+//		Core myCore = new Core(UtilManager.nextUnusedCoreId(), CoreType.GRIEF, player.getLocation(), 1, empire);
+//		empire.addCore(myCore);
+//		myCore.Save();
+//		player.sendMessage("testing grief block");
+//		return false;
+//		
 		
 //		ItemStack myItem = new ItemStack(Material.FLINT);
 //		ItemMeta myMeta = myItem.getItemMeta();
