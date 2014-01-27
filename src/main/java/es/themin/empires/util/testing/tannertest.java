@@ -3,6 +3,8 @@ package es.themin.empires.util.testing;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -22,7 +24,16 @@ public class tannertest extends SubCommand{
 		
 		int x = Integer.parseInt(args[0]);
 		int z = Integer.parseInt(args[1]);
+		int y = 255;
 		player.sendMessage("first: "+ x + "second: " + z);
+		
+//		Location newLoc = new Location(player.getWorld(), x, y, z);
+//		
+//		Chunk myChunk = newLoc.getBlock().getChunk();
+//		
+//		myChunk.load(true);
+		
+		
 		
 		return false;
 //		Empire empire = UtilManager.empireplayers.get(player.getName());
