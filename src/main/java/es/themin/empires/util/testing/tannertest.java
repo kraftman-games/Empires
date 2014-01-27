@@ -22,7 +22,7 @@ public class tannertest extends SubCommand{
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		
-		int range = 1000;
+		int range = 10000;
 		
 		int z = (int)(Math.random()*range);
 		int x = (int)(Math.random()*range);
@@ -65,7 +65,7 @@ public class tannertest extends SubCommand{
 			
 			if (myLocation.getBlock().getType() != Material.AIR){
 				if (myLocation.getBlock().getType() == Material.GRASS){
-					//myPlayer.getWorld().loadChunk(myChunk);
+					myPlayer.getWorld().loadChunk(myChunk);
 					//myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
 					myPlayer.sendMessage("X: "+x+"Z: "+z);
 					myPlayer.teleport(myLocation);
