@@ -19,6 +19,7 @@ import org.powermock.api.mockito.PowerMockito;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreUtils;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.enums.PlaceType;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.PlayerUtils;
@@ -149,6 +150,9 @@ public class CoreTest {
 		
 		
 		Core myEnemyCore = CoreUtils.placeCore(myEnemyPlayer, myCoreType);
+		
+		UUID myUUID = myCore.getLocation().getWorld().getUID();
+		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
 		
 		assertTrue(myEnemyCore == null);
 	}

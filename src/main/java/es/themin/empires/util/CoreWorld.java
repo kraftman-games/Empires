@@ -112,12 +112,20 @@ public class CoreWorld {
 		HashMap<Integer, Core> allCores = CoreGrid.get(gridPoint);
 		HashMap<Integer, Core> enemyCores = new HashMap<Integer, Core>();
 		
+		if (allCores == null){
+			return null;
+		}
+		
 		for (Core myCore : allCores.values()){
 			if (myCore.getEmpire() != myEmpire){
 				enemyCores.put(myCore.getId(), myCore);
 			}
 		}
-		return CoreGrid.get(gridPoint);
+		if (enemyCores.values().size() == 0){
+			return null;
+		}
+		
+		return enemyCores;
 	}
 	
 	public HashMap<Integer, Core> getFriendlyCoresInGrid(Empire myEmpire, int x, int z){
@@ -145,17 +153,11 @@ public class CoreWorld {
 	public boolean isNearEnemyCore(Core myCore){
 		int range = this.getGridSize();
 		
-		for (int i = -range;i <= range; i+=range){
-			for (int j = -range;j <= range; j+=range){
-				HashMap<Integer, Core> myCores = this.getCoresInGrid(i, j);
-				if (myCores == null ){
-					return false;
-				}
-				
-				for(Core myFoundCore : myCores.values()){
-					if (myCore.getEmpire().equals(myFoundCore.getEmpire())){
-						return true;
-					}
+		for (int i = -range;i <= range; i+=(range/2)){
+			for (int j = -range;j <= range; j+=(range/2)){
+				HashMap<Integer, Core> myCores = this.getEnemyCoresInGrid(myCore.getEmpire(),i, j);
+				if (myCores != null ){
+					return true;
 				}
 			}
 		}
