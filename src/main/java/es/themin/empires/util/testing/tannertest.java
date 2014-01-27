@@ -24,17 +24,14 @@ public class tannertest extends SubCommand{
 		
 		int range = 1000;
 		
-		int z = 0;
-		int x = 0;
+		int z = (int)(Math.random()*range);
+		int x = (int)(Math.random()*range);
 		
 		while (getHabitableZone(player, x, z) == false){
 			z = (int)(Math.random()*range);
 			x = (int)(Math.random()*range);
 		}
-		
-		
 		return false;
-
 	}
 
 	@Override
