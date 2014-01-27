@@ -22,10 +22,10 @@ public class tannertest extends SubCommand{
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		
-		int x = Integer.parseInt(args[0]);
-		int z = Integer.parseInt(args[1]);
-		int y = 255;
-		player.sendMessage("first: "+ x + "second: " + z);
+		//int x = Integer.parseInt(args[0]);
+		//int z = Integer.parseInt(args[1]);
+		//int y = 255;
+		player.sendMessage("first: "+ args[0] + "second: " + args[0]);
 		
 //		Location newLoc = new Location(player.getWorld(), x, y, z);
 //		
