@@ -27,6 +27,8 @@ public class tannertest extends SubCommand{
 		int z = (int)(Math.random()*range);
 		int x = (int)(Math.random()*range);
 		
+		player.sendMessage("X: "+x+"Z: "+z);
+		
 		while (getHabitableZone(player, x, z) == false){
 			player.sendMessage("X: "+x+"Z: "+z);
 			z = (int)(Math.random()*range);
