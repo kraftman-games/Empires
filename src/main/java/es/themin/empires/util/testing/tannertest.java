@@ -27,11 +27,15 @@ public class tannertest extends SubCommand{
 		int z = (int)(Math.random()*range);
 		int x = (int)(Math.random()*range);
 		
-		while (getHabitableZone(player, x, z) == false){
+		while (getHabitableZone(player, x, z)){
+			player.sendMessage("X: "+x+"Z: "+z);
 			z = (int)(Math.random()*range);
 			x = (int)(Math.random()*range);
 		}
+		
+		
 		return false;
+
 	}
 
 	@Override
@@ -59,8 +63,6 @@ public class tannertest extends SubCommand{
 					
 					if (myLocation.getBlock().getType() != Material.AIR){
 						if (myLocation.getBlock().getType() == Material.GRASS){
-							//myPlayer.getWorld().refreshChunk(myLocation.getChunk().getX(), myLocation.getChunk().getZ());
-							//myPlayer.getWorld().loadChunk(myLocation.getChunk());
 							myPlayer.teleport(myLocation);
 							return true;
 						} else {
