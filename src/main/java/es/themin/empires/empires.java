@@ -52,7 +52,7 @@ public final class empires extends JavaPlugin {
 		(new File(pluginFolder)).mkdirs();
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
-		CoreSchematic.loadSchematics();
+		//CoreSchematic.loadSchematics();
     }
  
     @Override

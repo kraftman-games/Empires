@@ -70,7 +70,6 @@ public class Battle {
 		}else if (type == BattleType.OBLITERATION) {
 			//TODO
 		}
-		wipeScoreboards();
 		upDateScoreBoards();
 	}
 	public void end() {
@@ -243,7 +242,7 @@ public class Battle {
 			}
 			
 			
-			Objective them = sb.registerNewObjective("them", "stats");
+			/*Objective them = sb.registerNewObjective("them", "stats");
 			them.setDisplaySlot(DisplaySlot.SIDEBAR);
 			them.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====");
 			Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
@@ -253,7 +252,7 @@ public class Battle {
 				thems.setScore(team2points);
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
-			}
+			}*/
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
 					player.setScoreboard(sb);
@@ -274,7 +273,7 @@ public class Battle {
 				//TODO
 			}
 			
-			
+			/*
 			Objective them = sb.registerNewObjective("them", "stats");
 			them.setDisplaySlot(DisplaySlot.SIDEBAR);
 			them.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====");
@@ -285,7 +284,7 @@ public class Battle {
 				thems.setScore(team1points);
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
-			}
+			}*/
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
 					player.setScoreboard(sb);
