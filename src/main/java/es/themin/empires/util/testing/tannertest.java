@@ -74,23 +74,25 @@ public class tannertest extends SubCommand{
 				myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
 				myPlayer.sendMessage("X: "+x+"Z: "+z);
 				myPlayer.setFallDistance(0.0F);
-				myPlayer.teleport(myBlock.getLocation());
-				myPlayer.setAllowFlight(true);
-				myPlayer.setFlying(true);
+				myPlayer.teleport(new Location(myBlock.getWorld(), myBlock.getX(), myBlock.getY()+1, myBlock.getZ()));
 				
-				UtilManager.tannerTemp = myBlock.getLocation();
-				BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-				Plugin thisPlugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
-				scheduler.scheduleSyncDelayedTask(thisPlugin, new Runnable() {
-					@Override
-		            public void run() {
-						Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
-						Bukkit.getServer().getPlayer("kraftman").setFlying(false);
-
-						Bukkit.getServer().getPlayer("kraftman").setAllowFlight(false);
-						Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
-		            }
-		        }, 400L);
+				
+//				myPlayer.setAllowFlight(true);
+//				myPlayer.setFlying(true);
+//				
+//				UtilManager.tannerTemp = myBlock.getLocation();
+//				BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+//				Plugin thisPlugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
+//				scheduler.scheduleSyncDelayedTask(thisPlugin, new Runnable() {
+//					@Override
+//		            public void run() {
+//						Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
+//						Bukkit.getServer().getPlayer("kraftman").setFlying(false);
+//
+//						Bukkit.getServer().getPlayer("kraftman").setAllowFlight(false);
+//						Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
+//		            }
+//		        }, 400L);
 				
 				
 				return true;
