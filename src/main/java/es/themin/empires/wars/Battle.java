@@ -240,15 +240,15 @@ public class Battle {
 			Score yous;
 			if (type == BattleType.DEATHMATCH) {
 				you.setDisplayName(ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch" + ChatColor.GOLD + "]");
-				Score space = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
-				space.setScore(1);
-				Score title1 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0" + ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "===="));
+				//Score space = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
+				//space.setScore(1);
+				Score title1 = you.getScore(Bukkit.getOfflinePlayer(/*ChatColor.RED + "0" +*/ ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "===="));
 				title1.setScore(0);
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
 				yous.setScore(team1points);
-				Score space2 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
-				space2.setScore(1);
-				Score title2 = you.getScore(Bukkit.getOfflinePlayer((ChatColor.RED + "0" +ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====")));
+				//Score space2 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
+				//space2.setScore(1);
+				Score title2 = you.getScore(Bukkit.getOfflinePlayer((/*ChatColor.RED + "0" +*/ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====")));
 				title2.setScore(0);
 				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
 				thems.setScore(team2points);
@@ -271,23 +271,23 @@ public class Battle {
 			
 			Objective you = sb.registerNewObjective("you", "stats");
 			you.setDisplaySlot(DisplaySlot.SIDEBAR);
-			you.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "====");
+			//you.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "====");
 
 			Score yous;
 			if (type == BattleType.DEATHMATCH) {
 				you.setDisplayName(ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch" + ChatColor.GOLD + "]");
-				Score space = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
-				space.setScore(1);
-				Score title1 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0" + ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "===="));
+				//Score space = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
+				//space.setScore(1);
+				Score title1 = you.getScore(Bukkit.getOfflinePlayer(/*ChatColor.RED + "0" +*/ ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "===="));
 				title1.setScore(0);
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
-				yous.setScore(team1points);
-				Score space2 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
-				space2.setScore(1);
-				Score title2 = you.getScore(Bukkit.getOfflinePlayer((ChatColor.RED + "0" +ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====")));
+				yous.setScore(team2points);
+				//Score space2 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
+				//space2.setScore(1);
+				Score title2 = you.getScore(Bukkit.getOfflinePlayer((/*ChatColor.RED + "0" +*/ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====")));
 				title2.setScore(0);
 				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
-				thems.setScore(team2points);
+				thems.setScore(team1points);
 				empire.broadcastMessage("DEBUG 3.1");
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
