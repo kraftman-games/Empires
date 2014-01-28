@@ -85,7 +85,7 @@ public class tannertest extends SubCommand{
 						Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
 						Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
 		            }
-		        }, 6000L);
+		        }, 120L);
 				
 				
 				return true;
