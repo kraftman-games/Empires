@@ -278,13 +278,13 @@ public class Battle {
 				you.setDisplayName(ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch" + ChatColor.GOLD + "]");
 				//Score space = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
 				//space.setScore(1);
-				Score title1 = you.getScore(Bukkit.getOfflinePlayer(/*ChatColor.RED + "0" +*/ ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "===="));
+				Score title1 = you.getScore(Bukkit.getOfflinePlayer(/*ChatColor.RED + "0" +*/ ChatColor.DARK_GREEN  + "==== Allies ===="));
 				title1.setScore(0);
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
 				yous.setScore(team2points);
 				//Score space2 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
 				//space2.setScore(1);
-				Score title2 = you.getScore(Bukkit.getOfflinePlayer((/*ChatColor.RED + "0" +*/ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====")));
+				Score title2 = you.getScore(Bukkit.getOfflinePlayer((/*ChatColor.RED + "0" +*/ChatColor.DARK_RED + "==== Enemies ====")));
 				title2.setScore(0);
 				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
 				thems.setScore(team1points);
