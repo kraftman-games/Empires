@@ -7,6 +7,7 @@ import me.confuser.barapi.BarAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -344,7 +345,8 @@ public class Battle {
 		if (f2 >= 0 ) BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch Timer" + ChatColor.GOLD + "]", f2);
 	}
 	public void scheduleTimer() {
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+		Plugin plugin2 = Bukkit.getServer().getPluginManager().getPlugin("Empires");
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin2, new Runnable() {
 
 			@Override
 			public void run() {
