@@ -35,6 +35,7 @@ public class War {
 		for (Empire empire : getAllEmpires()) {
 			empire.addWar(this);
 		}
+		Save();
 	}
 	public void end() {
 		this.onGoing = false;
@@ -45,12 +46,14 @@ public class War {
 		for (Empire empire : getAllEmpires()) {
 			empire.removeWar(this);
 		}
+		Save();
 	}
 	public void endWithVictor(Empire empire) {
 		this.onGoing = false;
 		this.end = System.currentTimeMillis();
 		this.victor = empire;
 		this.endedintie = false;
+		Save();
 	}
 	public Empire getEmpire1(){
 		return empire1;
@@ -69,6 +72,7 @@ public class War {
 	}
 	public void addBattle(Battle battle) {
 		if (!(this.battles.contains(battle))) this.battles.add(battle);
+		Save();
 	}
 	public Empire getVictor() {
 		return this.victor;
@@ -78,27 +82,35 @@ public class War {
 	}
 	public void setTeam1Wins(int wins) {
 		this.empire1wins = wins;
+		Save();
 	}
 	public void setTeam2Wins(int wins) {
 		this.empire2wins = wins;
+		Save();
 	}
 	public void addWinsToTeam1(int wins) {
 		this.empire1wins = this.empire1wins + wins;
+		Save();
 	}
 	public void addWinsToTeam2(int wins) {
 		this.empire2wins = this.empire2wins + wins;
+		Save();
 	}
 	public void addEmpireToTeam1(Empire empire) {
 		empire1allies.add(empire);
+		Save();
 	}
 	public void addEmpireToTeam2(Empire empire) {
 		empire2allies.add(empire);
+		Save();
 	}
 	public void removeEmpireFromTeam1(Empire empire) {
 		empire2allies.add(empire);
+		Save();
 	}
 	public void removeEmpireFromTeam2(Empire empire) {
 		empire2allies.remove(empire);
+		Save();
 	}
 	public boolean hasBattleOnGoing() {
 		if (hasHadABattle()) {
@@ -174,5 +186,10 @@ public class War {
 			UtilManager.wars.remove(this);
 		}
 		UtilManager.wars.add(this);
+	}
+	public void upDateEmpires() {
+		for (Empire empire : getAllEmpires()) {
+			empire.addWar(this);
+		}
 	}
 }

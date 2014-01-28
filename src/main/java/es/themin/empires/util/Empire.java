@@ -422,10 +422,12 @@ public class Empire {
 	public void addWar(War war) {
 		this.atWar = true;
 		this.wars.add(war);
+		Save();
 	}
 	public void removeWar(War war) {
 		this.wars.remove(war);
 		if (wars.isEmpty()) this.atWar = false;
+		Save();
 	}
 	public boolean isInABattle() {
 		if (isAtWar()) {
@@ -450,6 +452,7 @@ public class Empire {
 	}
 	public void addAlly(Empire empire) {
 		allies.add(empire);
+		Save();
 	}
 	public void removeAlly(Empire empire) {
 		allies.remove(empire);
@@ -498,7 +501,19 @@ public class Empire {
 		}
 		return number;
 	}
-
+	public void addBattleWins(int i) {
+		this.battlewins = this.battlewins + i;
+	}
+	public void addBattleLosses(int i) {
+		this.battlelosses = this.battlelosses + i;
+	}
+	public ArrayList<Player> getOnlinePlayers() {
+		ArrayList<Player> list = new ArrayList<Player>();
+		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+			if (players.contains(player.getName())) list.add(player);
+		}
+		return list;
+	}
 }
 
 

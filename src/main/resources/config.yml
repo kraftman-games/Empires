@@ -11,11 +11,12 @@ wars:
    battles:
       deathmatch:
          use_multiplier: 'false'
-         kills_for_win_multiplier: 5
-         kill_for_win: 30
+         kills_for_win_multiplier: '5'
+         kills_for_win: 30
       obliteration:
          use_multipliers: 'false'
          kills_for_win_multiplier: 5
          damage_for_win_multiplier: 5
          kill_for_win: 30
          damage_for_win: 100
+      length: 10.0
