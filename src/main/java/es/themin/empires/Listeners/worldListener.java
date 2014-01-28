@@ -19,13 +19,13 @@ public class worldListener implements Listener{
 	
 	@EventHandler
 	public void onChunkLoad(ChunkLoadEvent event){
-		if (event.isNewChunk()){
+		//if (event.isNewChunk()){
 			Player myPlayer = Bukkit.getServer().getPlayer("kraftman");
 			if (UtilManager.tannerTemp != null){
 				myPlayer.teleport(UtilManager.tannerTemp);
 				UtilManager.tannerTemp = null;
 			}
-		}
+		//}
 		
 	}
 }
