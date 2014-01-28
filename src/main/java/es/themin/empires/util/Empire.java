@@ -422,10 +422,12 @@ public class Empire {
 	public void addWar(War war) {
 		this.atWar = true;
 		this.wars.add(war);
+		Save();
 	}
 	public void removeWar(War war) {
 		this.wars.remove(war);
 		if (wars.isEmpty()) this.atWar = false;
+		Save();
 	}
 	public boolean isInABattle() {
 		if (isAtWar()) {
@@ -450,6 +452,7 @@ public class Empire {
 	}
 	public void addAlly(Empire empire) {
 		allies.add(empire);
+		Save();
 	}
 	public void removeAlly(Empire empire) {
 		allies.remove(empire);

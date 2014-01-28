@@ -106,6 +106,7 @@ public class PlayerListener implements Listener{
 					}else if (attacker.isInBattleWith(defender)) {
 						Battle battle = war.getOnGoingBattle();
 						if (battle.getType() == BattleType.DEATHMATCH) {
+							Bukkit.broadcastMessage("kill");
 							battle.addPointsToTeamWithEmpire(attacker, 1);
 						}
 					}

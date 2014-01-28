@@ -226,8 +226,10 @@ public class Battle {
 		}
 	}
 	public void upDateScoreBoards() {
+		Bukkit.getServer().broadcastMessage("DEBUG 1");
 		final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 		for (Empire empire : getAllEmpiresOnTeam1()) {
+			empire.broadcastMessage("DEBUG 2.1");
 			Scoreboard sb = sbm.getNewScoreboard();
 			
 			Objective you = sb.registerNewObjective("you", "stats");
@@ -237,6 +239,7 @@ public class Battle {
 			if (type == BattleType.DEATHMATCH) {
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
 				yous.setScore(team1points);
+				empire.broadcastMessage("DEBUG 3.1");
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
 			}
@@ -255,11 +258,13 @@ public class Battle {
 			}*/
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
+					player.sendMessage("DEBUG 4.1");
 					player.setScoreboard(sb);
 				}
 			}
 		}
 		for (Empire empire : getAllEmpiresOnTeam2()) {
+			empire.broadcastMessage("DEBUG 2.2");
 			Scoreboard sb = sbm.getNewScoreboard();
 			
 			Objective you = sb.registerNewObjective("you", "stats");
@@ -269,6 +274,7 @@ public class Battle {
 			if (type == BattleType.DEATHMATCH) {
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
 				yous.setScore(team2points);
+				empire.broadcastMessage("DEBUG 3.2");
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
 			}
@@ -287,6 +293,7 @@ public class Battle {
 			}*/
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
+					player.sendMessage("DEBUG 4.2");
 					player.setScoreboard(sb);
 				}
 			}

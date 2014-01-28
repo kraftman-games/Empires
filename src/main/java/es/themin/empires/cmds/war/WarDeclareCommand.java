@@ -43,6 +43,7 @@ public class WarDeclareCommand extends EmpireSubCommand{
 			}*/
 			War war = new War(empire, attacked);
 			war.start();
+			war.upDateEmpires();
 			empire.broadcastMessage(warprefix + ChatColor.RED + player.getDisplayName() + " declared war on " + attacked.getName());
 			attacked.broadcastMessage(warprefix + ChatColor.RED + empire.getName() + " decalred war on you");
 			war.Save();
