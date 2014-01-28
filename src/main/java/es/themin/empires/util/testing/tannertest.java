@@ -70,10 +70,10 @@ public class tannertest extends SubCommand{
 				myPlayer.getWorld().loadChunk(myChunk);
 				myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
 				myPlayer.sendMessage("X: "+x+"Z: "+z);
-				myPlayer.teleport(myBlock.getLocation());
-				while (myChunk.isLoaded() == false){
-					myChunk.load();
-				}
+//				myPlayer.teleport(myBlock.getLocation());
+//				while (myChunk.isLoaded() == false){
+//					myChunk.load();
+//				}
 				UtilManager.tannerTemp = myBlock.getLocation();
 				return true;
 			} else {
