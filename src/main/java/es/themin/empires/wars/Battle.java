@@ -234,28 +234,24 @@ public class Battle {
 			
 			Objective you = sb.registerNewObjective("you", "stats");
 			you.setDisplaySlot(DisplaySlot.SIDEBAR);
-			you.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "====");
+			//you.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "====");
+			
 			Score yous;
 			if (type == BattleType.DEATHMATCH) {
+				you.setDisplayName(ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch" + ChatColor.GOLD + "]");
+				Score space = you.getScore(Bukkit.getOfflinePlayer(""));
+				Score title1 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "===="));
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
 				yous.setScore(team1points);
+				Score space2 = you.getScore(Bukkit.getOfflinePlayer(""));
+				Score title2 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "===="));
+				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
+				thems.setScore(team2points);
 				empire.broadcastMessage("DEBUG 3.1");
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
 			}
 			
-			
-			Objective them = sb.registerNewObjective("them", "stats");
-			them.setDisplaySlot(DisplaySlot.SIDEBAR);
-			them.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====");
-			Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
-			thems.setScore(empire.getExp());
-			if (type == BattleType.DEATHMATCH) {
-				thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
-				thems.setScore(team2points);
-			}else if (type == BattleType.OBLITERATION) {
-				//TODO
-			}
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
 					player.sendMessage("DEBUG 4.1");
@@ -264,6 +260,7 @@ public class Battle {
 			}
 		}
 		for (Empire empire : getAllEmpiresOnTeam2()) {
+			empire.broadcastMessage("" + killsforwin);
 			empire.broadcastMessage("DEBUG 2.2");
 			Scoreboard sb = sbm.getNewScoreboard();
 			
@@ -272,24 +269,25 @@ public class Battle {
 			you.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "====");
 			Score yous;
 			if (type == BattleType.DEATHMATCH) {
+				you.setDisplayName(ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch" + ChatColor.GOLD + "]");
+				Score space = you.getScore(Bukkit.getOfflinePlayer(""));
+				Score title1 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "===="));
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
 				yous.setScore(team2points);
-				empire.broadcastMessage("DEBUG 3.2");
+				Score space2 = you.getScore(Bukkit.getOfflinePlayer(""));
+				Score title2 = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "===="));
+				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
+				thems.setScore(team1points);
+				empire.broadcastMessage("DEBUG 3.1");
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
 			}
 			
-			
-			Objective them = sb.registerNewObjective("them", "stats");
-			them.setDisplaySlot(DisplaySlot.SIDEBAR);
-			them.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====");
-			Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
-			thems.setScore(empire.getExp());
-			if (type == BattleType.DEATHMATCH) {
-				thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GOLD+"Kills / " + killsforwin + ":"));
-				thems.setScore(team1points);
-			}else if (type == BattleType.OBLITERATION) {
-				//TODO
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				if (empire.hasPlayer(player.getName())) {
+					player.sendMessage("DEBUG 4.1");
+					player.setScoreboard(sb);
+				}
 			}
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
