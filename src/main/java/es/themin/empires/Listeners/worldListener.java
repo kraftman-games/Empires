@@ -23,8 +23,8 @@ public class worldListener implements Listener{
 		//if (event.isNewChunk()){
 			Player myPlayer = Bukkit.getServer().getPlayer("kraftman");
 			if (UtilManager.tannerTemp != null){
-				myPlayer.teleport(UtilManager.tannerTemp);
-				UtilManager.tannerTemp = null;
+				//myPlayer.teleport(UtilManager.tannerTemp);
+				//UtilManager.tannerTemp = null;
 			}
 		//}
 		

@@ -2,6 +2,7 @@ package es.themin.empires.util.testing;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -11,6 +12,8 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
@@ -72,10 +75,18 @@ public class tannertest extends SubCommand{
 				myPlayer.sendMessage("X: "+x+"Z: "+z);
 				myPlayer.setFallDistance(0.0F);
 				myPlayer.teleport(myBlock.getLocation());
-				while (myChunk.isLoaded() == false){
-					myChunk.load();
-				}
+				
 				UtilManager.tannerTemp = myBlock.getLocation();
+				BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+				Plugin thisPlugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
+				scheduler.scheduleSyncDelayedTask(thisPlugin, new Runnable() {
+					@Override
+		            public void run() {
+						Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
+		            }
+		        }, 6000L);
+				
+				
 				return true;
 			} else {
 				return false;
