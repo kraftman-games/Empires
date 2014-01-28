@@ -103,6 +103,7 @@ public class PlayerListener implements Listener{
 						}
 						attacker.broadcastMessage(warprefix + ChatColor.RED + killer.getName() + " Has begun a battle against " + defender.getName() + " slaughter them to to tip the balance of the war in your favour");
 						defender.broadcastMessage(warprefix + ChatColor.RED + player.getName() + " Was killed by a member of " + attacker.getName() + " slaughter them to to tip the balance of the war in your favour");
+						battle.addPointsToTeamWithEmpire(attacker, 1);
 					}else if (attacker.isInBattleWith(defender)) {
 						Battle battle = war.getOnGoingBattle();
 						if (battle.getType() == BattleType.DEATHMATCH) {

@@ -507,7 +507,13 @@ public class Empire {
 	public void addBattleLosses(int i) {
 		this.battlelosses = this.battlelosses + i;
 	}
-
+	public ArrayList<Player> getOnlinePlayers() {
+		ArrayList<Player> list = new ArrayList<Player>();
+		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+			if (players.contains(player.getName())) list.add(player);
+		}
+		return list;
+	}
 }
 
 
