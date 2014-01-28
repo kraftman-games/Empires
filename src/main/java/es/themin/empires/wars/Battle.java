@@ -264,7 +264,7 @@ public class Battle {
 				you.setDisplayName(ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch" + ChatColor.GOLD + "]");
 				//Score space = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
 				//space.setScore(1);
-				Score title1 = you.getScore(Bukkit.getOfflinePlayer(/*ChatColor.RED + "0" +*/ ChatColor.DARK_GREEN  + " == Allies =="));
+				Score title1 = you.getScore(Bukkit.getOfflinePlayer(/*ChatColor.RED + "0" +*/ ChatColor.DARK_GREEN  + "== Allies =="));
 				title1.setScore(team1numbers);
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.DARK_GREEN +"Kills / " + killsforwin + ":"));
 				yous.setScore(team1points);
@@ -275,6 +275,7 @@ public class Battle {
 				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.DARK_RED +"Kills / " + killsforwin + ":"));
 				thems.setScore(team2points);
 				empire.broadcastMessage("DEBUG 3.1");
+				//Team team = sb.registerNewTeam("allies"); 
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
 			}
