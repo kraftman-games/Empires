@@ -65,7 +65,7 @@ public class Battle {
 				int average = (int) added / 2;
 				this.killsforwin = (int) multiplier * average;
 			}else {
-				this.killsforwin = SettingsManager.getInstance().getConfig().getInt("wars.battles.deathmatch.kills_for_win");
+				this.killsforwin = Integer.parseInt(SettingsManager.getInstance().getConfig().getString("wars.battles.deathmatch.kills_for_win"));
 			}
 		}else if (type == BattleType.OBLITERATION) {
 			//TODO
