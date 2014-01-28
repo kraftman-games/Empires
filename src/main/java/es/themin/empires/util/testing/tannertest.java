@@ -59,8 +59,9 @@ public class tannertest extends SubCommand{
 	private boolean getHabitableZone(Player myPlayer, int x, int z){
 		
 		Block myBlock = myPlayer.getWorld().getHighestBlockAt(x,z);
+		myBlock.getChunk().load();
 		Chunk myChunk = myBlock.getChunk();
-		myChunk.load(true);
+		//myChunk.load(true);
 		
 		if (myBlock.getType() != Material.AIR){
 			if (myBlock.getType() == Material.GRASS){
