@@ -7,6 +7,7 @@ import me.confuser.barapi.BarAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -264,7 +265,7 @@ public class Battle {
 				you.setDisplayName(ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch" + ChatColor.GOLD + "]");
 				//Score space = you.getScore(Bukkit.getOfflinePlayer(ChatColor.RED + "0=================="));
 				//space.setScore(1);
-				Score title1 = you.getScore(Bukkit.getOfflinePlayer(/*ChatColor.RED + "0" +*/ ChatColor.DARK_GREEN  + " == Allies =="));
+				Score title1 = you.getScore(Bukkit.getOfflinePlayer(/*ChatColor.RED + "0" +*/ ChatColor.DARK_GREEN  + "== Allies =="));
 				title1.setScore(team1numbers);
 				yous = you.getScore(Bukkit.getOfflinePlayer(ChatColor.DARK_GREEN +"Kills / " + killsforwin + ":"));
 				yous.setScore(team1points);
@@ -275,12 +276,14 @@ public class Battle {
 				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.DARK_RED +"Kills / " + killsforwin + ":"));
 				thems.setScore(team2points);
 				empire.broadcastMessage("DEBUG 3.1");
+				//Team team = sb.registerNewTeam("allies"); 
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
 			}
 			
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
+					you.setDisplaySlot(DisplaySlot.SIDEBAR);
 					player.sendMessage("DEBUG 4.1");
 					player.setScoreboard(sb);
 				}
@@ -342,7 +345,8 @@ public class Battle {
 		if (f2 >= 0 ) BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch Timer" + ChatColor.GOLD + "]", f2);
 	}
 	public void scheduleTimer() {
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+		Plugin plugin2 = Bukkit.getServer().getPluginManager().getPlugin("Empires");
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin2, new Runnable() {
 
 			@Override
 			public void run() {

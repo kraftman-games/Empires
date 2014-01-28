@@ -39,6 +39,10 @@
                   <id>bukkit-repo</id>
         <url>http://repo.bukkit.org/content/groups/public/</url>
     </repository>
+    <repository>
+		<id>confuser-repo</id>
+		<url>http://ci.frostcast.net/plugin/repository/everything</url>
+	</repository>
   </repositories>
          
         <dependencies>
@@ -64,9 +68,14 @@
 	                  <groupId>org.powermock</groupId>
 	                  <artifactId>powermock-api-mockito</artifactId>
 	                  <version>1.4.9</version>
-	                  <type>jar</type>
 	                  <scope>test</scope>
 	          </dependency>
+	          <dependency>
+				<groupId>me.confuser</groupId>
+				<artifactId>BarAPI</artifactId>
+				<version>3.0</version>
+			</dependency>
+	         
         </dependencies>
         
         
