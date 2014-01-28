@@ -501,6 +501,12 @@ public class Empire {
 		}
 		return number;
 	}
+	public void addBattleWins(int i) {
+		this.battlewins = this.battlewins + i;
+	}
+	public void addBattleLosses(int i) {
+		this.battlelosses = this.battlelosses + i;
+	}
 
 }
 

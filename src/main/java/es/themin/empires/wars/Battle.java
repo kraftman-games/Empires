@@ -10,6 +10,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.util.Empire;
@@ -83,6 +84,13 @@ public class Battle {
 			
 		}
 		wipeScoreboards();
+		for (Empire empire : getAllEmpiresOnTeam1()) {
+			if (victor == empire1) empire.addBattleWins(1);
+			else if (victor == empire2) empire.addBattleLosses(1);
+		}for (Empire empire : getAllEmpiresOnTeam2()) {
+			if (victor == empire2) empire.addBattleWins(1);
+			else if (victor == empire1) empire.addBattleLosses(1);
+		}
 	}
 	public void setAttacker(BattleTeam team) {
 		attacker = team;
@@ -242,7 +250,7 @@ public class Battle {
 			Scoreboard sb = sbm.getNewScoreboard();
 			
 			Objective you = sb.registerNewObjective("you", "stats");
-			you.setDisplaySlot(DisplaySlot.SIDEBAR);
+			you.setDisplaySlot(DisplaySlot.PLAYER_LIST);
 			//you.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "====");
 			
 			Score yous;
@@ -297,6 +305,7 @@ public class Battle {
 				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.DARK_RED +"Kills / " + killsforwin + ":"));
 				thems.setScore(team1points);
 				empire.broadcastMessage("DEBUG 3.1");
+				Team team = sb.registerNewTeam("allies"); 
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
 			}
