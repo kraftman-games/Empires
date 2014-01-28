@@ -282,6 +282,7 @@ public class Battle {
 			
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
+					you.setDisplaySlot(DisplaySlot.SIDEBAR);
 					player.sendMessage("DEBUG 4.1");
 					player.setScoreboard(sb);
 				}
