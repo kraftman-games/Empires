@@ -75,6 +75,7 @@ public class tannertest extends SubCommand{
 				myPlayer.sendMessage("X: "+x+"Z: "+z);
 				myPlayer.setFallDistance(0.0F);
 				myPlayer.teleport(myBlock.getLocation());
+				myPlayer.setAllowFlight(true);
 				myPlayer.setFlying(true);
 				
 				UtilManager.tannerTemp = myBlock.getLocation();
@@ -85,6 +86,8 @@ public class tannertest extends SubCommand{
 		            public void run() {
 						Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
 						Bukkit.getServer().getPlayer("kraftman").setFlying(false);
+
+						Bukkit.getServer().getPlayer("kraftman").setAllowFlight(false);
 						Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
 		            }
 		        }, 400L);
