@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -57,26 +58,21 @@ public class tannertest extends SubCommand{
 	
 	private boolean getHabitableZone(Player myPlayer, int x, int z){
 		
-		for (int y = 255; y >= 1; y--){
-			Location myLocation = new Location(myPlayer.getWorld(), x, y, z);
-			Chunk myChunk = myLocation.getChunk();
+		Block myBlock = myPlayer.getWorld().getHighestBlockAt(x,z);
+		Chunk myChunk = myBlock.getChunk();
+		myChunk.load(true);
 		
-			myChunk.load(true);
-			
-			if (myLocation.getBlock().getType() != Material.AIR){
-				if (myLocation.getBlock().getType() == Material.GRASS){
-					myPlayer.getWorld().loadChunk(myChunk);
-					//myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
-					myPlayer.sendMessage("X: "+x+"Z: "+z);
-					myPlayer.teleport(myLocation);
-					return true;
-				} else {
-					return false;
-				}
+		if (myBlock.getType() != Material.AIR){
+			if (myBlock.getType() == Material.GRASS){
+				myPlayer.getWorld().loadChunk(myChunk);
+				myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
+				myPlayer.sendMessage("X: "+x+"Z: "+z);
+				myPlayer.teleport(myBlock.getLocation());
+				return true;
+			} else {
+				return false;
 			}
-			
 		}
-		
 		return false;
 	}
 }
