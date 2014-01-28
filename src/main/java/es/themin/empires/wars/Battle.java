@@ -108,34 +108,34 @@ public class Battle {
 	}
 	public void setTeam1Points(int points) {
 		this.team1points = points;
-		checkForEnd();
 		upDateScoreBoards();
+		checkForEnd();
 	}
 	public void setTeam2Points(int points) {
 		this.team2points = points;
-		checkForEnd();
 		upDateScoreBoards();
+		checkForEnd();
 	}
 	public void addPointsToTeam1(int points) {
 		this.team1points = this.team1points + points;
-		checkForEnd();
 		upDateScoreBoards();
+		checkForEnd();
 	}
 	public void addPointsToTeamWithEmpire(Empire empire, int points) {
 		if (getAllEmpiresOnTeam1().contains(empire)) {
 			this.team1points = this.team1points + points;
-			checkForEnd();
 			upDateScoreBoards();
+			checkForEnd();
 		}else if (getAllEmpiresOnTeam2().contains(empire)) {
 			this.team2points = this.team2points + points;
-			checkForEnd();
 			upDateScoreBoards();
+			checkForEnd();
 		}
 	}
 	public void addPointsToTeam2(int points) {
 		this.team2points = this.team2points + points;
-		checkForEnd();
 		upDateScoreBoards();
+		checkForEnd();
 	}
 	public void addEmpireToTeam1(Empire empire) {
 		empire1allies.add(empire);
@@ -245,7 +245,7 @@ public class Battle {
 			}
 			
 			
-			/*Objective them = sb.registerNewObjective("them", "stats");
+			Objective them = sb.registerNewObjective("them", "stats");
 			them.setDisplaySlot(DisplaySlot.SIDEBAR);
 			them.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====");
 			Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
@@ -255,7 +255,7 @@ public class Battle {
 				thems.setScore(team2points);
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
-			}*/
+			}
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
 					player.sendMessage("DEBUG 4.1");
@@ -279,7 +279,7 @@ public class Battle {
 				//TODO
 			}
 			
-			/*
+			
 			Objective them = sb.registerNewObjective("them", "stats");
 			them.setDisplaySlot(DisplaySlot.SIDEBAR);
 			them.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_RED + "Enemies" + ChatColor.GOLD + "====");
@@ -290,7 +290,7 @@ public class Battle {
 				thems.setScore(team1points);
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
-			}*/
+			}
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
 					player.sendMessage("DEBUG 4.2");
