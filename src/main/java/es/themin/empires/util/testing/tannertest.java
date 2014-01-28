@@ -64,10 +64,13 @@ public class tannertest extends SubCommand{
 		
 		if (myBlock.getType() != Material.AIR){
 			if (myBlock.getType() == Material.GRASS){
+				
+				
 				myPlayer.getWorld().loadChunk(myChunk);
 				myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
 				myPlayer.sendMessage("X: "+x+"Z: "+z);
-				myPlayer.teleport(myBlock.getLocation());
+				//myPlayer.teleport(myBlock.getLocation());
+				UtilManager.tannerTemp = myBlock.getLocation();
 				return true;
 			} else {
 				return false;
