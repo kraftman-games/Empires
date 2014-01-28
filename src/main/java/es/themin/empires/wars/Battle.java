@@ -250,7 +250,7 @@ public class Battle {
 			Scoreboard sb = sbm.getNewScoreboard();
 			
 			Objective you = sb.registerNewObjective("you", "stats");
-			you.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+			you.setDisplaySlot(DisplaySlot.BELOW_NAME);
 			//you.setDisplayName(ChatColor.GOLD + "====" + ChatColor.DARK_GREEN + "Allies" + ChatColor.GOLD + "====");
 			
 			Score yous;
