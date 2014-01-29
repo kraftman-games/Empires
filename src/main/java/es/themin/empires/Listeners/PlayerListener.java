@@ -47,8 +47,8 @@ public class PlayerListener implements Listener{
 		if (SettingsManager.getInstance().getPlayerData().get(player.getName()) != null && UtilManager.containsEmpireWithId(SettingsManager.getInstance().getPlayerData().getInt(player.getName() + ".empire"))) {
 			UtilManager.empireplayers.put(player.getName(), UtilManager.getEmpireWithId(SettingsManager.getInstance().getPlayerData().getInt(player.getName() + ".empire")));
 		}
-		Bukkit.broadcastMessage("test 1");
-		SettingsManager.getInstance().getPlayerData().set("test 1", "true");
+		//Bukkit.broadcastMessage("test 1");
+		//SettingsManager.getInstance().getPlayerData().set("test 1", "true");
 		SettingsManager.getInstance().savePlayerData();
 		
 		//this is the code to move them to a random location
@@ -151,7 +151,7 @@ public class PlayerListener implements Listener{
 					}else if (attacker.isInBattleWith(defender)) {
 						Battle battle = war.getOnGoingBattle();
 						if (battle.getType() == BattleType.DEATHMATCH) {
-							Bukkit.broadcastMessage("kill");
+							//Bukkit.broadcastMessage("kill");
 							battle.addPointsToTeamWithEmpire(attacker, 1);
 						}
 					}
