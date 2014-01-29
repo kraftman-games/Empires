@@ -174,15 +174,16 @@ public class PlayerListener implements Listener{
 		Core selectedCore = null;
 		
 		boolean isCoreBlock = false;
-		
-		for(Core myCore : myCores.values()){
-			//faster than global core list since there are less
-			
-			if (myCore.isAreaBlock(myBlock)){
-				if (myCore.isCoreBlock(myBlock)){
-					isCoreBlock = true;
-				} else {
-					myMatchingCores.add(myCore);
+		if (myCores != null){
+			for(Core myCore : myCores.values()){
+				//faster than global core list since there are less
+				
+				if (myCore.isAreaBlock(myBlock)){
+					if (myCore.isCoreBlock(myBlock)){
+						isCoreBlock = true;
+					} else {
+						myMatchingCores.add(myCore);
+					}
 				}
 			}
 		}
