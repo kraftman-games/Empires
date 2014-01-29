@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -48,6 +50,48 @@ public class PlayerListener implements Listener{
 		Bukkit.broadcastMessage("test 1");
 		SettingsManager.getInstance().getPlayerData().set("test 1", "true");
 		SettingsManager.getInstance().savePlayerData();
+		
+		//this is the code to move them to a random location
+		
+//		Block myBlock = myPlayer.getWorld().getHighestBlockAt(x,z);
+//		myBlock.getChunk().load();
+//		Chunk myChunk = myBlock.getChunk();
+//		//myChunk.load(true);
+//		
+//		if (myBlock.getType() != Material.AIR){
+//			if (myBlock.getType() == Material.GRASS){
+//				
+//				
+//				myPlayer.getWorld().loadChunk(myChunk);
+//				myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
+//				myPlayer.sendMessage("X: "+x+"Z: "+z);
+//				myPlayer.setFallDistance(0.0F);
+//				myPlayer.teleport(new Location(myBlock.getWorld(), myBlock.getX(), myBlock.getY()+1, myBlock.getZ()));
+//				
+//				
+////				myPlayer.setAllowFlight(true);
+////				myPlayer.setFlying(true);
+////				
+////				UtilManager.tannerTemp = myBlock.getLocation();
+////				BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+////				Plugin thisPlugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
+////				scheduler.scheduleSyncDelayedTask(thisPlugin, new Runnable() {
+////					@Override
+////		            public void run() {
+////						Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
+////						Bukkit.getServer().getPlayer("kraftman").setFlying(false);
+////
+////						Bukkit.getServer().getPlayer("kraftman").setAllowFlight(false);
+////						Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
+////		            }
+////		        }, 400L);
+//				
+//				
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		}
 	}
 	
 	@EventHandler
@@ -130,15 +174,16 @@ public class PlayerListener implements Listener{
 		Core selectedCore = null;
 		
 		boolean isCoreBlock = false;
-		
-		for(Core myCore : myCores.values()){
-			//faster than global core list since there are less
-			
-			if (myCore.isAreaBlock(myBlock)){
-				if (myCore.isCoreBlock(myBlock)){
-					isCoreBlock = true;
-				} else {
-					myMatchingCores.add(myCore);
+		if (myCores != null){
+			for(Core myCore : myCores.values()){
+				//faster than global core list since there are less
+				
+				if (myCore.isAreaBlock(myBlock)){
+					if (myCore.isCoreBlock(myBlock)){
+						isCoreBlock = true;
+					} else {
+						myMatchingCores.add(myCore);
+					}
 				}
 			}
 		}
