@@ -25,7 +25,25 @@ public class UtilManager {
 	public static ArrayList<War> wars = new ArrayList<War>();
 	public static ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
 	public static HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
-	public static Location tannerTemp;
+	private static HashMap<UUID, EmpirePlayer> EmpirePlayers = new HashMap<UUID, EmpirePlayer>();
+	
+	
+	public EmpirePlayer getEmpirePlayer(String playerName)
+	{
+		Player myPlayer = Bukkit.getPlayer(playerName);
+		
+		if (myPlayer == null){
+			return null;
+		} else {
+			return getEmpirePlayer(myPlayer.getUniqueId());
+		}
+		
+	}
+	
+	public EmpirePlayer getEmpirePlayer(UUID myUUID){
+		
+		return EmpirePlayers.get(myUUID);
+	}
 	
 	
 /*	public void saveCores() {
