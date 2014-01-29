@@ -48,11 +48,6 @@ public class tannertest extends SubCommand{
 		return new String[] {"tt"};
 	}
 	
-	private boolean getHabitableZone(Player myPlayer, int x, int z){
-		
-		
-		return false;
-	}
 }
 
 //int x = Integer.parseInt(args[1]);

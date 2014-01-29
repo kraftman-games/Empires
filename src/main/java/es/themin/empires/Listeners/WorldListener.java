@@ -10,11 +10,11 @@ import org.bukkit.event.world.ChunkPopulateEvent;
 import es.themin.empires.empires;
 import es.themin.empires.util.UtilManager;
 
-public class worldListener implements Listener{
+public class WorldListener implements Listener{
 
 	
 	private empires plugin;
-	public worldListener(empires myPlugin){
+	public WorldListener(empires myPlugin){
 		this.plugin = myPlugin;
 	}
 	

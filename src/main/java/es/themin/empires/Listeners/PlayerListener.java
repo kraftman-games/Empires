@@ -26,6 +26,8 @@ import es.themin.empires.enums.BattleType;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.EmpirePlayer;
+import es.themin.empires.util.PlayerUtils;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.wars.Battle;
@@ -43,6 +45,16 @@ public class PlayerListener implements Listener{
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
+		
+		EmpirePlayer ePlayer = UtilManager.getEmpirePlayer(player.getUniqueId());
+		
+		if (ePlayer == null){
+			//give the new player an empire and put them somewhere random
+			return;
+		}
+		
+		
+		
 		if (SettingsManager.getInstance().getPlayerData().get(player.getName()) != null && UtilManager.containsEmpireWithId(SettingsManager.getInstance().getPlayerData().getInt(player.getName() + ".empire"))) {
 			UtilManager.empireplayers.put(player.getName(), UtilManager.getEmpireWithId(SettingsManager.getInstance().getPlayerData().getInt(player.getName() + ".empire")));
 		}
@@ -50,47 +62,7 @@ public class PlayerListener implements Listener{
 		//SettingsManager.getInstance().getPlayerData().set("test 1", "true");
 		SettingsManager.getInstance().savePlayerData();
 		
-		//this is the code to move them to a random location
-		
-//		Block myBlock = myPlayer.getWorld().getHighestBlockAt(x,z);
-//		myBlock.getChunk().load();
-//		Chunk myChunk = myBlock.getChunk();
-//		//myChunk.load(true);
-//		
-//		if (myBlock.getType() != Material.AIR){
-//			if (myBlock.getType() == Material.GRASS){
-//				
-//				
-//				myPlayer.getWorld().loadChunk(myChunk);
-//				myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
-//				myPlayer.sendMessage("X: "+x+"Z: "+z);
-//				myPlayer.setFallDistance(0.0F);
-//				myPlayer.teleport(new Location(myBlock.getWorld(), myBlock.getX(), myBlock.getY()+1, myBlock.getZ()));
-//				
-//				
-////				myPlayer.setAllowFlight(true);
-////				myPlayer.setFlying(true);
-////				
-////				UtilManager.tannerTemp = myBlock.getLocation();
-////				BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-////				Plugin thisPlugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
-////				scheduler.scheduleSyncDelayedTask(thisPlugin, new Runnable() {
-////					@Override
-////		            public void run() {
-////						Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
-////						Bukkit.getServer().getPlayer("kraftman").setFlying(false);
-////
-////						Bukkit.getServer().getPlayer("kraftman").setAllowFlight(false);
-////						Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
-////		            }
-////		        }, 400L);
-//				
-//				
-//				return true;
-//			} else {
-//				return false;
-//			}
-//		}
+
 	}
 	
 	@EventHandler
@@ -228,3 +200,45 @@ public class PlayerListener implements Listener{
 }
 
 
+
+//this is the code to move them to a random location
+
+//Block myBlock = myPlayer.getWorld().getHighestBlockAt(x,z);
+//myBlock.getChunk().load();
+//Chunk myChunk = myBlock.getChunk();
+////myChunk.load(true);
+//
+//if (myBlock.getType() != Material.AIR){
+//	if (myBlock.getType() == Material.GRASS){
+//		
+//		
+//		myPlayer.getWorld().loadChunk(myChunk);
+//		myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
+//		myPlayer.sendMessage("X: "+x+"Z: "+z);
+//		myPlayer.setFallDistance(0.0F);
+//		myPlayer.teleport(new Location(myBlock.getWorld(), myBlock.getX(), myBlock.getY()+1, myBlock.getZ()));
+//		
+//		
+////		myPlayer.setAllowFlight(true);
+////		myPlayer.setFlying(true);
+////		
+////		UtilManager.tannerTemp = myBlock.getLocation();
+////		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+////		Plugin thisPlugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
+////		scheduler.scheduleSyncDelayedTask(thisPlugin, new Runnable() {
+////			@Override
+////            public void run() {
+////				Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
+////				Bukkit.getServer().getPlayer("kraftman").setFlying(false);
+////
+////				Bukkit.getServer().getPlayer("kraftman").setAllowFlight(false);
+////				Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
+////            }
+////        }, 400L);
+//		
+//		
+//		return true;
+//	} else {
+//		return false;
+//	}
+//}

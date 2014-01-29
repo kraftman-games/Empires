@@ -39,7 +39,7 @@ public class UtilManager {
 		
 	}
 	
-	public EmpirePlayer getEmpirePlayer(UUID myUUID){
+	public static EmpirePlayer getEmpirePlayer(UUID myUUID){
 		
 		return EmpirePlayers.get(myUUID);
 	}
@@ -295,5 +295,7 @@ public class UtilManager {
 	public static Empire getEmpireWithPlayer(Player myPlayer) {
 		return empireplayers.get(myPlayer.getName());		
 	}
+
+	
 
 }

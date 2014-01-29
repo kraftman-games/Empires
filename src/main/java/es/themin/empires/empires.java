@@ -21,7 +21,7 @@ import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.Chat;
 import es.themin.empires.Listeners.Craft;
 import es.themin.empires.Listeners.PlayerListener;
-import es.themin.empires.Listeners.worldListener;
+import es.themin.empires.Listeners.WorldListener;
 import es.themin.empires.cmds.GlobalCommand;
 import es.themin.empires.cmds.GridCommand;
 import es.themin.empires.cmds.HomeCommand;
@@ -77,7 +77,7 @@ public final class empires extends JavaPlugin {
 		pm.registerEvents(new BlockListener(this), this);
 		pm.registerEvents(new Craft(this), this);
 		pm.registerEvents(new Chat(this), this);
-		pm.registerEvents(new worldListener(this), this);
+		pm.registerEvents(new WorldListener(this), this);
     	
     }
     
