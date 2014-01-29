@@ -342,8 +342,10 @@ public class Battle {
 		long l2 = l1 - System.currentTimeMillis();
 		float f1 = l2 / time;
 		float f2 = f1 * 100;
-		player.sendMessage("TimeTotal" + time );
-		player.sendMessage("" + f2);
+		player.sendMessage("Start: " + start);
+		player.sendMessage("Curernt: " + System.currentTimeMillis());
+		player.sendMessage("Time Total: " + time );
+		player.sendMessage("Time Remaining: " + f2);
 		if (f2 >= 0 ) BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch Timer" + ChatColor.GOLD + "]", f2);
 	}
 	public void scheduleTimer() {
