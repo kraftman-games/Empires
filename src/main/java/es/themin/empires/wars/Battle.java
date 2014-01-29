@@ -419,6 +419,7 @@ public class Battle {
 							}
 						}
 					}else {
+						Bukkit.broadcastMessage("String 1");
 						end();
 					}
 				}
