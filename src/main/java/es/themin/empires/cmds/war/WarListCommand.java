@@ -27,6 +27,7 @@ public class WarListCommand extends EmpireSubCommand{
 			i++;
 			if (war.getAllEmpiresOnTeam1().contains(empire)) {
 				StringBuilder str = new StringBuilder();
+				str.append(ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire2().getName() + ChatColor.AQUA + " - " );
 				float fpc = war.getTeam1Percent();
 				if (fpc < 35) {
 					str.append(ChatColor.DARK_RED + "");
@@ -50,7 +51,7 @@ public class WarListCommand extends EmpireSubCommand{
 					//str.append("%");
 				}
 				str.append("%");
-				//player.sendMessage(ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire2().getName() + ChatColor.AQUA + " - " str);
+				player.sendMessage(str.toString());
 			}if (war.getAllEmpiresOnTeam2().contains(empire)) {
 				String pc = null;
 				float fpc = 100 - war.getTeam1Percent();

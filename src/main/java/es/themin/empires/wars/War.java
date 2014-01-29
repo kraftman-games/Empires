@@ -2,6 +2,12 @@ package es.themin.empires.wars;
 
 import java.util.ArrayList;
 
+import me.confuser.barapi.BarAPI;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
@@ -200,5 +206,75 @@ public class War {
 	public void addTeam1Percent(Float f) {
 		this.team1percent = team1percent + f;
 		Save();
+	}
+	public void displayStatistic() {
+		for (Empire empire : getAllEmpiresOnTeam1()){
+			StringBuilder str = new StringBuilder();
+			float fpc = getTeam1Percent();
+			if (fpc < 35) {
+				str.append(ChatColor.DARK_RED + "");
+				str.append(fpc);
+				//str.append("%");
+			}else if (fpc < 50) {
+				str.append(ChatColor.RED + "");
+				str.append(fpc);
+				//str.append("%");
+			}else if (fpc < 65) {
+				str.append(ChatColor.GOLD + "");
+				str.append(fpc);
+				//str.append("%");
+			}else if (fpc < 80) {
+				str.append(ChatColor.GREEN + "");
+				str.append(fpc);
+				//str.append("%");
+			}else {
+				str.append(ChatColor.DARK_GREEN + "");
+				str.append(fpc);
+				//str.append("%");
+			}
+			str.append("%");
+			for (Player player : empire.getOnlinePlayers()) {
+				BarAPI.setMessage(player, ChatColor.DARK_GREEN + "You        " + str.toString() + ChatColor.DARK_RED + empire2.getName(), fpc);
+			}
+		}for (Empire empire : getAllEmpiresOnTeam2()) {
+			StringBuilder str = new StringBuilder();
+			float fpc = 100 - getTeam1Percent();
+			if (fpc < 35) {
+				str.append(ChatColor.DARK_RED + "");
+				str.append(fpc);
+				//str.append("%");
+			}else if (fpc < 50) {
+				str.append(ChatColor.RED + "");
+				str.append(fpc);
+				//str.append("%");
+			}else if (fpc < 65) {
+				str.append(ChatColor.GOLD + "");
+				str.append(fpc);
+				//str.append("%");
+			}else if (fpc < 80) {
+				str.append(ChatColor.GREEN + "");
+				str.append(fpc);
+				//str.append("%");
+			}else {
+				str.append(ChatColor.DARK_GREEN + "");
+				str.append(fpc);
+				//str.append("%");
+			}
+			str.append("%");
+			for (Player player : empire.getOnlinePlayers()) {
+				BarAPI.setMessage(player, ChatColor.DARK_GREEN + "You        " + str.toString() + ChatColor.DARK_RED + empire1.getName(), fpc);
+			}
+		}
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Bukkit.getServer().getPluginManager().getPlugin("Empires"), new Runnable() {
+
+			@Override
+			public void run() {
+				for (Empire empire : getAllEmpires()) {
+					for (Player player : empire.getOnlinePlayers()) {
+						BarAPI.removeBar(player);
+					}
+				}
+			}
+		}, 400L);
 	}
 }

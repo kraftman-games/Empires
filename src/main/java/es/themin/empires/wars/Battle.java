@@ -80,7 +80,7 @@ public class Battle {
 		}
 		upDateScoreBoards();
 		scheduleTimer();
-		Bukkit.broadcastMessage("Time: " + time);
+		//Bukkit.broadcastMessage("Time: " + time);
 	}
 	public void end() {
 		if (type == BattleType.DEATHMATCH) {
@@ -390,8 +390,8 @@ public class Battle {
 		float f1 = (float) d2;
 		/*player.sendMessage("Start: " + start);
 		player.sendMessage("Curernt: " + System.currentTimeMillis());
-		*/player.sendMessage("Time Total: " + time );
-		/*player.sendMessage("l1:"+ l1);
+		player.sendMessage("Time Total: " + time );
+		player.sendMessage("l1:"+ l1);
 		player.sendMessage("l2: " + l2);
 		player.sendMessage("d1: "+ d1);
 		player.sendMessage("d2: " + d2);
@@ -420,7 +420,7 @@ public class Battle {
 							}
 						}
 					}else {
-						Bukkit.broadcastMessage("String 1");
+						//Bukkit.broadcastMessage("String 1");
 						end();
 					}
 				}
