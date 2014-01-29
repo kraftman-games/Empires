@@ -43,14 +43,13 @@ public final class empires extends JavaPlugin {
 	@Override
     public void onEnable(){
         
-		SettingsManager.setup(this);
+		SettingsManager.loadSettings(this);
 		loadCommands();
 		
 		UtilManager.loadEmpires();
 		loadPlayers();
 		
-		String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
-		(new File(pluginFolder)).mkdirs();
+		
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
 		
@@ -58,9 +57,9 @@ public final class empires extends JavaPlugin {
  
     @Override
     public void onDisable() {
-        // TODO Insert logic to be performed when the plugin is disabled
+        
 		UtilManager.saveEmpires();
-		SettingsManager.getInstance().saveAll();
+		SettingsManager.saveAll();
 		savePlayers();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
@@ -112,6 +111,9 @@ public final class empires extends JavaPlugin {
     	}
     }
     private void scheduleBackUps() {
+    	String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
+		(new File(pluginFolder)).mkdirs();
+    	
     	if (getConfig().getString("enable_back_ups").equalsIgnoreCase("true")) {
     		
 			try {
