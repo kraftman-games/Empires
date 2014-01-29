@@ -24,25 +24,25 @@ public class SettingsManager {
    
     Plugin p;
    
-    FileConfiguration config;
-    File cfile;
+    static FileConfiguration config;
+    static File cfile;
    
-    YamlConfiguration data;
-    File dfile;
+    static YamlConfiguration data;
+    static File dfile;
     
     YamlConfiguration coredata;
     File corefile;
     
-    YamlConfiguration playerdata;
-    File pfile;
+    static YamlConfiguration playerdata;
+    static File pfile;
     
-    YamlConfiguration empiredata;
-    File efile;
+    static YamlConfiguration empiredata;
+    static File efile;
     
-    YamlConfiguration worlddata;
-    File wfile;
+    static YamlConfiguration worlddata;
+    static File wfile;
    
-    public void setup(Plugin plugin) {
+    public static void setup(Plugin plugin) {
     	config = plugin.getConfig();
 		cfile = new File(plugin.getDataFolder() + File.separator + "config.yml");
 
@@ -124,15 +124,15 @@ public class SettingsManager {
                 try {
                         wfile.createNewFile();
                         worlddata = YamlConfiguration.loadConfiguration(wfile);
-                       	getWorldData().addDefault("worlds.world.allowcoreplace", bool(1));
-                       	getWorldData().addDefault("worlds.world.allowcommanduse", bool(1));
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.BASE", bool(1));
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.MOB", bool(1));
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.FARM", bool(1));
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.MONSTER", bool(1));
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.FORTIFICATION", bool(1));
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.GRIEF", bool(1));
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.OUTPOST", bool(1));
+                       	getWorldData().addDefault("worlds.world.allowcoreplace", true);
+                       	getWorldData().addDefault("worlds.world.allowcommanduse", true);
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.BASE", true);
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.MOB", true);
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.FARM", true);
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.MONSTER", true);
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.FORTIFICATION", true);
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.GRIEF", true);
+                       	getWorldData().addDefault("worlds.world.allowplaceofcore.OUTPOST", true);
                        	getWorldData().options().copyDefaults();
                        	saveWorldData();
         				plugin.getLogger().info("[Empires] worldconfig.yml not found, making you one");
@@ -233,11 +233,11 @@ public class SettingsManager {
  //#############################   
     
     //######################world DAT
-    public FileConfiguration getWorldData() {
+    public static FileConfiguration getWorldData() {
         return worlddata;
     }
 
-    public void saveWorldData() {
+    public static void saveWorldData() {
         try {
                 worlddata.save(wfile);
         }
@@ -259,11 +259,11 @@ public class SettingsManager {
     }
  //#############################   
    
-    public FileConfiguration getConfig() {
+    public static FileConfiguration getConfig() {
             return config;
     }
    
-    public void saveConfig() {
+    public static void saveConfig() {
             try {
                     config.save(cfile);
             }

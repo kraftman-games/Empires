@@ -43,7 +43,7 @@ public final class empires extends JavaPlugin {
 	@Override
     public void onEnable(){
         
-		SettingsManager.getInstance().setup(this);
+		SettingsManager.setup(this);
 		loadCommands();
 		
 		UtilManager.loadEmpires();
