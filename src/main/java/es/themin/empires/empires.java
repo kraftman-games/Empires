@@ -24,6 +24,7 @@ import es.themin.empires.Listeners.PlayerListener;
 import es.themin.empires.Listeners.worldListener;
 import es.themin.empires.cmds.GlobalCommand;
 import es.themin.empires.cmds.GridCommand;
+import es.themin.empires.cmds.HomeCommand;
 import es.themin.empires.cmds.empire.empire;
 import es.themin.empires.cmds.war.WarCommand;
 import es.themin.empires.cores.CoreSchematic;
@@ -88,6 +89,7 @@ public final class empires extends JavaPlugin {
 		getCommand("all").setExecutor(new GlobalCommand(this));
 		getCommand("grid").setExecutor(new GridCommand(this));
 		getCommand("war").setExecutor(new WarCommand());
+		getCommand("base").setExecutor(new HomeCommand(this));
     }
     public void savePlayers(){
     	for (String playername : UtilManager.empireplayers.keySet()) {
