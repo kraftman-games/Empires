@@ -25,7 +25,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
-import es.themin.empires.util.BlockUtils;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.PlayerUtils;

@@ -23,7 +23,6 @@ public class UtilManager {
 	public static HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
 	public static ArrayList<Core> cores = new ArrayList<Core>();
 	public static ArrayList<War> wars = new ArrayList<War>();
-	public static ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
 	public static HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
 	private static HashMap<UUID, EmpirePlayer> EmpirePlayers = new HashMap<UUID, EmpirePlayer>();
 	
@@ -266,29 +265,8 @@ public class UtilManager {
 		}
 		return null;
 	}
-//amps
-	public static Amplifier getAmplifierWithId(int Id) {
-		for (Amplifier amp : amps) {
-			if (amp.getId() == Id) return amp;
-		}
-		return null;
-	}
-	public static int nextUnusedAmplifierId(){
-		int id = 0;
-		for (int i = 0 ; i != -1; i++) {
-			if (getAmplifierWithId(i) == null) {
-				id = i;
-				i = -1;
-			}
-		}
-		return id;
-	}
-	public static boolean containsAmplifierWithId(int Id) {
-		for (Amplifier amp: amps) {
-			if (amp.getId() == Id) return true;
-		}
-		return false;
-	}
+
+	
 	public static String colourUp(String string) {
 		string.replaceAll("&0", ChatColor.BLACK + "");
 		string.replaceAll("&1", ChatColor.DARK_BLUE + "");

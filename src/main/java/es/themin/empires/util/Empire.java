@@ -25,7 +25,6 @@ public class Empire {
 	private String owner;
 	private ArrayList<String> players = new ArrayList<String>();
 	private ArrayList<Core> cores = new ArrayList<Core>();
-	private ArrayList<Amplifier> amps = new ArrayList<Amplifier>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
 	private boolean isProtected;
 	private String ownerprefix;
@@ -134,9 +133,7 @@ public class Empire {
 	public ArrayList<String> getPlayers(){
 		return players;
 	}
-	public ArrayList<Amplifier> getAmplifiers(){
-		return amps;
-	}
+	
 	public boolean hasPlayer(String p) {
 		if (players.contains(p)) return true;
 		else return false;
@@ -184,17 +181,7 @@ public class Empire {
 		int i = players.size();
 		return i;
 	}
-	public void aa(Amplifier a) {
-		amps.add(a);
-		Save();
-	}
-	public void addAmplifier(Amplifier a) {
-		a.setEmpire(this);
-	}
-	public void removeAmplifier(Amplifier a){
-		amps.remove(a);
-		Save();
-	}
+	
 	public void Save(){
 		if (UtilManager.containsEmpireWithId(this.Id)) {
 			int i = UtilManager.empires.indexOf(UtilManager.getEmpireWithId(this.Id));
@@ -275,13 +262,6 @@ public class Empire {
 		}
 		rank.addPlayer(playername);
 	}
-	public int numberOfAmplifiers() {
-		int i = 0;
-		for (Amplifier amp : amps) {
-			i++;
-		}
-		return i;
-	}
 	public int getRanking() {
 		int xp = 0;
 		int rank = 1;
@@ -291,14 +271,14 @@ public class Empire {
 		for (Core core : cores) {
 			xp = xp + core.getLevel() * 2;
 		}
-		xp = xp + this.numberOfAmplifiers() * 2;
+		//xp = xp + this.numberOfAmplifiers() * 2;
 		for (Empire empire : UtilManager.empires) {
 			int xp2;
 			xp2 = empire.numberOfPlayers() * 5;
 			for (Core core : empire.getCores()) {
 				xp2 = xp2 + core.getLevel() * 2;
 			}
-			xp2 = xp2 + empire.numberOfAmplifiers() * 2;
+			//xp2 = xp2 + empire.numberOfAmplifiers() * 2;
 			if (xp2 > xp) {
 				rank  = rank + pos;
 				pos = 1;
@@ -314,7 +294,7 @@ public class Empire {
 		for (Core core : cores) {
 			xp = xp + core.getLevel() * 2;
 		}
-		xp = xp + this.numberOfAmplifiers() * 2;
+		//xp = xp + this.numberOfAmplifiers() * 2;
 		return xp;
 	}
 	public Rank getRankWithName(String name) {

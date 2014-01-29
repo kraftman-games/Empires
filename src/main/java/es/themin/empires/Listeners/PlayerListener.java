@@ -24,7 +24,6 @@ import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.enums.CoreType;
-import es.themin.empires.util.BlockUtils;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
