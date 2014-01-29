@@ -21,7 +21,7 @@ public class empire implements CommandExecutor{
 		commands.add(new Stats());
 		commands.add(new ChatCommand());
 		commands.add(new SettingsCommand());
-		commands.add(new GridLocaitonCommand());
+		commands.add(new GridLocationCommand());
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("empire") || commandLabel.equalsIgnoreCase("emp") || commandLabel.equalsIgnoreCase("e")) {

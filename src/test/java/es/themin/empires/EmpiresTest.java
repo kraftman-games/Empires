@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.themin.empires.cores.Core;
-import es.themin.empires.util.Amplifier;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;

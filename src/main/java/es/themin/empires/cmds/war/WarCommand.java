@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.ChatCommand;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
-import es.themin.empires.cmds.empire.GridLocaitonCommand;
+import es.themin.empires.cmds.empire.GridLocationCommand;
 import es.themin.empires.cmds.empire.RankCommand;
 import es.themin.empires.cmds.empire.SettingsCommand;
 import es.themin.empires.cmds.empire.Stats;

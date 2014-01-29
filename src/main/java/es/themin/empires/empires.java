@@ -24,6 +24,7 @@ import es.themin.empires.Listeners.PlayerListener;
 import es.themin.empires.Listeners.worldListener;
 import es.themin.empires.cmds.GlobalCommand;
 import es.themin.empires.cmds.GridCommand;
+import es.themin.empires.cmds.HomeCommand;
 import es.themin.empires.cmds.empire.empire;
 import es.themin.empires.cmds.war.WarCommand;
 import es.themin.empires.cores.CoreSchematic;
@@ -41,23 +42,18 @@ public final class empires extends JavaPlugin {
 	
 	@Override
     public void onEnable(){
-        PluginManager pm = this.getServer().getPluginManager();
-        //PluginDescriptionFile desc = this.getDescription();
         
 		SettingsManager.getInstance().setup(this);
-		getCommands();
-		pm.registerEvents(new PlayerListener(this), this);
-		pm.registerEvents(new BlockListener(this), this);
-		pm.registerEvents(new Craft(this), this);
-		pm.registerEvents(new Chat(this), this);
-		pm.registerEvents(new worldListener(this), this);
+		loadCommands();
+		
 		UtilManager.loadEmpires();
 		loadPlayers();
+		
 		String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
 		(new File(pluginFolder)).mkdirs();
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
-		//CoreSchematic.loadSchematics();
+		
     }
  
     @Override
@@ -75,7 +71,17 @@ public final class empires extends JavaPlugin {
 		}
     }
     
-    public void getCommands() {
+    public void registerEvents(){
+    	PluginManager pm = this.getServer().getPluginManager();
+    	pm.registerEvents(new PlayerListener(this), this);
+		pm.registerEvents(new BlockListener(this), this);
+		pm.registerEvents(new Craft(this), this);
+		pm.registerEvents(new Chat(this), this);
+		pm.registerEvents(new worldListener(this), this);
+    	
+    }
+    
+    public void loadCommands() {
     	UtilityTesting utiltest = new UtilityTesting();
 		UtilityTesting.setUp();
 		getCommand("utiltest").setExecutor(utiltest);
@@ -88,6 +94,7 @@ public final class empires extends JavaPlugin {
 		getCommand("all").setExecutor(new GlobalCommand(this));
 		getCommand("grid").setExecutor(new GridCommand(this));
 		getCommand("war").setExecutor(new WarCommand());
+		getCommand("base").setExecutor(new HomeCommand(this));
     }
     public void savePlayers(){
     	for (String playername : UtilManager.empireplayers.keySet()) {

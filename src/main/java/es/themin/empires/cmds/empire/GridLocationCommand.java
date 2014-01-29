@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.UtilManager;
 
-public class GridLocaitonCommand extends EmpireSubCommand{
+public class GridLocationCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
