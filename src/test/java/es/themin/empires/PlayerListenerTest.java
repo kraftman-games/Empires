@@ -20,9 +20,20 @@ public class PlayerListenerTest {
 	
 	}
 	
-	@Test void returningPlayerJoin(){
-		
-		
+	@Test 
+	void returningPlayerJoin(){
+	}
+	
+	@Test 
+	void playerStartWar(){
+	}
+	
+	@Test 
+	void playerDeathDuringWar(){
+	}
+	
+	@Test 
+	void playerDeathNotWar(){
 	}
 	
 	
