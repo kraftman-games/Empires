@@ -20,10 +20,12 @@ import es.themin.empires.cmds.empire.list;
 public class WarCommand implements CommandExecutor{
 	public String plprefix = empires.plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
-	public static void setUp(){
+	
+	public WarCommand(){
 		commands.add(new WarDeclareCommand());
 		commands.add(new WarListCommand());
 	}
+	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("war")) {
 			Player player = (Player) sender;

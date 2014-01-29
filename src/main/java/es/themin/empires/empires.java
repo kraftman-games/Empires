@@ -86,7 +86,6 @@ public final class empires extends JavaPlugin {
 		CommandManager.addSubCommands();
 		getCommand("utiltest").setExecutor(utiltest);
 		empire empire_ce = new empire();
-		WarCommand.setUp();
 		getCommand("empire").setExecutor(empire_ce);
 		getCommand("e").setExecutor(empire_ce);
 		getCommand("emp").setExecutor(empire_ce);
