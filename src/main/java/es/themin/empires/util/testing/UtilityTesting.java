@@ -13,11 +13,12 @@ import org.bukkit.entity.Player;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 
-public class CommandManager implements CommandExecutor{
+public class UtilityTesting implements CommandExecutor{
 	
 	public String plprefix = empires.plprefix;
-	private static ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
-	public static void addSubCommands(){
+	private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
+	
+	public UtilityTesting(){
 		commands.add(new newemp());
 		commands.add(new emp());
 		commands.add(new emps());

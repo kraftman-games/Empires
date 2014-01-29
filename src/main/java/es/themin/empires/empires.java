@@ -32,7 +32,7 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
-import es.themin.empires.util.testing.CommandManager;
+import es.themin.empires.util.testing.UtilityTesting;
  
 public final class empires extends JavaPlugin {
  
@@ -82,13 +82,12 @@ public final class empires extends JavaPlugin {
     }
     
     public void loadCommands() {
-    	CommandManager utiltest = new CommandManager();
-		CommandManager.addSubCommands();
-		getCommand("utiltest").setExecutor(utiltest);
+		
 		empire empire_ce = new empire();
 		getCommand("empire").setExecutor(empire_ce);
 		getCommand("e").setExecutor(empire_ce);
 		getCommand("emp").setExecutor(empire_ce);
+		getCommand("utiltest").setExecutor(new UtilityTesting());
 		getCommand("all").setExecutor(new GlobalCommand(this));
 		getCommand("grid").setExecutor(new GridCommand(this));
 		getCommand("war").setExecutor(new WarCommand());
