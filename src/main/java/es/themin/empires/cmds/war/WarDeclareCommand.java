@@ -9,6 +9,7 @@ import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;
+import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.wars.War;
 
@@ -37,10 +38,16 @@ public class WarDeclareCommand extends EmpireSubCommand{
 				return false;
 			}
 			Empire attacked = UtilManager.getEmpireWithName(args[1]);
-			/* will implement this later
-			if (!(attacked.getEmpireState() == EmpireState.BATTLEREADY)) {
-				player.
-			}*/
+			if (empire.getExp() - attacked.getExp() < -50) {
+				player.sendMessage(plprefix + ChatColor.RED + "You are too strong to attack this empire");
+				return false;
+			}
+			if (empire.exAlliesContains(attacked)) {
+				if (empire.getLastAllianceWith(attacked) + SettingsManager.getInstance().getConfig().getLong("ex_ally_timer") * 60 * 1000 > System.currentTimeMillis()) {
+					player.sendMessage(plprefix + ChatColor.RED + "You cannot abandon an Ally then attack them this quickly, try again later");
+					return false;
+				}
+			}
 			War war = new War(empire, attacked);
 			war.start();
 			war.upDateEmpires();
@@ -76,6 +83,11 @@ public class WarDeclareCommand extends EmpireSubCommand{
 	@Override
 	public EmpirePermission permission() {
 		return EmpirePermission.ATTACK;
+	}
+	private static int getDifferenceBetween(int i1, int i2) {
+		if (i1 > i2) return i1-i2;
+		if (i2 > i1) return i2-i1;
+		return 0;
 	}
 
 }

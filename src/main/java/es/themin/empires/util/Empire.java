@@ -40,7 +40,10 @@ public class Empire {
 	private int battlelosses;
 	private ArrayList<War> wars;
 	private ArrayList<Empire> allies;
-
+	private HashMap<Empire, Long> exallies;
+	private HashMap<Empire, Long> exenemies;
+	private Long lastbattleloss;
+	private Long lastbattlewin;
 	
 	public Empire getEnemyEmpire() {
 		return enemyEmpire;
@@ -83,6 +86,11 @@ public class Empire {
 		this.addPlayer(ownerName);
 		UtilManager.empireplayers.put(ownerName, this);
 		this.allies = new ArrayList<Empire>();
+		this.exallies = new HashMap<Empire, Long>();
+		this.exenemies = new HashMap<Empire, Long>();
+		//this.exbattles = new HashMap<Empire, Long>();
+		this.lastbattleloss = (long) 0;
+		this.lastbattlewin = (long) 0;
 	}
 	
 	public Empire(String empireName, Player myPlayer){
@@ -416,7 +424,7 @@ public class Empire {
 	/*public void setAtWar(boolean atWar) {
 		this.atWar = atWar;
 	}*/
-	public ArrayList<War> getWar() {
+	public ArrayList<War> getWars() {
 		return wars;
 	}
 	public void addWar(War war) {
@@ -514,6 +522,43 @@ public class Empire {
 		}
 		return list;
 	}
+	public void setLastBattleLoss(Long l) {
+		this.lastbattleloss = l;
+		Save();
+	}
+	public Long getLastBattleLoss() {
+		return lastbattleloss;
+	}
+	public void setLastBattleWin(Long l) {
+		this.lastbattlewin = l;
+		Save();
+	}
+	public Long getLastBattleWin() {
+		return lastbattlewin;
+	}
+	public boolean exAlliesContains(Empire e) {
+		if (this.exallies.containsKey(e)) return true;
+		return false;
+	}public Long getLastAllianceWith(Empire e) {
+		if (exAlliesContains(e)){
+			return this.exallies.get(e);
+		}
+		return null;
+	}
+	public void addExAlly(Empire e) {
+		this.exallies.put(e, System.currentTimeMillis());
+		Save();
+	}
+	public void addExAlly(Empire e, Long l) {
+		this.exallies.put(e, l);
+		Save();
+	}public void removeExAlly(Empire e) {
+		if (exAlliesContains(e)) {
+			this.exallies.remove(e);
+			Save();
+		}
+	}
+	
 }
 
 

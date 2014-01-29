@@ -19,4 +19,14 @@ wars:
          damage_for_win_multiplier: 5
          kill_for_win: 30
          damage_for_win: 100
+      #Length of battle in minutes
       length: '10.0'
+      #Period after the battle in which the loosing empire cannot be attacked / mins
+      saftey_period: '60.0'
+      
+      percentage_gain_per_win: '10.0'
+   #Time after breaking an alliance before the empire breaking the alliance can attack / mins
+   ex_ally_timer: '240.0'
+   #The time which 2 empies have to wait after finishing one war before starting another / mins
+   ex_enemy_timer: '2880.0'
+   percentage_gain_per_win: '10.0'

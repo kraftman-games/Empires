@@ -24,6 +24,7 @@ import es.themin.empires.util.UtilManager;
 public class Battle {
 	
 	private empires plugin;
+	public String warprefix = empires.warprefix;
 	private War war;
 	private long start;
 	private long end;
@@ -88,15 +89,36 @@ public class Battle {
 			if (team1points == team2points) this.victor = null; this.endsinatie = true;
 			this.end = System.currentTimeMillis();
 		}else if (type == BattleType.OBLITERATION) {
-			
+			//TODO
 		}
 		wipeScoreboards();
 		for (Empire empire : getAllEmpiresOnTeam1()) {
-			if (victor == empire1) empire.addBattleWins(1);
-			else if (victor == empire2) empire.addBattleLosses(1);
+			if (victor == empire1){
+				empire.addBattleWins(1); 
+				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
+				empire.setLastBattleWin(System.currentTimeMillis());
+				war.addTeam1Percent((float) SettingsManager.getInstance().getConfig().getLong("wars.percentage_gain_per_win"));
+			}
+			else if (victor == empire2) {
+				empire.addBattleLosses(1);
+				empire.broadcastMessage(warprefix + ChatColor.RED + "The battle is lost, regroup ready to fight again");
+				empire.setLastBattleLoss(System.currentTimeMillis());
+				war.addTeam1Percent((float) - SettingsManager.getInstance().getConfig().getLong("wars.percentage_gain_per_win"));
+			}
 		}for (Empire empire : getAllEmpiresOnTeam2()) {
-			if (victor == empire2) empire.addBattleWins(1);
-			else if (victor == empire1) empire.addBattleLosses(1);
+			if (victor == empire2) {
+				empire.addBattleWins(1);
+				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
+				empire.setLastBattleWin(System.currentTimeMillis());
+				war.addTeam1Percent((float) - SettingsManager.getInstance().getConfig().getLong("wars.percentage_gain_per_win"));
+			}
+			else if (victor == empire1){ 
+				empire.addBattleLosses(1);
+				empire.broadcastMessage(warprefix + ChatColor.RED + "The battle is lost, regroup ready to fight again");
+				empire.setLastBattleLoss(System.currentTimeMillis());
+				war.addTeam1Percent((float) SettingsManager.getInstance().getConfig().getLong("wars.percentage_gain_per_win"));
+			}
+			
 		}
 	}
 	public void setAttacker(BattleTeam team) {
@@ -108,14 +130,35 @@ public class Battle {
 			war.addWinsToTeam1(1);
 			this.victor = empire1;
 			this.endsinatie = false;
+			for (Empire empire : getAllEmpiresOnTeam1()) {
+				empire.addBattleWins(1); 
+				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
+				empire.setLastBattleWin(System.currentTimeMillis());
+			}
+			for (Empire empire : getAllEmpiresOnTeam2()) {
+				empire.addBattleLosses(1);
+				empire.broadcastMessage(warprefix + ChatColor.RED + "The battle is lost, regroup ready to fight again");	
+				empire.setLastBattleLoss(System.currentTimeMillis());
+			}
 			this.end = System.currentTimeMillis();		
 		}else if (team == BattleTeam.team2) {
 			this.onGoing = false;
 			war.addWinsToTeam2(1);
 			this.victor = empire2;
 			this.endsinatie = false;
-			this.end = System.currentTimeMillis();		
+			this.end = System.currentTimeMillis();
+			for (Empire empire : getAllEmpiresOnTeam2()) {
+				empire.addBattleWins(1); 
+				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
+				empire.setLastBattleWin(System.currentTimeMillis());
+			}
+			for (Empire empire : getAllEmpiresOnTeam1()) {
+				empire.addBattleLosses(1);
+				empire.broadcastMessage(warprefix + ChatColor.RED + "The battle is lost, regroup ready to fight again");	
+				empire.setLastBattleLoss(System.currentTimeMillis());
+			}
 		}
+		wipeScoreboards();
 	}
 
 	public boolean endedInATie() {
@@ -241,7 +284,7 @@ public class Battle {
 		}
 	}
 	public void upDateScoreBoards() {
-		Bukkit.getServer().broadcastMessage("DEBUG 1");
+		//Bukkit.getServer().broadcastMessage("DEBUG 1");
 		final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 		int team1numbers = 0;
 		for (Empire empire : getAllEmpiresOnTeam1()) {
@@ -253,7 +296,7 @@ public class Battle {
 		}
 		for (Empire empire : getAllEmpiresOnTeam1()) {
 			empire.broadcastMessage("" + killsforwin);
-			empire.broadcastMessage("DEBUG 2.1");
+			//empire.broadcastMessage("DEBUG 2.1");
 			Scoreboard sb = sbm.getNewScoreboard();
 			
 			Objective you = sb.registerNewObjective("you", "stats");
@@ -275,7 +318,7 @@ public class Battle {
 				title2.setScore(team2numbers);
 				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.DARK_RED +"Kills / " + killsforwin + ":"));
 				thems.setScore(team2points);
-				empire.broadcastMessage("DEBUG 3.1");
+				//empire.broadcastMessage("DEBUG 3.1");
 				//Team team = sb.registerNewTeam("allies"); 
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
@@ -284,14 +327,14 @@ public class Battle {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
 					you.setDisplaySlot(DisplaySlot.SIDEBAR);
-					player.sendMessage("DEBUG 4.1");
+					//player.sendMessage("DEBUG 4.1");
 					player.setScoreboard(sb);
 				}
 			}
 		}
 		for (Empire empire : getAllEmpiresOnTeam2()) {
 			empire.broadcastMessage("" + killsforwin);
-			empire.broadcastMessage("DEBUG 2.2");
+			//empire.broadcastMessage("DEBUG 2.2");
 			Scoreboard sb = sbm.getNewScoreboard();
 			
 			Objective you = sb.registerNewObjective("you", "stats");
@@ -313,7 +356,7 @@ public class Battle {
 				title2.setScore(team1numbers);
 				Score thems = you.getScore(Bukkit.getOfflinePlayer(ChatColor.DARK_RED +"Kills / " + killsforwin + ":"));
 				thems.setScore(team1points);
-				empire.broadcastMessage("DEBUG 3.1");
+				//empire.broadcastMessage("DEBUG 3.1");
 				//Team team = sb.registerNewTeam("allies"); 
 			}else if (type == BattleType.OBLITERATION) {
 				//TODO
@@ -321,7 +364,7 @@ public class Battle {
 			
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
-					player.sendMessage("DEBUG 4.1");
+					//player.sendMessage("DEBUG 4.1");
 					player.setScoreboard(sb);
 				}
 			}
@@ -333,6 +376,7 @@ public class Battle {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (empire.hasPlayer(player.getName())) {
 					player.setScoreboard(sbm.getNewScoreboard());
+					BarAPI.removeBar(player);
 				}
 			}
 		}
@@ -343,15 +387,21 @@ public class Battle {
 		double d1 = l2 * 100;
 		double d2 = d1 / time;
 		float f1 = (float) d2;
-		player.sendMessage("Start: " + start);
+		/*player.sendMessage("Start: " + start);
 		player.sendMessage("Curernt: " + System.currentTimeMillis());
 		player.sendMessage("Time Total: " + time );
 		player.sendMessage("l1:"+ l1);
 		player.sendMessage("l2: " + l2);
 		player.sendMessage("d1: "+ d1);
 		player.sendMessage("d2: " + d2);
-		player.sendMessage("f1: "+ f1);
-		if (f1 >= 0 ) BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch Timer" + ChatColor.GOLD + "]", f1);
+		player.sendMessage("f1: "+ f1);*/
+		if (f1 >= 0 )  {
+			if (type == BattleType.DEATHMATCH) {
+				BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch Timer" + ChatColor.GOLD + "]", f1);
+			}else if (type == BattleType.OBLITERATION) {
+				BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "Obliteration Timer" + ChatColor.GOLD + "]", f1);
+			}
+		}
 	}
 	public void scheduleTimer() {
 		Plugin plugin2 = Bukkit.getServer().getPluginManager().getPlugin("Empires");
@@ -360,10 +410,16 @@ public class Battle {
 			@Override
 			public void run() {
 				if (isOnGoing()) {
-					for (Empire empire : getAllEmpires()) {
-						for (Player player : empire.getOnlinePlayers()) {
-							upDateTimer(player);
+					long l1  = start + time;
+					long l2 = l1 - System.currentTimeMillis();
+					if (l2 >= 0) {
+						for (Empire empire : getAllEmpires()) {
+							for (Player player : empire.getOnlinePlayers()) {
+								upDateTimer(player);
+							}
 						}
+					}else {
+						end();
 					}
 				}
 				
@@ -371,4 +427,5 @@ public class Battle {
 			
 		}, 0L, 200L);
 	}
+	
 }

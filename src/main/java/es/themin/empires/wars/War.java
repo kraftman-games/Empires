@@ -18,6 +18,7 @@ public class War {
 	private int empire2wins;
 	public boolean endedintie;
 	private boolean onGoing;
+	private float team1percent;
 	private ArrayList<Battle> battles;
 	public War(Empire team1, Empire team2) {
 		this.empire1 = team1;
@@ -28,6 +29,7 @@ public class War {
 		this.empire2wins = 0;
 		this.battles = new ArrayList<Battle>();
 		this.onGoing = false;
+		this.team1percent = 50;
 	}
 	public void start() {
 		this.onGoing = true;
@@ -191,5 +193,12 @@ public class War {
 		for (Empire empire : getAllEmpires()) {
 			empire.addWar(this);
 		}
+	}
+	public float getTeam1Percent() {
+		return team1percent;
+	}
+	public void addTeam1Percent(Float f) {
+		this.team1percent = team1percent + f;
+		Save();
 	}
 }

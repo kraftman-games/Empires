@@ -5,6 +5,8 @@ import java.io.File;
 import java.sql.Date;
 import java.sql.Time;
 
+import me.confuser.barapi.BarAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.Chat;
@@ -65,6 +68,11 @@ public final class empires extends JavaPlugin {
 		savePlayers();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
+		final ScoreboardManager sbm = Bukkit.getScoreboardManager();
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			player.setScoreboard(sbm.getNewScoreboard());
+			BarAPI.removeBar(player);
+		}
     }
     
     public void getCommands() {
