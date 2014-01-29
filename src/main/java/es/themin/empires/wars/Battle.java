@@ -80,6 +80,7 @@ public class Battle {
 		}
 		upDateScoreBoards();
 		scheduleTimer();
+		Bukkit.broadcastMessage("Time: " + time);
 	}
 	public void end() {
 		if (type == BattleType.DEATHMATCH) {
