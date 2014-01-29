@@ -18,8 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import es.themin.empires.Listeners.BlockListener;
-import es.themin.empires.Listeners.Chat;
-import es.themin.empires.Listeners.Craft;
+import es.themin.empires.Listeners.ChatListener;
+import es.themin.empires.Listeners.CraftListener;
 import es.themin.empires.Listeners.PlayerListener;
 import es.themin.empires.Listeners.WorldListener;
 import es.themin.empires.cmds.GlobalCommand;
@@ -75,8 +75,8 @@ public final class empires extends JavaPlugin {
     	PluginManager pm = this.getServer().getPluginManager();
     	pm.registerEvents(new PlayerListener(this), this);
 		pm.registerEvents(new BlockListener(this), this);
-		pm.registerEvents(new Craft(this), this);
-		pm.registerEvents(new Chat(this), this);
+		pm.registerEvents(new CraftListener(this), this);
+		pm.registerEvents(new ChatListener(this), this);
 		pm.registerEvents(new WorldListener(this), this);
     	
     }

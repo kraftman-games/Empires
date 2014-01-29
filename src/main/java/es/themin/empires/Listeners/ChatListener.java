@@ -12,10 +12,10 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
 @SuppressWarnings("deprecation")
-public class Chat implements Listener{
+public class ChatListener implements Listener{
 	
 	private empires plugin;
-	public Chat(empires plugin) {
+	public ChatListener(empires plugin) {
 		this.plugin = plugin;
 	}
 	public String plprefix = plugin.plprefix;

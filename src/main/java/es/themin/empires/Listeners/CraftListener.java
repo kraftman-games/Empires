@@ -19,10 +19,10 @@ import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
 
-public class Craft implements Listener{
+public class CraftListener implements Listener{
 	
 	private empires plugin;
-	public Craft(empires plugin) {
+	public CraftListener(empires plugin) {
 		this.plugin = plugin;
 	}
 	
