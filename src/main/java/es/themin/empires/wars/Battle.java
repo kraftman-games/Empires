@@ -340,16 +340,18 @@ public class Battle {
 	public void upDateTimer(Player player) {
 		long l1  = start + time;
 		long l2 = l1 - System.currentTimeMillis();
-		float f1 = l2 / time;
-		float f2 = f1 * 100;
+		long l3 = l2 / time;
+		long l4 = l3 * 100;
+		float f1 = (float) l4;
 		player.sendMessage("Start: " + start);
 		player.sendMessage("Curernt: " + System.currentTimeMillis());
 		player.sendMessage("Time Total: " + time );
 		player.sendMessage("l1:"+ l1);
 		player.sendMessage("l2: " + l2);
-		player.sendMessage("f1:"+ f1);
-		player.sendMessage("f2: " + f2);
-		if (f2 >= 0 ) BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch Timer" + ChatColor.GOLD + "]", f2);
+		player.sendMessage("l3: "+ l3);
+		player.sendMessage("l4:" + l4);
+		player.sendMessage("f1: "+ f1);
+		if (f1 >= 0 ) BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch Timer" + ChatColor.GOLD + "]", f1);
 	}
 	public void scheduleTimer() {
 		Plugin plugin2 = Bukkit.getServer().getPluginManager().getPlugin("Empires");
