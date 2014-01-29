@@ -389,8 +389,8 @@ public class Battle {
 		float f1 = (float) d2;
 		/*player.sendMessage("Start: " + start);
 		player.sendMessage("Curernt: " + System.currentTimeMillis());
-		player.sendMessage("Time Total: " + time );
-		player.sendMessage("l1:"+ l1);
+		*/player.sendMessage("Time Total: " + time );
+		/*player.sendMessage("l1:"+ l1);
 		player.sendMessage("l2: " + l2);
 		player.sendMessage("d1: "+ d1);
 		player.sendMessage("d2: " + d2);
