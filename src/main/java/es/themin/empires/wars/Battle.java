@@ -340,16 +340,16 @@ public class Battle {
 	public void upDateTimer(Player player) {
 		long l1  = start + time;
 		long l2 = l1 - System.currentTimeMillis();
-		long l3 = l2 / time;
-		long l4 = l3 * 100;
-		float f1 = (float) l4;
+		double d1 = l2 / time;
+		double d2 = d1 * 100;
+		float f1 = (float) d2;
 		player.sendMessage("Start: " + start);
 		player.sendMessage("Curernt: " + System.currentTimeMillis());
 		player.sendMessage("Time Total: " + time );
 		player.sendMessage("l1:"+ l1);
 		player.sendMessage("l2: " + l2);
-		player.sendMessage("l3: "+ l3);
-		player.sendMessage("l4:" + l4);
+		player.sendMessage("d1: "+ d1);
+		player.sendMessage("d2: " + d2);
 		player.sendMessage("f1: "+ f1);
 		if (f1 >= 0 ) BarAPI.setMessage(player, ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "DeathMatch Timer" + ChatColor.GOLD + "]", f1);
 	}
