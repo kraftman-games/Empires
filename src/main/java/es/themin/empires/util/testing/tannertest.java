@@ -2,6 +2,7 @@ package es.themin.empires.util.testing;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -11,6 +12,8 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
@@ -59,8 +62,9 @@ public class tannertest extends SubCommand{
 	private boolean getHabitableZone(Player myPlayer, int x, int z){
 		
 		Block myBlock = myPlayer.getWorld().getHighestBlockAt(x,z);
+		myBlock.getChunk().load();
 		Chunk myChunk = myBlock.getChunk();
-		myChunk.load(true);
+		//myChunk.load(true);
 		
 		if (myBlock.getType() != Material.AIR){
 			if (myBlock.getType() == Material.GRASS){
@@ -69,8 +73,28 @@ public class tannertest extends SubCommand{
 				myPlayer.getWorld().loadChunk(myChunk);
 				myPlayer.getWorld().refreshChunk(myChunk.getX(), myChunk.getZ());
 				myPlayer.sendMessage("X: "+x+"Z: "+z);
-				//myPlayer.teleport(myBlock.getLocation());
-				UtilManager.tannerTemp = myBlock.getLocation();
+				myPlayer.setFallDistance(0.0F);
+				myPlayer.teleport(new Location(myBlock.getWorld(), myBlock.getX(), myBlock.getY()+1, myBlock.getZ()));
+				
+				
+//				myPlayer.setAllowFlight(true);
+//				myPlayer.setFlying(true);
+//				
+//				UtilManager.tannerTemp = myBlock.getLocation();
+//				BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+//				Plugin thisPlugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
+//				scheduler.scheduleSyncDelayedTask(thisPlugin, new Runnable() {
+//					@Override
+//		            public void run() {
+//						Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
+//						Bukkit.getServer().getPlayer("kraftman").setFlying(false);
+//
+//						Bukkit.getServer().getPlayer("kraftman").setAllowFlight(false);
+//						Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
+//		            }
+//		        }, 400L);
+				
+				
 				return true;
 			} else {
 				return false;
