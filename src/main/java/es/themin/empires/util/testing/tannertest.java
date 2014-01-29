@@ -26,21 +26,10 @@ public class tannertest extends SubCommand{
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		
-		int range = 10000;
-		
-		int z = (int)(Math.random()*range);
-		int x = (int)(Math.random()*range);
-		
-		player.sendMessage("X: "+x+"Z: "+z);
-		
-		while (getHabitableZone(player, x, z) == false){
-			player.sendMessage("X: "+x+"Z: "+z);
-			z = (int)(Math.random()*range);
-			x = (int)(Math.random()*range);
-		}
 		
 		
-		return false;
+		
+		return true;
 
 	}
 
