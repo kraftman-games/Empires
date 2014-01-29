@@ -27,7 +27,7 @@ public class HomeCommand implements CommandExecutor{
 			plugin.getLogger().info("can only be run by player");
 			return true;
 		}
-		ArrayList<Core> myCores = UtilManager.empireplayers.get(player).getCores();
+		ArrayList<Core> myCores = UtilManager.empireplayers.get(player.getName()).getCores();
 		
 		Core BaseCore = null;
 		
