@@ -41,10 +41,30 @@ public class SettingsManager {
     
     static YamlConfiguration worlddata;
     static File wfile;
+    
+    private File createFile(String fileName){
+    	
+    	File myFile = new File(p.getDataFolder(), fileName);
+        
+        if (!myFile.exists()) {
+                try {
+                	myFile.createNewFile();
+        				p.getLogger().info("[Empires] "+fileName+" not found, making you one");
+                }
+                catch (IOException e) {
+                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create "+fileName);
+                }
+        }
+        
+        return myFile;
+    	
+    }
    
     public void loadSettings(Plugin plugin) {
+    	p = plugin;
+    	
     	config = plugin.getConfig();
-		cfile = new File(plugin.getDataFolder() + File.separator + "config.yml");
+		
 
 		if(!plugin.getDataFolder().exists()) {
 			try {
@@ -55,15 +75,9 @@ public class SettingsManager {
 				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not load folder");
 			}
 		}
-		if (!cfile.exists()) {
-			try {
-				cfile.createNewFile();
-			} catch (IOException e) {
-				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not load config.yml");
-				e.printStackTrace();
-				
-			}
-		}
+		
+		cfile = createFile("config.yml");
+		
 		getConfig().options().copyDefaults();
 		config.options().copyDefaults(true);
 		
@@ -71,48 +85,19 @@ public class SettingsManager {
 		saveConfig();
         //random data file bellow :/
         
-        dfile = new File(plugin.getDataFolder(), "data.yml");
-       
-        if (!dfile.exists()) {
-                try {
-                        dfile.createNewFile();
-        				plugin.getLogger().info("[Empires] data.yml not found, making you one");
-                }
-                catch (IOException e) {
-                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create data.yml!");
-                }
-        }
+		dfile = createFile("data.yml");
        
         data = YamlConfiguration.loadConfiguration(dfile);
         
         
         //player data bellow
-        pfile = new File(plugin.getDataFolder(), "playerdata.yml");
-        
-        if (!pfile.exists()) {
-                try {
-                        pfile.createNewFile();
-        				plugin.getLogger().info("[Empires] playerdata.yml not found, making you one");
-                }
-                catch (IOException e) {
-                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create playerdata.yml!");
-                }
-        }
+        pfile = createFile("playerdata.yml");
        
         playerdata = YamlConfiguration.loadConfiguration(pfile);
         
         //empire data bellow
-        efile = new File(plugin.getDataFolder(), "empiredata.yml");
+        efile = createFile("empiredata.yml");
         
-        if (!efile.exists()) {
-                try {
-                        efile.createNewFile();
-        				plugin.getLogger().info("[Empires] empiredata.yml not found, making you one");
-                }
-                catch (IOException e) {
-                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create empiredata.yml!");
-                }
-        }
        
        	empiredata = YamlConfiguration.loadConfiguration(efile);
        	
