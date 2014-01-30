@@ -60,6 +60,10 @@ public class Battle {
 		this.onGoing = true;
 		this.start = System.currentTimeMillis();
 		if (type == BattleType.DEATHMATCH) {
+<<<<<<< HEAD
+=======
+			SettingsManager.getInstance();
+>>>>>>> branch 'master' of https://github.com/kraftman/Empires.git
 			if (SettingsManager.getConfig().getString("wars.battles.deathmatch.use_multiplier").equalsIgnoreCase("true")) {
 				int multiplier = SettingsManager.getConfig().getInt("wars.battles.deathmatch.kills_for_win_mulitplier");
 				int team1 = 0;

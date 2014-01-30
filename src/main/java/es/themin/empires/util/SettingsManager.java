@@ -259,7 +259,7 @@ public class SettingsManager {
             return p.getDescription();
     }
     public static void saveAll(){
-    	saveConfig();
+    	//saveConfig();
     	saveEmpireData();
     	savePlayerData();
     	saveWorldData();
