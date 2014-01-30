@@ -42,7 +42,7 @@ public class SettingsManager {
     static YamlConfiguration worlddata;
     static File wfile;
    
-    public static void loadSettings(Plugin plugin) {
+    public void loadSettings(Plugin plugin) {
     	config = plugin.getConfig();
 		cfile = new File(plugin.getDataFolder() + File.separator + "config.yml");
 
@@ -151,7 +151,7 @@ public class SettingsManager {
             return data;
     }
    
-    public static void saveData() {
+    public void saveData() {
             try {
                     data.save(dfile);
             }
@@ -185,7 +185,7 @@ public class SettingsManager {
         return playerdata;
     }
 
-    public static void savePlayerData() {
+    public void savePlayerData() {
         try {
                 playerdata.save(pfile);
         }
@@ -210,7 +210,7 @@ public class SettingsManager {
         return empiredata;
     }
 
-    public static void saveEmpireData() {
+    public void saveEmpireData() {
         try {
                 empiredata.save(efile);
         }
@@ -237,7 +237,7 @@ public class SettingsManager {
         return worlddata;
     }
 
-    public static void saveWorldData() {
+    public void saveWorldData() {
         try {
                 worlddata.save(wfile);
         }
@@ -259,11 +259,11 @@ public class SettingsManager {
     }
  //#############################   
    
-    public static FileConfiguration getConfig() {
+    public FileConfiguration getConfig() {
             return config;
     }
    
-    public static void saveConfig() {
+    public void saveConfig() {
             try {
                     config.save(cfile);
             }
@@ -287,7 +287,7 @@ public class SettingsManager {
     public PluginDescriptionFile getDesc() {
             return p.getDescription();
     }
-    public static void saveAll(){
+    public void saveAll(){
     	saveConfig();
     	saveEmpireData();
     	savePlayerData();

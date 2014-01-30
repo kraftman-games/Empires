@@ -13,17 +13,17 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
-import org.bukkit.scoreboard.Team;
+//import org.bukkit.scoreboard.Team;
 
 import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
-import es.themin.empires.util.UtilManager;
+//import es.themin.empires.util.UtilManager;
 
 public class Battle {
 	
-	private empires plugin;
+	//private empires plugin;
 	public String warprefix = empires.warprefix;
 	private War war;
 	private long start;
@@ -60,6 +60,7 @@ public class Battle {
 		this.onGoing = true;
 		this.start = System.currentTimeMillis();
 		if (type == BattleType.DEATHMATCH) {
+			SettingsManager.getInstance();
 			if (SettingsManager.getInstance().getConfig().getString("wars.battles.deathmatch.use_multiplier").equalsIgnoreCase("true")) {
 				int multiplier = SettingsManager.getInstance().getConfig().getInt("wars.battles.deathmatch.kills_for_win_mulitplier");
 				int team1 = 0;
