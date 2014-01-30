@@ -97,16 +97,16 @@ public final class empires extends JavaPlugin {
     public void savePlayers(){
     	for (String playername : UtilManager.empireplayers.keySet()) {
     		if (!(UtilManager.empireplayers.isEmpty()) && UtilManager.empireplayers.get(playername) != null) {
-    			SettingsManager.getInstance().getPlayerData().set(playername + ".empire", UtilManager.empireplayers.get(playername).getId());
+    			SettingsManager.getPlayerData().set(playername + ".empire", UtilManager.empireplayers.get(playername).getId());
     		}
     	}
-    	SettingsManager.getInstance().savePlayerData();
+    	SettingsManager.savePlayerData();
     }
     public void loadPlayers(){
     	for (Player player : Bukkit.getOnlinePlayers()) {
     		String name = player.getName();
-    		if (SettingsManager.getInstance().getPlayerData().get(name + ".empire") != null) {
-    			Empire empire = UtilManager.getEmpireWithId(SettingsManager.getInstance().getPlayerData().getInt(name + ".empire"));
+    		if (SettingsManager.getPlayerData().get(name + ".empire") != null) {
+    			Empire empire = UtilManager.getEmpireWithId(SettingsManager.getPlayerData().getInt(name + ".empire"));
     			UtilManager.empireplayers.put(name, empire);
     			player.sendMessage(plprefix + ChatColor.GREEN + "You were found to be in an empire");
     		}
@@ -132,7 +132,7 @@ public final class empires extends JavaPlugin {
 	    			@Override
 	    			public void run() {
 	    				
-	    				long lastbackup = SettingsManager.getInstance().getData().getLong("lastbackup");
+	    				long lastbackup = SettingsManager.getData().getLong("lastbackup");
 	    				
 	    				if (System.currentTimeMillis() - lastbackup > l) {
 	    					getLogger().info("[Empires] Backing Up");
@@ -155,12 +155,12 @@ public final class empires extends JavaPlugin {
 	    					File wfile = new File(epath + File.separator + "worldconfig.yml");
 	    					File pfile = new File(epath + File.separator + "playerdata.yml");
 	    					savePlayers();
-	    					SettingsManager.getInstance().saveEmpireDataToFile(efile);
-	    					SettingsManager.getInstance().saveConfigToFile(cfile);
-	    					SettingsManager.getInstance().saveWorldDataToFile(wfile);
-	    					SettingsManager.getInstance().savePlayerDataToFile(pfile);
-	    					SettingsManager.getInstance().getData().set("lastbackup", System.currentTimeMillis());
-	    					SettingsManager.getInstance().saveData();
+	    					SettingsManager.saveEmpireDataToFile(efile);
+	    					SettingsManager.saveConfigToFile(cfile);
+	    					SettingsManager.saveWorldDataToFile(wfile);
+	    					SettingsManager.savePlayerDataToFile(pfile);
+	    					SettingsManager.getData().set("lastbackup", System.currentTimeMillis());
+	    					SettingsManager.saveData();
 	    					getLogger().info("[Empires] Backed Up");
 	    					for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 	    			    		if (player.isOp()) {

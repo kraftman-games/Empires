@@ -121,7 +121,7 @@ public class SettingsManager {
         //
     }
 //###############################   
-    public FileConfiguration getData() {
+    public static FileConfiguration getData() {
             return data;
     }
    
@@ -134,7 +134,7 @@ public class SettingsManager {
             }
     }
    
-    public void reloadData() {
+    public static void reloadData() {
             data = YamlConfiguration.loadConfiguration(dfile);
     }
 //############################CORE DAT
@@ -155,7 +155,7 @@ public class SettingsManager {
         coredata = YamlConfiguration.loadConfiguration(corefile);
     }*/
   //#########################PLAYER DAT
-    public FileConfiguration getPlayerData() {
+    public static FileConfiguration getPlayerData() {
         return playerdata;
     }
 
@@ -167,7 +167,7 @@ public class SettingsManager {
                 Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
         }
     }
-    public void savePlayerDataToFile(File file) {
+    public static void savePlayerDataToFile(File file) {
         try {
                 playerdata.save(file);
         }
@@ -176,11 +176,11 @@ public class SettingsManager {
         }
     }
 
-    public void reloadPlayerData() {
+    public static void reloadPlayerData() {
         playerdata = YamlConfiguration.loadConfiguration(pfile);
     }
   //######################EMPIRE DAT
-    public FileConfiguration getEmpireData() {
+    public static FileConfiguration getEmpireData() {
         return empiredata;
     }
 
@@ -192,7 +192,7 @@ public class SettingsManager {
                 Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
         }
     }
-    public void saveEmpireDataToFile(File file) {
+    public static void saveEmpireDataToFile(File file) {
         try {
                 empiredata.save(file);
         }
@@ -201,7 +201,7 @@ public class SettingsManager {
         }
     }
 
-    public void reloadEmpireData() {
+    public static void reloadEmpireData() {
         empiredata = YamlConfiguration.loadConfiguration(efile);
     }
  //#############################   
@@ -219,7 +219,7 @@ public class SettingsManager {
                 Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
         }
     }
-    public void saveWorldDataToFile(File file) {
+    public static void saveWorldDataToFile(File file) {
         try {
                 worlddata.save(file);
         }
@@ -228,7 +228,7 @@ public class SettingsManager {
         }
     }
 
-    public void reloadWorldData() {
+    public static void reloadWorldData() {
         worlddata = YamlConfiguration.loadConfiguration(wfile);
     }
  //#############################   
@@ -245,7 +245,7 @@ public class SettingsManager {
                     Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save config.yml!");
             }
     }
-    public void saveConfigToFile(File f) {
+    public static  void saveConfigToFile(File f) {
         try {
                 config.save(f);
         }
@@ -254,11 +254,11 @@ public class SettingsManager {
         }
 }
    
-    public void reloadConfig() {
+    public static void reloadConfig() {
             config = YamlConfiguration.loadConfiguration(cfile);
     }
 //###############################   
-    public PluginDescriptionFile getDesc() {
+    public static PluginDescriptionFile getDesc() {
             return p.getDescription();
     }
     public static void saveAll(){
