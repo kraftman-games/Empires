@@ -43,7 +43,7 @@ public final class empires extends JavaPlugin {
 	@Override
     public void onEnable(){
         
-		SettingsManager.getInstance().loadSettings(this);
+		SettingsManager.loadSettings(this);
 		loadCommands();
 		
 		UtilManager.loadEmpires();
@@ -61,7 +61,7 @@ public final class empires extends JavaPlugin {
     public void onDisable() {
         
 		UtilManager.saveEmpires();
-		SettingsManager.getInstance().saveAll();
+		SettingsManager.saveAll();
 		savePlayers();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();

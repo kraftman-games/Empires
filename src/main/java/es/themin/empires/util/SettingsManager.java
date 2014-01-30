@@ -22,7 +22,7 @@ public class SettingsManager {
             return instance;
     }
    
-    Plugin p;
+    static Plugin p;
    
     static FileConfiguration config;
     static File cfile;
@@ -42,7 +42,7 @@ public class SettingsManager {
     static YamlConfiguration worlddata;
     static File wfile;
     
-    private File createFile(String fileName){
+    private static File createFile(String fileName){
     	
     	File myFile = new File(p.getDataFolder(), fileName);
         
@@ -60,7 +60,7 @@ public class SettingsManager {
     	
     }
    
-    public void loadSettings(Plugin plugin) {
+    public static void loadSettings(Plugin plugin) {
     	p = plugin;
     	
     	config = plugin.getConfig();
@@ -125,7 +125,7 @@ public class SettingsManager {
             return data;
     }
    
-    public void saveData() {
+    public static void saveData() {
             try {
                     data.save(dfile);
             }
@@ -159,7 +159,7 @@ public class SettingsManager {
         return playerdata;
     }
 
-    public void savePlayerData() {
+    public static void savePlayerData() {
         try {
                 playerdata.save(pfile);
         }
@@ -184,7 +184,7 @@ public class SettingsManager {
         return empiredata;
     }
 
-    public void saveEmpireData() {
+    public static void saveEmpireData() {
         try {
                 empiredata.save(efile);
         }
@@ -211,7 +211,7 @@ public class SettingsManager {
         return worlddata;
     }
 
-    public void saveWorldData() {
+    public static void saveWorldData() {
         try {
                 worlddata.save(wfile);
         }
@@ -233,11 +233,11 @@ public class SettingsManager {
     }
  //#############################   
    
-    public FileConfiguration getConfig() {
+    public static FileConfiguration getConfig() {
             return config;
     }
    
-    public void saveConfig() {
+    public static void saveConfig() {
             try {
                     config.save(cfile);
             }
@@ -261,7 +261,7 @@ public class SettingsManager {
     public PluginDescriptionFile getDesc() {
             return p.getDescription();
     }
-    public void saveAll(){
+    public static void saveAll(){
     	saveConfig();
     	saveEmpireData();
     	savePlayerData();
