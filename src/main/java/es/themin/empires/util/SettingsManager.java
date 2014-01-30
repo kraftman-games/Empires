@@ -65,17 +65,6 @@ public class SettingsManager {
     	
     	config = plugin.getConfig();
 		
-
-//		if(!plugin.getDataFolder().exists()) {
-//			try {
-//				plugin.getDataFolder().mkdir();
-//				plugin.getLogger().info("[Empires] config.yml not found, making you one");
-//			} 
-//			catch (IOException e) {
-//				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not load folder");
-//			}
-//		}
-		
 		cfile = createFile("config.yml");
 		
 		getConfig().options().copyDefaults();
