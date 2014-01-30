@@ -39,6 +39,9 @@ public class SettingsManager {
     static YamlConfiguration worlddata;
     static File wfile;
     
+    static YamlConfiguration messagedata;
+    static File mfile;
+    
     private static File createFile(String fileName){
     	
     	File myFile = new File(p.getDataFolder(), fileName);
@@ -81,6 +84,11 @@ public class SettingsManager {
        
         playerdata = YamlConfiguration.loadConfiguration(pfile);
         
+      //message data bellow
+        mfile = createFile("messages.yml");
+        
+        //messagedata = YamlConfiguration.loadConfiguration(pfile);
+        
         //empire data bellow
         efile = createFile("empiredata.yml");
         
@@ -117,7 +125,15 @@ public class SettingsManager {
         
         //
     }
-//###############################   
+public static YamlConfiguration getMessagedata() {
+		return messagedata;
+	}
+
+	public static void setMessagedata(YamlConfiguration messagedata) {
+		SettingsManager.messagedata = messagedata;
+	}
+
+	//###############################   
     public static FileConfiguration getData() {
             return data;
     }

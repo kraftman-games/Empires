@@ -49,7 +49,6 @@ public final class empires extends JavaPlugin {
 		UtilManager.loadEmpires();
 		loadPlayers();
 		
-		
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
 		
