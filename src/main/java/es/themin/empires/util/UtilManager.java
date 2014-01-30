@@ -70,16 +70,16 @@ public class UtilManager {
 			str.append(empire.getName() + ":");
 			str.append(empire.getOwner());
 			list.add(str.toString());
-			SettingsManager.getInstance().getEmpireData().set(str.toString() + ".id", empire.getId());
-			SettingsManager.getInstance().getEmpireData().set(str.toString() + ".name", empire.getName());
-			SettingsManager.getInstance().getEmpireData().set(str.toString() + ".name", empire.getOwner());
+			SettingsManager.getEmpireData().set(str.toString() + ".id", empire.getId());
+			SettingsManager.getEmpireData().set(str.toString() + ".name", empire.getName());
+			SettingsManager.getEmpireData().set(str.toString() + ".name", empire.getOwner());
 			List<String> list2 = new ArrayList<String>();
 			for (String player : empire.getPlayers()) {
 				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
 				list2.add(player);
 				
 			}
-			SettingsManager.getInstance().getEmpireData().set(str.toString() + ".players", list2);
+			SettingsManager.getEmpireData().set(str.toString() + ".players", list2);
 			List<String> list3 = new ArrayList<String>();
 			for (Core core : empire.getCores()) {
 				StringBuilder str2 = new StringBuilder();
@@ -94,7 +94,7 @@ public class UtilManager {
 				str2.append(core.getEmpire().getName());
 				list3.add(str2.toString());
 			}
-			SettingsManager.getInstance().getEmpireData().set(str.toString() + ".cores", list3);
+			SettingsManager.getEmpireData().set(str.toString() + ".cores", list3);
 			List<String> list4 = new ArrayList<String>();
 			for (Rank rank : empire.getRanks()) {
 				StringBuilder str3 = new StringBuilder();
@@ -106,16 +106,16 @@ public class UtilManager {
 				for (String p : rank.getPlayers()) {
 					list5.add(p);
 				}
-				SettingsManager.getInstance().getEmpireData().set(str.toString() + ".rank." + str3.toString() + ".players", list5);
+				SettingsManager.getEmpireData().set(str.toString() + ".rank." + str3.toString() + ".players", list5);
 				List<String> list6 = new ArrayList<String>();
 				for (EmpirePermission ep : rank.getPermissions()) {
 					list6.add(ep.toString());
 				}
-				SettingsManager.getInstance().getEmpireData().set(str.toString() + ".rank." + str3.toString() + ".permissions", list6);
+				SettingsManager.getEmpireData().set(str.toString() + ".rank." + str3.toString() + ".permissions", list6);
 			}
-			SettingsManager.getInstance().getEmpireData().set(str.toString() + ".ranks", list4);
+			SettingsManager.getEmpireData().set(str.toString() + ".ranks", list4);
 		}
-		SettingsManager.getInstance().getEmpireData().set("empires", list);
+		SettingsManager.getEmpireData().set("empires", list);
 	}
 	public static HashMap<UUID, CoreWorld> getWorlds() {
 		return worlds;
@@ -137,14 +137,14 @@ public class UtilManager {
 		}
 		
 		
-		List<String> list = SettingsManager.getInstance().getEmpireData().getStringList("empires");
+		List<String> list = SettingsManager.getEmpireData().getStringList("empires");
 		for (String s : list) {
 			String[] words = s.split(":");
 			Integer Id = Integer.parseInt(words[0]);
 			String name = words[1];
 			String owner = words[2];
 			Empire empire = new Empire(Id, name, owner);
-			List<String> list2 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".cores");
+			List<String> list2 = SettingsManager.getEmpireData().getStringList(s + ".cores");
 			for (String s2: list2) {
 				String[] words2 = s2.split(":");
 				int Id2  = Integer.parseInt(words2[0]);
@@ -169,19 +169,19 @@ public class UtilManager {
 				cores.add(core);
 				empire.ac(core);
 			}
-			List<String> list3 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".players");
+			List<String> list3 = SettingsManager.getEmpireData().getStringList(s + ".players");
 			for (String playername : list3) {
 				empire.addPlayer(playername);
 			}
-			List<String> list4 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".ranks");
+			List<String> list4 = SettingsManager.getEmpireData().getStringList(s + ".ranks");
 			for (String rankstring : list4) {
 				String[] words2 = rankstring.split(":");
 				Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1], empire, words2[2]);
-				List<String> list5 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".rank." + rankstring + ".players");
+				List<String> list5 = SettingsManager.getEmpireData().getStringList(s + ".rank." + rankstring + ".players");
 				for (String playername : list5) {
 					rank.addPlayer(playername);
 				}
-				List<String> list6 = SettingsManager.getInstance().getEmpireData().getStringList(s + ".rank." + rankstring + ".permissions");
+				List<String> list6 = SettingsManager.getEmpireData().getStringList(s + ".rank." + rankstring + ".permissions");
 				for (String permission : list6) {
 					EmpirePermission ep = null;
 					if (permission.equalsIgnoreCase("PLACE_AMPLIFIER")) ep = EmpirePermission.PLACE_AMPLIFIER;
