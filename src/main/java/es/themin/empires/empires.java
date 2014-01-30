@@ -53,6 +53,8 @@ public final class empires extends JavaPlugin {
 		Recipes.setupamplifierRecipe();
 		scheduleBackUps();
 		
+		registerEvents();
+		
     }
  
     @Override
