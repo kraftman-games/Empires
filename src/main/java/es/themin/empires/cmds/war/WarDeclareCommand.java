@@ -43,7 +43,7 @@ public class WarDeclareCommand extends EmpireSubCommand{
 				return false;
 			}
 			if (empire.exAlliesContains(attacked)) {
-				if (empire.getLastAllianceWith(attacked) + SettingsManager.getInstance().getConfig().getLong("ex_ally_timer") * 60 * 1000 > System.currentTimeMillis()) {
+				if (empire.getLastAllianceWith(attacked) + SettingsManager.getConfig().getLong("ex_ally_timer") * 60 * 1000 > System.currentTimeMillis()) {
 					player.sendMessage(plprefix + ChatColor.RED + "You cannot abandon an Ally then attack them this quickly, try again later");
 					return false;
 				}

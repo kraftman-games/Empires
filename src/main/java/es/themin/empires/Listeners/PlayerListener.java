@@ -55,12 +55,12 @@ public class PlayerListener implements Listener{
 		
 		
 		
-		if (SettingsManager.getInstance().getPlayerData().get(player.getName()) != null && UtilManager.containsEmpireWithId(SettingsManager.getInstance().getPlayerData().getInt(player.getName() + ".empire"))) {
-			UtilManager.empireplayers.put(player.getName(), UtilManager.getEmpireWithId(SettingsManager.getInstance().getPlayerData().getInt(player.getName() + ".empire")));
+		if (SettingsManager.getPlayerData().get(player.getName()) != null && UtilManager.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
+			UtilManager.empireplayers.put(player.getName(), UtilManager.getEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
 		}
 		//Bukkit.broadcastMessage("test 1");
 		//SettingsManager.getInstance().getPlayerData().set("test 1", "true");
-		SettingsManager.getInstance().savePlayerData();
+		SettingsManager.savePlayerData();
 		
 
 	}
@@ -70,11 +70,11 @@ public class PlayerListener implements Listener{
 		Player player = event.getPlayer();
 		
 		if (UtilManager.empireplayers.containsKey(event.getPlayer().getName())/* && UtilManager.empireplayers.get(player).getEmpire() != null*/) {
-			SettingsManager.getInstance().getPlayerData().set(player.getName() + ".empire", UtilManager.empireplayers.get(player.getName()).getId());
-			SettingsManager.getInstance().savePlayerData();
+			SettingsManager.getPlayerData().set(player.getName() + ".empire", UtilManager.empireplayers.get(player.getName()).getId());
+			SettingsManager.savePlayerData();
 		}else {
-			SettingsManager.getInstance().getPlayerData().set(player.getName(), null);
-			SettingsManager.getInstance().savePlayerData();
+			SettingsManager.getPlayerData().set(player.getName(), null);
+			SettingsManager.savePlayerData();
 		}
 	}
 		

@@ -18,9 +18,6 @@ public class SettingsManager {
    
     static SettingsManager instance = new SettingsManager();
    
-    public static SettingsManager getInstance() {
-            return instance;
-    }
    
     static Plugin p;
    

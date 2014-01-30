@@ -52,7 +52,7 @@ public class BlockListener implements Listener {
 		final Material m = b.getType();
 		if(recentlyfixed.containsKey(b)) {
 			event.setCancelled(true);
-		}else if (SettingsManager.getInstance().getConfig().getString("regeneration.enable").equalsIgnoreCase("true") && SettingsManager.getInstance().getConfig().getString("regeneration.burn.enable").equalsIgnoreCase("true")) {
+		}else if (SettingsManager.getConfig().getString("regeneration.enable").equalsIgnoreCase("true") && SettingsManager.getConfig().getString("regeneration.burn.enable").equalsIgnoreCase("true")) {
 			burnt.put(b,m);
 			burntdata.put(b, b.getData());
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -92,7 +92,7 @@ public class BlockListener implements Listener {
 					
 				}
 				
-			}, SettingsManager.getInstance().getConfig().getInt("regeneration.burn.delay") * 20 + r.nextInt(600));
+			}, SettingsManager.getConfig().getInt("regeneration.burn.delay") * 20 + r.nextInt(600));
 		}
 	}
 	/*@EventHandler
