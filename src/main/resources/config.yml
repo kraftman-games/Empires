@@ -29,4 +29,3 @@ wars:
    ex_ally_timer: 240.0
    #The time which 2 empies have to wait after finishing one war before starting another / mins
    ex_enemy_timer: 2880.0
-   percentage_gain_per_win: 10.0
