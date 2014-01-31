@@ -53,11 +53,34 @@ public class WarListCommand extends EmpireSubCommand{
 				str.append("%");
 				player.sendMessage(str.toString());
 			}if (war.getAllEmpiresOnTeam2().contains(empire)) {
-				String pc = null;
+				//String pc = null;
+				StringBuilder str = new StringBuilder();
 				float fpc = 100 - war.getTeam1Percent();
-				player.sendMessage(ChatColor.AQUA + "- " + ChatColor.DARK_RED + war.getEmpire1().getName());
+				if (fpc < 35) {
+					str.append(ChatColor.DARK_RED + "");
+					str.append(fpc);
+					//str.append("%");
+				}else if (fpc < 50) {
+					str.append(ChatColor.RED + "");
+					str.append(fpc);
+					//str.append("%");
+				}else if (fpc < 65) {
+					str.append(ChatColor.GOLD + "");
+					str.append(fpc);
+					//str.append("%");
+				}else if (fpc < 80) {
+					str.append(ChatColor.GREEN + "");
+					str.append(fpc);
+					//str.append("%");
+				}else {
+					str.append(ChatColor.DARK_GREEN + "");
+					str.append(fpc);
+					//str.append("%");
+				}
+				player.sendMessage(ChatColor.AQUA + "- " + ChatColor.DARK_RED + war.getEmpire1().getName() + ChatColor.AQUA + " - " + str.toString());
 			}
 		}
+		if (i == 0) player.sendMessage(plprefix + ChatColor.RED + "You are not at war");
 		return false;
 	}
 

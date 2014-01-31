@@ -99,26 +99,26 @@ public class Battle {
 				empire.addBattleWins(1); 
 				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
 				empire.setLastBattleWin(System.currentTimeMillis());
-				war.addTeam1Percent((float) SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
+				war.addTeam1Percent(SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
 			}
 			else if (victor == empire2) {
 				empire.addBattleLosses(1);
 				empire.broadcastMessage(warprefix + ChatColor.RED + "The battle is lost, regroup ready to fight again");
 				empire.setLastBattleLoss(System.currentTimeMillis());
-				war.addTeam1Percent((float) - SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
+				war.addTeam1Percent( - SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
 			}
 		}for (Empire empire : getAllEmpiresOnTeam2()) {
 			if (victor == empire2) {
 				empire.addBattleWins(1);
 				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
 				empire.setLastBattleWin(System.currentTimeMillis());
-				war.addTeam1Percent((float) - SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
+				war.addTeam1Percent( - SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
 			}
 			else if (victor == empire1){ 
 				empire.addBattleLosses(1);
 				empire.broadcastMessage(warprefix + ChatColor.RED + "The battle is lost, regroup ready to fight again");
 				empire.setLastBattleLoss(System.currentTimeMillis());
-				war.addTeam1Percent((float) SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
+				war.addTeam1Percent( SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
 			}
 			
 		}
