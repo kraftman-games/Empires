@@ -131,6 +131,7 @@ public class Battle {
 			war.addWinsToTeam1(1);
 			this.victor = empire1;
 			this.endsinatie = false;
+			war.addTeam1Percent(SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
 			for (Empire empire : getAllEmpiresOnTeam1()) {
 				empire.addBattleWins(1); 
 				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
@@ -143,6 +144,7 @@ public class Battle {
 			}
 			this.end = System.currentTimeMillis();		
 		}else if (team == BattleTeam.team2) {
+			war.addTeam1Percent(-SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
 			this.onGoing = false;
 			war.addWinsToTeam2(1);
 			this.victor = empire2;
@@ -160,6 +162,7 @@ public class Battle {
 			}
 		}
 		wipeScoreboards();
+		war.displayStatistic();
 	}
 
 	public boolean endedInATie() {
