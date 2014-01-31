@@ -100,6 +100,7 @@ public class Battle {
 				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
 				empire.setLastBattleWin(System.currentTimeMillis());
 				war.addTeam1Percent(SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
+				
 			}
 			else if (victor == empire2) {
 				empire.addBattleLosses(1);
@@ -122,6 +123,7 @@ public class Battle {
 			}
 			
 		}
+		Bukkit.broadcastMessage("Percentage: " + SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
 	}
 	public void setAttacker(BattleTeam team) {
 		attacker = team;
