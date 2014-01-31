@@ -84,6 +84,7 @@ public class Battle {
 		//Bukkit.broadcastMessage("Time: " + time);
 	}
 	public void end() {
+		Bukkit.getServer().broadcastMessage("Percentage: " + SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
 		if (type == BattleType.DEATHMATCH) {
 			this.onGoing = false;
 			if (team1points > team2points) this.victor = empire1; this.endsinatie = false; war.addWinsToTeam1(1);
@@ -123,7 +124,7 @@ public class Battle {
 			}
 			
 		}
-		Bukkit.broadcastMessage("Percentage: " + SettingsManager.getConfig().getLong("wars.percentage_gain_per_win"));
+		
 	}
 	public void setAttacker(BattleTeam team) {
 		attacker = team;
