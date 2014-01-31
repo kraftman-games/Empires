@@ -124,6 +124,7 @@ public class Battle {
 			}
 			
 		}
+		war.displayStatistic();
 		
 	}
 	public void setAttacker(BattleTeam team) {
