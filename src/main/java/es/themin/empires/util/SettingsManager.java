@@ -42,6 +42,9 @@ public class SettingsManager {
     static YamlConfiguration messagedata;
     static File mfile;
     
+    static YamlConfiguration wardata;
+    static File warfile;
+    
     private static File createFile(String fileName){
     	
     	File myFile = new File(p.getDataFolder(), fileName);
@@ -77,7 +80,11 @@ public class SettingsManager {
 		dfile = createFile("data.yml");
        
         data = YamlConfiguration.loadConfiguration(dfile);
+        //war data bellow
         
+        warfile = createFile("wars.yml");
+        
+        wardata = YamlConfiguration.loadConfiguration(warfile);
         
         //player data bellow
         pfile = createFile("playerdata.yml");
@@ -244,6 +251,31 @@ public static YamlConfiguration getMessagedata() {
     public static void reloadWorldData() {
         worlddata = YamlConfiguration.loadConfiguration(wfile);
     }
+ //######### WAR DATA 
+    public static FileConfiguration getWarData() {
+        return wardata;
+    }
+
+    public static void saveWarData() {
+        try {
+                wardata.save(warfile);
+        }
+        catch (IOException e) {
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save wars.yml!");
+        }
+    }
+    public static void saveWarDataToFile(File file) {
+        try {
+                wardata.save(file);
+        }
+        catch (IOException e) {
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save wars.yml!");
+        }
+    }
+
+    public static void reloadWarData() {
+        wardata = YamlConfiguration.loadConfiguration(warfile);
+    }
  //#############################   
    
     public static FileConfiguration getConfig() {
@@ -280,6 +312,7 @@ public static YamlConfiguration getMessagedata() {
     	savePlayerData();
     	saveWorldData();
     	saveData();
+    	saveWarData();
     }
     public boolean bool(int i) {
     	if (i == 1) {

@@ -54,7 +54,9 @@ public class Battle {
 		this.team2points = 0;
 		this.onGoing = false;
 		this.attacker = Attacker;
-		
+		this.start = 0;
+		this.end = 0;
+		this.endsinatie =false;
 	}
 	public void start() {
 		this.onGoing = true;
@@ -164,9 +166,17 @@ public class Battle {
 		wipeScoreboards();
 		war.displayStatistic();
 	}
-
+	public Empire getEmpire1(){
+		return empire1;
+	}
+	public Empire getEmpire2(){
+		return empire2;
+	}
 	public boolean endedInATie() {
 		return endsinatie;
+	}
+	public long getStart(){
+		return start;
 	}
 	public void setTeam1Points(int points) {
 		this.team1points = points;
@@ -432,5 +442,19 @@ public class Battle {
 			
 		}, 0L, 200L);
 	}
-	
+	public int getTeam1Points() {
+		return team1points;
+	}
+	public int getTeam2Points() {
+		return team2points;
+	}
+	public int getKillsForWin() {
+		return killsforwin;
+	}
+	public int getDamageForWin() {
+		return damageforwin;
+	}
+	public BattleTeam getAttackingTeam(){
+		return attacker;
+	}
 }

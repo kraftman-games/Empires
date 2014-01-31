@@ -36,6 +36,8 @@ public class War {
 		this.battles = new ArrayList<Battle>();
 		this.onGoing = false;
 		this.team1percent = (long) 50;
+		this.end = 0;
+		this.start = 0;
 	}
 	public void start() {
 		this.onGoing = true;
@@ -262,7 +264,7 @@ public class War {
 			}
 			str.append("%");
 			for (Player player : empire.getOnlinePlayers()) {
-				BarAPI.setMessage(player, ChatColor.DARK_GREEN + "You        " + str.toString() + ChatColor.DARK_RED + empire1.getName(), fpc);
+				BarAPI.setMessage(player, ChatColor.DARK_GREEN + "You        " + str.toString() +"        "+ ChatColor.DARK_RED + empire1.getName(), fpc);
 			}
 		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Bukkit.getServer().getPluginManager().getPlugin("Empires"), new Runnable() {
@@ -276,5 +278,32 @@ public class War {
 				}
 			}
 		}, 400L);
+	}
+	public void setStart(Long l) {
+		this.start = l;
+	}
+	public void setEnd(Long l) {
+		this.end = l;
+	}
+	public int getEmpire1Wins() {
+		return empire1wins;
+	}
+	public int getEmpire2Wins(){
+		return this.empire2wins;
+	}
+	public void setVictor(Empire empire) {
+		this.victor = empire;
+	}
+	public void setEmpire1Wins(int i) {
+		this.empire1wins = i;
+	}
+	public void setEmpire2Wins(int i) {
+		this.empire2wins = i;
+	}
+	public void setOnGoing(boolean OGbool) {
+		this.onGoing = OGbool;
+	}
+	public void setTeam1Percent(Long l) {
+		this.team1percent = l;
 	}
 }
