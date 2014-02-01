@@ -10,7 +10,7 @@ public class RicTest extends SubCommand {
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		if (args.length <= 1) {
-			player.setLevel((int) player.getHealth());
+			player.setLevel((int) player.getHealth() /2 );
 			player.sendMessage("Xp set");
 			return false;
 		}
