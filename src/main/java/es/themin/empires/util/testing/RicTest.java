@@ -10,8 +10,8 @@ public class RicTest extends SubCommand {
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		if (args.length <= 1) {
-			player.sendMessage(ChatColor.RED + "Please give an number");
-			return false;
+			player.setLevel((int) player.getHealth());
+			player.sendMessage("Xp set");
 		}
 		int i = 0;
 		try {
