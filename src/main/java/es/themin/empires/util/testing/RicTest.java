@@ -12,6 +12,7 @@ public class RicTest extends SubCommand {
 		if (args.length <= 1) {
 			player.setLevel((int) player.getHealth());
 			player.sendMessage("Xp set");
+			return false;
 		}
 		int i = 0;
 		try {
