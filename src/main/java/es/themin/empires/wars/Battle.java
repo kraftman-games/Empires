@@ -89,8 +89,18 @@ public class Battle {
 		Bukkit.getServer().broadcastMessage("Percentage: " + SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
 		if (type == BattleType.DEATHMATCH) {
 			this.onGoing = false;
-			if (team1points > team2points) this.victor = empire1; this.endsinatie = false; war.addWinsToTeam1(1);war.addTeam1Percent(SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
-			if (team2points > team1points) this.victor = empire2; this.endsinatie = false; war.addWinsToTeam2(1);war.addTeam1Percent(-SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
+			if (team1points > team2points)  {
+				this.victor = empire1; 
+				this.endsinatie = false;
+				war.addWinsToTeam1(1);
+				war.addTeam1Percent(SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
+			}
+			if (team2points > team1points){
+				this.victor = empire2; 
+				this.endsinatie = false;
+				war.addWinsToTeam2(1);
+				war.addTeam1Percent(-SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
+			}
 			if (team1points == team2points) this.victor = null; this.endsinatie = true;
 			this.end = System.currentTimeMillis();
 		}else if (type == BattleType.OBLITERATION) {
@@ -122,7 +132,17 @@ public class Battle {
 			
 		}
 		war.displayStatistic();
-		
+		if (!endedInATie()) {
+			war.setPercentageOfEmpire(getLooser(), war.getPercentageOfEmpire(getLooser()) - (float) SettingsManager.getConfig().getLong("wars.battles.percentage_change_for_allied_on_battle_end"));
+			if (war.getPercentageOfEmpire(victor) != 100) {
+				if (war.getPercentageOfEmpire(victor) >= 100 - (float) SettingsManager.getConfig().getLong("wars.battles.percentage_change_for_allied_on_battle_end")) {
+					war.setPercentageOfEmpire(victor, (float)100);
+				}else {
+					war.setPercentageOfEmpire(victor, war.getPercentageOfEmpire(victor) + SettingsManager.getConfig().getLong("wars.battles.percentage_change_for_allied_on_battle_end"));					
+				}
+			}
+		}
+		war.checkForKnockOut();
 	}
 	public void setAttacker(BattleTeam team) {
 		attacker = team;
@@ -456,5 +476,10 @@ public class Battle {
 	}
 	public BattleTeam getAttackingTeam(){
 		return attacker;
+	}
+	private Empire getLooser() {
+		if (victor == empire1) return empire2;
+		if (victor == empire2) return empire1;
+		return null;
 	}
 }

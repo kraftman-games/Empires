@@ -538,6 +538,12 @@ public class Empire {
 			Save();
 		}
 	}
+	public void addWarLosses(int i) {
+		this.warlosses = warlosses + i;
+	}
+	public void addWarWins(int i) {
+		this.warwins = warwins + i;
+	}
 	
 }
 

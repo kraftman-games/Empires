@@ -24,8 +24,11 @@ wars:
       #Period after the battle in which the loosing empire cannot be attacked / mins
       saftey_period: 60.0
       
-      percentage_gain_per_win: 10.0
+      percentage_gain_per_win: 6.0
+      percentage_change_for_allied_on_battle_end: 15.0
    #Time after breaking an alliance before the empire breaking the alliance can attack / mins
    ex_ally_timer: 240.0
    #The time which 2 empies have to wait after finishing one war before starting another / mins
    ex_enemy_timer: 2880.0
+   percentage_gain_per_knockout: 15.0
+   

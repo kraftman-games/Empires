@@ -388,4 +388,21 @@ public class UtilManager {
 			}
 		}
 	}
+	public static String createTitle(String message, ChatColor color) {
+		int length = message.length();
+		int dashlength = 50 - length;
+		dashlength = (int) dashlength / 2 -4;
+		StringBuilder str = new StringBuilder();
+		str.append(color + ".oOo");
+		for (int i = 1 ; i < dashlength ; i++) {
+			str.append("=");
+		}
+		str.append(ChatColor.RESET + message + color);
+		for (int i = 1 ; i < dashlength ; i++) {
+			str.append("=");
+		}
+		str.append(color + "oOo.");
+		return str.toString();
+	}
+
 }

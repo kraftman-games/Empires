@@ -24,6 +24,7 @@ public class WarCommand implements CommandExecutor{
 	public WarCommand(){
 		commands.add(new WarDeclareCommand());
 		commands.add(new WarListCommand());
+		commands.add(new WarInfoCommand());
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

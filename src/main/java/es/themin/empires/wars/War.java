@@ -1,6 +1,7 @@
 package es.themin.empires.wars;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import me.confuser.barapi.BarAPI;
 
@@ -8,11 +9,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.empires;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
 public class War {
 
+	public String warprefix = empires.warprefix;
 	private ArrayList<Empire> empire1allies;
 	private ArrayList<Empire> empire2allies;
 	private Empire empire1;
@@ -26,6 +30,14 @@ public class War {
 	private boolean onGoing;
 	private Long team1percent;
 	private ArrayList<Battle> battles;
+	private HashMap<Empire, Long> empire1alliesjoin;
+	private HashMap<Empire, Long> empire2alliesjoin;
+	private HashMap<Empire, Long> empire1alliesleave;
+	private HashMap<Empire, Long> empire2alliesleave;
+	private HashMap<Empire, Long> empire1alliesloss;
+	private HashMap<Empire, Long> empire2alliesloss;
+	private HashMap<Empire, Float> empire1alliespercentage;
+	private HashMap<Empire, Float> empire2alliespercentage;
 	public War(Empire team1, Empire team2) {
 		this.empire1 = team1;
 		this.empire2 = team2;
@@ -38,6 +50,14 @@ public class War {
 		this.team1percent = (long) 50;
 		this.end = 0;
 		this.start = 0;
+		this.empire1alliesjoin = new HashMap<Empire, Long>();
+		this.empire2alliesjoin = new HashMap<Empire, Long>();
+		this.empire1alliesleave = new HashMap<Empire, Long>();
+		this.empire2alliesleave = new HashMap<Empire, Long>();
+		this.empire1alliesloss = new HashMap<Empire, Long>();
+		this.empire2alliesjoin = new HashMap<Empire, Long>();
+		this.empire1alliespercentage = new HashMap<Empire, Float>();
+		this.empire2alliespercentage = new HashMap<Empire, Float>();
 	}
 	public void start() {
 		this.onGoing = true;
@@ -108,18 +128,30 @@ public class War {
 	}
 	public void addEmpireToTeam1(Empire empire) {
 		empire1allies.add(empire);
+		if (onGoing) empire.addWar(this);
+		empire.Save();
+		empire1alliesjoin.put(empire, System.currentTimeMillis());
+		empire1alliespercentage.put(empire, (float) 100);
 		Save();
 	}
 	public void addEmpireToTeam2(Empire empire) {
 		empire2allies.add(empire);
+		if (onGoing) empire.addWar(this);
+		empire.Save();
+		empire2alliesjoin.put(empire, System.currentTimeMillis());
+		empire2alliespercentage.put(empire, (float) 100);
 		Save();
 	}
 	public void removeEmpireFromTeam1(Empire empire) {
 		empire2allies.add(empire);
+		if (empire.getWars().contains(this)) empire.removeWar(this);
+		empire.Save();
 		Save();
 	}
 	public void removeEmpireFromTeam2(Empire empire) {
 		empire2allies.remove(empire);
+		if (empire.getWars().contains(this)) empire.removeWar(this);
+		empire.Save();
 		Save();
 	}
 	public boolean hasBattleOnGoing() {
@@ -305,5 +337,85 @@ public class War {
 	}
 	public void setTeam1Percent(Long l) {
 		this.team1percent = l;
+	}
+	public ArrayList<Empire> getEmpire1Allies() {
+		return empire1allies;
+	}
+	public ArrayList<Empire> getEmpire2Allies() {
+		return empire2allies;
+	}
+	public int getNumberOfEmpire1Allies() {
+		return empire1allies.size();
+	}
+	public int getNumberOfEmpire2Allies() {
+		return empire2allies.size();
+	}
+	public HashMap<Empire,Long> getEmpire1AlliesJoins(){
+		return empire1alliesjoin;
+	}
+	public HashMap<Empire,Long> getEmpire2AlliesJoins(){
+		return empire2alliesjoin;
+	}
+	public HashMap<Empire,Long> getEmpire1AlliesLeaves(){
+		return empire1alliesleave;
+	}
+	public HashMap<Empire,Long> getEmpire2AlliesLeaves(){
+		return empire2alliesleave;
+	}
+	public HashMap<Empire,Long> getEmpire1AlliesLosses(){
+		return empire1alliesloss;
+	}
+	public HashMap<Empire,Long> getEmpire2AlliesLosses(){
+		return empire2alliesloss;
+	}
+	public HashMap<Empire,Long> getEmpire1AlliesPercentages(){
+		return empire1alliesloss;
+	}
+	public HashMap<Empire,Long> getEmpire2AlliesPercentages(){
+		return empire2alliesloss;
+	}
+	public void setPercentageOfEmpire(Empire empire, Float f) {
+		if (empire1allies.contains(empire)) {
+			empire1alliespercentage.put(empire, f);
+		}if (empire2allies.contains(empire)) {
+			empire2alliespercentage.put(empire, f);
+		}
+	}
+	public Float getPercentageOfEmpire(Empire empire) {
+		if (empire1alliespercentage.containsKey(empire)) return empire1alliespercentage.get(empire);
+		if (empire2alliespercentage.containsKey(empire)) return empire2alliespercentage.get(empire);
+		return null;
+	}
+	public void checkForKnockOut() {
+		for (Empire empire : empire1alliespercentage.keySet()) {
+			if (empire1alliespercentage.get(empire) <=0 ) {
+				empire.addWarLosses(1);
+				removeEmpireFromTeam1(empire);
+				this.empire1alliesloss.put(empire, System.currentTimeMillis());
+				addTeam1Percent(SettingsManager.getConfig().getLong("wars.percentage_gain_per_knockout"));
+				empire.broadcastMessage(warprefix + ChatColor.RED + "You have been weekend to the point where you cannot keep up the war against " + empire2.getName());
+				for (Empire empire22 : getAllEmpiresOnTeam1()) {
+					empire22.broadcastMessage(warprefix + ChatColor.RED + "Your ally, " + empire.getName() + ", has been defeated rally and salvage this war");
+				}
+				for (Empire empire22 : getAllEmpiresOnTeam2()) {
+					empire22.broadcastMessage(warprefix + ChatColor.GREEN + empire.getName() + "Has been weekend to the point where they could not maintain their war effort, Victor draws closer");
+				}
+			}
+		}
+		for (Empire empire : empire2alliespercentage.keySet()) {
+			if (empire2alliespercentage.get(empire) <=0 ) {
+				empire.addWarLosses(1);
+				removeEmpireFromTeam1(empire);
+				this.empire2alliesloss.put(empire, System.currentTimeMillis());
+				addTeam1Percent(-SettingsManager.getConfig().getLong("wars.percentage_gain_per_knockout"));
+				empire.broadcastMessage(warprefix + ChatColor.RED + "You have been weekend to the point where you cannot keep up the war against " + empire1.getName());
+				for (Empire empire22 : getAllEmpiresOnTeam1()) {
+					empire22.broadcastMessage(warprefix + ChatColor.GREEN + empire.getName() + "Has been weekend to the point where they could not maintain their war effort, Victor draws closer");
+				}
+				for (Empire empire22 : getAllEmpiresOnTeam2()) {
+					empire22.broadcastMessage(warprefix + ChatColor.RED + "Your ally, " + empire.getName() + ", has been defeated rally and salvage this war");
+				}
+			}
+		}
 	}
 }
