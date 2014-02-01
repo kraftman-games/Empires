@@ -384,7 +384,7 @@ public class UtilManager {
 				if (SettingsManager.getWarData().getString(warname + ".battles." + battlename + ".attacker").equalsIgnoreCase("team2")) attacker = BattleTeam.team2;
 				Battle battle = new Battle(getEmpireWithName(battlenamewords[0]), getEmpireWithName(battlenamewords[1]), war, type, attacker);
 				//TODO add the battles loading.
-				
+			
 			}
 		}
 	}
