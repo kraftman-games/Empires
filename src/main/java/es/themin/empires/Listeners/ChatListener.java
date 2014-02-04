@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerChatEvent;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.ChatCommand;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
 
 @SuppressWarnings("deprecation")
@@ -38,7 +39,7 @@ public class ChatListener implements Listener{
 						else rank = empire.getDefaultPrefix();
 					}
 				}else rank = empire.getRankOfPlayer(player.getName()).getPreifx();
-				String rankc = UtilManager.colourUp(rank);
+				String rankc = MsgManager.colourUp(rank);
 				String format = ChatColor.WHITE + "[" + rankc + ChatColor.WHITE + "] [" + player.getDisplayName() + ChatColor.WHITE + "] ";
 				empire.broadcastMessage(format + ChatColor.YELLOW + event.getMessage());
 			}else {

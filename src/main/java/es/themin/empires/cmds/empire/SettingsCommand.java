@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
 
 public class SettingsCommand extends EmpireSubCommand{
@@ -25,7 +26,7 @@ public class SettingsCommand extends EmpireSubCommand{
 							return false;
 						}else {
 							empire.setOwnerPrefix(args[2]);
-							String cprefix = UtilManager.colourUp(args[2]);
+							String cprefix = MsgManager.colourUp(args[2]);
 							player.sendMessage(plprefix + ChatColor.GREEN + "Your prefix in town chat is now '" + cprefix + ChatColor.GREEN + "'");
 							return false;
 						}
@@ -35,7 +36,7 @@ public class SettingsCommand extends EmpireSubCommand{
 							return false;
 						}else {
 							empire.setDefaultPrefix(args[2]);
-							String cprefix = UtilManager.colourUp(args[2]);
+							String cprefix = MsgManager.colourUp(args[2]);
 							player.sendMessage(plprefix + ChatColor.GREEN + "The default prefix in town chat is now '" + cprefix + ChatColor.GREEN + "'");
 							return false;
 						}

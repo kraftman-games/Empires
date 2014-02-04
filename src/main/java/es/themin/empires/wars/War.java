@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
@@ -394,6 +395,7 @@ public class War {
 				this.empire1alliesloss.put(empire, System.currentTimeMillis());
 				addTeam1Percent(SettingsManager.getConfig().getLong("wars.percentage_gain_per_knockout"));
 				empire.broadcastMessage(warprefix + ChatColor.RED + "You have been weekend to the point where you cannot keep up the war against " + empire2.getName());
+				empire.addWarLosses(1);
 				for (Empire empire22 : getAllEmpiresOnTeam1()) {
 					empire22.broadcastMessage(warprefix + ChatColor.RED + "Your ally, " + empire.getName() + ", has been defeated rally and salvage this war");
 				}
@@ -409,6 +411,7 @@ public class War {
 				this.empire2alliesloss.put(empire, System.currentTimeMillis());
 				addTeam1Percent(-SettingsManager.getConfig().getLong("wars.percentage_gain_per_knockout"));
 				empire.broadcastMessage(warprefix + ChatColor.RED + "You have been weekend to the point where you cannot keep up the war against " + empire1.getName());
+				empire.addWarLosses(1);
 				for (Empire empire22 : getAllEmpiresOnTeam1()) {
 					empire22.broadcastMessage(warprefix + ChatColor.GREEN + empire.getName() + "Has been weekend to the point where they could not maintain their war effort, Victor draws closer");
 				}
@@ -416,6 +419,42 @@ public class War {
 					empire22.broadcastMessage(warprefix + ChatColor.RED + "Your ally, " + empire.getName() + ", has been defeated rally and salvage this war");
 				}
 			}
+		}
+		checkForEnd();
+	}
+	public void checkForEnd() {
+		if (team1percent <= 0) {
+			this.onGoing = false;
+			this.end = System.currentTimeMillis();
+			this.victor = empire2;
+			this.endedintie = false;
+			for (Empire empire : getAllEmpires()) {
+				empire.removeWar(this);
+			}
+			Save();
+			broadcastToTeam2(MsgManager.warwin);
+			broadcastToTeam1(MsgManager.warloose);
+		}if (team1percent >= 100) {
+			broadcastToTeam1(MsgManager.warwin);
+			broadcastToTeam2(MsgManager.warloose);
+			this.onGoing = false;
+			this.end = System.currentTimeMillis();
+			this.victor = empire1;
+			this.endedintie = false;
+			for (Empire empire : getAllEmpires()) {
+				empire.removeWar(this);
+			}
+			Save();
+		}
+	}
+	public void broadcastToTeam1(String message) {
+		for (Empire empire : getAllEmpiresOnTeam1()) {
+			empire.broadcastMessage(message);
+		}
+	}
+	public void broadcastToTeam2(String message) {
+		for (Empire empire : getAllEmpiresOnTeam2()) {
+			empire.broadcastMessage(message);
 		}
 	}
 }

@@ -12,7 +12,7 @@ import es.themin.empires.util.UtilManager;
 public class RankCommand extends EmpireSubCommand{
 	
 	public String plprefix = empires.plprefix;
-	public EmpirePermission[] eps = {EmpirePermission.ADD_PLAYER, EmpirePermission.ALLY, EmpirePermission.ATTACK, EmpirePermission.KICK_PLAYER, EmpirePermission.PLACE_ALTER, EmpirePermission.PLACE_AMPLIFIER, EmpirePermission.SET_FLAG, EmpirePermission.UPGRADE_CORE };
+	public EmpirePermission[] eps = {EmpirePermission.INVITE, EmpirePermission.ALLY, EmpirePermission.ATTACK, EmpirePermission.KICK_PLAYER, EmpirePermission.PLACE_ALTER, EmpirePermission.PLACE_AMPLIFIER, EmpirePermission.SET_FLAG, EmpirePermission.UPGRADE_CORE };
 	
 	@Override
 	public boolean onCommand(Player player, String[] args) {

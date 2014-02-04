@@ -9,6 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
+import es.themin.empires.util.Empire;
+import es.themin.empires.util.MsgManager;
+import es.themin.empires.util.Rank;
 import es.themin.empires.util.UtilManager;
 
 
@@ -23,6 +26,7 @@ public class empire implements CommandExecutor{
 		commands.add(new ChatCommand());
 		commands.add(new SettingsCommand());
 		commands.add(new GridLocationCommand());
+		commands.add(new EmpireInviteCommand());
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -43,10 +47,28 @@ public class empire implements CommandExecutor{
 			}
 			else {
 				EmpireSubCommand scmd = get(args[0]);
-				if (scmd == null) player.sendMessage(plprefix + ChatColor.RED + "Invalid Command");
-				else {
-					scmd.onCommand(player, args);
+				if (scmd == null) {
+					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
+				if (scmd.permission() != null){
+					if (UtilManager.empireplayers.containsKey(player.getName())) {
+						Empire empire = UtilManager.empireplayers.get(player.getName());
+						if (!empire.getOwner().equalsIgnoreCase(player.getName())) {
+							if (empire.playerHasARank(player.getName())) {
+								Rank rank = empire.getRankOfPlayer(player.getName());
+								if (!(rank.hasPermission(scmd.permission()))) {
+									player.sendMessage(MsgManager.noempperm);
+									return false;
+									
+								}
+							}else {
+								player.sendMessage(MsgManager.noempperm);
+								return false;
+							}
+						}
+					}
+				}
+				scmd.onCommand(player, args);
 			}
 		}
 		return false;

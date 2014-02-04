@@ -9,6 +9,7 @@ import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.wars.War;
 
@@ -37,7 +38,7 @@ public class WarInfoCommand extends EmpireSubCommand{
 			return false;
 		}
 		War war = empire.getWarAgainst(enemy);
-		player.sendMessage(UtilManager.createTitle(ChatColor.GOLD + " [" + ChatColor.LIGHT_PURPLE + "War Against " + enemy.getName() + ChatColor.GOLD + "] ",ChatColor.GOLD));
+		player.sendMessage(MsgManager.createTitle(ChatColor.GOLD + " [" + ChatColor.LIGHT_PURPLE + "War Against " + enemy.getName() + ChatColor.GOLD + "] ",ChatColor.GOLD));
 		Date date = new Date(war.getStart());
 		
 		if (war.getAllEmpiresOnTeam1().contains(empire)) {
