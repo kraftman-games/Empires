@@ -144,6 +144,7 @@ public static YamlConfiguration getMessagedata() {
     public static FileConfiguration getData() {
             return data;
     }
+    
    
     public static void saveData() {
             try {
