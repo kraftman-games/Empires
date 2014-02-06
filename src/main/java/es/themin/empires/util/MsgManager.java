@@ -7,6 +7,7 @@ import es.themin.empires.empires;
 public class MsgManager {
 	
 	public static String plprefix = empires.plprefix;
+	
 	public String warprefix = empires.warprefix;
 	public static String toofewargs = ChatColor.RED + "Too few arguments.";
 	public static String notinemp = plprefix + ChatColor.RED + "You are not in an empire";
