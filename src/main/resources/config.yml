@@ -31,4 +31,5 @@ wars:
    #The time which 2 empies have to wait after finishing one war before starting another / mins
    ex_enemy_timer: 2880.0
    percentage_gain_per_knockout: 15.0
+time_between_re_ally: 180.0
    

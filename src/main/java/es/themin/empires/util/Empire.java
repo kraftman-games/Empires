@@ -43,6 +43,8 @@ public class Empire {
 	private HashMap<Empire, Long> exenemies;
 	private Long lastbattleloss;
 	private Long lastbattlewin;
+	private HashMap<Empire, Long> allyrequests;
+	private HashMap<Long,String> timeline;
 	
 	public Empire getEnemyEmpire() {
 		return enemyEmpire;
@@ -90,6 +92,8 @@ public class Empire {
 		//this.exbattles = new HashMap<Empire, Long>();
 		this.lastbattleloss = (long) 0;
 		this.lastbattlewin = (long) 0;
+		this.allyrequests = new HashMap<Empire,Long>();
+		this.timeline = new HashMap<Long,String>();
 	}
 	
 	public Empire(String empireName, Player myPlayer){
@@ -115,6 +119,7 @@ public class Empire {
 		this.name = empireName;
 		this.owner = myPlayer.getName();
 		this.setProtected(true);
+		
 	}
 	
 	public int getId(){
@@ -540,9 +545,52 @@ public class Empire {
 	}
 	public void addWarLosses(int i) {
 		this.warlosses = warlosses + i;
+		Save();
 	}
 	public void addWarWins(int i) {
 		this.warwins = warwins + i;
+		Save();
+	}public boolean exEnemiesContains(Empire e) {
+		if (this.exenemies.containsKey(e)) return true;
+		return false;
+	}
+	public void addExEnemy(Empire e) {
+		this.exenemies.put(e, System.currentTimeMillis());
+		Save();
+	}
+	public void addExEnemy(Empire e, Long l) {
+		this.exenemies.put(e, l);
+		Save();
+	}
+	public Long getLastEnemyWith(Empire e) {
+		if (exEnemiesContains(e)) {
+			return this.exenemies.get(e);
+		}
+		return null;
+	}
+	public void removeExEnemy(Empire e) {
+		if (exEnemiesContains(e)) {
+			this.exenemies.remove(e);
+			Save();
+		}
+	}
+	public void addAllyRequest(Empire e) {
+		if (!this.allyrequests.containsKey(e)) {
+			this.allyrequests.put(e, System.currentTimeMillis());
+		}
+	}
+	public boolean hasAllyRequestFrom(Empire e) {
+		if (this.allyrequests.containsKey(e)) return true;
+		return false;
+	}
+	public void removeAllyRequest(Empire e) {
+		this.allyrequests.remove(e);
+	}
+	public HashMap<Long,String> getTimeLine() {
+		return timeline;
+	}
+	public void addToTimeline(String string) {
+		timeline.put(System.currentTimeMillis(), string);
 	}
 	
 }

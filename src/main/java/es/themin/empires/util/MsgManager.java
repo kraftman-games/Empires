@@ -1,6 +1,7 @@
 package es.themin.empires.util;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 
@@ -14,6 +15,7 @@ public class MsgManager {
 	public static String warwin = "After numurous victories the enemy has been defeated, you have won this war.";
 	public static String warloose = "The enemy has won this war, you fought with honour but you must know when you are defeated.";
 	public static String noempperm = plprefix + ChatColor.RED + "The owner of your empire has not given you permission to use this command";
+	public static String empirenotfound = plprefix + ChatColor.RED + "That is not an empire";
 	public static String createTitle(String message, ChatColor color) {
 		int length = message.length();
 		int dashlength = 50 - length;
@@ -54,5 +56,23 @@ public class MsgManager {
 		string.replaceAll("&o", ChatColor.ITALIC + "");
 		string.replaceAll("&r", ChatColor.RESET + "");
 		return string;
+	}
+	public static String createSmartTimeStamp(Long milis) {
+		Integer minutesago = (int) (System.currentTimeMillis() /1000 /60 - milis / 1000 / 60);
+		if (minutesago < 1) {
+			return "just now";
+		}if (minutesago < 59) {
+			return minutesago + " minutes ago";
+		}
+		Integer hoursago = (int) (System.currentTimeMillis() /1000 /3600 - milis / 1000/3600); 
+		if (hoursago < 48) {
+			return hoursago + " hours ago";
+		}
+		Integer daysago = (int) (System.currentTimeMillis() / 1000 / 3600 / 24 - milis /1000/3600/24);
+		if (daysago < 14) {
+			return daysago  +" days ago";
+		}
+		Integer weeksago = (int) (System.currentTimeMillis() / 1000 / 3600 /24 /7  - milis / 1000/3600/24/7);
+		return weeksago + " weeks ago";
 	}
 }
