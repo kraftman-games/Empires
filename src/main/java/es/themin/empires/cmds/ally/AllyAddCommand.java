@@ -39,13 +39,6 @@ public class AllyAddCommand extends EmpireSubCommand{
 			Long lastenemy = empire.getLastEnemyWith(ally);
 			if (System.currentTimeMillis() > lastenemy + TODO) ;
 		}*/
-		if (empire.exAlliesContains(ally)) {
-			Long lastalliance = empire.getLastAllianceWith(ally);
-			if (System.currentTimeMillis() < lastalliance + time) {
-				player.sendMessage(plprefix + ChatColor.RED + "You cannot re-ally this empire yet");
-				return false;
-			}
-		}
 		if (empire.hasAllyRequestFrom(ally)) {
 			empire.addAlly(ally);
 			ally.addAlly(empire);
@@ -62,7 +55,15 @@ public class AllyAddCommand extends EmpireSubCommand{
 			}if (ally.exEnemiesContains(empire)) {
 				ally.removeExEnemy(empire);
 			}
+			empire.removeAllyRequest(ally);
 			return false;
+		}
+		if (empire.exAlliesContains(ally)) {
+			Long lastalliance = empire.getLastAllianceWith(ally);
+			if (System.currentTimeMillis() < lastalliance + time) {
+				player.sendMessage(plprefix + ChatColor.RED + "You cannot re-ally this empire yet");
+				return false;
+			}
 		}
 		if (ally.hasAllyRequestFrom(empire)) {
 			player.sendMessage(plprefix + ChatColor.RED + "Your empire has already sent this empire an alliance request"); 
