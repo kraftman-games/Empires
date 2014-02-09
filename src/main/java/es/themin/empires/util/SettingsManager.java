@@ -19,7 +19,7 @@ public class SettingsManager {
     static SettingsManager instance = new SettingsManager();
    
    
-    static Plugin p;
+    static Plugin myPlugin;
    
     static FileConfiguration config;
     static File cfile;
@@ -47,12 +47,12 @@ public class SettingsManager {
     
     private static File createFile(String fileName){
     	
-    	File myFile = new File(p.getDataFolder(), fileName);
+    	File myFile = new File(myPlugin.getDataFolder(), fileName);
         
         if (!myFile.exists()) {
                 try {
                 	myFile.createNewFile();
-        				p.getLogger().info("[Empires] "+fileName+" not found, making you one");
+        				myPlugin.getLogger().info("[Empires] "+fileName+" not found, making you one");
                 }
                 catch (IOException e) {
                         Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create "+fileName);
@@ -64,7 +64,7 @@ public class SettingsManager {
     }
    
     public static void loadSettings(Plugin plugin) {
-    	p = plugin;
+    	myPlugin = plugin;
     	
     	config = plugin.getConfig();
 		
@@ -305,7 +305,7 @@ public static YamlConfiguration getMessagedata() {
     }
 //###############################   
     public static PluginDescriptionFile getDesc() {
-            return p.getDescription();
+            return myPlugin.getDescription();
     }
     public static void saveAll(){
     	//saveConfig();
