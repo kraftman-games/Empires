@@ -20,6 +20,13 @@ import es.themin.empires.util.UtilManager;
 
 public class CoreUtils {
 
+	public static CoreType GetCoreType(String coreType){
+		
+		coreType = coreType.toUpperCase();
+		
+		return CoreType.valueOf(coreType);
+		
+	}
 	
 	public static Core placeCore(Player myPlayer, CoreType myCoreType){
 		Core myCore = null;

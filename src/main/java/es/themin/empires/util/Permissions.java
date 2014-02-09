@@ -6,6 +6,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
 import es.themin.empires.empires;
+import es.themin.empires.enums.EmpirePermission;
 
 public class Permissions {
 	public static empires plugin;
@@ -14,6 +15,15 @@ public class Permissions {
 	public static void setup() {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.addPermission(all);
+		
+	}
+	
+	public static EmpirePermission getPermission(String myPermission){
+		
+		myPermission = myPermission.toLowerCase();
+		
+		return EmpirePermission.valueOf(myPermission);
+		
 		
 	}
 	

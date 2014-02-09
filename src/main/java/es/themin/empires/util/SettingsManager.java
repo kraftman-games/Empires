@@ -2,6 +2,7 @@ package es.themin.empires.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -19,7 +20,7 @@ public class SettingsManager {
     static SettingsManager instance = new SettingsManager();
    
    
-    static Plugin p;
+    static Plugin myPlugin;
    
     static FileConfiguration config;
     static File cfile;
@@ -47,12 +48,12 @@ public class SettingsManager {
     
     private static File createFile(String fileName){
     	
-    	File myFile = new File(p.getDataFolder(), fileName);
+    	File myFile = new File(myPlugin.getDataFolder(), fileName);
         
         if (!myFile.exists()) {
                 try {
                 	myFile.createNewFile();
-        				p.getLogger().info("[Empires] "+fileName+" not found, making you one");
+        				myPlugin.getLogger().info("[Empires] "+fileName+" not found, making you one");
                 }
                 catch (IOException e) {
                         Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create "+fileName);
@@ -64,7 +65,7 @@ public class SettingsManager {
     }
    
     public static void loadSettings(Plugin plugin) {
-    	p = plugin;
+    	myPlugin = plugin;
     	
     	config = plugin.getConfig();
 		
@@ -76,29 +77,24 @@ public class SettingsManager {
 		config.options().copyHeader();
 		saveConfig();
         //random data file bellow :/
+		
+		
         
 		dfile = createFile("data.yml");
        
         data = YamlConfiguration.loadConfiguration(dfile);
-        //war data bellow
         
         warfile = createFile("wars.yml");
         
         wardata = YamlConfiguration.loadConfiguration(warfile);
         
-        //player data bellow
         pfile = createFile("playerdata.yml");
        
         playerdata = YamlConfiguration.loadConfiguration(pfile);
         
-      //message data bellow
         mfile = createFile("messages.yml");
         
-        //messagedata = YamlConfiguration.loadConfiguration(pfile);
-        
-        //empire data bellow
         efile = createFile("empiredata.yml");
-        
        
        	empiredata = YamlConfiguration.loadConfiguration(efile);
        	
@@ -110,16 +106,16 @@ public class SettingsManager {
                 try {
                         wfile.createNewFile();
                         worlddata = YamlConfiguration.loadConfiguration(wfile);
-                       	getWorldData().addDefault("worlds.world.allowcoreplace", true);
-                       	getWorldData().addDefault("worlds.world.allowcommanduse", true);
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.BASE", true);
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.MOB", true);
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.FARM", true);
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.MONSTER", true);
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.FORTIFICATION", true);
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.GRIEF", true);
-                       	getWorldData().addDefault("worlds.world.allowplaceofcore.OUTPOST", true);
-                       	getWorldData().options().copyDefaults();
+                        worlddata.addDefault("worlds.world.allowcoreplace", true);
+                        worlddata.addDefault("worlds.world.allowcommanduse", true);
+                        worlddata.addDefault("worlds.world.allowplaceofcore.BASE", true);
+                        worlddata.addDefault("worlds.world.allowplaceofcore.MOB", true);
+                        worlddata.addDefault("worlds.world.allowplaceofcore.FARM", true);
+                        worlddata.addDefault("worlds.world.allowplaceofcore.MONSTER", true);
+                        worlddata.addDefault("worlds.world.allowplaceofcore.FORTIFICATION", true);
+                        worlddata.addDefault("worlds.world.allowplaceofcore.GRIEF", true);
+                        worlddata.addDefault("worlds.world.allowplaceofcore.OUTPOST", true);
+                        worlddata.options().copyDefaults();
                        	saveWorldData();
         				plugin.getLogger().info("[Empires] worldconfig.yml not found, making you one");
                 }
@@ -305,7 +301,7 @@ public static YamlConfiguration getMessagedata() {
     }
 //###############################   
     public static PluginDescriptionFile getDesc() {
-            return p.getDescription();
+            return myPlugin.getDescription();
     }
     public static void saveAll(){
     	//saveConfig();

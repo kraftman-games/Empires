@@ -15,11 +15,11 @@ import es.themin.empires.util.Rank;
 import es.themin.empires.util.UtilManager;
 
 
-public class empire implements CommandExecutor{
+public class EmpireCommand implements CommandExecutor{
 	public String plprefix = empires.plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	
-	public empire(){
+	public EmpireCommand(){
 		commands.add(new list());
 		commands.add(new RankCommand());
 		commands.add(new Stats());
