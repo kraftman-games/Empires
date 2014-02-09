@@ -320,6 +320,7 @@ public class UtilManager {
 		Bukkit.getServer().getPluginManager().getPlugin("Empires").getLogger().info("[Empires] ... Wars Saved");
 		SettingsManager.saveWarData();
 	}
+	
 	//CANNOT BE RUN BEFORE EMPIRES ARE LOADED
 	public static void loadWars() {
 		List<String> listofwars = SettingsManager.getWarData().getStringList("wars");

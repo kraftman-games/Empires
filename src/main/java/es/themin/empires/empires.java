@@ -25,7 +25,7 @@ import es.themin.empires.Listeners.WorldListener;
 import es.themin.empires.cmds.GlobalCommand;
 import es.themin.empires.cmds.GridCommand;
 import es.themin.empires.cmds.HomeCommand;
-import es.themin.empires.cmds.empire.empire;
+import es.themin.empires.cmds.empire.EmpireCommand;
 import es.themin.empires.cmds.war.WarCommand;
 import es.themin.empires.cores.CoreSchematic;
 import es.themin.empires.util.Empire;
@@ -42,7 +42,7 @@ public final class empires extends JavaPlugin {
 	
 	@Override
     public void onEnable(){
-        
+        plugin = this;
 		SettingsManager.loadSettings(this);
 		UtilManager.loadEmpires();
 		Recipes.setupamplifierRecipe();
@@ -81,7 +81,7 @@ public final class empires extends JavaPlugin {
     
     public void loadCommands() {
 		
-		empire empire_ce = new empire();
+		EmpireCommand empire_ce = new EmpireCommand();
 		getCommand("empire").setExecutor(empire_ce);
 		getCommand("e").setExecutor(empire_ce);
 		getCommand("emp").setExecutor(empire_ce);
