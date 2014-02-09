@@ -28,7 +28,7 @@ public class AllyListCommand extends EmpireSubCommand{
 		}
 		
 		for (Empire ally : empire.getAllies()) {
-			player.sendMessage(ChatColor.WHITE + "- " + ChatColor.GREEN + ChatColor.WHITE + " - " + ally.getExp());
+			player.sendMessage(ChatColor.WHITE + "- " + ChatColor.GREEN +ally.getName()+ ChatColor.WHITE + " - " + ally.getExp());
 		}
 		return false;
 	}

@@ -41,7 +41,7 @@ public class AllyRemoveCommand extends EmpireSubCommand{
 		}if (ally.hasAllyRequestFrom(empire)) {
 			ally.removeAllyRequest(empire);
 			ally.broadcastMessage(plprefix + ChatColor.RED + empire.getName() + " have withdrawn their alliance request");
-			empire.broadcastMessage(plprefix + ChatColor.DARK_PURPLE + player.getName() + " has withdrawn you alliance request to "  +ally.getName());
+			empire.broadcastMessage(plprefix + ChatColor.DARK_PURPLE + player.getName() + " has withdrawn your alliance request to "  +ally.getName());
 			return false;
 		}
 		player.sendMessage(plprefix + ChatColor.RED + "You are not allied with " + ally.getName() + " nor is there a pending alliance request to them");

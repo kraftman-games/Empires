@@ -62,17 +62,17 @@ public class MsgManager {
 		if (minutesago < 1) {
 			return "just now";
 		}if (minutesago < 59) {
-			return minutesago + " minutes ago";
+			return minutesago + " minute(s) ago";
 		}
 		Integer hoursago = (int) (System.currentTimeMillis() /1000 /3600 - milis / 1000/3600); 
 		if (hoursago < 48) {
-			return hoursago + " hours ago";
+			return hoursago + " hour(s) ago";
 		}
 		Integer daysago = (int) (System.currentTimeMillis() / 1000 / 3600 / 24 - milis /1000/3600/24);
 		if (daysago < 14) {
-			return daysago  +" days ago";
+			return daysago  +" day(s) ago";
 		}
 		Integer weeksago = (int) (System.currentTimeMillis() / 1000 / 3600 /24 /7  - milis / 1000/3600/24/7);
-		return weeksago + " weeks ago";
+		return weeksago + " week(s) ago";
 	}
 }

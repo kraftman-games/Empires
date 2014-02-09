@@ -42,8 +42,8 @@ public class AllyAddCommand extends EmpireSubCommand{
 		if (empire.hasAllyRequestFrom(ally)) {
 			empire.addAlly(ally);
 			ally.addAlly(empire);
-			empire.broadcastMessage(plprefix + ChatColor.GREEN + "You are not allies with " + ally.getName());
-			ally.broadcastMessage(plprefix + ChatColor.GREEN + "You are not allies with " + empire.getName());
+			empire.broadcastMessage(plprefix + ChatColor.GREEN + "You are now allies with " + ally.getName());
+			ally.broadcastMessage(plprefix + ChatColor.GREEN + "You are now allies with " + empire.getName());
 			if (empire.exAlliesContains(ally)) {
 				empire.removeExAlly(ally);
 			}
@@ -70,7 +70,7 @@ public class AllyAddCommand extends EmpireSubCommand{
 			return false;
 		}
 		ally.addAllyRequest(empire);
-		ally.broadcastMessage(plprefix + ChatColor.GREEN + empire.getName() + " Has sent your empire a request to ally with them, do '/ally add " + empire.getName()+"'");
+		ally.broadcastMessage(plprefix + ChatColor.GREEN + empire.getName() + " Has sent your empire an alliance request, do '/ally add " + empire.getName()+"' to accept it");
 		empire.broadcastMessage(plprefix + ChatColor.GREEN + player.getName() + " has sent an alliance request to " + ally.getName());
 		return false;
 	}
