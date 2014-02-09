@@ -12,6 +12,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.enums.ConfirmType;
@@ -24,15 +25,13 @@ import es.themin.empires.cores.CoreUtils;
 
 public class UtilManager {
 	
-	public static ArrayList<Empire> empires = new ArrayList<Empire>();
-	public static HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
-	public static ArrayList<Core> cores = new ArrayList<Core>();
-	public static ArrayList<War> wars = new ArrayList<War>();
-	public static HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
-	private static HashMap<UUID, EmpirePlayer> EmpirePlayers = new HashMap<UUID, EmpirePlayer>();
-	public static HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
+
+	private static empires myPlugin;
 	
-	
+	public UtilManager(empires empires) {
+		myPlugin = empires;
+	}
+
 	public EmpirePlayer getEmpirePlayer(String playerName)
 	{
 		Player myPlayer = Bukkit.getPlayer(playerName);
@@ -47,7 +46,7 @@ public class UtilManager {
 	
 	public static EmpirePlayer getEmpirePlayer(UUID myUUID){
 		
-		return EmpirePlayers.get(myUUID);
+		return myPlugin.EmpirePlayers.get(myUUID);
 	}
 	
 	
@@ -70,7 +69,7 @@ public class UtilManager {
 	}*/
 	public static void saveEmpires() {
 		List<String> list = new ArrayList<String>();
-		for (Empire empire : empires) {
+		for (Empire empire : myPlugin.empires) {
 			StringBuilder str = new StringBuilder();
 			str.append(empire.getId() + ":");
 			str.append(empire.getName() + ":");
@@ -124,131 +123,58 @@ public class UtilManager {
 		SettingsManager.getEmpireData().set("empires", list);
 	}
 	public static HashMap<UUID, CoreWorld> getWorlds() {
-		return worlds;
+		return myPlugin.worlds;
 	}
 	public static void setWorlds(HashMap<UUID, CoreWorld> worlds) {
-		UtilManager.worlds = worlds;
+		myPlugin.worlds = worlds;
 	}
 	
 	public static void addWorld(World myWorld){
-		worlds.put(myWorld.getUID(), new CoreWorld());
+		myPlugin.worlds.put(myWorld.getUID(), new CoreWorld());
 	}
 	
 	
-	public static void loadEmpires() {
-		List<World> myWorlds = Bukkit.getServer().getWorlds();
-		
-		for(World myWorld : myWorlds){
-			worlds.put(myWorld.getUID(), new CoreWorld());
-		}
-		
-		
-		List<String> list = SettingsManager.getEmpireData().getStringList("empires");
-		for (String empireName : list) {
-			String[] words = empireName.split(":");
-			Integer Id = Integer.parseInt(words[0]);
-			String name = words[1];
-			String owner = words[2];
-			Empire empire = new Empire(Id, name, owner);
-			
-			loadEmpireCores(empire);
-			
-			loadEmpirePlayers(empire);
-			
-			loadEmpireRanks(empire);
-			
-			empire.Save();
-		}
-	}
-	
-	private static void loadEmpireRanks(Empire empire){
-		List<String> rankList = SettingsManager.getEmpireData().getStringList(empire.getName() + ".ranks");
-		for (String rankString : rankList) {
-			String[] words2 = rankString.split(":");
-			Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1], empire, words2[2]);
-			List<String> playersInRank = SettingsManager.getEmpireData().getStringList(empire.getName() + ".rank." + rankString + ".players");
-			for (String playername : playersInRank) {
-				rank.addPlayer(playername);
-			}
-			List<String> playerPermissions = SettingsManager.getEmpireData().getStringList(empire.getName() + ".rank." + rankString + ".permissions");
-			for (String permission : playerPermissions) {
-				EmpirePermission ep = Permissions.getPermission(permission);
-				if (ep != null){
-					rank.addPermission(ep);
-				}
-			}
-			empire.addRank(rank);
-		}
-	}
-	
-	private static void loadEmpirePlayers(Empire empire){
-		List<String> playerList = SettingsManager.getEmpireData().getStringList(empire.getName() + ".players");
-		for (String playerName : playerList) {
-			empire.addPlayer(playerName);
-		}
-	}
-	
-	private static void loadEmpireCores(Empire empire){
-		List<String> list2 = SettingsManager.getEmpireData().getStringList(empire.getName() + ".cores");
-		for (String s2: list2) {
-			String[] words2 = s2.split(":");
-			int coreID  = Integer.parseInt(words2[0]);
-			
-			CoreType coretype = CoreUtils.GetCoreType(words2[1]);
-			
-			World world2 = Bukkit.getServer().getWorld(words2[2]);
-			int x2 = Integer.parseInt(words2[3]); // - 0:BASE:world:-249:78:223:1:0:kraft
-			int y2 = Integer.parseInt(words2[4]);
-			int z2 = Integer.parseInt(words2[5]);
-			Location location = new Location(world2, x2, y2, z2);
-			int level = Integer.parseInt(words2[6]);
-			Core core = new Core(coreID, coretype, location, level, empire);
-		    //core.build();
-		    worlds.get(world2.getUID()).addCore(core);
-			cores.add(core);
-			empire.ac(core);
-		}
-	}
+
 	
 	public static Empire getEmpireWithName(String name) {
-		for (Empire empire : empires) {
+		for (Empire empire : myPlugin.empires) {
 			if (empire.getName().equalsIgnoreCase(name)) return empire;
 		}
 		return null;
 	}
 	public static boolean containsEmpireWithName(String name) {
-		for (Empire empire : empires) {
+		for (Empire empire : myPlugin.empires) {
 			if (empire.getName().equalsIgnoreCase(name)) return true;
 		}
 		return false;
 	}
 	public static Empire getEmpireWithId(int Id) {
-		for (Empire empire : empires) {
+		for (Empire empire : myPlugin.empires) {
 			if (empire.getId() == Id) return empire;
 		}
 		return null;
 	}
 	public static boolean containsEmpireWithId(int Id) {
-		for (Empire empire : empires) {
+		for (Empire empire : myPlugin.empires) {
 			if (empire.getId() == Id) return true;
 		}
 		return false;
 	}
 	public static Core getCoreWithId(int Id) {
 
-		for (Core core : cores) {
+		for (Core core : myPlugin.cores) {
 			if (core.getId() == Id) return core;
 		}
 		return null;
 	}
 	public static Core getCoreWithLocation(Location l) {
-		for (Core core : cores) {
+		for (Core core : myPlugin.cores) {
 			if (core.getLocation() == l) return core;
 		}
 		return null;
 	}
 	public static boolean containsCoreWithId(int Id) {
-		for (Core core : cores) {
+		for (Core core : myPlugin.cores) {
 			if (core.getId() == Id) return true;
 		}
 		return false;
@@ -269,7 +195,7 @@ public class UtilManager {
 		
 	}
 	public static Empire getEmpireWithCore(Core c) {
-		for (Empire empire : empires) {
+		for (Empire empire : myPlugin.empires) {
 			if (empire.hasCore(c)) {
 				return empire;
 			}
@@ -280,13 +206,13 @@ public class UtilManager {
 	
 	
 	public static Empire getEmpireWithPlayer(Player myPlayer) {
-		return empireplayers.get(myPlayer.getName());		
+		return myPlugin.empireplayers.get(myPlayer.getName());		
 	}
 
 	public static void saveWars() {
 		Bukkit.getServer().getPluginManager().getPlugin("Empires").getLogger().info("[Empires] Saving Wars ...");
 		List<String> listofwars = new ArrayList<String>();
-		for (War war : wars) {
+		for (War war : myPlugin.wars) {
 			String idforsaving = war.getEmpire1().getName() + ":" + war.getEmpire2().getName() + ":" + war.getStart();
 			listofwars.add(idforsaving);
 			List<String> empire1allies = new ArrayList<String>();
@@ -342,7 +268,7 @@ public class UtilManager {
 		List<String> listofwars = SettingsManager.getWarData().getStringList("wars");
 		for (String warname : listofwars) {
 			String[] warnamewords = warname.split(":");
-			War war = new War(getEmpireWithName(warnamewords[0]), getEmpireWithName(warnamewords[0]));
+			War war = new War(myPlugin, getEmpireWithName(warnamewords[0]), getEmpireWithName(warnamewords[0]));
 			war.setStart(Long.parseLong(warnamewords[2]));
 			List<String> empire1allies = SettingsManager.getWarData().getStringList(warname + ".empire1allies");
 			for (String empire1ally : empire1allies) {

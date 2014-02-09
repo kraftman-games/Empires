@@ -18,21 +18,27 @@ import es.themin.empires.util.UtilManager;
 public class generatebasecore extends SubCommand{
 
 	public String plprefix = empires.plprefix;
+	private empires myPlugin;
+	
+	public generatebasecore(empires empires) {
+		myPlugin = empires;
+	}
+
 	public boolean onCommand(Player player, String[] args) {
-		if (!(UtilManager.empireplayers.containsKey(player.getName()))) {
+		if (!(myPlugin.empireplayers.containsKey(player.getName()))) {
 			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			return false;
 		}
-		Empire empire = UtilManager.empireplayers.get(player.getName());
+		Empire empire = myPlugin.empireplayers.get(player.getName());
 		if (empire.hasCoreOfType(CoreType.BASE)) {
 			player.sendMessage(plprefix + ChatColor.RED + "You already have a core of this type");
 			return false;
 		}
-		Core myCore = new Core(UtilManager.nextUnusedCoreId(), CoreType.BASE, player.getLocation(), 1, empire);
+		Core myCore = new Core(myPlugin, UtilManager.nextUnusedCoreId(), CoreType.BASE, player.getLocation(), 1, empire);
 		empire.addCore(myCore);
 		World world = player.getWorld();
 		UUID uuid = world.getUID();
-		CoreWorld cw = UtilManager.worlds.get(uuid);
+		CoreWorld cw = myPlugin.worlds.get(uuid);
 		cw.addCore(myCore);
 		return false;
 		

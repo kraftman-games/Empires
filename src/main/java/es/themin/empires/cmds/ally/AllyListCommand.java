@@ -12,15 +12,20 @@ import es.themin.empires.util.UtilManager;
 
 public class AllyListCommand extends EmpireSubCommand{
 
+	private empires myPlugin;
 	
 	public String plprefix = empires.plprefix;
+	public AllyListCommand(empires plugin) {
+		myPlugin = plugin;
+	}
+
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (!UtilManager.empireplayers.containsKey(player.getName())) {
+		if (myPlugin.empireplayers.containsKey(player.getName())) {
 			player.sendMessage(MsgManager.notinemp); 
 			return false;
 		}
-		Empire empire = UtilManager.empireplayers.get(player.getName());
+		Empire empire = myPlugin.empireplayers.get(player.getName());
 		player.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Your Allies", ChatColor.GOLD));
 		if (!empire.hasAllies()) {
 			player.sendMessage(ChatColor.RED + "You do not have any allies :(");

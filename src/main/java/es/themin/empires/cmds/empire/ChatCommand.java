@@ -13,9 +13,14 @@ import es.themin.empires.util.UtilManager;
 public class ChatCommand extends EmpireSubCommand{
 	public static ArrayList<Player> empirechatplayers = new ArrayList<Player>();
 	public String plprefix = empires.plprefix;
+	private empires myPlugin;
+	public ChatCommand(empires empires) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (UtilManager.empireplayers.containsKey(player.getName())) {
+		if (myPlugin.empireplayers.containsKey(player.getName())) {
 			if (!(empirechatplayers.contains(player))) {
 				empirechatplayers.add(player);
 				player.sendMessage(plprefix + ChatColor.GREEN + "Speaking in empire chat do '/g' to talk globally");

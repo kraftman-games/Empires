@@ -12,15 +12,20 @@ import es.themin.empires.util.UtilManager;
 
 public class AllyRemoveCommand extends EmpireSubCommand{
 
+	private empires myPlugin;
 	
 	public String plprefix = empires.plprefix;
+	public AllyRemoveCommand(empires myPlugin) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (!UtilManager.empireplayers.containsKey(player.getName())) {
+		if (!myPlugin.empireplayers.containsKey(player.getName())) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = UtilManager.empireplayers.get(player.getName());
+		Empire empire = myPlugin.empireplayers.get(player.getName());
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs);
 			return false;

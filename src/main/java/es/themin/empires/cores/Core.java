@@ -48,6 +48,7 @@ public class Core {
 	private ArrayList<CoreBlock> schematic;
 	private PlaceType placeType;
 	private int destroyCost;
+	private empires myPlugin;
 	
 	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
 	
@@ -75,7 +76,8 @@ public class Core {
 		this.areaSize = areaSize;
 	}
 
-	public Core(int Id, CoreType type, Location location, int level, Empire empire) {
+	public Core(empires plugin,int Id, CoreType type, Location location, int level, Empire empire) {
+		this.myPlugin = plugin;
 		this.coreSize = 8;
 		this.empire = empire;
 		this.Id = Id;
@@ -219,17 +221,17 @@ public class Core {
 	
 	public void Save() {
 		if (UtilManager.containsCoreWithId(this.Id)) {
-			int i = UtilManager.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
-			UtilManager.cores.remove(i);
+			int i = myPlugin.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
+			myPlugin.cores.remove(i);
 		}
-		UtilManager.cores.add(this);
+		myPlugin.cores.add(this);
 	}
 	public void Delete() {
 		this.destroy();
 		UtilManager.getEmpireWithCore(this).removeCore(this);
 		if (UtilManager.containsCoreWithId(this.Id)) {
-			int i = UtilManager.cores.indexOf(this);
-			UtilManager.cores.remove(i);
+			int i = myPlugin.cores.indexOf(this);
+			myPlugin.cores.remove(i);
 		}
 		
 	}
@@ -261,7 +263,7 @@ public class Core {
 			// allow insta break for enemies if not a protection block
 		} else {
 			
-			if (this.getEmpire() == UtilManager.empireplayers.get(player.getName())){
+			if (this.getEmpire() == myPlugin.empireplayers.get(player.getName())){
 				if (PlayerUtils.deductShards(player, this.getDestroyCost())){
 					this.Delete();
 					event.setCancelled(true);

@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
@@ -22,6 +23,13 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
 public class tannertest extends SubCommand{
+
+	
+	private empires myPlugin;
+	
+	public tannertest(empires empires) {
+		myPlugin = empires;
+	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {

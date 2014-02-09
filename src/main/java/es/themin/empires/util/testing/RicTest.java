@@ -3,9 +3,16 @@ package es.themin.empires.util.testing;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 
 public class RicTest extends SubCommand {
+
+	private empires myPlugin;
+	
+	public RicTest(empires empires) {
+		myPlugin = empires;
+	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {

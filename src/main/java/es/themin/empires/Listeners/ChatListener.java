@@ -15,20 +15,20 @@ import es.themin.empires.util.UtilManager;
 @SuppressWarnings("deprecation")
 public class ChatListener implements Listener{
 	
-	private empires plugin;
+	private empires myPlugin;
 	public ChatListener(empires plugin) {
-		this.plugin = plugin;
+		this.myPlugin = plugin;
 	}
-	public String plprefix = plugin.plprefix;
+	public String plprefix = myPlugin.plprefix;
 	@EventHandler
 	public void onPlayerChat(PlayerChatEvent event) {
 		
 		Player player = event.getPlayer();
 		if (ChatCommand.empirechatplayers.contains(player)) {
 			event.setCancelled(true);
-			if (UtilManager.empireplayers.containsKey(player.getName())) {
+			if (myPlugin.empireplayers.containsKey(player.getName())) {
 				
-				Empire empire = UtilManager.empireplayers.get(player.getName());
+				Empire empire = myPlugin.empireplayers.get(player.getName());
 				String rank;
 				if (!(empire.playerHasARank(player.getName()))) {
 					if (empire.getOwner().equalsIgnoreCase(player.getName())) {

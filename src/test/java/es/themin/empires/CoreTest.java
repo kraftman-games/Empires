@@ -38,36 +38,36 @@ public class CoreTest {
 	
 	@Before
 	public void setupEnvironment(){
-		UtilManager.empires = new ArrayList<Empire>();
-		UtilManager.empireplayers = new HashMap<String, Empire>();
-		UtilManager.cores = new ArrayList<Core>();
-		UtilManager.worlds = new HashMap<UUID,CoreWorld>();
-		
-		myWorld = PowerMockito.mock(World.class);
-		UtilManager.addWorld(myWorld);
-		
-		myLocation = new Location(myWorld, 0, 0, 0);
-		myEnemyLocation = new Location(myWorld, 0, 0, 60);
-		
-		myPlayer= PowerMockito.mock(Player.class);
-		Mockito.when(myPlayer.getName()).thenReturn("kraft");
-		Mockito.when(myPlayer.getWorld()).thenReturn(myWorld);
-		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
-		myEmpire = new Empire("testEmp", myPlayer);
-		
-		myEnemyPlayer= PowerMockito.mock(Player.class);
-		Mockito.when(myEnemyPlayer.getName()).thenReturn("kraftEnemy");
-		Mockito.when(myEnemyPlayer.getWorld()).thenReturn(myWorld);
-		Mockito.when(myEnemyPlayer.getLocation()).thenReturn(myEnemyLocation);	
-		myEnemyEmpire = new Empire("testEnemyEmp", myEnemyPlayer);
-
-//		Mockito.when(myPlayer.sendMessage(Mockito.anyString())).tehnAnswer(new Answer<void>() {
-//		      @Override
-//		      public void answer(InvocationOnMock invocation) throws Throwable {
-//		    	  System.out.println((String) invocation.getArguments()[0]);
-//		      }
-//		    });
-		UtilManager.addWorld(myWorld);
+//		UtilManager.empires = new ArrayList<Empire>();
+//		UtilManager.empireplayers = new HashMap<String, Empire>();
+//		UtilManager.cores = new ArrayList<Core>();
+//		UtilManager.worlds = new HashMap<UUID,CoreWorld>();
+//		
+//		myWorld = PowerMockito.mock(World.class);
+//		UtilManager.addWorld(myWorld);
+//		
+//		myLocation = new Location(myWorld, 0, 0, 0);
+//		myEnemyLocation = new Location(myWorld, 0, 0, 60);
+//		
+//		myPlayer= PowerMockito.mock(Player.class);
+//		Mockito.when(myPlayer.getName()).thenReturn("kraft");
+//		Mockito.when(myPlayer.getWorld()).thenReturn(myWorld);
+//		Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
+//		myEmpire = new Empire("testEmp", myPlayer);
+//		
+//		myEnemyPlayer= PowerMockito.mock(Player.class);
+//		Mockito.when(myEnemyPlayer.getName()).thenReturn("kraftEnemy");
+//		Mockito.when(myEnemyPlayer.getWorld()).thenReturn(myWorld);
+//		Mockito.when(myEnemyPlayer.getLocation()).thenReturn(myEnemyLocation);	
+//		myEnemyEmpire = new Empire("testEnemyEmp", myEnemyPlayer);
+//
+////		Mockito.when(myPlayer.sendMessage(Mockito.anyString())).tehnAnswer(new Answer<void>() {
+////		      @Override
+////		      public void answer(InvocationOnMock invocation) throws Throwable {
+////		    	  System.out.println((String) invocation.getArguments()[0]);
+////		      }
+////		    });
+//		UtilManager.addWorld(myWorld);
 		
 		
 		

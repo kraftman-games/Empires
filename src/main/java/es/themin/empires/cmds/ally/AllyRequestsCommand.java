@@ -3,6 +3,7 @@ package es.themin.empires.cmds.ally;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.Empire;
@@ -11,13 +12,19 @@ import es.themin.empires.util.UtilManager;
 
 public class AllyRequestsCommand extends EmpireSubCommand{
 
+	private empires myPlugin;
+	
+	public AllyRequestsCommand(empires plugin) {
+		myPlugin = plugin;
+	}
+
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (!UtilManager.empireplayers.containsKey(player.getName())) {
+		if (myPlugin.empireplayers.containsKey(player.getName())) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = UtilManager.empireplayers.get(player.getName());
+		Empire empire = myPlugin.empireplayers.get(player.getName());
 		player.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Alliance Requests", ChatColor.GOLD));
 		int i =0;
 		for (Empire ally : empire.getAllianceRequests().keySet()) {

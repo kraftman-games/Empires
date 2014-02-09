@@ -18,12 +18,17 @@ import es.themin.empires.util.UtilManager;
 public class AllyCommandStem implements CommandExecutor{
 	public String plprefix = empires.plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
+	private static empires myPlugin;
 	
-	public static void setUp(){
-		commands.add(new AllyAddCommand());
-		commands.add(new AllyListCommand());
-		commands.add(new AllyRequestsCommand());
-		commands.add(new AllyRemoveCommand());
+	public AllyCommandStem(empires empires) {
+		myPlugin = empires;
+	}
+
+	public void setUp(){
+		commands.add(new AllyAddCommand(myPlugin));
+		commands.add(new AllyListCommand(myPlugin));
+		commands.add(new AllyRequestsCommand(myPlugin));
+		commands.add(new AllyRemoveCommand(myPlugin));
 		
 	}
 	
@@ -49,8 +54,8 @@ public class AllyCommandStem implements CommandExecutor{
 					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
 				if (scmd.permission() != null){
-					if (UtilManager.empireplayers.containsKey(player.getName())) {
-						Empire empire = UtilManager.empireplayers.get(player.getName());
+					if (myPlugin.empireplayers.containsKey(player.getName())) {
+						Empire empire = myPlugin.empireplayers.get(player.getName());
 						if (!empire.getOwner().equalsIgnoreCase(player.getName())) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());

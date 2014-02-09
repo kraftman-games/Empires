@@ -11,11 +11,16 @@ import es.themin.empires.util.UtilManager;
 
 public class SettingsCommand extends EmpireSubCommand{
 
+	private empires myPlugin;
 	public String plprefix = empires.plprefix;
+	public SettingsCommand(empires empires) {
+		myPlugin = empires;
+	}
+
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (UtilManager.empireplayers.containsKey(player.getName())) {
-			Empire empire = UtilManager.empireplayers.get(player.getName());
+		if (myPlugin.empireplayers.containsKey(player.getName())) {
+			Empire empire = myPlugin.empireplayers.get(player.getName());
 			if (empire.getOwner().equalsIgnoreCase(player.getName())) {
 				if (args.length == 1) {
 					info(player);

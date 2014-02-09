@@ -9,14 +9,19 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
 public class emp extends SubCommand{
-	private empires plugin;
-	public String plprefix = plugin.plprefix;
+	private empires myPlugin;
+	public String plprefix;
+	public emp(empires empires) {
+		myPlugin = empires;
+		plprefix = empires.plprefix;
+	}
+
 	public boolean onCommand(Player player, String[] args) {
 		if (args.length == 1) {
-			if (!(UtilManager.empireplayers.containsKey(player.getName()))) {
+			if (!(myPlugin.empireplayers.containsKey(player.getName()))) {
 				player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			}else {
-				Empire empire = UtilManager.empireplayers.get(player.getName());
+				Empire empire = myPlugin.empireplayers.get(player.getName());
 				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
 				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
 				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());

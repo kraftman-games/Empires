@@ -17,17 +17,15 @@ public class GridCommand implements CommandExecutor{
 	public GridCommand(empires plugin) {
 		this.plugin = plugin;
 	}
+	
 	@Override
 	public boolean onCommand(CommandSender arg0, Command arg1, String arg2,String[] arg3) {
 		if (arg2.equalsIgnoreCase("grid") && arg0 instanceof Player) {
 			Player player = (Player) arg0;
-			Point point = UtilManager.worlds.get(player.getWorld().getUID()).getCoords(player.getLocation());
+			Point point = plugin.getWorlds().get(player.getWorld().getUID()).getCoords(player.getLocation());
 			player.sendMessage("X: " + point.getX() + ", Z: " + point.getY());
 			return false;
 		}
 		return false;
 	}
-	
-	
-
 }

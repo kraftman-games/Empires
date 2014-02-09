@@ -39,7 +39,10 @@ public class War {
 	private HashMap<Empire, Long> empire2alliesloss;
 	private HashMap<Empire, Float> empire1alliespercentage;
 	private HashMap<Empire, Float> empire2alliespercentage;
-	public War(Empire team1, Empire team2) {
+	private empires myPlugin;
+	
+	public War(empires plugin, Empire team1, Empire team2) {
+		myPlugin = plugin;
 		this.empire1 = team1;
 		this.empire2 = team2;
 		this.empire1allies = new ArrayList<Empire>();
@@ -225,10 +228,10 @@ public class War {
 		return list;
 	}
 	public void Save() {
-		if (UtilManager.wars.contains(this)) {
-			UtilManager.wars.remove(this);
+		if (myPlugin.wars.contains(this)) {
+			myPlugin.wars.remove(this);
 		}
-		UtilManager.wars.add(this);
+		myPlugin.wars.add(this);
 	}
 	public void upDateEmpires() {
 		for (Empire empire : getAllEmpires()) {

@@ -17,10 +17,16 @@ public class WarDeclareCommand extends EmpireSubCommand{
 	
 	public String plprefix = empires.plprefix;
 	public String warprefix = empires.warprefix;
+	private empires myPlugin;
+	
+	public WarDeclareCommand(empires empires) {
+		myPlugin = empires;
+	}
+
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (UtilManager.empireplayers.containsKey(player.getName())) {
-			Empire empire = UtilManager.empireplayers.get(player.getName());
+		if (myPlugin.empireplayers.containsKey(player.getName())) {
+			Empire empire = myPlugin.empireplayers.get(player.getName());
 			if (!(empire.getOwner().equalsIgnoreCase(player.getName()))) {
 				if (empire.playerHasARank(player.getName())) {
 					Rank rank = empire.getRankOfPlayer(player.getName());
@@ -48,7 +54,7 @@ public class WarDeclareCommand extends EmpireSubCommand{
 					return false;
 				}
 			}
-			War war = new War(empire, attacked);
+			War war = new War(myPlugin, empire, attacked);
 			war.start();
 			//war.upDateEmpires();
 			empire.broadcastMessage(warprefix + ChatColor.RED + player.getDisplayName() + " declared war on " + attacked.getName());

@@ -16,14 +16,19 @@ public class AllyAddCommand extends EmpireSubCommand{
 	
 	public String plprefix = empires.plprefix;
 	private Long time = SettingsManager.getConfig().getLong("time_between_re_ally");
+	private static empires myPlugin;
 	
+	public AllyAddCommand(empires plugin) {
+		myPlugin = plugin;
+	}
+
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (!UtilManager.empireplayers.containsKey(player.getName())) {
+		if (myPlugin.empireplayers.containsKey(player.getName())) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = UtilManager.empireplayers.get(player.getName());
+		Empire empire = myPlugin.empireplayers.get(player.getName());
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs + " do '/ally ?' for help");
 			return false;

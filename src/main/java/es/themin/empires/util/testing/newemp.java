@@ -9,12 +9,17 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
 public class newemp extends SubCommand{
-	private empires plugin;
-	public String plprefix = plugin.plprefix;
+	private empires myPlugin;
+	public String plprefix;
+	public newemp(empires empires) {
+		myPlugin = empires;
+		plprefix = empires.plprefix;
+	}
+
 	public boolean onCommand(Player player, String[] args) {
 		try {
 			//validation moved to constructor
-			Empire empire = new Empire(UtilManager.nextUnusedEmpireId(), args[1], player.getName());
+			Empire empire = new Empire(myPlugin, UtilManager.nextUnusedEmpireId(), args[1], player.getName());
 			empire.Save();
 			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
 		} catch (Exception e) {

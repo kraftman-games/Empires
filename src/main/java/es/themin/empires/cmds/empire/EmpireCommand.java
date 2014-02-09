@@ -18,17 +18,21 @@ import es.themin.empires.util.UtilManager;
 public class EmpireCommand implements CommandExecutor{
 	public String plprefix = empires.plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
+	private empires myPlugin;
 	
-	public EmpireCommand(){
-		commands.add(new list());
-		commands.add(new RankCommand());
-		commands.add(new Stats());
-		commands.add(new ChatCommand());
-		commands.add(new SettingsCommand());
-		commands.add(new GridLocationCommand());
-		commands.add(new EmpireInviteCommand());
+	public EmpireCommand(empires empires){
+		myPlugin = empires;
+		commands.add(new list(empires));
+		commands.add(new RankCommand(empires));
+		commands.add(new Stats(empires));
+		commands.add(new ChatCommand(empires));
+		commands.add(new SettingsCommand(empires));
+		commands.add(new GridLocationCommand(empires));
+		commands.add(new EmpireInviteCommand(empires));
 	}
 	
+	
+
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("empire") || commandLabel.equalsIgnoreCase("emp") || commandLabel.equalsIgnoreCase("e")) {
 			Player player = (Player) sender;
@@ -51,8 +55,8 @@ public class EmpireCommand implements CommandExecutor{
 					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
 				if (scmd.permission() != null){
-					if (UtilManager.empireplayers.containsKey(player.getName())) {
-						Empire empire = UtilManager.empireplayers.get(player.getName());
+					if (myPlugin.empireplayers.containsKey(player.getName())) {
+						Empire empire = myPlugin.empireplayers.get(player.getName());
 						if (!empire.getOwner().equalsIgnoreCase(player.getName())) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());

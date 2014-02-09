@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
@@ -45,6 +46,7 @@ public class Empire {
 	private Long lastbattlewin;
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
+	private empires myPlugin;
 	
 	public Empire getEnemyEmpire() {
 		return enemyEmpire;
@@ -56,7 +58,9 @@ public class Empire {
 
 	
 
-	public Empire(int Id, String empireName, String ownerName){
+	public Empire(empires plugin, int Id, String empireName, String ownerName){
+		myPlugin = plugin;
+		
 		if (UtilManager.getEmpireWithId(Id) != null){
 			throw new IllegalArgumentException("Empire with this ID already exists");
 		}
@@ -69,7 +73,7 @@ public class Empire {
 			throw new IllegalArgumentException("No player name provided");
 		}
 		
-		if (UtilManager.empireplayers.containsKey(ownerName)){
+		if (plugin.empireplayers.containsKey(ownerName)){
 			throw new IllegalArgumentException("Player already in empire");
 		}
 		
@@ -83,9 +87,9 @@ public class Empire {
 		this.battlewins = 0;
 		this.wars = new ArrayList<War>();
 		this.setProtected(true);
-		UtilManager.empires.add(this);
+		plugin.empires.add(this);
 		this.addPlayer(ownerName);
-		UtilManager.empireplayers.put(ownerName, this);
+		plugin.empireplayers.put(ownerName, this);
 		this.allies = new ArrayList<Empire>();
 		this.exallies = new HashMap<Empire, Long>();
 		this.exenemies = new HashMap<Empire, Long>();
@@ -96,7 +100,8 @@ public class Empire {
 		this.timeline = new HashMap<Long,String>();
 	}
 	
-	public Empire(String empireName, Player myPlayer){
+	public Empire(empires plugin, String empireName, Player myPlayer){
+		myPlugin = plugin;
 		if (empireName == null || empireName.trim().length() < 1){
 			myPlayer.sendMessage("your empire must have a name");
 			throw new IllegalArgumentException("No empire name");
@@ -107,14 +112,14 @@ public class Empire {
 			throw new IllegalArgumentException("Empire already exists");
 		}
 		
-		if (UtilManager.empireplayers.containsKey(myPlayer.getName())){
+		if (plugin.empireplayers.containsKey(myPlayer.getName())){
 			myPlayer.sendMessage("You are already in an empire");
 			throw new IllegalArgumentException("Player already in empire");
 		}
 		
-		UtilManager.empires.add(this);
+		plugin.empires.add(this);
 		this.addPlayer(myPlayer.getName());
-		UtilManager.empireplayers.put(myPlayer.getName(), this);
+		plugin.empireplayers.put(myPlayer.getName(), this);
 		this.Id = UtilManager.nextUnusedCoreId();
 		this.name = empireName;
 		this.owner = myPlayer.getName();
@@ -144,7 +149,7 @@ public class Empire {
 		else return false;
 	}
 	public void addPlayer(String p){
-		for (Empire emp : UtilManager.empires) {
+		for (Empire emp : myPlugin.empires) {
 			if (emp.getPlayers().contains(p)) {
 				emp.removePlayer(p);
 			}
@@ -189,10 +194,10 @@ public class Empire {
 	
 	public void Save(){
 		if (UtilManager.containsEmpireWithId(this.Id)) {
-			int i = UtilManager.empires.indexOf(UtilManager.getEmpireWithId(this.Id));
-			UtilManager.empires.remove(i);
+			int i = myPlugin.empires.indexOf(UtilManager.getEmpireWithId(this.Id));
+			myPlugin.empires.remove(i);
 		}
-		UtilManager.empires.add(this);
+		myPlugin.empires.add(this);
 	}
 	public Core getCoreOfType(CoreType type) {
 		for (Core core : cores) {
@@ -277,7 +282,7 @@ public class Empire {
 			xp = xp + core.getLevel() * 2;
 		}
 		//xp = xp + this.numberOfAmplifiers() * 2;
-		for (Empire empire : UtilManager.empires) {
+		for (Empire empire : myPlugin.empires) {
 			int xp2;
 			xp2 = empire.numberOfPlayers() * 5;
 			for (Core core : empire.getCores()) {
@@ -339,7 +344,7 @@ public class Empire {
 	}
 
 	public boolean canPlayerAttack(Player myPlayer) {
-		Empire playerEmpire = UtilManager.empireplayers.get(myPlayer.getName());
+		Empire playerEmpire = myPlugin.empireplayers.get(myPlayer.getName());
 		if (!this.isProtected()){
 			if (this.isAtWar()){
 				if (playerEmpire == this.getEnemyEmpire()){

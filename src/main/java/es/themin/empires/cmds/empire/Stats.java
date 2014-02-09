@@ -16,12 +16,16 @@ import es.themin.empires.util.UtilManager;
 
 public class Stats extends EmpireSubCommand{
 
-	private empires plugin;
+	private empires myPlugin;
 	public String plprefix = empires.plprefix;
+	public Stats(empires empires) {
+		myPlugin = empires;
+	}
+
 	@Override
 	public boolean onCommand(final Player player, String[] args) {
-		if (UtilManager.empireplayers.containsKey(player.getName())) {
-			Empire empire = UtilManager.empireplayers.get(player.getName());
+		if (myPlugin.empireplayers.containsKey(player.getName())) {
+			Empire empire = myPlugin.empireplayers.get(player.getName());
 			final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 			Scoreboard sb = sbm.getNewScoreboard();
 			
@@ -30,7 +34,7 @@ public class Stats extends EmpireSubCommand{
 			obj.setDisplayName(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + "Empire Stats" + ChatColor.GOLD + "====");
 			Score Exp = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
 			Exp.setScore(empire.getExp());
-			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + UtilManager.empires.size() +" : "));
+			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + myPlugin.empires.size() +" : "));
 			ranking.setScore(empire.getRanking());
 			Score cores = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Cores: "));
 			cores.setScore(empire.numberOfCores());

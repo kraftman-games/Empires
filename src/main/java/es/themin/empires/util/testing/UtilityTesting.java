@@ -17,15 +17,17 @@ public class UtilityTesting implements CommandExecutor{
 	
 	public String plprefix = empires.plprefix;
 	private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
+	private empires myPlugin;
 	
-	public UtilityTesting(){
-		commands.add(new newemp());
-		commands.add(new emp());
-		commands.add(new emps());
-		commands.add(new addplayer());
-		commands.add(new tannertest());
-		commands.add(new generatebasecore());
-		commands.add(new RicTest());
+	public UtilityTesting(empires empires){
+		myPlugin = empires;
+		commands.add(new newemp(empires));
+		commands.add(new emp(empires));
+		commands.add(new emps(empires));
+		commands.add(new addplayer(empires));
+		commands.add(new tannertest(empires));
+		commands.add(new generatebasecore(empires));
+		commands.add(new RicTest(empires));
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

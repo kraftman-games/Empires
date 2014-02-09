@@ -4,6 +4,9 @@ package es.themin.empires;
 import java.io.File;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 import me.confuser.barapi.BarAPI;
 
@@ -27,14 +30,18 @@ import es.themin.empires.cmds.GridCommand;
 import es.themin.empires.cmds.HomeCommand;
 import es.themin.empires.cmds.ally.AllyCommandStem;
 import es.themin.empires.cmds.empire.EmpireCommand;
-
 import es.themin.empires.cmds.war.WarCommand;
+import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreSchematic;
+import es.themin.empires.enums.ConfirmType;
+import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.EmpirePlayer;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
 import es.themin.empires.util.testing.UtilityTesting;
+import es.themin.empires.wars.War;
  
 public final class empires extends JavaPlugin {
  
@@ -42,13 +49,58 @@ public final class empires extends JavaPlugin {
 	public static String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
 	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
 	
+	public  ArrayList<Empire> empires = new ArrayList<Empire>();
+	public  HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
+	public  ArrayList<Core> cores = new ArrayList<Core>();
+	public  ArrayList<War> wars = new ArrayList<War>();
+	public  HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
+	public  HashMap<UUID, EmpirePlayer> EmpirePlayers = new HashMap<UUID, EmpirePlayer>();
+	public  HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
+	
+	public SettingsManager settings;
+	public UtilManager utils;
 	
 	
+	public ArrayList<Empire> getEmpires() {
+		return empires;
+	}
+
+	public void setEmpires(ArrayList<Empire> empires) {
+		this.empires = empires;
+	}
+
+	public ArrayList<Core> getCores() {
+		return cores;
+	}
+
+	public void setCores(ArrayList<Core> cores) {
+		this.cores = cores;
+	}
+
+	public ArrayList<War> getWars() {
+		return wars;
+	}
+
+	public void setWars(ArrayList<War> wars) {
+		this.wars = wars;
+	}
+
+	public HashMap<UUID, CoreWorld> getWorlds() {
+		return worlds;
+	}
+
+	public void setWorlds(HashMap<UUID, CoreWorld> worlds) {
+		this.worlds = worlds;
+	}
+
 	@Override
     public void onEnable(){
         plugin = this;
-		SettingsManager.loadSettings(this);
-		UtilManager.loadEmpires();
+        settings = new SettingsManager(this);
+        utils = new UtilManager(this);
+		SettingsManager.loadSettings();
+		SettingsManager.loadEmpires(this);
+		
 		Recipes.setupamplifierRecipe();
 		
 		loadCommands();
@@ -85,22 +137,24 @@ public final class empires extends JavaPlugin {
     
     public void loadCommands() {
 		
-		EmpireCommand empire_ce = new EmpireCommand();
+		EmpireCommand empire_ce = new EmpireCommand(this);
 		getCommand("empire").setExecutor(empire_ce);
 		getCommand("e").setExecutor(empire_ce);
 		getCommand("emp").setExecutor(empire_ce);
-		getCommand("utiltest").setExecutor(new UtilityTesting());
+		getCommand("utiltest").setExecutor(new UtilityTesting(this));
 		getCommand("all").setExecutor(new GlobalCommand(this));
 		getCommand("grid").setExecutor(new GridCommand(this));
-		getCommand("war").setExecutor(new WarCommand());
+		getCommand("war").setExecutor(new WarCommand(this));
 		getCommand("base").setExecutor(new HomeCommand(this));
-		getCommand("ally").setExecutor(new AllyCommandStem());
-		AllyCommandStem.setUp();
+		
+		AllyCommandStem ally_ce = new AllyCommandStem(this);
+		getCommand("ally").setExecutor(ally_ce);
+		ally_ce.setUp();
     }
     public void savePlayers(){
-    	for (String playername : UtilManager.empireplayers.keySet()) {
-    		if (!(UtilManager.empireplayers.isEmpty()) && UtilManager.empireplayers.get(playername) != null) {
-    			SettingsManager.getPlayerData().set(playername + ".empire", UtilManager.empireplayers.get(playername).getId());
+    	for (String playername :empireplayers.keySet()) {
+    		if (!(empireplayers.isEmpty()) && empireplayers.get(playername) != null) {
+    			SettingsManager.getPlayerData().set(playername + ".empire", empireplayers.get(playername).getId());
     		}
     	}
     	SettingsManager.savePlayerData();
@@ -110,7 +164,7 @@ public final class empires extends JavaPlugin {
     		String name = player.getName();
     		if (SettingsManager.getPlayerData().get(name + ".empire") != null) {
     			Empire empire = UtilManager.getEmpireWithId(SettingsManager.getPlayerData().getInt(name + ".empire"));
-    			UtilManager.empireplayers.put(name, empire);
+    			empireplayers.put(name, empire);
     			player.sendMessage(plprefix + ChatColor.GREEN + "You were found to be in an empire");
     		}
     	}

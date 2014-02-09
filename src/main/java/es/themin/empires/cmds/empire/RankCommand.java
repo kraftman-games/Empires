@@ -13,11 +13,17 @@ public class RankCommand extends EmpireSubCommand{
 	
 	public String plprefix = empires.plprefix;
 	public EmpirePermission[] eps = {EmpirePermission.INVITE, EmpirePermission.ALLY, EmpirePermission.ATTACK, EmpirePermission.KICK_PLAYER, EmpirePermission.PLACE_ALTER, EmpirePermission.PLACE_AMPLIFIER, EmpirePermission.SET_FLAG, EmpirePermission.UPGRADE_CORE };
+	private empires myPlugin;
 	
+	
+	public RankCommand(empires empires) {
+		myPlugin = empires;
+	}
+
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (UtilManager.empireplayers.containsKey(player.getName())) {
-			Empire empire = UtilManager.empireplayers.get(player.getName());
+		if (myPlugin.empireplayers.containsKey(player.getName())) {
+			Empire empire = myPlugin.empireplayers.get(player.getName());
 			if (empire.getOwner().equalsIgnoreCase(player.getName())) {
 				if (args.length == 1) {
 					info(player); return false;
