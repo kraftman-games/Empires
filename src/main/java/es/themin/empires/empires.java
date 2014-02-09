@@ -44,14 +44,12 @@ public final class empires extends JavaPlugin {
     public void onEnable(){
         
 		SettingsManager.loadSettings(this);
-		loadCommands();
-		
 		UtilManager.loadEmpires();
-		loadPlayers();
-		
 		Recipes.setupamplifierRecipe();
-		scheduleBackUps();
 		
+		loadCommands();
+		loadPlayers();
+		scheduleBackUps();
 		registerEvents();
 		
     }

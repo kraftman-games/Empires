@@ -24,24 +24,7 @@ public class CoreUtils {
 		
 		coreType = coreType.toUpperCase();
 		
-		switch (coreType){
-			case "BASE":
-				return CoreType.BASE;
-			case "MOB":
-				return CoreType.MOB;
-			case "FARM":
-				return CoreType.FARM;
-			case "MONSTER":
-				return CoreType.MONSTER;
-			case "GRIEF":
-				return CoreType.GRIEF;
-			case "FORTIFICATION":
-				return CoreType.FORTIFICATION;
-			case "OUTPOST":
-				return CoreType.OUTPOST;
-			default:
-				return null;
-		}
+		return CoreType.valueOf(coreType);
 		
 	}
 	

@@ -25,6 +25,9 @@ public class UtilManager {
 	
 	public static ArrayList<Empire> empires = new ArrayList<Empire>();
 	public static HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
+	/**
+	 * Flat list of all cores generated
+	 */
 	public static ArrayList<Core> cores = new ArrayList<Core>();
 	public static ArrayList<War> wars = new ArrayList<War>();
 	public static HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
@@ -151,9 +154,9 @@ public class UtilManager {
 			List<String> list2 = SettingsManager.getEmpireData().getStringList(s + ".cores");
 			for (String s2: list2) {
 				String[] words2 = s2.split(":");
-				int Id2  = Integer.parseInt(words2[0]);
-				String type = words2[1];
-				CoreType coretype = CoreUtils.GetCoreType(type);
+				int coreID  = Integer.parseInt(words2[0]);
+				
+				CoreType coretype = CoreUtils.GetCoreType(words2[1]);
 				
 				World world2 = Bukkit.getServer().getWorld(words2[2]);
 				int x2 = Integer.parseInt(words2[3]); // - 0:BASE:world:-249:78:223:1:0:kraft
@@ -161,7 +164,7 @@ public class UtilManager {
 				int z2 = Integer.parseInt(words2[5]);
 				Location location = new Location(world2, x2, y2, z2);
 				int level = Integer.parseInt(words2[6]);
-				Core core = new Core(Id2, coretype, location, level, empire);
+				Core core = new Core(coreID, coretype, location, level, empire);
 			    core.build();
 			    worlds.get(world2.getUID()).addCore(core);
 				cores.add(core);
@@ -181,16 +184,10 @@ public class UtilManager {
 				}
 				List<String> list6 = SettingsManager.getEmpireData().getStringList(s + ".rank." + rankstring + ".permissions");
 				for (String permission : list6) {
-					EmpirePermission ep = null;
-					if (permission.equalsIgnoreCase("PLACE_AMPLIFIER")) ep = EmpirePermission.PLACE_AMPLIFIER;
-					if (permission.equalsIgnoreCase("ADD_PLAYER")) ep = EmpirePermission.INVITE;
-					if (permission.equalsIgnoreCase("KICK_PLAYER")) ep = EmpirePermission.KICK_PLAYER;
-					if (permission.equalsIgnoreCase("PLACE_ALTER")) ep = EmpirePermission.PLACE_ALTER;
-					if (permission.equalsIgnoreCase("UPGRADE_CORE")) ep = EmpirePermission.UPGRADE_CORE;
-					if (permission.equalsIgnoreCase("SET_FLAG")) ep = EmpirePermission.SET_FLAG;
-					if (permission.equalsIgnoreCase("ALLY")) ep = EmpirePermission.ALLY;
-					if (permission.equalsIgnoreCase("ATTACK")) ep = EmpirePermission.ATTACK;
-					rank.addPermission(ep);
+					EmpirePermission ep = Permissions.getPermission(permission);
+					if (ep != null){
+						rank.addPermission(ep);
+					}
 				}
 				empire.addRank(rank);
 			}
