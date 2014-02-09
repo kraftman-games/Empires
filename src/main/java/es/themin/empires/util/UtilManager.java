@@ -19,6 +19,7 @@ import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.wars.Battle;
 import es.themin.empires.wars.Battle.BattleTeam;
 import es.themin.empires.wars.War;
+import es.themin.empires.cores.CoreUtils;
 
 public class UtilManager {
 	
@@ -152,14 +153,8 @@ public class UtilManager {
 				String[] words2 = s2.split(":");
 				int Id2  = Integer.parseInt(words2[0]);
 				String type = words2[1];
-				CoreType coretype = null;
-				if (type.equalsIgnoreCase("BASE")) coretype = CoreType.BASE;
-				if (type.equalsIgnoreCase("MOB")) coretype = CoreType.MOB;
-				if (type.equalsIgnoreCase("FARM")) coretype = CoreType.FARM;
-				if (type.equalsIgnoreCase("MONSTER")) coretype = CoreType.MONSTER;
-				if (type.equalsIgnoreCase("GRIEF")) coretype = CoreType.GRIEF;
-				if (type.equalsIgnoreCase("FORTIFICATION")) coretype = CoreType.FORTIFICATION;
-				if (type.equalsIgnoreCase("OUTPOST")) coretype = CoreType.OUTPOST;
+				CoreType coretype = CoreUtils.GetCoreType(type);
+				
 				World world2 = Bukkit.getServer().getWorld(words2[2]);
 				int x2 = Integer.parseInt(words2[3]); // - 0:BASE:world:-249:78:223:1:0:kraft
 				int y2 = Integer.parseInt(words2[4]);
