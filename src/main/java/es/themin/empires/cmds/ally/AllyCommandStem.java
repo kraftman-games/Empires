@@ -19,8 +19,12 @@ public class AllyCommandStem implements CommandExecutor{
 	public String plprefix = empires.plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	
-	public void setUp(){
-		//TODO
+	public static void setUp(){
+		commands.add(new AllyAddCommand());
+		commands.add(new AllyListCommand());
+		commands.add(new AllyRequestsCommand());
+		commands.add(new AllyRemoveCommand());
+		
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

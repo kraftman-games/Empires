@@ -574,6 +574,9 @@ public class Empire {
 			Save();
 		}
 	}
+	public HashMap<Empire,Long> getAllianceRequests() {
+		return this.allyrequests;
+	}
 	public void addAllyRequest(Empire e) {
 		if (!this.allyrequests.containsKey(e)) {
 			this.allyrequests.put(e, System.currentTimeMillis());

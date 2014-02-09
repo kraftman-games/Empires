@@ -39,18 +39,11 @@ public class AllyAddCommand extends EmpireSubCommand{
 			Long lastenemy = empire.getLastEnemyWith(ally);
 			if (System.currentTimeMillis() > lastenemy + TODO) ;
 		}*/
-		if (empire.exAlliesContains(ally)) {
-			Long lastalliance = empire.getLastAllianceWith(ally);
-			if (System.currentTimeMillis() < lastalliance + time) {
-				player.sendMessage(plprefix + ChatColor.RED + "You cannot re-ally this empire yet");
-				return false;
-			}
-		}
 		if (empire.hasAllyRequestFrom(ally)) {
 			empire.addAlly(ally);
 			ally.addAlly(empire);
-			empire.broadcastMessage(plprefix + ChatColor.GREEN + "You are not allies with " + ally.getName());
-			ally.broadcastMessage(plprefix + ChatColor.GREEN + "You are not allies with " + empire.getName());
+			empire.broadcastMessage(plprefix + ChatColor.GREEN + "You are now allies with " + ally.getName());
+			ally.broadcastMessage(plprefix + ChatColor.GREEN + "You are now allies with " + empire.getName());
 			if (empire.exAlliesContains(ally)) {
 				empire.removeExAlly(ally);
 			}
@@ -62,14 +55,22 @@ public class AllyAddCommand extends EmpireSubCommand{
 			}if (ally.exEnemiesContains(empire)) {
 				ally.removeExEnemy(empire);
 			}
+			empire.removeAllyRequest(ally);
 			return false;
+		}
+		if (empire.exAlliesContains(ally)) {
+			Long lastalliance = empire.getLastAllianceWith(ally);
+			if (System.currentTimeMillis() < lastalliance + time) {
+				player.sendMessage(plprefix + ChatColor.RED + "You cannot re-ally this empire yet");
+				return false;
+			}
 		}
 		if (ally.hasAllyRequestFrom(empire)) {
 			player.sendMessage(plprefix + ChatColor.RED + "Your empire has already sent this empire an alliance request"); 
 			return false;
 		}
 		ally.addAllyRequest(empire);
-		ally.broadcastMessage(plprefix + ChatColor.GREEN + empire.getName() + " Has sent your empire a request to ally with them, do '/ally add " + empire.getName()+"'");
+		ally.broadcastMessage(plprefix + ChatColor.GREEN + empire.getName() + " Has sent your empire an alliance request, do '/ally add " + empire.getName()+"' to accept it");
 		empire.broadcastMessage(plprefix + ChatColor.GREEN + player.getName() + " has sent an alliance request to " + ally.getName());
 		return false;
 	}

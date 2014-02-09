@@ -14,6 +14,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.BattleType;
+import es.themin.empires.enums.ConfirmType;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.wars.Battle;
@@ -29,6 +30,7 @@ public class UtilManager {
 	public static ArrayList<War> wars = new ArrayList<War>();
 	public static HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
 	private static HashMap<UUID, EmpirePlayer> EmpirePlayers = new HashMap<UUID, EmpirePlayer>();
+	public static HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
 	
 	
 	public EmpirePlayer getEmpirePlayer(String playerName)
