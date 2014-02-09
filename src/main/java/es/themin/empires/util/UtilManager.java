@@ -25,9 +25,6 @@ public class UtilManager {
 	
 	public static ArrayList<Empire> empires = new ArrayList<Empire>();
 	public static HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
-	/**
-	 * Flat list of all cores generated
-	 */
 	public static ArrayList<Core> cores = new ArrayList<Core>();
 	public static ArrayList<War> wars = new ArrayList<War>();
 	public static HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
@@ -80,13 +77,13 @@ public class UtilManager {
 			SettingsManager.getEmpireData().set(str.toString() + ".id", empire.getId());
 			SettingsManager.getEmpireData().set(str.toString() + ".name", empire.getName());
 			SettingsManager.getEmpireData().set(str.toString() + ".name", empire.getOwner());
-			List<String> list2 = new ArrayList<String>();
+			List<String> playerList = new ArrayList<String>();
 			for (String player : empire.getPlayers()) {
 				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
-				list2.add(player);
+				playerList.add(player);
 				
 			}
-			SettingsManager.getEmpireData().set(str.toString() + ".players", list2);
+			SettingsManager.getEmpireData().set(str.toString() + ".players", playerList);
 			List<String> list3 = new ArrayList<String>();
 			for (Core core : empire.getCores()) {
 				StringBuilder str2 = new StringBuilder();
