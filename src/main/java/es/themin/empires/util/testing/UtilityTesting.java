@@ -15,19 +15,21 @@ import es.themin.empires.cmds.SubCommand;
 
 public class UtilityTesting implements CommandExecutor{
 	
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 	private empires myPlugin;
 	
-	public UtilityTesting(empires empires){
-		myPlugin = empires;
-		commands.add(new newemp(empires));
-		commands.add(new emp(empires));
-		commands.add(new emps(empires));
-		commands.add(new addplayer(empires));
-		commands.add(new tannertest(empires));
-		commands.add(new generatebasecore(empires));
-		commands.add(new RicTest(empires));
+	public UtilityTesting(empires plugin){
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
+		
+		commands.add(new newemp(plugin));
+		commands.add(new emp(plugin));
+		commands.add(new emps(plugin));
+		commands.add(new addplayer(plugin));
+		commands.add(new tannertest(plugin));
+		commands.add(new generatebasecore(plugin));
+		commands.add(new RicTest(plugin));
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

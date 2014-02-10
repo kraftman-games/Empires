@@ -12,9 +12,10 @@ import es.themin.empires.util.UtilManager;
 public class SettingsCommand extends EmpireSubCommand{
 
 	private empires myPlugin;
-	public String plprefix = empires.plprefix;
-	public SettingsCommand(empires empires) {
-		myPlugin = empires;
+	public String plprefix;
+	public SettingsCommand(empires plugin) {
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override

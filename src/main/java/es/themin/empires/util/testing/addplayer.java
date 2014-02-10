@@ -10,11 +10,12 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
 public class addplayer extends SubCommand{
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private empires myPlugin;
 	
 	public addplayer(empires empires) {
 		myPlugin = empires;
+		plprefix = empires.plprefix;
 	}
 
 	public boolean onCommand(Player player, String[] args) {

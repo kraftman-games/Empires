@@ -11,13 +11,14 @@ import es.themin.empires.util.UtilManager;
 
 public class RankCommand extends EmpireSubCommand{
 	
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	public EmpirePermission[] eps = {EmpirePermission.INVITE, EmpirePermission.ALLY, EmpirePermission.ATTACK, EmpirePermission.KICK_PLAYER, EmpirePermission.PLACE_ALTER, EmpirePermission.PLACE_AMPLIFIER, EmpirePermission.SET_FLAG, EmpirePermission.UPGRADE_CORE };
 	private empires myPlugin;
 	
 	
-	public RankCommand(empires empires) {
-		myPlugin = empires;
+	public RankCommand(empires plugin) {
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override

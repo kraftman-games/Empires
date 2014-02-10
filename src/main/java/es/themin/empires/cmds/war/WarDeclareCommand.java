@@ -3,6 +3,7 @@ package es.themin.empires.cmds.war;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
@@ -15,12 +16,15 @@ import es.themin.empires.wars.War;
 
 public class WarDeclareCommand extends EmpireSubCommand{
 	
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	public String warprefix = empires.warprefix;
 	private empires myPlugin;
+	private EmpireManager Empires;
 	
-	public WarDeclareCommand(empires empires) {
-		myPlugin = empires;
+	public WarDeclareCommand(empires plugin) {
+		myPlugin = plugin;
+		Empires = plugin.Empires;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override
@@ -39,11 +43,11 @@ public class WarDeclareCommand extends EmpireSubCommand{
 				player.sendMessage(plprefix + ChatColor.RED + "Please define an empire");
 				return false;
 			}
-			if (!(UtilManager.containsEmpireWithName(args[1]))) {
+			if (!(Empires.containsEmpireWithName(args[1]))) {
 				player.sendMessage(plprefix + ChatColor.RED + "That is not an empire");
 				return false;
 			}
-			Empire attacked = UtilManager.getEmpireWithName(args[1]);
+			Empire attacked = Empires.getEmpireWithName(args[1]);
 			if (empire.getExp() - attacked.getExp() < -50) {
 				player.sendMessage(plprefix + ChatColor.RED + "You are too strong to attack this empire");
 				return false;

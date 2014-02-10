@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
@@ -47,6 +48,7 @@ public class Empire {
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
 	private empires myPlugin;
+	private EmpireManager Empires;
 	
 	public Empire getEnemyEmpire() {
 		return enemyEmpire;
@@ -60,8 +62,9 @@ public class Empire {
 
 	public Empire(empires plugin, int Id, String empireName, String ownerName){
 		myPlugin = plugin;
+		Empires = plugin.Empires;
 		
-		if (UtilManager.getEmpireWithId(Id) != null){
+		if (Empires.getEmpireWithID(Id) != null){
 			throw new IllegalArgumentException("Empire with this ID already exists");
 		}
 		
@@ -87,7 +90,7 @@ public class Empire {
 		this.battlewins = 0;
 		this.wars = new ArrayList<War>();
 		this.setProtected(true);
-		plugin.addEmpire(this);
+		plugin.Empires.addEmpire(this);
 		this.addPlayer(ownerName);
 		plugin.getEmpireplayers().put(ownerName, this);
 		this.allies = new ArrayList<Empire>();
@@ -102,12 +105,13 @@ public class Empire {
 	
 	public Empire(empires plugin, String empireName, Player myPlayer){
 		myPlugin = plugin;
+		Empires = plugin.Empires;
 		if (empireName == null || empireName.trim().length() < 1){
 			myPlayer.sendMessage("your empire must have a name");
 			throw new IllegalArgumentException("No empire name");
 		}
 		
-		if (UtilManager.getEmpireWithName(empireName)!= null){
+		if (Empires.getEmpireWithName(empireName)!= null){
 			myPlayer.sendMessage("Empire name already exists");
 			throw new IllegalArgumentException("Empire already exists");
 		}
@@ -117,7 +121,7 @@ public class Empire {
 			throw new IllegalArgumentException("Player already in empire");
 		}
 		
-		plugin.addEmpire(this);
+		plugin.Empires.addEmpire(this);
 		this.addPlayer(myPlayer.getName());
 		plugin.getEmpireplayers().put(myPlayer.getName(), this);
 		this.ID = UtilManager.nextUnusedCoreId();
@@ -149,7 +153,7 @@ public class Empire {
 		else return false;
 	}
 	public void addPlayer(String p){
-		for (Empire emp : myPlugin.getEmpires()) {
+		for (Empire emp : myPlugin.Empires.getEmpires()) {
 			if (emp.getPlayers().contains(p)) {
 				emp.removePlayer(p);
 			}
@@ -193,11 +197,11 @@ public class Empire {
 	}
 	
 	public void Save(){
-		if (UtilManager.containsEmpireWithId(this.ID)) {
+		if (Empires.containsEmpireWithId(this.ID)) {
 			
-			myPlugin.removeEmpire(this);
+			Empires.removeEmpire(this);
 		}
-		myPlugin.addEmpire(this);
+		Empires.addEmpire(this);
 	}
 	public Core getCoreOfType(CoreType type) {
 		for (Core core : cores) {
@@ -282,7 +286,7 @@ public class Empire {
 			xp = xp + core.getLevel() * 2;
 		}
 		//xp = xp + this.numberOfAmplifiers() * 2;
-		for (Empire empire : myPlugin.getEmpires()) {
+		for (Empire empire : Empires.getEmpires()) {
 			int xp2;
 			xp2 = empire.numberOfPlayers() * 5;
 			for (Core core : empire.getCores()) {

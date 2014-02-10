@@ -3,6 +3,7 @@ package es.themin.empires.util.testing;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.util.Empire;
@@ -11,9 +12,12 @@ import es.themin.empires.util.UtilManager;
 public class emp extends SubCommand{
 	private empires myPlugin;
 	public String plprefix;
-	public emp(empires empires) {
-		myPlugin = empires;
-		plprefix = empires.plprefix;
+	private EmpireManager Empires;
+	
+	public emp(empires plugin) {
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
+		Empires = plugin.Empires;
 	}
 
 	public boolean onCommand(Player player, String[] args) {
@@ -39,8 +43,8 @@ public class emp extends SubCommand{
 				player.sendMessage(ChatColor.GREEN + "Owner: " + ChatColor.LIGHT_PURPLE + empire.getOwner());
 			}		
 		}else {
-			if (UtilManager.containsEmpireWithName(args[1])) {
-				Empire empire = UtilManager.getEmpireWithName(args[1]);
+			if (Empires.containsEmpireWithName(args[1])) {
+				Empire empire = Empires.getEmpireWithName(args[1]);
 				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
 				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
 				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());

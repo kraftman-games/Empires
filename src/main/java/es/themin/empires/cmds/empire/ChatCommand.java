@@ -12,10 +12,11 @@ import es.themin.empires.util.UtilManager;
 
 public class ChatCommand extends EmpireSubCommand{
 	public static ArrayList<Player> empirechatplayers = new ArrayList<Player>();
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private empires myPlugin;
-	public ChatCommand(empires empires) {
-		// TODO Auto-generated constructor stub
+	public ChatCommand(empires plugin) {
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override

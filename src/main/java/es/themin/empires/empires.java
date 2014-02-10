@@ -37,6 +37,7 @@ import es.themin.empires.enums.ConfirmType;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;
+import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
@@ -46,10 +47,10 @@ import es.themin.empires.wars.War;
 public final class empires extends JavaPlugin {
  
 	public static empires plugin;
-	public static String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
+	public String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
 	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
 	
-	private ArrayList<Empire> empires = new ArrayList<Empire>();
+	
 	private HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
 	private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<War> wars = new ArrayList<War>();
@@ -70,13 +71,7 @@ public final class empires extends JavaPlugin {
 	public UtilManager utils;
 	
 	
-	public ArrayList<Empire> getEmpires() {
-		return empires;
-	}
-
-	public void setEmpires(ArrayList<Empire> empires) {
-		this.empires = empires;
-	}
+	
 
 	public ArrayList<Core> getCores() {
 		return cores;
@@ -112,6 +107,8 @@ public final class empires extends JavaPlugin {
 		
 		Recipes.setupamplifierRecipe();
 		
+		MsgManager.setPrefix(plprefix);
+		
 		loadCommands();
 		loadPlayers();
 		scheduleBackUps();
@@ -122,7 +119,7 @@ public final class empires extends JavaPlugin {
     @Override
     public void onDisable() {
         
-		UtilManager.saveEmpires();
+		Empires.saveEmpires();
 		SettingsManager.saveAll();
 		savePlayers();
 		Bukkit.getServer().clearRecipes();
@@ -172,7 +169,7 @@ public final class empires extends JavaPlugin {
     	for (Player player : Bukkit.getOnlinePlayers()) {
     		String name = player.getName();
     		if (SettingsManager.getPlayerData().get(name + ".empire") != null) {
-    			Empire empire = UtilManager.getEmpireWithId(SettingsManager.getPlayerData().getInt(name + ".empire"));
+    			Empire empire = Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(name + ".empire"));
     			empireplayers.put(name, empire);
     			player.sendMessage(plprefix + ChatColor.GREEN + "You were found to be in an empire");
     		}
@@ -252,15 +249,6 @@ public final class empires extends JavaPlugin {
     	
     }
 
-	public void addEmpire(Empire empire) {
-		this.empires.add(empire);
-		
-	}
-
-	public void removeEmpire(Empire empire) {
-		int i = this.getEmpires().indexOf(UtilManager.getEmpireWithId(empire.getId()));
-		this.empires.remove(i);
-		
-	}
+	
     
 }

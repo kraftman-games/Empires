@@ -3,6 +3,7 @@ package es.themin.empires.cmds.ally;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
@@ -13,10 +14,13 @@ import es.themin.empires.util.UtilManager;
 public class AllyRemoveCommand extends EmpireSubCommand{
 
 	private empires myPlugin;
+	private EmpireManager Empires;
 	
-	public String plprefix = empires.plprefix;
-	public AllyRemoveCommand(empires myPlugin) {
-		// TODO Auto-generated constructor stub
+	public String plprefix;
+	public AllyRemoveCommand(empires plugin) {
+		myPlugin = plugin;
+		Empires = plugin.Empires;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override
@@ -30,11 +34,11 @@ public class AllyRemoveCommand extends EmpireSubCommand{
 			player.sendMessage(MsgManager.toofewargs);
 			return false;
 		}
-		if (!UtilManager.containsEmpireWithName(args[1])) {
+		if (!Empires.containsEmpireWithName(args[1])) {
 			player.sendMessage(MsgManager.empirenotfound);
 			return false;
 		}
-		Empire ally = UtilManager.getEmpireWithName(args[1]);
+		Empire ally = Empires.getEmpireWithName(args[1]);
 		if (empire.isAlliedWith(ally)) {
 			//when i figure out how to do it i will use the /confirm command here
 			empire.removeAlly(ally);

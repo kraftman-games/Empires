@@ -12,11 +12,12 @@ import es.themin.empires.util.UtilManager;
 
 public class EmpireInviteCommand extends EmpireSubCommand{
 
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private empires myPlugin;
 	
-	public EmpireInviteCommand(empires empires) {
-		myPlugin = empires;
+	public EmpireInviteCommand(empires plugin) {
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override

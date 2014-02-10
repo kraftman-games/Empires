@@ -54,61 +54,7 @@ public class UtilManager {
 		}
 		SettingsManager.getInstance().getCoreData().set("cores", list);
 	}*/
-	public static void saveEmpires() {
-		List<String> list = new ArrayList<String>();
-		for (Empire empire : myPlugin.getEmpires()) {
-			StringBuilder str = new StringBuilder();
-			str.append(empire.getId() + ":");
-			str.append(empire.getName() + ":");
-			str.append(empire.getOwner());
-			list.add(str.toString());
-			SettingsManager.getEmpireData().set(str.toString() + ".id", empire.getId());
-			SettingsManager.getEmpireData().set(str.toString() + ".name", empire.getName());
-			SettingsManager.getEmpireData().set(str.toString() + ".name", empire.getOwner());
-			List<String> playerList = new ArrayList<String>();
-			for (String player : empire.getPlayers()) {
-				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
-				playerList.add(player);
-				
-			}
-			SettingsManager.getEmpireData().set(str.toString() + ".players", playerList);
-			List<String> list3 = new ArrayList<String>();
-			for (Core core : empire.getCores()) {
-				StringBuilder str2 = new StringBuilder();
-				str2.append(core.getId() + ":");
-				str2.append(core.getType().toString() + ":");
-				str2.append(core.getLocation().getWorld().getName() + ":");
-				str2.append(core.getLocation().getBlockX() + ":");
-				str2.append(core.getLocation().getBlockY() + ":");
-				str2.append(core.getLocation().getBlockZ() + ":");
-				str2.append(core.getLevel() + ":");
-				str2.append(core.getEmpire().getId() + ":");
-				str2.append(core.getEmpire().getName());
-				list3.add(str2.toString());
-			}
-			SettingsManager.getEmpireData().set(str.toString() + ".cores", list3);
-			List<String> list4 = new ArrayList<String>();
-			for (Rank rank : empire.getRanks()) {
-				StringBuilder str3 = new StringBuilder();
-				str3.append(rank.getWeight() + ":");
-				str3.append(rank.getName() + ":");
-				str3.append(rank.getPreifx());
-				list4.add(str3.toString());
-				List<String> list5 = new ArrayList<String>();
-				for (String p : rank.getPlayers()) {
-					list5.add(p);
-				}
-				SettingsManager.getEmpireData().set(str.toString() + ".rank." + str3.toString() + ".players", list5);
-				List<String> list6 = new ArrayList<String>();
-				for (EmpirePermission ep : rank.getPermissions()) {
-					list6.add(ep.toString());
-				}
-				SettingsManager.getEmpireData().set(str.toString() + ".rank." + str3.toString() + ".permissions", list6);
-			}
-			SettingsManager.getEmpireData().set(str.toString() + ".ranks", list4);
-		}
-		SettingsManager.getEmpireData().set("empires", list);
-	}
+	
 	
 	
 	
@@ -118,30 +64,7 @@ public class UtilManager {
 	
 
 	
-	public static Empire getEmpireWithName(String name) {
-		for (Empire empire : myPlugin.getEmpires()) {
-			if (empire.getName().equalsIgnoreCase(name)) return empire;
-		}
-		return null;
-	}
-	public static boolean containsEmpireWithName(String name) {
-		for (Empire empire : myPlugin.getEmpires()) {
-			if (empire.getName().equalsIgnoreCase(name)) return true;
-		}
-		return false;
-	}
-	public static Empire getEmpireWithId(int Id) {
-		for (Empire empire : myPlugin.getEmpires()) {
-			if (empire.getId() == Id) return empire;
-		}
-		return null;
-	}
-	public static boolean containsEmpireWithId(int Id) {
-		for (Empire empire : myPlugin.getEmpires()) {
-			if (empire.getId() == Id) return true;
-		}
-		return false;
-	}
+	
 	public static Core getCoreWithId(int Id) {
 
 		for (Core core : myPlugin.getCores()) {
@@ -168,22 +91,7 @@ public class UtilManager {
 		}
 		return i;
 	}
-	public static int nextUnusedEmpireId(){
-		int i = 0;
-		while (getEmpireWithId(i) != null){
-			i++;
-		}
-		return i;
-		
-	}
-	public static Empire getEmpireWithCore(Core c) {
-		for (Empire empire : myPlugin.getEmpires()) {
-			if (empire.hasCore(c)) {
-				return empire;
-			}
-		}
-		return null;
-	}
+	
 
 	
 	
@@ -250,17 +158,17 @@ public class UtilManager {
 		List<String> listofwars = SettingsManager.getWarData().getStringList("wars");
 		for (String warname : listofwars) {
 			String[] warnamewords = warname.split(":");
-			War war = new War(myPlugin, getEmpireWithName(warnamewords[0]), getEmpireWithName(warnamewords[0]));
+			War war = new War(myPlugin, myPlugin.Empires.getEmpireWithName(warnamewords[0]), myPlugin.Empires.getEmpireWithName(warnamewords[0]));
 			war.setStart(Long.parseLong(warnamewords[2]));
 			List<String> empire1allies = SettingsManager.getWarData().getStringList(warname + ".empire1allies");
 			for (String empire1ally : empire1allies) {
-				war.addEmpireToTeam1(getEmpireWithName(empire1ally));
+				war.addEmpireToTeam1(myPlugin.Empires.getEmpireWithName(empire1ally));
 			}
 			List<String> empire2allies = SettingsManager.getWarData().getStringList(warname + ".empire2allies");
 			for (String empire2ally : empire2allies) {
-				war.addEmpireToTeam2(getEmpireWithName(empire2ally));
+				war.addEmpireToTeam2(myPlugin.Empires.getEmpireWithName(empire2ally));
 			}
-			if (SettingsManager.getWarData().getString(warname + ".victor") != null) war.setVictor(getEmpireWithName(SettingsManager.getWarData().getString(warname + ".victor")));
+			if (SettingsManager.getWarData().getString(warname + ".victor") != null) war.setVictor(myPlugin.Empires.getEmpireWithName(SettingsManager.getWarData().getString(warname + ".victor")));
 			war.setEnd(SettingsManager.getWarData().getLong(warname + ".end"));
 			war.setEmpire1Wins(SettingsManager.getWarData().getInt(warname + ".empire1wins"));
 			war.setEmpire2Wins(SettingsManager.getWarData().getInt(warname + ".empire2wins"));
@@ -275,7 +183,7 @@ public class UtilManager {
 				BattleTeam attacker = null;
 				if (SettingsManager.getWarData().getString(warname + ".battles." + battlename + ".attacker").equalsIgnoreCase("team1")) attacker = BattleTeam.team1;
 				if (SettingsManager.getWarData().getString(warname + ".battles." + battlename + ".attacker").equalsIgnoreCase("team2")) attacker = BattleTeam.team2;
-				Battle battle = new Battle(getEmpireWithName(battlenamewords[0]), getEmpireWithName(battlenamewords[1]), war, type, attacker);
+				Battle battle = new Battle(myPlugin.Empires.getEmpireWithName(battlenamewords[0]), myPlugin.Empires.getEmpireWithName(battlenamewords[1]), war, type, attacker);
 				//TODO add the battles loading.
 			
 			}

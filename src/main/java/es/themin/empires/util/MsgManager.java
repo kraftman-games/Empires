@@ -7,7 +7,9 @@ import es.themin.empires.empires;
 
 public class MsgManager {
 	
-	public static String plprefix = empires.plprefix;
+	public static String plprefix;
+	
+	
 	
 	public String warprefix = empires.warprefix;
 	public static String toofewargs = ChatColor.RED + "Too few arguments.";
@@ -16,6 +18,7 @@ public class MsgManager {
 	public static String warloose = "The enemy has won this war, you fought with honour but you must know when you are defeated.";
 	public static String noempperm = plprefix + ChatColor.RED + "The owner of your empire has not given you permission to use this command";
 	public static String empirenotfound = plprefix + ChatColor.RED + "That is not an empire";
+	
 	public static String createTitle(String message, ChatColor color) {
 		int length = message.length();
 		int dashlength = 50 - length;
@@ -32,6 +35,11 @@ public class MsgManager {
 		str.append(color + "oOo.");
 		return str.toString();
 	}
+	
+	public static void setPrefix(String prefix){
+		plprefix = prefix;
+	}
+	
 	public static String colourUp(String string) {
 		string.replaceAll("&0", ChatColor.BLACK + "");
 		string.replaceAll("&1", ChatColor.DARK_BLUE + "");

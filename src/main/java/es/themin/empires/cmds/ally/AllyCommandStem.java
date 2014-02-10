@@ -16,12 +16,14 @@ import es.themin.empires.util.Rank;
 import es.themin.empires.util.UtilManager;
 
 public class AllyCommandStem implements CommandExecutor{
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
-	private static empires myPlugin;
+	private  empires myPlugin;
 	
-	public AllyCommandStem(empires empires) {
-		myPlugin = empires;
+	public AllyCommandStem(empires plugin) {
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
+		
 	}
 
 	public void setUp(){

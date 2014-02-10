@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
@@ -49,6 +50,7 @@ public class Core {
 	private PlaceType placeType;
 	private int destroyCost;
 	private empires myPlugin;
+	private EmpireManager Empires;
 	
 	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
 	
@@ -78,6 +80,7 @@ public class Core {
 
 	public Core(empires plugin,int Id, CoreType type, Location location, int level, Empire empire) {
 		this.myPlugin = plugin;
+		this.Empires = plugin.Empires;
 		this.coreSize = 8;
 		this.empire = empire;
 		this.Id = Id;
@@ -228,7 +231,7 @@ public class Core {
 	}
 	public void Delete() {
 		this.destroy();
-		UtilManager.getEmpireWithCore(this).removeCore(this);
+		this.getEmpire().removeCore(this);
 		if (UtilManager.containsCoreWithId(this.Id)) {
 			int i = myPlugin.getCores().indexOf(this);
 			myPlugin.getCores().remove(i);

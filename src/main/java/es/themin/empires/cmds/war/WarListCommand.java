@@ -13,11 +13,12 @@ import es.themin.empires.wars.War;
 public class WarListCommand extends EmpireSubCommand{
 
 	public String warprefix = empires.warprefix;
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private empires  myPlugin;
 	
-	public WarListCommand(empires empires) {
-		myPlugin = empires;
+	public WarListCommand(empires plugin) {
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override

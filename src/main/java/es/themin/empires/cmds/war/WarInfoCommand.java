@@ -5,6 +5,7 @@ import java.sql.Date;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
@@ -16,11 +17,14 @@ import es.themin.empires.wars.War;
 public class WarInfoCommand extends EmpireSubCommand{
 
 	
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private empires myPlugin;
+	private EmpireManager Empires;
 	
-	public WarInfoCommand(empires empires) {
-		myPlugin = empires;
+	public WarInfoCommand(empires plugin) {
+		myPlugin = plugin;
+		Empires = plugin.Empires;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override
@@ -34,11 +38,11 @@ public class WarInfoCommand extends EmpireSubCommand{
 			player.sendMessage(plprefix + ChatColor.RED+ "Please specify a war");
 			return false;
 		}
-		if (!UtilManager.containsEmpireWithName(args[1])) {
+		if (!Empires.containsEmpireWithName(args[1])) {
 			player.sendMessage(plprefix + ChatColor.RED + "That is not an empire");
 			return false;
 		}
-		Empire enemy = UtilManager.getEmpireWithName(args[1]);
+		Empire enemy = Empires.getEmpireWithName(args[1]);
 		if (!empire.isAtWarWith(enemy)) {
 			player.sendMessage(plprefix + ChatColor.RED +"You are not an war with this empire");
 			return false;

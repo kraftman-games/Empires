@@ -17,11 +17,12 @@ import es.themin.empires.util.UtilManager;
 
 public class generatebasecore extends SubCommand{
 
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private empires myPlugin;
 	
-	public generatebasecore(empires empires) {
-		myPlugin = empires;
+	public generatebasecore(empires plugin) {
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
 	}
 
 	public boolean onCommand(Player player, String[] args) {

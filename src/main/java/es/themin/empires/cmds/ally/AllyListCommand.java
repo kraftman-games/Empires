@@ -14,9 +14,11 @@ public class AllyListCommand extends EmpireSubCommand{
 
 	private empires myPlugin;
 	
-	public String plprefix = empires.plprefix;
+	public String plprefix;
+	
 	public AllyListCommand(empires plugin) {
 		myPlugin = plugin;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override

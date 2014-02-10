@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.BattleType;
@@ -37,8 +38,11 @@ import es.themin.empires.wars.War;
 public class PlayerListener implements Listener{
 	
 	private empires myPlugin;
+	private EmpireManager Empires;
+	
 	public PlayerListener(empires myPlugin){
 		this.myPlugin = myPlugin;
+		Empires = myPlugin.Empires;
 	}
 	public String warprefix= myPlugin.warprefix;
 	
@@ -50,8 +54,8 @@ public class PlayerListener implements Listener{
 		
 		
 		
-		if (SettingsManager.getPlayerData().get(player.getName()) != null && UtilManager.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
-			myPlugin.getEmpireplayers().put(player.getName(), UtilManager.getEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
+		if (SettingsManager.getPlayerData().get(player.getName()) != null && Empires.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
+			myPlugin.getEmpireplayers().put(player.getName(), Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
 		}
 		//Bukkit.broadcastMessage("test 1");
 		//SettingsManager.getInstance().getPlayerData().set("test 1", "true");

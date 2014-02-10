@@ -3,6 +3,7 @@ package es.themin.empires.cmds.ally;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
@@ -14,12 +15,15 @@ import es.themin.empires.util.UtilManager;
 public class AllyAddCommand extends EmpireSubCommand{
 
 	
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private Long time = SettingsManager.getConfig().getLong("time_between_re_ally");
 	private static empires myPlugin;
+	private static EmpireManager Empires;
 	
 	public AllyAddCommand(empires plugin) {
 		myPlugin = plugin;
+		Empires = plugin.Empires;
+		plprefix = plugin.plprefix;
 	}
 
 	@Override
@@ -32,11 +36,11 @@ public class AllyAddCommand extends EmpireSubCommand{
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs + " do '/ally ?' for help");
 			return false;
-		}if (!UtilManager.containsEmpireWithName(args[1])) {
+		}if (!Empires.containsEmpireWithName(args[1])) {
 			player.sendMessage(MsgManager.empirenotfound);
 			return false;
 		}
-		Empire ally = UtilManager.getEmpireWithName(args[1]);
+		Empire ally = Empires.getEmpireWithName(args[1]);
 		if (empire.isAtWarWith(ally)) {
 			player.sendMessage(plprefix + ChatColor.RED  +"You cannot ally with empires you are at war with");
 			return false;

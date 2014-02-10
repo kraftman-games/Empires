@@ -18,15 +18,16 @@ import es.themin.empires.cmds.empire.Stats;
 import es.themin.empires.cmds.empire.list;
 
 public class WarCommand implements CommandExecutor{
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	private empires myPlugin;
 	
-	public WarCommand(empires empires){
-		myPlugin = empires;
-		commands.add(new WarDeclareCommand(empires));
-		commands.add(new WarListCommand(empires));
-		commands.add(new WarInfoCommand(empires));
+	public WarCommand(empires plugin){
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
+		commands.add(new WarDeclareCommand(myPlugin));
+		commands.add(new WarListCommand(myPlugin));
+		commands.add(new WarInfoCommand(myPlugin));
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

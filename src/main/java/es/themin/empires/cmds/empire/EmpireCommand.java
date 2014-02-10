@@ -16,19 +16,20 @@ import es.themin.empires.util.UtilManager;
 
 
 public class EmpireCommand implements CommandExecutor{
-	public String plprefix = empires.plprefix;
+	public String plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	private empires myPlugin;
 	
-	public EmpireCommand(empires empires){
-		myPlugin = empires;
-		commands.add(new list(empires));
-		commands.add(new RankCommand(empires));
-		commands.add(new Stats(empires));
-		commands.add(new ChatCommand(empires));
-		commands.add(new SettingsCommand(empires));
-		commands.add(new GridLocationCommand(empires));
-		commands.add(new EmpireInviteCommand(empires));
+	public EmpireCommand(empires plugin){
+		myPlugin = plugin;
+		plprefix = plugin.plprefix;
+		commands.add(new list(plugin));
+		commands.add(new RankCommand(plugin));
+		commands.add(new Stats(plugin));
+		commands.add(new ChatCommand(plugin));
+		commands.add(new SettingsCommand(plugin));
+		commands.add(new GridLocationCommand(plugin));
+		commands.add(new EmpireInviteCommand(plugin));
 	}
 	
 	
