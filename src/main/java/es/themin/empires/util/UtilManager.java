@@ -33,10 +33,6 @@ public class UtilManager {
 	}
 
 	
-	
-	
-	
-	
 /*	public void saveCores() {
 		List<String> list = new ArrayList<String>();
 		for (Core core : cores) {
@@ -57,40 +53,7 @@ public class UtilManager {
 	
 	
 	
-	
-	
-	
-	
-	
 
-	
-	
-	public static Core getCoreWithId(int Id) {
-
-		for (Core core : myPlugin.getCores()) {
-			if (core.getId() == Id) return core;
-		}
-		return null;
-	}
-	public static Core getCoreWithLocation(Location l) {
-		for (Core core : myPlugin.getCores()) {
-			if (core.getLocation() == l) return core;
-		}
-		return null;
-	}
-	public static boolean containsCoreWithId(int Id) {
-		for (Core core : myPlugin.getCores()) {
-			if (core.getId() == Id) return true;
-		}
-		return false;
-	}
-	public static int nextUnusedCoreId(){
-		int i = 0;
-		while (getCoreWithId(i) != null){
-			i++;
-		}
-		return i;
-	}
 	
 
 	

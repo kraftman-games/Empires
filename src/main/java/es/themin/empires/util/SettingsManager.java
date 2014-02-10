@@ -141,7 +141,7 @@ public class SettingsManager {
 			Core core = new Core(myPlugin, coreID, coretype, location, level, empire);
 		    //core.build();
 		    plugin.getWorlds().get(world2.getUID()).addCore(core);
-			plugin.getCores().add(core);
+			plugin.Cores.getCores().add(core);
 			empire.ac(core);
 		}
 	}

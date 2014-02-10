@@ -124,7 +124,7 @@ public class Empire {
 		plugin.Empires.addEmpire(this);
 		this.addPlayer(myPlayer.getName());
 		plugin.getEmpireplayers().put(myPlayer.getName(), this);
-		this.ID = UtilManager.nextUnusedCoreId();
+		this.ID = myPlugin.Cores.nextUnusedCoreId();
 		this.name = empireName;
 		this.owner = myPlayer.getName();
 		this.setProtected(true);

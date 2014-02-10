@@ -35,7 +35,7 @@ public class generatebasecore extends SubCommand{
 			player.sendMessage(plprefix + ChatColor.RED + "You already have a core of this type");
 			return false;
 		}
-		Core myCore = new Core(myPlugin, UtilManager.nextUnusedCoreId(), CoreType.BASE, player.getLocation(), 1, empire);
+		Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.BASE, player.getLocation(), 1, empire);
 		empire.addCore(myCore);
 		World world = player.getWorld();
 		UUID uuid = world.getUID();

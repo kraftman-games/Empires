@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import es.themin.empires.CoreManager;
 import es.themin.empires.EmpireManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
@@ -51,6 +52,7 @@ public class Core {
 	private int destroyCost;
 	private empires myPlugin;
 	private EmpireManager Empires;
+	private CoreManager Cores;
 	
 	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
 	
@@ -81,6 +83,7 @@ public class Core {
 	public Core(empires plugin,int Id, CoreType type, Location location, int level, Empire empire) {
 		this.myPlugin = plugin;
 		this.Empires = plugin.Empires;
+		this.Cores = plugin.Cores;
 		this.coreSize = 8;
 		this.empire = empire;
 		this.Id = Id;
@@ -223,18 +226,18 @@ public class Core {
 
 	
 	public void Save() {
-		if (UtilManager.containsCoreWithId(this.Id)) {
-			int i = myPlugin.getCores().indexOf(UtilManager.containsCoreWithId(this.Id));
-			myPlugin.getCores().remove(i);
+		if (Cores.containsCoreWithId(this.Id)) {
+			int i = Cores.getCores().indexOf(Cores.containsCoreWithId(this.Id));
+			Cores.getCores().remove(i);
 		}
-		myPlugin.getCores().add(this);
+		Cores.getCores().add(this);
 	}
 	public void Delete() {
 		this.destroy();
 		this.getEmpire().removeCore(this);
-		if (UtilManager.containsCoreWithId(this.Id)) {
-			int i = myPlugin.getCores().indexOf(this);
-			myPlugin.getCores().remove(i);
+		if (Cores.containsCoreWithId(this.Id)) {
+			int i = Cores.getCores().indexOf(this);
+			Cores.getCores().remove(i);
 		}
 		
 	}

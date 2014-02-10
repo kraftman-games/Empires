@@ -78,7 +78,7 @@ public class CoreUtils {
 		}
 		
 		//we're good to go. Give the core an id and add it to the empire
-		myCore.setId(UtilManager.nextUnusedCoreId());
+		myCore.setId(myPlugin.Cores.nextUnusedCoreId());
 		myEmpire.addCore(myCore);
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
