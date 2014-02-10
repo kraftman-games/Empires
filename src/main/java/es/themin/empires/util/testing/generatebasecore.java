@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
@@ -19,6 +20,7 @@ public class generatebasecore extends SubCommand{
 
 	public String plprefix;
 	private empires myPlugin;
+	private WorldManager Worlds;
 	
 	public generatebasecore(empires plugin) {
 		myPlugin = plugin;
@@ -39,7 +41,7 @@ public class generatebasecore extends SubCommand{
 		empire.addCore(myCore);
 		World world = player.getWorld();
 		UUID uuid = world.getUID();
-		CoreWorld cw = myPlugin.getWorlds().get(uuid);
+		CoreWorld cw = Worlds.getWorlds().get(uuid);
 		cw.addCore(myCore);
 		return false;
 		

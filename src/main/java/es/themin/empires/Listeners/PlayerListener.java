@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.EmpireManager;
+import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.BattleType;
@@ -39,10 +40,12 @@ public class PlayerListener implements Listener{
 	
 	private empires myPlugin;
 	private EmpireManager Empires;
+	private WorldManager Worlds;
 	
-	public PlayerListener(empires myPlugin){
-		this.myPlugin = myPlugin;
-		Empires = myPlugin.Empires;
+	public PlayerListener(empires plugin){
+		this.myPlugin = plugin;
+		Empires = plugin.Empires;
+		Worlds = plugin.Worlds;
 	}
 	public String warprefix= myPlugin.warprefix;
 	
@@ -137,7 +140,7 @@ public class PlayerListener implements Listener{
 		Empire eventPlayerEmpire = myPlugin.getEmpireplayers().get(event.getPlayer().getName());
 		Player myPlayer = event.getPlayer();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = myPlugin.getWorlds().get(myUUID);
+		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		HashMap<Integer, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
 		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
 		

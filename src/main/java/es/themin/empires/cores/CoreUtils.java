@@ -8,6 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.CoreManager;
+import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
@@ -20,10 +22,13 @@ import es.themin.empires.util.UtilManager;
 
 public class CoreUtils {
 	
-	private static empires myPlugin;
+	private  empires myPlugin;
+	private WorldManager Worlds;
+	private CoreManager Cores;
 	
 	public CoreUtils(empires plugin){
-	myPlugin = plugin;	
+		myPlugin = plugin;	
+		Worlds = plugin.Worlds;
 	}
 
 	public static CoreType GetCoreType(String coreType){
@@ -34,7 +39,7 @@ public class CoreUtils {
 		
 	}
 	
-	public static Core placeCore(Player myPlayer, CoreType myCoreType){
+	public Core placeCore(Player myPlayer, CoreType myCoreType){
 		Core myCore = null;
 		
 		Empire myEmpire = UtilManager.getEmpireWithPlayer(myPlayer);
@@ -78,22 +83,22 @@ public class CoreUtils {
 		}
 		
 		//we're good to go. Give the core an id and add it to the empire
-		myCore.setId(myPlugin.Cores.nextUnusedCoreId());
+		myCore.setId(Cores.nextUnusedCoreId());
 		myEmpire.addCore(myCore);
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = myPlugin.getWorlds().get(myUUID);
+		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		myCoreWorld.addCore(myCore);
 		
 		return myCore;
 	}
 	
-	public static boolean canPlace(Player myPlayer, Core myCore){
+	public boolean canPlace(Player myPlayer, Core myCore){
 		//needs a complete re write for new system.
 		ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = myPlugin.getWorlds().get(myUUID);
+		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		
 		// check if its too close to another empire
 		if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){

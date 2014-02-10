@@ -24,6 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.CoreManager;
 import es.themin.empires.EmpireManager;
+import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
@@ -53,6 +54,7 @@ public class Core {
 	private empires myPlugin;
 	private EmpireManager Empires;
 	private CoreManager Cores;
+	private WorldManager Worlds;
 	
 	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
 	
@@ -83,6 +85,7 @@ public class Core {
 	public Core(empires plugin,int Id, CoreType type, Location location, int level, Empire empire) {
 		this.myPlugin = plugin;
 		this.Empires = plugin.Empires;
+		this.Worlds = plugin.Worlds;
 		this.Cores = plugin.Cores;
 		this.coreSize = 8;
 		this.empire = empire;
@@ -246,7 +249,7 @@ public class Core {
 		Location myLocation = this.getLocation();
 		
 		UUID myUUID = this.location.getWorld().getUID();
-		CoreWorld myCoreWorld = myPlugin.getWorlds().get(myUUID);
+		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		myCoreWorld.removeCore(this);
 		
 		if (this.schematic != null){

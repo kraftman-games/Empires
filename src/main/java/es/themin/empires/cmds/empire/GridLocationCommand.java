@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import org.bukkit.entity.Player;
 
+import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.UtilManager;
@@ -11,14 +12,16 @@ import es.themin.empires.util.UtilManager;
 public class GridLocationCommand extends EmpireSubCommand{
 
 	private empires myPlugin;
+	private WorldManager Worlds;
 	
-	public GridLocationCommand(empires empires) {
-		myPlugin = empires;
+	public GridLocationCommand(empires plugin) {
+		myPlugin = plugin;
+		Worlds = plugin.Worlds;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		Point point = myPlugin.getWorlds().get(player.getWorld().getUID()).getCoords(player.getLocation());
+		Point point = Worlds.getWorlds().get(player.getWorld().getUID()).getCoords(player.getLocation());
 		player.sendMessage("X: " + point.getX() + ", Z: " + point.getY());
 		return false;
 	}

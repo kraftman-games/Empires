@@ -15,6 +15,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 
+import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreUtils;
@@ -23,7 +24,8 @@ import es.themin.empires.enums.EmpirePermission;
 
 public class SettingsManager {
 	    
-    static empires myPlugin;
+    private static empires myPlugin;
+    private static WorldManager Worlds;
    
     static FileConfiguration config;
     static File cfile;
@@ -51,6 +53,7 @@ public class SettingsManager {
     
     public SettingsManager(empires empires) {
     	myPlugin = empires;
+    	Worlds = empires.Worlds;
     }
     
     private static File createFile(String fileName){
@@ -75,7 +78,7 @@ public class SettingsManager {
 		List<World> myWorlds = Bukkit.getServer().getWorlds();
 		
 		for(World myWorld : myWorlds){
-			plugin.getWorlds().put(myWorld.getUID(), new CoreWorld());
+			Worlds.getWorlds().put(myWorld.getUID(), new CoreWorld());
 		}
 		
 		
@@ -140,7 +143,7 @@ public class SettingsManager {
 			int level = Integer.parseInt(words2[6]);
 			Core core = new Core(myPlugin, coreID, coretype, location, level, empire);
 		    //core.build();
-		    plugin.getWorlds().get(world2.getUID()).addCore(core);
+		    Worlds.getWorlds().get(world2.getUID()).addCore(core);
 			plugin.Cores.getCores().add(core);
 			empire.ac(core);
 		}
