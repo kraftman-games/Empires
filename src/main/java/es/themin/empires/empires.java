@@ -52,13 +52,12 @@ public final class empires extends JavaPlugin {
 	
 	
 	private HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
-	private ArrayList<War> wars = new ArrayList<War>();
-	private HashMap<UUID, EmpirePlayer> EmpirePlayers = new HashMap<UUID, EmpirePlayer>();
 	private HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
 	
 	public EmpireManager Empires = new EmpireManager(this);
 	public CoreManager Cores = new CoreManager(this);
 	public WorldManager Worlds = new WorldManager(this);
+	public WarManager Wars = new WarManager(this);
 	
 	public HashMap<String, Empire> getEmpireplayers() {
 		return empireplayers;
@@ -70,18 +69,6 @@ public final class empires extends JavaPlugin {
 	public SettingsManager settings;
 	public UtilManager utils;
 	
-
-	public ArrayList<War> getWars() {
-		return wars;
-	}
-
-	public void setWars(ArrayList<War> wars) {
-		this.wars = wars;
-	}
-
-
-
-
 	@Override
     public void onEnable(){
         plugin = this;

@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.WarManager;
 import es.themin.empires.empires;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
@@ -40,9 +41,11 @@ public class War {
 	private HashMap<Empire, Float> empire1alliespercentage;
 	private HashMap<Empire, Float> empire2alliespercentage;
 	private empires myPlugin;
+	private WarManager Wars;
 	
 	public War(empires plugin, Empire team1, Empire team2) {
 		myPlugin = plugin;
+		Wars = myPlugin.Wars;
 		this.empire1 = team1;
 		this.empire2 = team2;
 		this.empire1allies = new ArrayList<Empire>();
@@ -228,10 +231,10 @@ public class War {
 		return list;
 	}
 	public void Save() {
-		if (myPlugin.getWars().contains(this)) {
-			myPlugin.getWars().remove(this);
+		if (Wars.getWars().contains(this)) {
+			Wars.getWars().remove(this);
 		}
-		myPlugin.getWars().add(this);
+		Wars.getWars().add(this);
 	}
 	public void upDateEmpires() {
 		for (Empire empire : getAllEmpires()) {
