@@ -26,9 +26,9 @@ public class ChatListener implements Listener{
 		Player player = event.getPlayer();
 		if (ChatCommand.empirechatplayers.contains(player)) {
 			event.setCancelled(true);
-			if (myPlugin.empireplayers.containsKey(player.getName())) {
+			if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
 				
-				Empire empire = myPlugin.empireplayers.get(player.getName());
+				Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 				String rank;
 				if (!(empire.playerHasARank(player.getName()))) {
 					if (empire.getOwner().equalsIgnoreCase(player.getName())) {

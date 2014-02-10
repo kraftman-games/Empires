@@ -25,8 +25,8 @@ public class WarDeclareCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.empireplayers.containsKey(player.getName())) {
-			Empire empire = myPlugin.empireplayers.get(player.getName());
+		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
+			Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 			if (!(empire.getOwner().equalsIgnoreCase(player.getName()))) {
 				if (empire.playerHasARank(player.getName())) {
 					Rank rank = empire.getRankOfPlayer(player.getName());

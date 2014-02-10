@@ -21,11 +21,11 @@ public class AllyListCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.empireplayers.containsKey(player.getName())) {
+		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
 			player.sendMessage(MsgManager.notinemp); 
 			return false;
 		}
-		Empire empire = myPlugin.empireplayers.get(player.getName());
+		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 		player.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Your Allies", ChatColor.GOLD));
 		if (!empire.hasAllies()) {
 			player.sendMessage(ChatColor.RED + "You do not have any allies :(");

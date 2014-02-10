@@ -24,8 +24,8 @@ public class Stats extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(final Player player, String[] args) {
-		if (myPlugin.empireplayers.containsKey(player.getName())) {
-			Empire empire = myPlugin.empireplayers.get(player.getName());
+		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
+			Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 			final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 			Scoreboard sb = sbm.getNewScoreboard();
 			
@@ -34,7 +34,7 @@ public class Stats extends EmpireSubCommand{
 			obj.setDisplayName(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + "Empire Stats" + ChatColor.GOLD + "====");
 			Score Exp = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
 			Exp.setScore(empire.getExp());
-			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + myPlugin.empires.size() +" : "));
+			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + myPlugin.getEmpires().size() +" : "));
 			ranking.setScore(empire.getRanking());
 			Score cores = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Cores: "));
 			cores.setScore(empire.numberOfCores());

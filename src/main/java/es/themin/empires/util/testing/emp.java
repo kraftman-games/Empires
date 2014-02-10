@@ -18,10 +18,10 @@ public class emp extends SubCommand{
 
 	public boolean onCommand(Player player, String[] args) {
 		if (args.length == 1) {
-			if (!(myPlugin.empireplayers.containsKey(player.getName()))) {
+			if (!(myPlugin.getEmpireplayers().containsKey(player.getName()))) {
 				player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			}else {
-				Empire empire = myPlugin.empireplayers.get(player.getName());
+				Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
 				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
 				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());

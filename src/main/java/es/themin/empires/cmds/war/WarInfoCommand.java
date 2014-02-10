@@ -25,11 +25,11 @@ public class WarInfoCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (!myPlugin.empireplayers.containsKey(player.getName())) {
+		if (!myPlugin.getEmpireplayers().containsKey(player.getName())) {
 			player.sendMessage(plprefix + ChatColor.RED +"You are not in an empire therefore cannot be at war");
 			return false;
 		}
-		Empire empire = myPlugin.empireplayers.get(player.getName());
+		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 		if (args.length == 1) {
 			player.sendMessage(plprefix + ChatColor.RED+ "Please specify a war");
 			return false;

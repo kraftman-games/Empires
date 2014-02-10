@@ -18,7 +18,7 @@ public class addplayer extends SubCommand{
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		if (!(myPlugin.empireplayers.containsKey(player.getName()))) {
+		if (!(myPlugin.getEmpireplayers().containsKey(player.getName()))) {
 			player.sendMessage(plprefix + ChatColor.RED + "you are not in an empire");
 			return false;
 		}if (args.length == 1) {
@@ -30,13 +30,13 @@ public class addplayer extends SubCommand{
 			return false;
 		}
 		String targetname = target.getName();
-		if (myPlugin.empireplayers.containsKey(targetname)) {
+		if (myPlugin.getEmpireplayers().containsKey(targetname)) {
 			player.sendMessage(plprefix + ChatColor.RED + "Player is already in an empire");
 			return false;
 		}
-		Empire empire = myPlugin.empireplayers.get(player.getName());
+		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 		empire.addPlayer(targetname);
-		myPlugin.empireplayers.put(targetname, empire);
+		myPlugin.getEmpireplayers().put(targetname, empire);
 		empire.Save();
 		player.sendMessage(plprefix + ChatColor.GREEN + "Added " + targetname + " To your empire");
 		target.sendMessage(plprefix + ChatColor.GREEN + "You were added to " + empire.getId() + " by " + player.getName());

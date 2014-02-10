@@ -21,11 +21,11 @@ public class EmpireInviteCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (!myPlugin.empireplayers.containsKey(player.getName())) {
+		if (!myPlugin.getEmpireplayers().containsKey(player.getName())) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = myPlugin.empireplayers.get(player.getName());
+		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs);
 			return false;

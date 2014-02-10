@@ -46,17 +46,12 @@ public class PlayerListener implements Listener{
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		
-		EmpirePlayer ePlayer = UtilManager.getEmpirePlayer(player.getUniqueId());
 		
-		if (ePlayer == null){
-			//give the new player an empire and put them somewhere random
-			return;
-		}
 		
 		
 		
 		if (SettingsManager.getPlayerData().get(player.getName()) != null && UtilManager.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
-			myPlugin.empireplayers.put(player.getName(), UtilManager.getEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
+			myPlugin.getEmpireplayers().put(player.getName(), UtilManager.getEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
 		}
 		//Bukkit.broadcastMessage("test 1");
 		//SettingsManager.getInstance().getPlayerData().set("test 1", "true");
@@ -69,8 +64,8 @@ public class PlayerListener implements Listener{
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		
-		if (myPlugin.empireplayers.containsKey(event.getPlayer().getName())/* && UtilManager.empireplayers.get(player).getEmpire() != null*/) {
-			SettingsManager.getPlayerData().set(player.getName() + ".empire", myPlugin.empireplayers.get(player.getName()).getId());
+		if (myPlugin.getEmpireplayers().containsKey(event.getPlayer().getName())/* && UtilManager.empireplayers.get(player).getEmpire() != null*/) {
+			SettingsManager.getPlayerData().set(player.getName() + ".empire", myPlugin.getEmpireplayers().get(player.getName()).getId());
 			SettingsManager.savePlayerData();
 		}else {
 			SettingsManager.getPlayerData().set(player.getName(), null);
@@ -89,9 +84,9 @@ public class PlayerListener implements Listener{
 		Player player = event.getEntity();
 		if (player.getKiller() instanceof Player) {
 			Player killer = (Player) player.getKiller();
-			if (myPlugin.empireplayers.containsKey(player.getName()) && myPlugin.empireplayers.containsKey(killer.getName())) {
-				Empire attacker = myPlugin.empireplayers.get(killer.getName());
-				Empire defender = myPlugin.empireplayers.get(player.getName());
+			if (myPlugin.getEmpireplayers().containsKey(player.getName()) && myPlugin.getEmpireplayers().containsKey(killer.getName())) {
+				Empire attacker = myPlugin.getEmpireplayers().get(killer.getName());
+				Empire defender = myPlugin.getEmpireplayers().get(player.getName());
 				if (attacker.isAtWarWith(defender)) {
 					War war = attacker.getWarAgainst(defender);
 					if (!(attacker.isInABattle()) && !(defender.isInABattle())) {
@@ -135,10 +130,10 @@ public class PlayerListener implements Listener{
 	private void handleBlockClick(PlayerInteractEvent event){
 		
 		Block myBlock = event.getClickedBlock();
-		Empire eventPlayerEmpire = myPlugin.empireplayers.get(event.getPlayer().getName());
+		Empire eventPlayerEmpire = myPlugin.getEmpireplayers().get(event.getPlayer().getName());
 		Player myPlayer = event.getPlayer();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
+		CoreWorld myCoreWorld = myPlugin.getWorlds().get(myUUID);
 		HashMap<Integer, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
 		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
 		

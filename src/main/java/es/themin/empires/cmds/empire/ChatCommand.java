@@ -20,7 +20,7 @@ public class ChatCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.empireplayers.containsKey(player.getName())) {
+		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
 			if (!(empirechatplayers.contains(player))) {
 				empirechatplayers.add(player);
 				player.sendMessage(plprefix + ChatColor.GREEN + "Speaking in empire chat do '/g' to talk globally");

@@ -75,7 +75,7 @@ public class SettingsManager {
 		List<World> myWorlds = Bukkit.getServer().getWorlds();
 		
 		for(World myWorld : myWorlds){
-			plugin.worlds.put(myWorld.getUID(), new CoreWorld());
+			plugin.getWorlds().put(myWorld.getUID(), new CoreWorld());
 		}
 		
 		
@@ -140,8 +140,8 @@ public class SettingsManager {
 			int level = Integer.parseInt(words2[6]);
 			Core core = new Core(myPlugin, coreID, coretype, location, level, empire);
 		    //core.build();
-		    plugin.worlds.get(world2.getUID()).addCore(core);
-			plugin.cores.add(core);
+		    plugin.getWorlds().get(world2.getUID()).addCore(core);
+			plugin.getCores().add(core);
 			empire.ac(core);
 		}
 	}

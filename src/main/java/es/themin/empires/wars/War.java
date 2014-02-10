@@ -228,10 +228,10 @@ public class War {
 		return list;
 	}
 	public void Save() {
-		if (myPlugin.wars.contains(this)) {
-			myPlugin.wars.remove(this);
+		if (myPlugin.getWars().contains(this)) {
+			myPlugin.getWars().remove(this);
 		}
-		myPlugin.wars.add(this);
+		myPlugin.getWars().add(this);
 	}
 	public void upDateEmpires() {
 		for (Empire empire : getAllEmpires()) {

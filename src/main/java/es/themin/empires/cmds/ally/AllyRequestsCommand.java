@@ -20,11 +20,11 @@ public class AllyRequestsCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.empireplayers.containsKey(player.getName())) {
+		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = myPlugin.empireplayers.get(player.getName());
+		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 		player.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Alliance Requests", ChatColor.GOLD));
 		int i =0;
 		for (Empire ally : empire.getAllianceRequests().keySet()) {

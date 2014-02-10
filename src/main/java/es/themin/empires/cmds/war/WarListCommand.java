@@ -22,11 +22,11 @@ public class WarListCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (!myPlugin.empireplayers.containsKey(player.getName())) {
+		if (!myPlugin.getEmpireplayers().containsKey(player.getName())) {
 			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			return false;
 		}
-		Empire empire = myPlugin.empireplayers.get(player.getName());
+		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 		player.sendMessage(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + " Wars " + ChatColor.GOLD + " ====");
 		int i = 0;
 		for (War war : empire.getWars()) {

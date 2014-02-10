@@ -221,17 +221,17 @@ public class Core {
 	
 	public void Save() {
 		if (UtilManager.containsCoreWithId(this.Id)) {
-			int i = myPlugin.cores.indexOf(UtilManager.containsCoreWithId(this.Id));
-			myPlugin.cores.remove(i);
+			int i = myPlugin.getCores().indexOf(UtilManager.containsCoreWithId(this.Id));
+			myPlugin.getCores().remove(i);
 		}
-		myPlugin.cores.add(this);
+		myPlugin.getCores().add(this);
 	}
 	public void Delete() {
 		this.destroy();
 		UtilManager.getEmpireWithCore(this).removeCore(this);
 		if (UtilManager.containsCoreWithId(this.Id)) {
-			int i = myPlugin.cores.indexOf(this);
-			myPlugin.cores.remove(i);
+			int i = myPlugin.getCores().indexOf(this);
+			myPlugin.getCores().remove(i);
 		}
 		
 	}
@@ -240,7 +240,7 @@ public class Core {
 		Location myLocation = this.getLocation();
 		
 		UUID myUUID = this.location.getWorld().getUID();
-		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
+		CoreWorld myCoreWorld = myPlugin.getWorlds().get(myUUID);
 		myCoreWorld.removeCore(this);
 		
 		if (this.schematic != null){
@@ -263,7 +263,7 @@ public class Core {
 			// allow insta break for enemies if not a protection block
 		} else {
 			
-			if (this.getEmpire() == myPlugin.empireplayers.get(player.getName())){
+			if (this.getEmpire() == myPlugin.getEmpireplayers().get(player.getName())){
 				if (PlayerUtils.deductShards(player, this.getDestroyCost())){
 					this.Delete();
 					event.setCancelled(true);

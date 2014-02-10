@@ -49,14 +49,23 @@ public final class empires extends JavaPlugin {
 	public static String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
 	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
 	
-	public  ArrayList<Empire> empires = new ArrayList<Empire>();
-	public  HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
-	public  ArrayList<Core> cores = new ArrayList<Core>();
-	public  ArrayList<War> wars = new ArrayList<War>();
-	public  HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
-	public  HashMap<UUID, EmpirePlayer> EmpirePlayers = new HashMap<UUID, EmpirePlayer>();
-	public  HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
+	private ArrayList<Empire> empires = new ArrayList<Empire>();
+	private HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
+	private ArrayList<Core> cores = new ArrayList<Core>();
+	private ArrayList<War> wars = new ArrayList<War>();
+	private HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
+	private HashMap<UUID, EmpirePlayer> EmpirePlayers = new HashMap<UUID, EmpirePlayer>();
+	private HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
 	
+	public EmpireManager Empires = new EmpireManager(this);
+	
+	public HashMap<String, Empire> getEmpireplayers() {
+		return empireplayers;
+	}
+
+	public void setEmpireplayers(HashMap<String, Empire> empireplayers) {
+		this.empireplayers = empireplayers;
+	}
 	public SettingsManager settings;
 	public UtilManager utils;
 	
@@ -242,5 +251,16 @@ public final class empires extends JavaPlugin {
     	}
     	
     }
+
+	public void addEmpire(Empire empire) {
+		this.empires.add(empire);
+		
+	}
+
+	public void removeEmpire(Empire empire) {
+		int i = this.getEmpires().indexOf(UtilManager.getEmpireWithId(empire.getId()));
+		this.empires.remove(i);
+		
+	}
     
 }

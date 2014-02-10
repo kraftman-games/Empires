@@ -22,8 +22,8 @@ public class RankCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.empireplayers.containsKey(player.getName())) {
-			Empire empire = myPlugin.empireplayers.get(player.getName());
+		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
+			Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 			if (empire.getOwner().equalsIgnoreCase(player.getName())) {
 				if (args.length == 1) {
 					info(player); return false;

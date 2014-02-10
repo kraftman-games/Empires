@@ -54,7 +54,7 @@ public class CraftListener implements Listener{
 				
 				myItem.setItemMeta(myMeta);
 				player.sendMessage("Crafted");
-				if (!(event.getInventory().contains(myItem)) || !(myPlugin.empireplayers.containsKey(player.getName())) || !(myPlugin.empireplayers.get(player.getName()).hasCoreOfType(CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), myPlugin.empireplayers.get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), myPlugin.empireplayers.get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
+				if (!(event.getInventory().contains(myItem)) || !(myPlugin.getEmpireplayers().containsKey(player.getName())) || !(myPlugin.getEmpireplayers().get(player.getName()).hasCoreOfType(CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), myPlugin.getEmpireplayers().get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), myPlugin.getEmpireplayers().get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
 					event.setCancelled(true);
 					event.setCurrentItem(null);
 					player.sendMessage(ChatColor.RED + "To craft an amplifier you must place a true shard in your Base core's crafting table");

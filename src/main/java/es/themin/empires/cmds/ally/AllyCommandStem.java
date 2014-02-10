@@ -54,8 +54,8 @@ public class AllyCommandStem implements CommandExecutor{
 					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
 				if (scmd.permission() != null){
-					if (myPlugin.empireplayers.containsKey(player.getName())) {
-						Empire empire = myPlugin.empireplayers.get(player.getName());
+					if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
+						Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 						if (!empire.getOwner().equalsIgnoreCase(player.getName())) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());

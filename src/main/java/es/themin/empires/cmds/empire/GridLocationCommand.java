@@ -18,7 +18,7 @@ public class GridLocationCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		Point point = myPlugin.worlds.get(player.getWorld().getUID()).getCoords(player.getLocation());
+		Point point = myPlugin.getWorlds().get(player.getWorld().getUID()).getCoords(player.getLocation());
 		player.sendMessage("X: " + point.getX() + ", Z: " + point.getY());
 		return false;
 	}

@@ -19,6 +19,12 @@ import es.themin.empires.util.PlayerUtils;
 import es.themin.empires.util.UtilManager;
 
 public class CoreUtils {
+	
+	private static empires myPlugin;
+	
+	public CoreUtils(empires plugin){
+	myPlugin = plugin;	
+	}
 
 	public static CoreType GetCoreType(String coreType){
 		
@@ -76,7 +82,7 @@ public class CoreUtils {
 		myEmpire.addCore(myCore);
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
+		CoreWorld myCoreWorld = myPlugin.getWorlds().get(myUUID);
 		myCoreWorld.addCore(myCore);
 		
 		return myCore;
@@ -87,7 +93,7 @@ public class CoreUtils {
 		ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = UtilManager.getWorlds().get(myUUID);
+		CoreWorld myCoreWorld = myPlugin.getWorlds().get(myUUID);
 		
 		// check if its too close to another empire
 		if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){

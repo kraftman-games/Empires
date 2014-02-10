@@ -28,13 +28,13 @@ public class EmpireTimelineCommand extends EmpireSubCommand{
 	
 	@Override
 	public boolean onCommand(final Player player, String[] args) {
-		if (!myPlugin.empireplayers.containsKey(player.getName())) {
+		if (!myPlugin.getEmpireplayers().containsKey(player.getName())) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
 		
 		final int i =0;
-		final Empire empire = myPlugin.empireplayers.get(player.getName());
+		final Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 		final int passes = empire.getTimeLine().size();
 		int dit = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override

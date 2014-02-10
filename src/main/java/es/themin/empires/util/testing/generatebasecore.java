@@ -25,11 +25,11 @@ public class generatebasecore extends SubCommand{
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		if (!(myPlugin.empireplayers.containsKey(player.getName()))) {
+		if (!(myPlugin.getEmpireplayers().containsKey(player.getName()))) {
 			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			return false;
 		}
-		Empire empire = myPlugin.empireplayers.get(player.getName());
+		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
 		if (empire.hasCoreOfType(CoreType.BASE)) {
 			player.sendMessage(plprefix + ChatColor.RED + "You already have a core of this type");
 			return false;
@@ -38,7 +38,7 @@ public class generatebasecore extends SubCommand{
 		empire.addCore(myCore);
 		World world = player.getWorld();
 		UUID uuid = world.getUID();
-		CoreWorld cw = myPlugin.worlds.get(uuid);
+		CoreWorld cw = myPlugin.getWorlds().get(uuid);
 		cw.addCore(myCore);
 		return false;
 		

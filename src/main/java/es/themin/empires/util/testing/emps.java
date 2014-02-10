@@ -20,7 +20,7 @@ public class emps extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.GOLD + "=====");
 		int i = 0;
-		for (Empire empire : myPlugin.empires) {
+		for (Empire empire : myPlugin.getEmpires()) {
 			i++;
 			player.sendMessage(ChatColor.GREEN + empire.getName());
 		}
