@@ -3,9 +3,11 @@ package es.themin.empires.cmds.ally;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
@@ -13,21 +15,25 @@ import es.themin.empires.util.UtilManager;
 public class AllyListCommand extends EmpireSubCommand{
 
 	private empires myPlugin;
+	private PlayerManager Players;
 	
 	public String plprefix;
 	
 	public AllyListCommand(empires plugin) {
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
+		Players = plugin.Players;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myCorePlayer == null || myCorePlayer.getEmpire() == null) {
 			player.sendMessage(MsgManager.notinemp); 
 			return false;
 		}
-		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+		Empire empire = myCorePlayer.getEmpire();
 		player.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Your Allies", ChatColor.GOLD));
 		if (!empire.hasAllies()) {
 			player.sendMessage(ChatColor.RED + "You do not have any allies :(");

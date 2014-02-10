@@ -9,8 +9,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
@@ -21,20 +23,24 @@ public class EmpireTimelineCommand extends EmpireSubCommand{
 	private Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
 	private static HashMap<Player, Integer> cancelmap = new HashMap<Player,Integer>();
 	private empires myPlugin;
+	private PlayerManager Players;
 	
 	public EmpireTimelineCommand(empires plugin){
 		myPlugin = plugin;
+		Players = plugin.Players;
 	}
 	
 	@Override
 	public boolean onCommand(final Player player, String[] args) {
-		if (!myPlugin.getEmpireplayers().containsKey(player.getName())) {
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myCorePlayer == null || myCorePlayer.getEmpire() == null) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
 		
 		final int i =0;
-		final Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+		final Empire empire = myCorePlayer.getEmpire();
 		final int passes = empire.getTimeLine().size();
 		int dit = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override

@@ -3,8 +3,10 @@ package es.themin.empires.cmds.empire;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;
 import es.themin.empires.util.UtilManager;
@@ -14,17 +16,20 @@ public class RankCommand extends EmpireSubCommand{
 	public String plprefix;
 	public EmpirePermission[] eps = {EmpirePermission.INVITE, EmpirePermission.ALLY, EmpirePermission.ATTACK, EmpirePermission.KICK_PLAYER, EmpirePermission.PLACE_ALTER, EmpirePermission.PLACE_AMPLIFIER, EmpirePermission.SET_FLAG, EmpirePermission.UPGRADE_CORE };
 	private empires myPlugin;
-	
+	private PlayerManager Players;
 	
 	public RankCommand(empires plugin) {
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
+		Players = plugin.Players;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
-			Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myCorePlayer != null && myCorePlayer.getEmpire() != null) {
+			Empire empire = myCorePlayer.getEmpire();
 			if (empire.getOwner().equalsIgnoreCase(player.getName())) {
 				if (args.length == 1) {
 					info(player); return false;

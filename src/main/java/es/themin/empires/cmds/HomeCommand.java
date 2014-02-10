@@ -7,27 +7,30 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.UtilManager;
 
 public class HomeCommand implements CommandExecutor{
 	
 	
 	private empires plugin;
-	public HomeCommand(empires empires) {
-		this.plugin = empires;
+	private PlayerManager Players;
+	
+	public HomeCommand(empires plugin) {
+		this.plugin = plugin;
+		Players = plugin.Players;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player) sender;
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
-		if (player == null){
-			plugin.getLogger().info("can only be run by player");
-			return true;
-		}
-		ArrayList<Core> myCores = plugin.getEmpireplayers().get(player.getName()).getCores();
+		
+		ArrayList<Core> myCores = myCorePlayer.getEmpire().getCores();
 		
 		Core BaseCore = null;
 		

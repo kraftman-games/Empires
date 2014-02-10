@@ -4,9 +4,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpireManager;
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.SettingsManager;
@@ -17,22 +19,27 @@ public class AllyAddCommand extends EmpireSubCommand{
 	
 	public String plprefix;
 	private Long time = SettingsManager.getConfig().getLong("time_between_re_ally");
-	private static empires myPlugin;
-	private static EmpireManager Empires;
+	private  empires myPlugin;
+	private  EmpireManager Empires;
+	private PlayerManager Players;
 	
 	public AllyAddCommand(empires plugin) {
 		myPlugin = plugin;
 		Empires = plugin.Empires;
 		plprefix = plugin.plprefix;
+		Players = plugin.Players;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (!myPlugin.getEmpireplayers().containsKey(player.getName())) {
+		
+		CorePlayer myPlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myPlayer == null) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+		Empire empire = myPlayer.getEmpire();
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs + " do '/ally ?' for help");
 			return false;

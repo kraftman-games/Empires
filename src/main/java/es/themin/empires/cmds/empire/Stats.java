@@ -10,8 +10,10 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import es.themin.empires.EmpireManager;
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
@@ -20,17 +22,21 @@ public class Stats extends EmpireSubCommand{
 	private empires myPlugin;
 	private EmpireManager Empires;
 	public String plprefix;
+	private  PlayerManager Players;
 	
 	public Stats(empires plugin) {
 		myPlugin = plugin;
 		Empires = plugin.Empires;
 		plprefix = plugin.plprefix;
+		Players = plugin.Players;
 	}
 
 	@Override
 	public boolean onCommand(final Player player, String[] args) {
-		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
-			Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myCorePlayer != null && myCorePlayer.getEmpire() != null) {
+			Empire empire = myCorePlayer.getEmpire();
 			final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 			Scoreboard sb = sbm.getNewScoreboard();
 			

@@ -3,8 +3,10 @@ package es.themin.empires.cmds.empire;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
@@ -13,15 +15,21 @@ public class SettingsCommand extends EmpireSubCommand{
 
 	private empires myPlugin;
 	public String plprefix;
+	private PlayerManager Players;
+	
 	public SettingsCommand(empires plugin) {
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
+		Players = plugin.Players;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
-			Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
+		
+		if (myCorePlayer != null || myCorePlayer.getEmpire() != null) {
+			Empire empire = myCorePlayer.getEmpire();
 			if (empire.getOwner().equalsIgnoreCase(player.getName())) {
 				if (args.length == 1) {
 					info(player);

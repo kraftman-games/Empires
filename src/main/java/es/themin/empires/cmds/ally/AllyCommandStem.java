@@ -8,8 +8,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
@@ -19,10 +21,12 @@ public class AllyCommandStem implements CommandExecutor{
 	public String plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	private  empires myPlugin;
+	private PlayerManager Players;
 	
 	public AllyCommandStem(empires plugin) {
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
+		Players = plugin.Players;
 		
 	}
 
@@ -37,6 +41,8 @@ public class AllyCommandStem implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("ally")) {
 			Player player = (Player) sender;
+			CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+			
 			if (args.length == 0) {
 				player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
 
@@ -56,8 +62,8 @@ public class AllyCommandStem implements CommandExecutor{
 					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
 				if (scmd.permission() != null){
-					if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
-						Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+					if (myCorePlayer != null) {
+						Empire empire = myCorePlayer.getEmpire();
 						if (!empire.getOwner().equalsIgnoreCase(player.getName())) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());

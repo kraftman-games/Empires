@@ -51,21 +51,16 @@ public final class empires extends JavaPlugin {
 	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
 	
 	
-	private HashMap<String, Empire> empireplayers = new HashMap<String, Empire>();
 	private HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
 	
 	public EmpireManager Empires = new EmpireManager(this);
 	public CoreManager Cores = new CoreManager(this);
 	public WorldManager Worlds = new WorldManager(this);
 	public WarManager Wars = new WarManager(this);
+	public PlayerManager Players = new PlayerManager(this);
 	
-	public HashMap<String, Empire> getEmpireplayers() {
-		return empireplayers;
-	}
+	
 
-	public void setEmpireplayers(HashMap<String, Empire> empireplayers) {
-		this.empireplayers = empireplayers;
-	}
 	public SettingsManager settings;
 	public UtilManager utils;
 	
@@ -74,6 +69,7 @@ public final class empires extends JavaPlugin {
         plugin = this;
         settings = new SettingsManager(this);
         utils = new UtilManager(this);
+        
 		SettingsManager.loadSettings();
 		SettingsManager.loadEmpires(this);
 		
@@ -82,7 +78,7 @@ public final class empires extends JavaPlugin {
 		MsgManager.setPrefix(plprefix);
 		
 		loadCommands();
-		loadPlayers();
+		Players.loadPlayers();
 		scheduleBackUps();
 		registerEvents();
 		
@@ -93,7 +89,7 @@ public final class empires extends JavaPlugin {
         
 		Empires.saveEmpires();
 		SettingsManager.saveAll();
-		savePlayers();
+		Players.savePlayers();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
 		final ScoreboardManager sbm = Bukkit.getScoreboardManager();
@@ -129,24 +125,7 @@ public final class empires extends JavaPlugin {
 		getCommand("ally").setExecutor(ally_ce);
 		ally_ce.setUp();
     }
-    public void savePlayers(){
-    	for (String playername :empireplayers.keySet()) {
-    		if (!(empireplayers.isEmpty()) && empireplayers.get(playername) != null) {
-    			SettingsManager.getPlayerData().set(playername + ".empire", empireplayers.get(playername).getId());
-    		}
-    	}
-    	SettingsManager.savePlayerData();
-    }
-    public void loadPlayers(){
-    	for (Player player : Bukkit.getOnlinePlayers()) {
-    		String name = player.getName();
-    		if (SettingsManager.getPlayerData().get(name + ".empire") != null) {
-    			Empire empire = Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(name + ".empire"));
-    			empireplayers.put(name, empire);
-    			player.sendMessage(plprefix + ChatColor.GREEN + "You were found to be in an empire");
-    		}
-    	}
-    }
+
     private void scheduleBackUps() {
     	String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
 		(new File(pluginFolder)).mkdirs();
@@ -189,7 +168,7 @@ public final class empires extends JavaPlugin {
 	    					File cfile = new File(epath + File.separator + "config.yml");
 	    					File wfile = new File(epath + File.separator + "worldconfig.yml");
 	    					File pfile = new File(epath + File.separator + "playerdata.yml");
-	    					savePlayers();
+	    					Players.savePlayers();
 	    					SettingsManager.saveEmpireDataToFile(efile);
 	    					SettingsManager.saveConfigToFile(cfile);
 	    					SettingsManager.saveWorldDataToFile(wfile);

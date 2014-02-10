@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.Empire;
@@ -14,14 +15,17 @@ public class ChatCommand extends EmpireSubCommand{
 	public static ArrayList<Player> empirechatplayers = new ArrayList<Player>();
 	public String plprefix;
 	private empires myPlugin;
+	private PlayerManager Players;
+	
 	public ChatCommand(empires plugin) {
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
+		Players = plugin.Players;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
+		if (Players.playerExists(player.getUniqueId())) {
 			if (!(empirechatplayers.contains(player))) {
 				empirechatplayers.add(player);
 				player.sendMessage(plprefix + ChatColor.GREEN + "Speaking in empire chat do '/g' to talk globally");

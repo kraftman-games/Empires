@@ -21,11 +21,13 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.EmpireManager;
+import es.themin.empires.PlayerManager;
 import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;
@@ -41,11 +43,13 @@ public class PlayerListener implements Listener{
 	private empires myPlugin;
 	private EmpireManager Empires;
 	private WorldManager Worlds;
+	private PlayerManager Players;
 	
 	public PlayerListener(empires plugin){
 		this.myPlugin = plugin;
 		Empires = plugin.Empires;
 		Worlds = plugin.Worlds;
+		Players = plugin.Players;
 	}
 	public String warprefix= myPlugin.warprefix;
 	
@@ -53,26 +57,31 @@ public class PlayerListener implements Listener{
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		
-		
-		
-		
-		
-		if (SettingsManager.getPlayerData().get(player.getName()) != null && Empires.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
-			myPlugin.getEmpireplayers().put(player.getName(), Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
+		if (Players.playerExists(player.getUniqueId())){
+			
+			if (SettingsManager.getPlayerData().get(player.getName()) != null && Empires.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
+				CorePlayer myPlayer = new CorePlayer(player);
+				myPlayer.setEmpire(Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
+				Players.addPlayer(myPlayer);
+			}
+			
+			
+		} else {
+			//coreplayer already exists
+			//maybe set their last login if we care
 		}
-		//Bukkit.broadcastMessage("test 1");
-		//SettingsManager.getInstance().getPlayerData().set("test 1", "true");
-		SettingsManager.savePlayerData();
 		
-
+		SettingsManager.savePlayerData();
 	}
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		
-		if (myPlugin.getEmpireplayers().containsKey(event.getPlayer().getName())/* && UtilManager.empireplayers.get(player).getEmpire() != null*/) {
-			SettingsManager.getPlayerData().set(player.getName() + ".empire", myPlugin.getEmpireplayers().get(player.getName()).getId());
+		CorePlayer myPlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myPlayer != null) {
+			SettingsManager.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
 			SettingsManager.savePlayerData();
 		}else {
 			SettingsManager.getPlayerData().set(player.getName(), null);
@@ -91,41 +100,46 @@ public class PlayerListener implements Listener{
 		Player player = event.getEntity();
 		if (player.getKiller() instanceof Player) {
 			Player killer = (Player) player.getKiller();
-			if (myPlugin.getEmpireplayers().containsKey(player.getName()) && myPlugin.getEmpireplayers().containsKey(killer.getName())) {
-				Empire attacker = myPlugin.getEmpireplayers().get(killer.getName());
-				Empire defender = myPlugin.getEmpireplayers().get(player.getName());
+			
+			CorePlayer defender = Players.getPlayer(player.getUniqueId());
+			CorePlayer attacker = Players.getPlayer(killer.getUniqueId());
+			
+			
+			if (defender != null && attacker != null) {
+				
+				
 				if (attacker.isAtWarWith(defender)) {
-					War war = attacker.getWarAgainst(defender);
-					if (!(attacker.isInABattle()) && !(defender.isInABattle())) {
+					War war = attacker.getEmpire().getWarAgainst(defender.getEmpire());
+					if (!(attacker.getEmpire().isInABattle()) && !(defender.getEmpire().isInABattle())) {
 						Empire team1 = null;
 						Empire team2 = null;
 						BattleTeam attackingteam = null;
 						if (war.getAllEmpiresOnTeam1().contains(attacker)) {
-							team1 = attacker;
+							team1 = attacker.getEmpire();
 							attackingteam = BattleTeam.team1;
-							team2 = defender;
+							team2 = defender.getEmpire();
 						}else if (war.getAllEmpiresOnTeam1().contains(defender)){
-							team1= defender;
+							team1= defender.getEmpire();
 							attackingteam = BattleTeam.team2;
-							team2 = attacker;
+							team2 = attacker.getEmpire();
 						}
 						Battle battle = new Battle(team1, team2, war, BattleType.DEATHMATCH, attackingteam);
 						battle.start();
 						war.addBattle(battle);
 						war.Save();
 						for (Empire empire : war.getAllEmpires()) {
-							if (empire != attacker && empire != defender) {
-								empire.broadcastMessage(warprefix + ChatColor.RED + "A Battle has broken out between " + attacker.getName() + " and "  + defender.getName() + ". Both sides fight to the death");
+							if (empire != attacker.getEmpire() && empire != defender.getEmpire()) {
+								empire.broadcastMessage(warprefix + ChatColor.RED + "A Battle has broken out between " + attacker.getEmpire().getName() + " and "  + defender.getEmpire().getName() + ". Both sides fight to the death");
 							}
 						}
-						attacker.broadcastMessage(warprefix + ChatColor.RED + killer.getName() + " Has begun a battle against " + defender.getName() + " slaughter them to to tip the balance of the war in your favour");
-						defender.broadcastMessage(warprefix + ChatColor.RED + player.getName() + " Was killed by a member of " + attacker.getName() + " slaughter them to to tip the balance of the war in your favour");
-						battle.addPointsToTeamWithEmpire(attacker, 1);
-					}else if (attacker.isInBattleWith(defender)) {
+						attacker.getEmpire().broadcastMessage(warprefix + ChatColor.RED + killer.getName() + " Has begun a battle against " + defender.getEmpire().getName() + " slaughter them to to tip the balance of the war in your favour");
+						defender.getEmpire().broadcastMessage(warprefix + ChatColor.RED + player.getName() + " Was killed by a member of " + attacker.getEmpire().getName() + " slaughter them to to tip the balance of the war in your favour");
+						battle.addPointsToTeamWithEmpire(attacker.getEmpire(), 1);
+					}else if (attacker.getEmpire().isInBattleWith(defender.getEmpire())) {
 						Battle battle = war.getOnGoingBattle();
 						if (battle.getType() == BattleType.DEATHMATCH) {
 							//Bukkit.broadcastMessage("kill");
-							battle.addPointsToTeamWithEmpire(attacker, 1);
+							battle.addPointsToTeamWithEmpire(attacker.getEmpire(), 1);
 						}
 					}
 					
@@ -137,8 +151,11 @@ public class PlayerListener implements Listener{
 	private void handleBlockClick(PlayerInteractEvent event){
 		
 		Block myBlock = event.getClickedBlock();
-		Empire eventPlayerEmpire = myPlugin.getEmpireplayers().get(event.getPlayer().getName());
+		
 		Player myPlayer = event.getPlayer();
+		
+		CorePlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
+		Empire eventPlayerEmpire = myCorePlayer.getEmpire();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
 		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		HashMap<Integer, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
