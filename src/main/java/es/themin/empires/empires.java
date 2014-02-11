@@ -38,7 +38,6 @@ import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;
 import es.themin.empires.util.MsgManager;
-import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
 import es.themin.empires.util.testing.UtilityTesting;
@@ -59,8 +58,6 @@ public final class empires extends JavaPlugin {
 	public WarManager Wars = new WarManager(this);
 	public PlayerManager Players = new PlayerManager(this);
 	
-	
-
 	public SettingsManager settings;
 	public UtilManager utils;
 	

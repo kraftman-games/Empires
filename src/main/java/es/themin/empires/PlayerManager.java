@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.SettingsManager;
 
 public class PlayerManager {
 

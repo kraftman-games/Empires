@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpireManager;
 import es.themin.empires.PlayerManager;
+import es.themin.empires.SettingsManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
@@ -12,7 +13,6 @@ import es.themin.empires.enums.EmpireState;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;
-import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.wars.War;
 

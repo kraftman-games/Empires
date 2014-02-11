@@ -8,7 +8,6 @@ import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;
-import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 
 public class EmpireManager {

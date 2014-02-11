@@ -22,6 +22,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.EmpireManager;
 import es.themin.empires.PlayerManager;
+import es.themin.empires.SettingsManager;
 import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
@@ -32,7 +33,6 @@ import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;
 import es.themin.empires.util.PlayerUtils;
-import es.themin.empires.util.SettingsManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.wars.Battle;
 import es.themin.empires.wars.Battle.BattleTeam;

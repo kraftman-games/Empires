@@ -16,12 +16,12 @@ import org.bukkit.scoreboard.ScoreboardManager;
 //import org.bukkit.scoreboard.Team;
 
 
+
+import es.themin.empires.SettingsManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.SettingsManager;
-//import es.themin.empires.util.UtilManager;
 
 public class Battle {
 	
