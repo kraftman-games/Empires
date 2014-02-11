@@ -4,42 +4,49 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
 public class addplayer extends SubCommand{
 	public String plprefix;
 	private empires myPlugin;
+	private PlayerManager Players;
 	
 	public addplayer(empires empires) {
 		myPlugin = empires;
 		plprefix = empires.plprefix;
+		Players = empires.Players;
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		if (!(myPlugin.getEmpireplayers().containsKey(player.getName()))) {
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myCorePlayer == null || myCorePlayer.getEmpire() == null) {
 			player.sendMessage(plprefix + ChatColor.RED + "you are not in an empire");
 			return false;
 		}if (args.length == 1) {
 			player.sendMessage(plprefix + "Please specify a player");
 		}
 		Player target = Bukkit.getServer().getPlayer(args[1]);
+		CorePlayer myTargetPlayer = Players.getPlayer(target.getUniqueId());
+		
 		if (!(target.isOnline())) {
 			player.sendMessage(plprefix + ChatColor.RED + "Player is not online"); 
 			return false;
 		}
-		String targetname = target.getName();
-		if (myPlugin.getEmpireplayers().containsKey(targetname)) {
+		if (myTargetPlayer != null && myTargetPlayer.getEmpire() != null) {
 			player.sendMessage(plprefix + ChatColor.RED + "Player is already in an empire");
 			return false;
 		}
-		Empire empire = myPlugin.getEmpireplayers().get(player.getName());
-		empire.addPlayer(targetname);
-		myPlugin.getEmpireplayers().put(targetname, empire);
+		Empire empire = myCorePlayer.getEmpire();
+		empire.addPlayer(myTargetPlayer);
+		Players.addPlayer(myTargetPlayer);
 		empire.Save();
-		player.sendMessage(plprefix + ChatColor.GREEN + "Added " + targetname + " To your empire");
+		player.sendMessage(plprefix + ChatColor.GREEN + "Added " + target.getName() + " To your empire");
 		target.sendMessage(plprefix + ChatColor.GREEN + "You were added to " + empire.getId() + " by " + player.getName());
 		return false;
 	}

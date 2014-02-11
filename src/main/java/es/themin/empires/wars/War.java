@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.WarManager;
 import es.themin.empires.empires;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.SettingsManager;
@@ -274,8 +275,8 @@ public class War {
 				//str.append("%");
 			}
 			str.append("%");
-			for (Player player : empire.getOnlinePlayers()) {
-				BarAPI.setMessage(player, ChatColor.DARK_GREEN + "You        " + str.toString() + ChatColor.DARK_RED + empire2.getName(), fpc);
+			for (CorePlayer player : empire.getOnlinePlayers().values()) {
+				BarAPI.setMessage(player.getPlayer(), ChatColor.DARK_GREEN + "You        " + str.toString() + ChatColor.DARK_RED + empire2.getName(), fpc);
 			}
 		}for (Empire empire : getAllEmpiresOnTeam2()) {
 			StringBuilder str = new StringBuilder();
@@ -302,8 +303,8 @@ public class War {
 				//str.append("%");
 			}
 			str.append("%");
-			for (Player player : empire.getOnlinePlayers()) {
-				BarAPI.setMessage(player, ChatColor.DARK_GREEN + "You        " + str.toString() +"        "+ ChatColor.DARK_RED + empire1.getName(), fpc);
+			for (CorePlayer player : empire.getOnlinePlayers().values()) {
+				BarAPI.setMessage(player.getPlayer(), ChatColor.DARK_GREEN + "You        " + str.toString() +"        "+ ChatColor.DARK_RED + empire1.getName(), fpc);
 			}
 		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Bukkit.getServer().getPluginManager().getPlugin("Empires"), new Runnable() {
@@ -311,8 +312,8 @@ public class War {
 			@Override
 			public void run() {
 				for (Empire empire : getAllEmpires()) {
-					for (Player player : empire.getOnlinePlayers()) {
-						BarAPI.removeBar(player);
+					for (CorePlayer player : empire.getOnlinePlayers().values()) {
+						BarAPI.removeBar(player.getPlayer());
 					}
 				}
 			}

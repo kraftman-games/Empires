@@ -15,8 +15,10 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 //import org.bukkit.scoreboard.Team;
 
+
 import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.SettingsManager;
 //import es.themin.empires.util.UtilManager;
@@ -359,7 +361,8 @@ public class Battle {
 			}
 			
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (empire.hasPlayer(player.getName())) {
+				
+				if (empire.hasPlayer(player)) {
 					you.setDisplaySlot(DisplaySlot.SIDEBAR);
 					//player.sendMessage("DEBUG 4.1");
 					player.setScoreboard(sb);
@@ -397,7 +400,7 @@ public class Battle {
 			}
 			
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (empire.hasPlayer(player.getName())) {
+				if (empire.hasPlayer(player)) {
 					//player.sendMessage("DEBUG 4.1");
 					player.setScoreboard(sb);
 				}
@@ -408,7 +411,7 @@ public class Battle {
 		final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 		for (Empire empire : getAllEmpires()) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (empire.hasPlayer(player.getName())) {
+				if (empire.hasPlayer(player)) {
 					player.setScoreboard(sbm.getNewScoreboard());
 					BarAPI.removeBar(player);
 				}
@@ -448,8 +451,8 @@ public class Battle {
 					long l2 = l1 - System.currentTimeMillis();
 					if (l2 >= 0) {
 						for (Empire empire : getAllEmpires()) {
-							for (Player player : empire.getOnlinePlayers()) {
-								upDateTimer(player);
+							for (CorePlayer player : empire.getOnlinePlayers().values()) {
+								upDateTimer(player.getPlayer());
 							}
 						}
 					}else {

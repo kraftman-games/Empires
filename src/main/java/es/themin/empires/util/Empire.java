@@ -3,6 +3,7 @@ package es.themin.empires.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -26,7 +27,7 @@ public class Empire {
 	private int ID;
 	private String name;
 	private String owner;
-	private ArrayList<String> players = new ArrayList<String>();
+	private HashMap<UUID,CorePlayer> players = new HashMap<UUID,CorePlayer>();
 	private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
 	private boolean isProtected;
@@ -62,49 +63,51 @@ public class Empire {
 
 	
 
-//	public Empire(empires plugin, int Id, String empireName, String ownerName){
-//		myPlugin = plugin;
-//		Empires = plugin.Empires;
-//		Players = plugin.Players;
-//		
-//		if (Empires.getEmpireWithID(Id) != null){
-//			throw new IllegalArgumentException("Empire with this ID already exists");
-//		}
-//		
-//		if (empireName == null || empireName.trim().length() < 1){
-//			throw new IllegalArgumentException("No empire name");
-//		}
-//		
-//		if (ownerName == null || ownerName.trim().length() < 1){
-//			throw new IllegalArgumentException("No player name provided");
-//		}
-//		
-//		if (Players.playerExists(uniqueId)){
-//			throw new IllegalArgumentException("Player already in empire");
-//		}
-//		
-//		this.ID = Id;
-//		this.name = empireName;
-//		this.owner = ownerName;
-//		this.atWar =false;
-//		this.warwins = 0;
-//		this.warlosses = 0;
-//		this.battlelosses = 0;
-//		this.battlewins = 0;
-//		this.wars = new ArrayList<War>();
-//		this.setProtected(true);
-//		plugin.Empires.addEmpire(this);
-//		this.addPlayer(ownerName);
-//		plugin.getEmpireplayers().put(ownerName, this);
-//		this.allies = new ArrayList<Empire>();
-//		this.exallies = new HashMap<Empire, Long>();
-//		this.exenemies = new HashMap<Empire, Long>();
-//		//this.exbattles = new HashMap<Empire, Long>();
-//		this.lastbattleloss = (long) 0;
-//		this.lastbattlewin = (long) 0;
-//		this.allyrequests = new HashMap<Empire,Long>();
-//		this.timeline = new HashMap<Long,String>();
-//	}
+	public Empire(empires plugin, int Id, String empireName, String ownerName){
+		myPlugin = plugin;
+		Empires = plugin.Empires;
+		Players = plugin.Players;
+		
+		CorePlayer myCorePlayer = Players.getPlayers(ownerName);
+		
+		if (Empires.getEmpireWithID(Id) != null){
+			throw new IllegalArgumentException("Empire with this ID already exists");
+		}
+		
+		if (empireName == null || empireName.trim().length() < 1){
+			throw new IllegalArgumentException("No empire name");
+		}
+		
+		if (ownerName == null || ownerName.trim().length() < 1){
+			throw new IllegalArgumentException("No player name provided");
+		}
+		
+		if (myCorePlayer != null && myCorePlayer.getEmpire() != null){
+			throw new IllegalArgumentException("Player already in empire");
+		}
+		
+		this.ID = Id;
+		this.name = empireName;
+		this.owner = ownerName;
+		this.atWar =false;
+		this.warwins = 0;
+		this.warlosses = 0;
+		this.battlelosses = 0;
+		this.battlewins = 0;
+		this.wars = new ArrayList<War>();
+		this.setProtected(true);
+		plugin.Empires.addEmpire(this);
+		this.players.put(myCorePlayer.getUUID(), myCorePlayer);
+		myCorePlayer.setEmpire(this);
+		this.allies = new ArrayList<Empire>();
+		this.exallies = new HashMap<Empire, Long>();
+		this.exenemies = new HashMap<Empire, Long>();
+		//this.exbattles = new HashMap<Empire, Long>();
+		this.lastbattleloss = (long) 0;
+		this.lastbattlewin = (long) 0;
+		this.allyrequests = new HashMap<Empire,Long>();
+		this.timeline = new HashMap<Long,String>();
+	}
 	
 	public Empire(empires plugin, String empireName, Player myPlayer){
 		myPlugin = plugin;
@@ -129,7 +132,7 @@ public class Empire {
 		}
 		
 		plugin.Empires.addEmpire(this);
-		this.addPlayer(myPlayer.getName());
+		this.players.put(myCorePlayer.getUUID(), myCorePlayer);
 		
 		myCorePlayer.setEmpire(this);
 		
@@ -153,24 +156,37 @@ public class Empire {
 		this.owner = owner;
 		Save();
 	}
-	public ArrayList<String> getPlayers(){
+	public HashMap<UUID,CorePlayer> getPlayers(){
 		return players;
 	}
 	
-	public boolean hasPlayer(String p) {
-		if (players.contains(p)) return true;
-		else return false;
+	public boolean hasPlayer(CorePlayer myCorePlayer) {
+		if (players.get(myCorePlayer.getUUID()) != null){
+			return true;
+		}
+		return false;
 	}
-	public void addPlayer(String p){
-		for (Empire emp : myPlugin.Empires.getEmpires()) {
-			if (emp.getPlayers().contains(p)) {
-				emp.removePlayer(p);
+	
+	public boolean hasPlayer(String playerName) {
+		for(CorePlayer myCorePlayer : players.values()){
+			if (myCorePlayer.getName() == playerName){
+				return true;
 			}
 		}
-
-		players.add(p);
-		Save();
-		
+		return false;
+	}
+	
+	public boolean hasPlayer(Player myPlayer) {
+		if (players.get(myPlayer.getUniqueId()) != null){
+			return true;
+		}
+		return false;
+	}
+	
+	public void addPlayer(CorePlayer myCorePlayer){
+		if (myCorePlayer.getEmpire() == null){
+			players.put(myCorePlayer.getUUID(), myCorePlayer);
+		}
 	}
 	public void removePlayer(String p) {
 		players.remove(p);
@@ -338,7 +354,10 @@ public class Empire {
 
 	public void broadcastMessage(String message) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (players.contains(player.getName())) player.sendMessage(message);
+			CorePlayer myCorePlayer = players.get(player.getUniqueId());
+			if (myCorePlayer != null){
+				myCorePlayer.sendMessage(message);
+			}
 		}
 	}
 	public String getOwnerPrefix() {
@@ -508,7 +527,10 @@ public class Empire {
 	public int getNumberOfOnlinePlayers(){
 		int number = 0;
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (players.contains(player.getName())) number++;
+			CorePlayer myCorePlayer = players.get(player.getUniqueId());
+			if (myCorePlayer != null){
+				number++;
+			}
 		}
 		return number;
 	}
@@ -518,11 +540,16 @@ public class Empire {
 	public void addBattleLosses(int i) {
 		this.battlelosses = this.battlelosses + i;
 	}
-	public ArrayList<Player> getOnlinePlayers() {
-		ArrayList<Player> list = new ArrayList<Player>();
-		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-			if (players.contains(player.getName())) list.add(player);
+	public HashMap<UUID,CorePlayer> getOnlinePlayers() {
+		HashMap<UUID,CorePlayer> list = new HashMap<UUID,CorePlayer>();
+		
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			CorePlayer myCorePlayer = players.get(player.getUniqueId());
+			if (myCorePlayer != null){
+				list.put(myCorePlayer.getUUID(), myCorePlayer);
+			}
 		}
+		
 		return list;
 	}
 	public void setLastBattleLoss(Long l) {

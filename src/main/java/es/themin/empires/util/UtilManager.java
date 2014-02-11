@@ -50,17 +50,6 @@ public class UtilManager {
 		}
 		SettingsManager.getInstance().getCoreData().set("cores", list);
 	}*/
-	
-	
-	
-
-	
-
-	
-	
-	public static Empire getEmpireWithPlayer(Player myPlayer) {
-		return myPlugin.getEmpireplayers().get(myPlayer.getName());		
-	}
 
 
 	

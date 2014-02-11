@@ -21,6 +21,16 @@ public class PlayerManager {
 	}
 
 	
+	
+	public CorePlayer getPlayers(String playerName){
+		for (CorePlayer myCorePlayer : this.players.values()){
+			if (myCorePlayer.getName().toLowerCase() == playerName.toLowerCase()){
+				return myCorePlayer;
+			}
+		}
+		return null;
+	}
+	
 	public CorePlayer getPlayer(UUID myUUID){
 		return players.get(myUUID);
 	}

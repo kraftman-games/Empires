@@ -9,11 +9,13 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.CoreManager;
+import es.themin.empires.PlayerManager;
 import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.enums.PlaceType;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpireUtils;
@@ -25,10 +27,12 @@ public class CoreUtils {
 	private  empires myPlugin;
 	private WorldManager Worlds;
 	private CoreManager Cores;
+	private PlayerManager Players;
 	
 	public CoreUtils(empires plugin){
 		myPlugin = plugin;	
 		Worlds = plugin.Worlds;
+		Players = plugin.Players;
 	}
 
 	public static CoreType GetCoreType(String coreType){
@@ -41,8 +45,9 @@ public class CoreUtils {
 	
 	public Core placeCore(Player myPlayer, CoreType myCoreType){
 		Core myCore = null;
+		CorePlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
 		
-		Empire myEmpire = UtilManager.getEmpireWithPlayer(myPlayer);
+		Empire myEmpire = myCorePlayer.getEmpire();
 		
 		//check they are in an empire
 		if (myEmpire == null){
@@ -74,7 +79,7 @@ public class CoreUtils {
 		}
 		
 		//create the core
-		 myCore = new Core(myPlayer, myCoreType);
+		 myCore = new Core(myCorePlayer, myCoreType);
 				
 		
 		//check if the core can physically be placed here

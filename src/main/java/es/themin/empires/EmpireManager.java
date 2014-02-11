@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;
 import es.themin.empires.util.SettingsManager;
@@ -80,9 +81,9 @@ public class EmpireManager {
 			SettingsManager.getEmpireData().set(str.toString() + ".name", empire.getName());
 			SettingsManager.getEmpireData().set(str.toString() + ".name", empire.getOwner());
 			List<String> playerList = new ArrayList<String>();
-			for (String player : empire.getPlayers()) {
+			for (CorePlayer player : empire.getPlayers().values()) {
 				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
-				playerList.add(player);
+				playerList.add(player.getName());
 				
 			}
 			SettingsManager.getEmpireData().set(str.toString() + ".players", playerList);

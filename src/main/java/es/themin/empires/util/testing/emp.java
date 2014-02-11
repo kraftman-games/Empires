@@ -4,8 +4,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpireManager;
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
@@ -13,28 +15,32 @@ public class emp extends SubCommand{
 	private empires myPlugin;
 	public String plprefix;
 	private EmpireManager Empires;
+	private PlayerManager Players;
 	
 	public emp(empires plugin) {
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
 		Empires = plugin.Empires;
+		Players = plugin.Players;
 	}
 
 	public boolean onCommand(Player player, String[] args) {
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
 		if (args.length == 1) {
-			if (!(myPlugin.getEmpireplayers().containsKey(player.getName()))) {
+			if (myCorePlayer != null) {
 				player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			}else {
-				Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+				Empire empire = myCorePlayer.getEmpire();
 				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
 				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
 				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;
-				for (String p : empire.getPlayers()) {
+				for (CorePlayer p : empire.getPlayers().values()) {
 					i++;
-					str.append(ChatColor.GREEN + p + ", ");
+					str.append(ChatColor.GREEN + p.getName() + ", ");
 				}
 				if (i == 0) {
 					str.append(ChatColor.RED + "No players :(");
@@ -51,9 +57,9 @@ public class emp extends SubCommand{
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;
-				for (String p : empire.getPlayers()) {
+				for (CorePlayer p : empire.getPlayers().values()) {
 					i++;
-					str.append(ChatColor.GREEN + p + ", ");
+					str.append(ChatColor.GREEN + p.getName() + ", ");
 				}
 				if (i == 0) {
 					str.append(ChatColor.RED + "No players :(");

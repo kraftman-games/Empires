@@ -15,6 +15,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
@@ -26,6 +27,7 @@ public class SettingsManager {
 	    
     private static empires myPlugin;
     private static WorldManager Worlds;
+    private PlayerManager Players;
    
     static FileConfiguration config;
     static File cfile;
@@ -51,9 +53,10 @@ public class SettingsManager {
     static YamlConfiguration wardata;
     static File warfile;
     
-    public SettingsManager(empires empires) {
-    	myPlugin = empires;
-    	Worlds = empires.Worlds;
+    public SettingsManager(empires plugin) {
+    	myPlugin = plugin;
+    	Worlds = plugin.Worlds;
+    	Players = plugin.Players;
     }
     
     private static File createFile(String fileName){
@@ -122,8 +125,9 @@ public class SettingsManager {
 	
 	private static void loadEmpirePlayers(Empire empire){
 		List<String> playerList = SettingsManager.getEmpireData().getStringList(empire.getName() + ".players");
-		for (String playerName : playerList) {
-			empire.addPlayer(playerName);
+		for ( String playerUUID : playerList) {
+			UUID myUUID = UUID.fromString(playerUUID);
+			//empire.addPlayer(myUUID);
 		}
 	}
 	
