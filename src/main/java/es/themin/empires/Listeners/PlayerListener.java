@@ -57,18 +57,15 @@ public class PlayerListener implements Listener{
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		
-		if (Players.playerExists(player.getUniqueId())){
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		if (myCorePlayer == null ){
+			myCorePlayer = new CorePlayer(player);
+		}
+		
+		if (SettingsManager.getPlayerData().get(player.getName()) != null && Empires.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
 			
-			if (SettingsManager.getPlayerData().get(player.getName()) != null && Empires.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
-				CorePlayer myPlayer = new CorePlayer(player);
-				myPlayer.setEmpire(Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
-				Players.addPlayer(myPlayer);
-			}
-			
-			
-		} else {
-			//coreplayer already exists
-			//maybe set their last login if we care
+			myCorePlayer.setEmpire(Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
+			Players.addPlayer(myCorePlayer);
 		}
 		
 		SettingsManager.savePlayerData();

@@ -64,7 +64,7 @@ public class AllyCommandStem implements CommandExecutor{
 				if (scmd.permission() != null){
 					if (myCorePlayer != null) {
 						Empire empire = myCorePlayer.getEmpire();
-						if (!empire.getOwner().equalsIgnoreCase(player.getName())) {
+						if (empire.getOwner() != myCorePlayer) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());
 								if (!(rank.hasPermission(scmd.permission()))) {

@@ -28,9 +28,9 @@ public class SettingsCommand extends EmpireSubCommand{
 		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		
-		if (myCorePlayer != null || myCorePlayer.getEmpire() != null) {
+		if (myCorePlayer != null && myCorePlayer.getEmpire() != null) {
 			Empire empire = myCorePlayer.getEmpire();
-			if (empire.getOwner().equalsIgnoreCase(player.getName())) {
+			if (empire.getOwner() == myCorePlayer) {
 				if (args.length == 1) {
 					info(player);
 				}else {

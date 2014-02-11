@@ -123,4 +123,25 @@ public class EmpireManager {
 		}
 		SettingsManager.getEmpireData().set("empires", list);
 	}
+
+	public boolean isValidName(String string) {
+		if (string.isEmpty())
+			return false;
+		else if(getEmpireWithName(string) != null)
+			return false;
+		
+		return true;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

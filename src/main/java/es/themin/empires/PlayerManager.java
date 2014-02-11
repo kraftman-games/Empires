@@ -40,15 +40,20 @@ public class PlayerManager {
 	
     public void savePlayers(){
     	for (CorePlayer myPlayer : players.values()) {
-    		SettingsManager.getPlayerData().set(myPlayer.getName() + ".empire", myPlayer.getEmpire());
+    		SettingsManager.getPlayerData().set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire());
+    		SettingsManager.getPlayerData().set(myPlayer.getUUID() + ".name", myPlayer.getName());
     	}
     	SettingsManager.savePlayerData();
     }
     public void loadPlayers(){
     	for (Player player : Bukkit.getOnlinePlayers()) {
-    		String name = player.getName();
-    		if (SettingsManager.getPlayerData().get(name + ".empire") != null) {
-    			Empire empire = myPlugin.Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(name + ".empire"));
+    		if (!playerExists(player.getUniqueId())){
+    			CorePlayer myCorePlayer = new CorePlayer(player);
+    			addPlayer(myCorePlayer);
+    		}
+    		
+    		if (SettingsManager.getPlayerData().get(player.getUniqueId() + ".empire") != null) {
+    			Empire empire = myPlugin.Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(player.getUniqueId() + ".empire"));
     			if (empire != null){
     				CorePlayer myCorePlayer = new CorePlayer(player);
         			addPlayer(myCorePlayer);

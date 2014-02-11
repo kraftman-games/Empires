@@ -58,7 +58,7 @@ public final class empires extends JavaPlugin {
 	public WarManager Wars = new WarManager(this);
 	public PlayerManager Players = new PlayerManager(this);
 	
-	public SettingsManager settings;
+	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
 	
 	@Override
@@ -67,8 +67,8 @@ public final class empires extends JavaPlugin {
         settings = new SettingsManager(this);
         utils = new UtilManager(this);
         
-		SettingsManager.loadSettings();
-		SettingsManager.loadEmpires(this);
+        settings.loadSettings();
+        settings.loadEmpires(this);
 		
 		Recipes.setupamplifierRecipe();
 		

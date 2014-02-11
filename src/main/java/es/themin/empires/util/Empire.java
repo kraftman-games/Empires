@@ -26,7 +26,7 @@ public class Empire {
 //For use in this class	
 	private int ID;
 	private String name;
-	private String owner;
+	private CorePlayer owner;
 	private HashMap<UUID,CorePlayer> players = new HashMap<UUID,CorePlayer>();
 	private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
@@ -63,32 +63,16 @@ public class Empire {
 
 	
 
-	public Empire(empires plugin, int Id, String empireName, String ownerName){
+	public Empire(empires plugin, String empireName, CorePlayer myCorePlayer){
 		myPlugin = plugin;
 		Empires = plugin.Empires;
 		Players = plugin.Players;
 		
-		CorePlayer myCorePlayer = Players.getPlayers(ownerName);
 		
-		if (Empires.getEmpireWithID(Id) != null){
-			throw new IllegalArgumentException("Empire with this ID already exists");
-		}
 		
-		if (empireName == null || empireName.trim().length() < 1){
-			throw new IllegalArgumentException("No empire name");
-		}
-		
-		if (ownerName == null || ownerName.trim().length() < 1){
-			throw new IllegalArgumentException("No player name provided");
-		}
-		
-		if (myCorePlayer != null && myCorePlayer.getEmpire() != null){
-			throw new IllegalArgumentException("Player already in empire");
-		}
-		
-		this.ID = Id;
+		this.ID = Empires.nextUnusedEmpireId();
 		this.name = empireName;
-		this.owner = ownerName;
+		this.owner = myCorePlayer;
 		this.atWar =false;
 		this.warwins = 0;
 		this.warlosses = 0;
@@ -102,46 +86,13 @@ public class Empire {
 		this.allies = new ArrayList<Empire>();
 		this.exallies = new HashMap<Empire, Long>();
 		this.exenemies = new HashMap<Empire, Long>();
-		//this.exbattles = new HashMap<Empire, Long>();
 		this.lastbattleloss = (long) 0;
 		this.lastbattlewin = (long) 0;
 		this.allyrequests = new HashMap<Empire,Long>();
 		this.timeline = new HashMap<Long,String>();
 	}
 	
-	public Empire(empires plugin, String empireName, Player myPlayer){
-		myPlugin = plugin;
-		Empires = plugin.Empires;
-		Players = plugin.Players;
-		
-		CorePlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
-		
-		if (empireName == null || empireName.trim().length() < 1){
-			myPlayer.sendMessage("your empire must have a name");
-			throw new IllegalArgumentException("No empire name");
-		}
-		
-		if (Empires.getEmpireWithName(empireName)!= null){
-			myPlayer.sendMessage("Empire name already exists");
-			throw new IllegalArgumentException("Empire already exists");
-		}
-		
-		if (myCorePlayer != null && myCorePlayer.getEmpire() != null){
-			myPlayer.sendMessage("You are already in an empire");
-			throw new IllegalArgumentException("Player already in empire");
-		}
-		
-		plugin.Empires.addEmpire(this);
-		this.players.put(myCorePlayer.getUUID(), myCorePlayer);
-		
-		myCorePlayer.setEmpire(this);
-		
-		this.ID = myPlugin.Cores.nextUnusedCoreId();
-		this.name = empireName;
-		this.owner = myPlayer.getName();
-		this.setProtected(true);
-		
-	}
+	
 	
 	public int getId(){
 		return ID;
@@ -149,10 +100,10 @@ public class Empire {
 	public String getName(){
 		return name;
 	}
-	public String getOwner(){
+	public CorePlayer getOwner(){
 		return owner;
 	}
-	public void setOwner(String owner){
+	public void setOwner(CorePlayer owner){
 		this.owner = owner;
 		Save();
 	}
