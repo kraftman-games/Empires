@@ -4,10 +4,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpireManager;
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.EmpireState;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;
 import es.themin.empires.util.SettingsManager;
@@ -20,17 +22,21 @@ public class WarDeclareCommand extends EmpireSubCommand{
 	public String warprefix = empires.warprefix;
 	private empires myPlugin;
 	private EmpireManager Empires;
+	private PlayerManager Players;
 	
 	public WarDeclareCommand(empires plugin) {
 		myPlugin = plugin;
 		Empires = plugin.Empires;
 		plprefix = plugin.plprefix;
+		Players = plugin.Players;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (myPlugin.getEmpireplayers().containsKey(player.getName())) {
-			Empire empire = myPlugin.getEmpireplayers().get(player.getName());
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myCorePlayer != null && myCorePlayer.getEmpire() != null) {
+			Empire empire = myCorePlayer.getEmpire();
 			if (!(empire.getOwner().equalsIgnoreCase(player.getName()))) {
 				if (empire.playerHasARank(player.getName())) {
 					Rank rank = empire.getRankOfPlayer(player.getName());

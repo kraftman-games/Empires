@@ -14,16 +14,20 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
 
 public class CraftListener implements Listener{
 	
 	private empires myPlugin;
+	private PlayerManager Players;
 	public CraftListener(empires plugin) {
 		this.myPlugin = plugin;
+		Players = plugin.Players;
 	}
 	
 	@EventHandler
@@ -54,7 +58,10 @@ public class CraftListener implements Listener{
 				
 				myItem.setItemMeta(myMeta);
 				player.sendMessage("Crafted");
-				if (!(event.getInventory().contains(myItem)) || !(myPlugin.getEmpireplayers().containsKey(player.getName())) || !(myPlugin.getEmpireplayers().get(player.getName()).hasCoreOfType(CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), myPlugin.getEmpireplayers().get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), myPlugin.getEmpireplayers().get(player.getName()).getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
+				
+				CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+				
+				if (!(event.getInventory().contains(myItem)) || myCorePlayer == null || !(myCorePlayer.getEmpire().hasCoreOfType(CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), myCorePlayer.getEmpire().getCoreOfType(CoreType.BASE).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), myCorePlayer.getEmpire().getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
 					event.setCancelled(true);
 					event.setCurrentItem(null);
 					player.sendMessage(ChatColor.RED + "To craft an amplifier you must place a true shard in your Base core's crafting table");

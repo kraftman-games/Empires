@@ -24,10 +24,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.CoreManager;
 import es.themin.empires.EmpireManager;
+import es.themin.empires.PlayerManager;
 import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
+import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.PlayerUtils;
@@ -55,6 +57,7 @@ public class Core {
 	private EmpireManager Empires;
 	private CoreManager Cores;
 	private WorldManager Worlds;
+	private PlayerManager Players;
 	
 	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
 	
@@ -87,6 +90,7 @@ public class Core {
 		this.Empires = plugin.Empires;
 		this.Worlds = plugin.Worlds;
 		this.Cores = plugin.Cores;
+		this.Players = plugin.Players;
 		this.coreSize = 8;
 		this.empire = empire;
 		this.Id = Id;
@@ -266,13 +270,17 @@ public class Core {
 
 	public void playerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
+		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		
+		if (myCorePlayer == null )
+			return;
 		
 		if (this.getType() == CoreType.GRIEF){
 			// treat it normally for residents
 			// allow insta break for enemies if not a protection block
 		} else {
 			
-			if (this.getEmpire() == myPlugin.getEmpireplayers().get(player.getName())){
+			if (this.getEmpire() == myCorePlayer.getEmpire()){
 				if (PlayerUtils.deductShards(player, this.getDestroyCost())){
 					this.Delete();
 					event.setCancelled(true);
