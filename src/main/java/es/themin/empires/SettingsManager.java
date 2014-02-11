@@ -40,8 +40,7 @@ public class SettingsManager {
     YamlConfiguration coredata;
     File corefile;
     
-    static YamlConfiguration playerdata;
-    static File pfile;
+    
     
     static YamlConfiguration empiredata;
     static File efile;
@@ -180,9 +179,7 @@ public class SettingsManager {
         
         wardata = YamlConfiguration.loadConfiguration(warfile);
         
-        pfile = createFile("playerdata.yml");
-       
-        playerdata = YamlConfiguration.loadConfiguration(pfile);
+        
         
         mfile = createFile("messages.yml");
         
@@ -263,31 +260,7 @@ public static YamlConfiguration getMessagedata() {
     public void reloadCoreData() {
         coredata = YamlConfiguration.loadConfiguration(corefile);
     }*/
-  //#########################PLAYER DAT
-    public static FileConfiguration getPlayerData() {
-        return playerdata;
-    }
 
-    public static void savePlayerData() {
-        try {
-                playerdata.save(pfile);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
-        }
-    }
-    public static void savePlayerDataToFile(File file) {
-        try {
-                playerdata.save(file);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
-        }
-    }
-
-    public static void reloadPlayerData() {
-        playerdata = YamlConfiguration.loadConfiguration(pfile);
-    }
   //######################EMPIRE DAT
     public static FileConfiguration getEmpireData() {
         return empiredata;
@@ -398,7 +371,6 @@ public static YamlConfiguration getMessagedata() {
     public static void saveAll(){
     	//saveConfig();
     	saveEmpireData();
-    	savePlayerData();
     	saveWorldData();
     	saveData();
     	saveWarData();

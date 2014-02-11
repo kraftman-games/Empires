@@ -62,13 +62,13 @@ public class PlayerListener implements Listener{
 			myCorePlayer = new CorePlayer(player);
 		}
 		
-		if (SettingsManager.getPlayerData().get(player.getName()) != null && Empires.containsEmpireWithId(SettingsManager.getPlayerData().getInt(player.getName() + ".empire"))) {
+		if (Players.getPlayerData().get(player.getName()) != null && Empires.containsEmpireWithId(Players.getPlayerData().getInt(player.getName() + ".empire"))) {
 			
-			myCorePlayer.setEmpire(Empires.getEmpireWithID(SettingsManager.getPlayerData().getInt(player.getName() + ".empire")));
+			myCorePlayer.setEmpire(Empires.getEmpireWithID(Players.getPlayerData().getInt(player.getName() + ".empire")));
 			Players.addPlayer(myCorePlayer);
 		}
 		
-		SettingsManager.savePlayerData();
+		Players.save();
 	}
 	
 	@EventHandler
@@ -78,11 +78,11 @@ public class PlayerListener implements Listener{
 		CorePlayer myPlayer = Players.getPlayer(player.getUniqueId());
 		
 		if (myPlayer != null) {
-			SettingsManager.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
-			SettingsManager.savePlayerData();
+			Players.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
+			Players.save();
 		}else {
-			SettingsManager.getPlayerData().set(player.getName(), null);
-			SettingsManager.savePlayerData();
+			Players.getPlayerData().set(player.getName(), null);
+			Players.save();
 		}
 	}
 		

@@ -75,7 +75,7 @@ public final class empires extends JavaPlugin {
 		MsgManager.setPrefix(plprefix);
 		
 		loadCommands();
-		Players.loadPlayers();
+		Players.load();
 		scheduleBackUps();
 		registerEvents();
 		
@@ -86,7 +86,7 @@ public final class empires extends JavaPlugin {
         
 		Empires.saveEmpires();
 		SettingsManager.saveAll();
-		Players.savePlayers();
+		Players.save();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
 		final ScoreboardManager sbm = Bukkit.getScoreboardManager();
@@ -165,11 +165,11 @@ public final class empires extends JavaPlugin {
 	    					File cfile = new File(epath + File.separator + "config.yml");
 	    					File wfile = new File(epath + File.separator + "worldconfig.yml");
 	    					File pfile = new File(epath + File.separator + "playerdata.yml");
-	    					Players.savePlayers();
+	    					Players.save();
 	    					SettingsManager.saveEmpireDataToFile(efile);
 	    					SettingsManager.saveConfigToFile(cfile);
 	    					SettingsManager.saveWorldDataToFile(wfile);
-	    					SettingsManager.savePlayerDataToFile(pfile);
+	    					Players.save();
 	    					SettingsManager.getData().set("lastbackup", System.currentTimeMillis());
 	    					SettingsManager.saveData();
 	    					getLogger().info("[Empires] Backed Up");
