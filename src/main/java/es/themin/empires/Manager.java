@@ -5,4 +5,6 @@ public interface Manager {
 	void save();
 	
 	void load();
+	
+	void reload();
 }

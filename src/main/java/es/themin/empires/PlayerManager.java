@@ -85,7 +85,7 @@ public class PlayerManager implements Manager {
     	}
     }
 
-    public  void reloadPlayerData() {
+    public  void reload() {
         playerdata = YamlConfiguration.loadConfiguration(pfile);
     }
 
