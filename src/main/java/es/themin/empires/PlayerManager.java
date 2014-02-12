@@ -21,8 +21,9 @@ public class PlayerManager implements Manager {
 	private  YamlConfiguration playerdata;
     private File pfile;
 	
-	public PlayerManager() {
-		
+	public PlayerManager(YamlConfiguration playerdata, File pfile) {
+		this.playerdata = playerdata;
+	    pfile = this.pfile;
 	}
 	
     public  FileConfiguration getPlayerData() {
@@ -48,9 +49,7 @@ public class PlayerManager implements Manager {
     }
     
     public void load(){
-    	pfile = SettingsManager.createFile("playerdata.yml");
-	       
-        playerdata = YamlConfiguration.loadConfiguration(pfile);
+    	
     	
     	for (Player player : Bukkit.getOnlinePlayers()) {
     		if (!playerExists(player.getUniqueId())){

@@ -61,6 +61,8 @@ public final class empires extends JavaPlugin {
 	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
 	
+	private ManagerFactory ManagerFactory = new ManagerFactory();
+	
 	ArrayList<Manager> Managers = new ArrayList<Manager>();
 	
 	@Override
@@ -71,7 +73,7 @@ public final class empires extends JavaPlugin {
     	 Cores = new CoreManager(this);
     	 Worlds = new WorldManager(this);
     	 Wars = new WarManager(this);
-    	 Players = new PlayerManager();
+    	 Players = ManagerFactory.CreatePlayerManager();
     	 
     	 Managers.add(Empires);
     	 Managers.add(Wars);
