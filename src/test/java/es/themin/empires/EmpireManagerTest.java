@@ -18,6 +18,5 @@ public class EmpireManagerTest {
 		empires myPlugin = new empires();
 		
 		
-		EmpireManager emp = new EmpireManager()
 	}
 }

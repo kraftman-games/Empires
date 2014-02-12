@@ -16,14 +16,15 @@ import es.themin.empires.util.Empire;
 
 public class PlayerManager implements Manager {
 
-	private HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+	private HashMap<UUID, CorePlayer> players;
 	
-	private  YamlConfiguration playerdata;
+	private YamlConfiguration playerdata;
     private File pfile;
 	
-	public PlayerManager(YamlConfiguration playerdata, File pfile) {
+	public PlayerManager(YamlConfiguration playerdata, File pfile, HashMap<UUID, CorePlayer> players) {
 		this.playerdata = playerdata;
-	    pfile = this.pfile;
+	    this.pfile = pfile;
+	    this.players = players;
 	}
 	
     public  FileConfiguration getPlayerData() {
@@ -49,7 +50,6 @@ public class PlayerManager implements Manager {
     }
     
     public void load(){
-    	
     	
     	for (Player player : Bukkit.getOnlinePlayers()) {
     		if (!playerExists(player.getUniqueId())){
