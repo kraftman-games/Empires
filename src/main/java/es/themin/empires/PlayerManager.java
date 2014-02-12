@@ -17,40 +17,14 @@ import es.themin.empires.util.Empire;
 public class PlayerManager implements Manager {
 
 	private HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
-	private empires myPlugin;
 	
 	private  YamlConfiguration playerdata;
     private File pfile;
-    //private EmpireManager Empires;
 	
-	public PlayerManager(empires plugin, EmpireManager Empires) {
-		myPlugin = plugin;
-		//this.Empires = Empires;
-		pfile = createFile("playerdata.yml");
-	       
-        playerdata = YamlConfiguration.loadConfiguration(pfile);
+	public PlayerManager() {
+		
 	}
 	
-	private  File createFile(String fileName){
-    	
-    	File myFile = new File(myPlugin.getDataFolder(), fileName);
-        
-        if (!myFile.exists()) {
-                try {
-                	myFile.createNewFile();
-        				myPlugin.getLogger().info("[Empires] "+fileName+" not found, making you one");
-                }
-                catch (IOException e) {
-                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create "+fileName);
-                }
-        }
-        
-        return myFile;
-    	
-    }
-	
-
-
     public  FileConfiguration getPlayerData() {
         return playerdata;
     }
@@ -74,6 +48,10 @@ public class PlayerManager implements Manager {
     }
     
     public void load(){
+    	pfile = SettingsManager.createFile("playerdata.yml");
+	       
+        playerdata = YamlConfiguration.loadConfiguration(pfile);
+    	
     	for (Player player : Bukkit.getOnlinePlayers()) {
     		if (!playerExists(player.getUniqueId())){
     			CorePlayer myCorePlayer = new CorePlayer(player);
@@ -81,12 +59,12 @@ public class PlayerManager implements Manager {
     		}
     		
     		if (playerdata.get(player.getUniqueId() + ".empire") != null) {
-    			Empire empire = Empires.getEmpireWithID(playerdata.getInt(player.getUniqueId() + ".empire"));
-    			if (empire != null){
-    				CorePlayer myCorePlayer = new CorePlayer(player);
-        			addPlayer(myCorePlayer);
-        			player.sendMessage(myPlugin.plprefix + ChatColor.GREEN + "You were found to be in an empire");
-    			}
+    			int empireID = playerdata.getInt(player.getUniqueId() + ".empire");
+//    			if (empire != null){
+//    				CorePlayer myCorePlayer = new CorePlayer(player);
+//        			addPlayer(myCorePlayer);
+//        			player.sendMessage(myPlugin.plprefix + ChatColor.GREEN + "You were found to be in an empire");
+//    			}
     		}
     	}
     }

@@ -71,7 +71,7 @@ public final class empires extends JavaPlugin {
     	 Cores = new CoreManager(this);
     	 Worlds = new WorldManager(this);
     	 Wars = new WarManager(this);
-    	 Players = new PlayerManager(this, Empires);
+    	 Players = new PlayerManager();
     	 
     	 Managers.add(Empires);
     	 Managers.add(Wars);

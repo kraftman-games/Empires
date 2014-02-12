@@ -50,7 +50,7 @@ public class SettingsManager {
     	myPlugin = plugin;
     }
     
-    private static File createFile(String fileName){
+    public static File createFile(String fileName){
     	
     	File myFile = new File(myPlugin.getDataFolder(), fileName);
         
