@@ -70,7 +70,7 @@ public class SettingsManager {
     
 
    
-    public static void loadSettings() {
+    public  void loadSettings() {
     	
     	
     	config = myPlugin.getConfig();

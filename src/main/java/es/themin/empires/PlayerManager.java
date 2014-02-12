@@ -21,10 +21,11 @@ public class PlayerManager implements Manager {
 	
 	private  YamlConfiguration playerdata;
     private File pfile;
+    //private EmpireManager Empires;
 	
-	public PlayerManager(empires plugin) {
+	public PlayerManager(empires plugin, EmpireManager Empires) {
 		myPlugin = plugin;
-		
+		//this.Empires = Empires;
 		pfile = createFile("playerdata.yml");
 	       
         playerdata = YamlConfiguration.loadConfiguration(pfile);
@@ -80,7 +81,7 @@ public class PlayerManager implements Manager {
     		}
     		
     		if (playerdata.get(player.getUniqueId() + ".empire") != null) {
-    			Empire empire = myPlugin.Empires.getEmpireWithID(playerdata.getInt(player.getUniqueId() + ".empire"));
+    			Empire empire = Empires.getEmpireWithID(playerdata.getInt(player.getUniqueId() + ".empire"));
     			if (empire != null){
     				CorePlayer myCorePlayer = new CorePlayer(player);
         			addPlayer(myCorePlayer);

@@ -37,7 +37,7 @@ public class WarDeclareCommand extends EmpireSubCommand{
 		
 		if (myCorePlayer != null && myCorePlayer.getEmpire() != null) {
 			Empire empire = myCorePlayer.getEmpire();
-			if (!(empire.getOwner() == myCorePlayer)) {
+			if (!(empire.getOwner() == myCorePlayer.getUUID())) {
 				if (empire.playerHasARank(player.getName())) {
 					Rank rank = empire.getRankOfPlayer(player.getName());
 					if (!(rank.hasPermission(EmpirePermission.ATTACK))) player.sendMessage(plprefix + ChatColor.RED +"You do not have permission to do this"); return false;

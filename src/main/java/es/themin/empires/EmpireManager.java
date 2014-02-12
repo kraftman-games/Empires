@@ -28,8 +28,8 @@ public class EmpireManager implements Manager {
 	
 	private empires myPlugin;
 	private ArrayList<Empire> empires = new ArrayList<Empire>();
-	private PlayerManager Players;
-	private WorldManager Worlds;
+	//private PlayerManager Players;
+	//private WorldManager Worlds;
 	
 
     private YamlConfiguration empiredata;
@@ -41,8 +41,6 @@ public class EmpireManager implements Manager {
 
 	public EmpireManager(empires plugin) {
 		myPlugin = plugin;
-		Players = plugin.Players;
-		Worlds = plugin.Worlds;
 	}
 	
 	public void load(){
@@ -97,11 +95,7 @@ public class EmpireManager implements Manager {
 	}
 	
 	public  void loadEmpires(empires plugin) {
-		List<World> myWorlds = Bukkit.getServer().getWorlds();
 		
-		for(World myWorld : myWorlds){
-			Worlds.getWorlds().put(myWorld.getUID(), new CoreWorld());
-		}
 		
 		
 		List<String> list = empiredata.getStringList("empires");
@@ -110,8 +104,7 @@ public class EmpireManager implements Manager {
 			Integer Id = Integer.parseInt(words[0]);
 			String name = words[1];
 			String owner = words[2];
-			CorePlayer myCorePlayer = Players.getPlayer(UUID.fromString(owner));
-			Empire empire = new Empire(myPlugin, name, myCorePlayer);
+			Empire empire = new Empire(myPlugin, name, UUID.fromString(owner));
 			
 			loadEmpireCores(plugin, empire);
 			
@@ -167,7 +160,7 @@ public class EmpireManager implements Manager {
 			int level = Integer.parseInt(words2[6]);
 			Core core = new Core(myPlugin, coreID, coretype, location, level, empire);
 		    //core.build();
-		    Worlds.getWorlds().get(world2.getUID()).addCore(core);
+		    //Worlds.getWorlds().get(world2.getUID()).addCore(core);
 			plugin.Cores.getCores().add(core);
 			empire.ac(core);
 		}
@@ -269,9 +262,9 @@ public class EmpireManager implements Manager {
 		
 		try {
             empiredata.save(datafile);
-		    }
-		    catch (IOException e) {
-		            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
+	    }
+	    catch (IOException e) {
+	            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
 		    }
 	}
 

@@ -30,7 +30,7 @@ public class RankCommand extends EmpireSubCommand{
 		
 		if (myCorePlayer != null && myCorePlayer.getEmpire() != null) {
 			Empire empire = myCorePlayer.getEmpire();
-			if (empire.getOwner() == myCorePlayer) {
+			if (empire.getOwner() == myCorePlayer.getUUID()) {
 				if (args.length == 1) {
 					info(player); return false;
 				} else {

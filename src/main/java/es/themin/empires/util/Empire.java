@@ -26,7 +26,7 @@ public class Empire {
 //For use in this class	
 	private int ID;
 	private String name;
-	private CorePlayer owner;
+	private UUID owner;
 	private HashMap<UUID,CorePlayer> players = new HashMap<UUID,CorePlayer>();
 	private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
@@ -63,7 +63,7 @@ public class Empire {
 
 	
 
-	public Empire(empires plugin, String empireName, CorePlayer myCorePlayer){
+	public Empire(empires plugin, String empireName, UUID myUUID){
 		myPlugin = plugin;
 		Empires = plugin.Empires;
 		Players = plugin.Players;
@@ -72,7 +72,7 @@ public class Empire {
 		
 		this.ID = Empires.nextUnusedEmpireId();
 		this.name = empireName;
-		this.owner = myCorePlayer;
+		this.owner = myUUID;
 		this.atWar =false;
 		this.warwins = 0;
 		this.warlosses = 0;
@@ -81,8 +81,6 @@ public class Empire {
 		this.wars = new ArrayList<War>();
 		this.setProtected(true);
 		plugin.Empires.addEmpire(this);
-		this.players.put(myCorePlayer.getUUID(), myCorePlayer);
-		myCorePlayer.setEmpire(this);
 		this.allies = new ArrayList<Empire>();
 		this.exallies = new HashMap<Empire, Long>();
 		this.exenemies = new HashMap<Empire, Long>();
@@ -100,10 +98,10 @@ public class Empire {
 	public String getName(){
 		return name;
 	}
-	public CorePlayer getOwner(){
+	public UUID getOwner(){
 		return owner;
 	}
-	public void setOwner(CorePlayer owner){
+	public void setOwner(UUID owner){
 		this.owner = owner;
 		Save();
 	}

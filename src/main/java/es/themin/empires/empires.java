@@ -71,7 +71,7 @@ public final class empires extends JavaPlugin {
     	 Cores = new CoreManager(this);
     	 Worlds = new WorldManager(this);
     	 Wars = new WarManager(this);
-    	 Players = new PlayerManager(this);
+    	 Players = new PlayerManager(this, Empires);
     	 
     	 Managers.add(Empires);
     	 Managers.add(Wars);
@@ -116,9 +116,8 @@ public final class empires extends JavaPlugin {
     @Override
     public void onDisable() {
         
-		Empires.save();
+    	saveManagers();
 		SettingsManager.saveAll();
-		Players.save();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
 		final ScoreboardManager sbm = Bukkit.getScoreboardManager();
