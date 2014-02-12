@@ -48,6 +48,7 @@ public class PlayerManager implements Manager {
     	
     }
 	
+	
 
     public  FileConfiguration getPlayerData() {
         return playerdata;
