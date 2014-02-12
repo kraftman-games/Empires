@@ -52,11 +52,11 @@ public final class empires extends JavaPlugin {
 	
 	private HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
 	
-	public EmpireManager Empires = new EmpireManager(this);
-	public CoreManager Cores = new CoreManager(this);
-	public WorldManager Worlds = new WorldManager(this);
-	public WarManager Wars = new WarManager(this);
-	public PlayerManager Players = new PlayerManager(this);
+	public EmpireManager Empires;
+	public CoreManager Cores;
+	public WorldManager Worlds;
+	public WarManager Wars;
+	public PlayerManager Players;
 	
 	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
@@ -64,11 +64,17 @@ public final class empires extends JavaPlugin {
 	@Override
     public void onEnable(){
         plugin = this;
+        
+         Empires = new EmpireManager(this);
+    	 Cores = new CoreManager(this);
+    	 Worlds = new WorldManager(this);
+    	 Wars = new WarManager(this);
+    	 Players = new PlayerManager(this);
+        
         settings = new SettingsManager(this);
         utils = new UtilManager(this);
         
         settings.loadSettings();
-        settings.loadEmpires(this);
 		
 		Recipes.setupamplifierRecipe();
 		
@@ -166,9 +172,9 @@ public final class empires extends JavaPlugin {
 	    					File wfile = new File(epath + File.separator + "worldconfig.yml");
 	    					File pfile = new File(epath + File.separator + "playerdata.yml");
 	    					Players.save();
-	    					SettingsManager.saveEmpireDataToFile(efile);
-	    					SettingsManager.saveConfigToFile(cfile);
-	    					SettingsManager.saveWorldDataToFile(wfile);
+	    					//SettingsManager.saveEmpireDataToFile(efile);
+	    					//SettingsManager.saveConfigToFile(cfile);
+//	    					SettingsManager.saveWorldDataToFile(wfile);
 	    					Players.save();
 	    					SettingsManager.getData().set("lastbackup", System.currentTimeMillis());
 	    					SettingsManager.saveData();

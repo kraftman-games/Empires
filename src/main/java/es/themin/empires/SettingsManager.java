@@ -42,8 +42,6 @@ public class SettingsManager {
     
     
     
-    static YamlConfiguration empiredata;
-    static File efile;
     
     static YamlConfiguration worlddata;
     static File wfile;
@@ -78,82 +76,7 @@ public class SettingsManager {
     	
     }
     
-	public  void loadEmpires(empires plugin) {
-		List<World> myWorlds = Bukkit.getServer().getWorlds();
-		
-		for(World myWorld : myWorlds){
-			Worlds.getWorlds().put(myWorld.getUID(), new CoreWorld());
-		}
-		
-		
-		List<String> list = SettingsManager.getEmpireData().getStringList("empires");
-		for (String empireName : list) {
-			String[] words = empireName.split(":");
-			Integer Id = Integer.parseInt(words[0]);
-			String name = words[1];
-			String owner = words[2];
-			CorePlayer myCorePlayer = Players.getPlayer(UUID.fromString(owner));
-			Empire empire = new Empire(myPlugin, name, myCorePlayer);
-			
-			loadEmpireCores(plugin, empire);
-			
-			loadEmpirePlayers(empire);
-			
-			loadEmpireRanks(empire);
-			
-			empire.Save();
-		}
-	}
-	
-	private static void loadEmpireRanks(Empire empire){
-		List<String> rankList = SettingsManager.getEmpireData().getStringList(empire.getName() + ".ranks");
-		for (String rankString : rankList) {
-			String[] words2 = rankString.split(":");
-			Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1], empire, words2[2]);
-			List<String> playersInRank = SettingsManager.getEmpireData().getStringList(empire.getName() + ".rank." + rankString + ".players");
-			for (String playername : playersInRank) {
-				rank.addPlayer(playername);
-			}
-			List<String> playerPermissions = SettingsManager.getEmpireData().getStringList(empire.getName() + ".rank." + rankString + ".permissions");
-			for (String permission : playerPermissions) {
-				EmpirePermission ep = Permissions.getPermission(permission);
-				if (ep != null){
-					rank.addPermission(ep);
-				}
-			}
-			empire.addRank(rank);
-		}
-	}
-	
-	private static void loadEmpirePlayers(Empire empire){
-		List<String> playerList = SettingsManager.getEmpireData().getStringList(empire.getName() + ".players");
-		for ( String playerUUID : playerList) {
-			UUID myUUID = UUID.fromString(playerUUID);
-			//empire.addPlayer(myUUID);
-		}
-	}
-	
-	private static void loadEmpireCores(empires plugin, Empire empire){
-		List<String> list2 = SettingsManager.getEmpireData().getStringList(empire.getName() + ".cores");
-		for (String s2: list2) {
-			String[] words2 = s2.split(":");
-			int coreID  = Integer.parseInt(words2[0]);
-			
-			CoreType coretype = CoreUtils.GetCoreType(words2[1]);
-			
-			World world2 = Bukkit.getServer().getWorld(words2[2]);
-			int x2 = Integer.parseInt(words2[3]); // - 0:BASE:world:-249:78:223:1:0:kraft
-			int y2 = Integer.parseInt(words2[4]);
-			int z2 = Integer.parseInt(words2[5]);
-			Location location = new Location(world2, x2, y2, z2);
-			int level = Integer.parseInt(words2[6]);
-			Core core = new Core(myPlugin, coreID, coretype, location, level, empire);
-		    //core.build();
-		    Worlds.getWorlds().get(world2.getUID()).addCore(core);
-			plugin.Cores.getCores().add(core);
-			empire.ac(core);
-		}
-	}
+
    
     public static void loadSettings() {
     	
@@ -183,9 +106,7 @@ public class SettingsManager {
         
         mfile = createFile("messages.yml");
         
-        efile = createFile("empiredata.yml");
-       
-       	empiredata = YamlConfiguration.loadConfiguration(efile);
+        
        	
         wfile = new File(myPlugin.getDataFolder(), "worldconfig.yml");
         
@@ -205,7 +126,7 @@ public class SettingsManager {
                         worlddata.addDefault("worlds.world.allowplaceofcore.GRIEF", true);
                         worlddata.addDefault("worlds.world.allowplaceofcore.OUTPOST", true);
                         worlddata.options().copyDefaults();
-                       	saveWorldData();
+//                       	saveWorldData();
         				myPlugin.getLogger().info("[Empires] worldconfig.yml not found, making you one");
                 }
                 catch (IOException e) {
@@ -262,57 +183,34 @@ public static YamlConfiguration getMessagedata() {
     }*/
 
   //######################EMPIRE DAT
-    public static FileConfiguration getEmpireData() {
-        return empiredata;
-    }
-
-    public static void saveEmpireData() {
-        try {
-                empiredata.save(efile);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
-        }
-    }
-    public static void saveEmpireDataToFile(File file) {
-        try {
-                empiredata.save(file);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
-        }
-    }
-
-    public static void reloadEmpireData() {
-        empiredata = YamlConfiguration.loadConfiguration(efile);
-    }
+    
  //#############################   
     
     //######################world DAT
-    public static FileConfiguration getWorldData() {
-        return worlddata;
-    }
-
-    public static void saveWorldData() {
-        try {
-                worlddata.save(wfile);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
-        }
-    }
-    public static void saveWorldDataToFile(File file) {
-        try {
-                worlddata.save(file);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
-        }
-    }
-
-    public static void reloadWorldData() {
-        worlddata = YamlConfiguration.loadConfiguration(wfile);
-    }
+//    public static FileConfiguration getWorldData() {
+//        return worlddata;
+//    }
+//
+//    public static void saveWorldData() {
+//        try {
+//                worlddata.save(wfile);
+//        }
+//        catch (IOException e) {
+//                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
+//        }
+//    }
+//    public static void saveWorldDataToFile(File file) {
+//        try {
+//                worlddata.save(file);
+//        }
+//        catch (IOException e) {
+//                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
+//        }
+//    }
+//
+//    public static void reloadWorldData() {
+//        worlddata = YamlConfiguration.loadConfiguration(wfile);
+//    }
  //######### WAR DATA 
     public static FileConfiguration getWarData() {
         return wardata;
@@ -370,8 +268,8 @@ public static YamlConfiguration getMessagedata() {
     }
     public static void saveAll(){
     	//saveConfig();
-    	saveEmpireData();
-    	saveWorldData();
+    	//saveEmpireData();
+//    	saveWorldData();
     	saveData();
     	saveWarData();
     }
