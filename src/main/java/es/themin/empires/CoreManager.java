@@ -11,6 +11,8 @@ public class CoreManager {
 	private empires myPlugin;
 	private ArrayList<Core> cores = new ArrayList<Core>();
 	
+	
+	
 	public CoreManager(empires plugin) {
 		myPlugin = plugin;
 	}
