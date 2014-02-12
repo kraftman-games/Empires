@@ -16,7 +16,7 @@ import es.themin.empires.wars.Battle;
 import es.themin.empires.wars.War;
 import es.themin.empires.wars.Battle.BattleTeam;
 
-public class WarManager {
+public class WarManager implements Manager {
 	
 	private empires myPlugin;
 	private ArrayList<War> wars = new ArrayList<War>();
@@ -32,7 +32,7 @@ public class WarManager {
 		return wars;
 	}
 
-	public  void saveWars() {
+	public  void save() {
 		Bukkit.getServer().getPluginManager().getPlugin("Empires").getLogger().info("[Empires] Saving Wars ...");
 		List<String> listofwars = new ArrayList<String>();
 		for (War war : this.wars) {
@@ -83,11 +83,18 @@ public class WarManager {
 		}
 		wardata.set("wars", listofwars);
 		Bukkit.getServer().getPluginManager().getPlugin("Empires").getLogger().info("[Empires] ... Wars Saved");
-		this.saveWarData();
+		
+		
+		try {
+            wardata.save(warfile);
+	    }
+	    catch (IOException e) {
+	            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save wars.yml!");
+	    }
 	}
 	
 	//CANNOT BE RUN BEFORE EMPIRES ARE LOADED
-	public  void loadWars() {
+	public  void load() {
 		
 		warfile = createFile("wars.yml");
         
@@ -151,14 +158,7 @@ public class WarManager {
 	        return wardata;
 	    }
 
-	    public  void saveWarData() {
-	        try {
-	                wardata.save(warfile);
-	        }
-	        catch (IOException e) {
-	                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save wars.yml!");
-	        }
-	    }
+	    
 	    public static void saveWarDataToFile(File file) {
 	        try {
 	                wardata.save(file);
@@ -168,7 +168,7 @@ public class WarManager {
 	        }
 	    }
 
-	    public static void reloadWarData() {
+	    public void reload() {
 	        wardata = YamlConfiguration.loadConfiguration(warfile);
 	    }
 }

@@ -28,8 +28,6 @@ import es.themin.empires.util.Rank;
 public class SettingsManager {
 	    
     private static empires myPlugin;
-    private static WorldManager Worlds;
-    private PlayerManager Players;
    
     static FileConfiguration config;
     static File cfile;
@@ -39,9 +37,6 @@ public class SettingsManager {
     
 //    YamlConfiguration coredata;
 //    File corefile;
-    
-    
-    
     
     static YamlConfiguration worlddata;
     static File wfile;
@@ -53,8 +48,6 @@ public class SettingsManager {
     
     public SettingsManager(empires plugin) {
     	myPlugin = plugin;
-    	Worlds = plugin.Worlds;
-    	Players = plugin.Players;
     }
     
     private static File createFile(String fileName){
@@ -97,12 +90,7 @@ public class SettingsManager {
        
         data = YamlConfiguration.loadConfiguration(dfile);
         
-        
-        
-        
-        
         mfile = createFile("messages.yml");
-        
         
        	
         wfile = new File(myPlugin.getDataFolder(), "worldconfig.yml");
@@ -161,56 +149,7 @@ public static YamlConfiguration getMessagedata() {
     public static void reloadData() {
             data = YamlConfiguration.loadConfiguration(dfile);
     }
-//############################CORE DAT
-/*    public FileConfiguration getCoreData() {
-        return coredata;
-    }
-
-    public void saveCoreData() {
-        try {
-                coredata.save(corefile);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save coredata.yml!");
-        }
-    }
-
-    public void reloadCoreData() {
-        coredata = YamlConfiguration.loadConfiguration(corefile);
-    }*/
-
-  //######################EMPIRE DAT
-    
- //#############################   
-    
-    //######################world DAT
-//    public static FileConfiguration getWorldData() {
-//        return worlddata;
-//    }
-//
-//    public static void saveWorldData() {
-//        try {
-//                worlddata.save(wfile);
-//        }
-//        catch (IOException e) {
-//                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
-//        }
-//    }
-//    public static void saveWorldDataToFile(File file) {
-//        try {
-//                worlddata.save(file);
-//        }
-//        catch (IOException e) {
-//                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
-//        }
-//    }
-//
-//    public static void reloadWorldData() {
-//        worlddata = YamlConfiguration.loadConfiguration(wfile);
-//    }
- //######### WAR DATA 
-
- //#############################   
+ 
    
     public static FileConfiguration getConfig() {
             return config;
@@ -254,3 +193,55 @@ public static YamlConfiguration getMessagedata() {
     	return false;
     }
 }
+
+
+//############################CORE DAT
+/*    public FileConfiguration getCoreData() {
+      return coredata;
+  }
+
+  public void saveCoreData() {
+      try {
+              coredata.save(corefile);
+      }
+      catch (IOException e) {
+              Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save coredata.yml!");
+      }
+  }
+
+  public void reloadCoreData() {
+      coredata = YamlConfiguration.loadConfiguration(corefile);
+  }*/
+
+//######################EMPIRE DAT
+  
+//#############################   
+  
+  //######################world DAT
+//  public static FileConfiguration getWorldData() {
+//      return worlddata;
+//  }
+//
+//  public static void saveWorldData() {
+//      try {
+//              worlddata.save(wfile);
+//      }
+//      catch (IOException e) {
+//              Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
+//      }
+//  }
+//  public static void saveWorldDataToFile(File file) {
+//      try {
+//              worlddata.save(file);
+//      }
+//      catch (IOException e) {
+//              Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
+//      }
+//  }
+//
+//  public static void reloadWorldData() {
+//      worlddata = YamlConfiguration.loadConfiguration(wfile);
+//  }
+//######### WAR DATA 
+
+//#############################  

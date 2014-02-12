@@ -76,12 +76,7 @@ public class EmpireManager implements Manager {
     }
 
     public void save() {
-        try {
-                empiredata.save(efile);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
-        }
+        this.save(efile);
     }
 //    public static void saveEmpireDataToFile(File file) {
 //        try {
@@ -217,7 +212,7 @@ public class EmpireManager implements Manager {
 		return false;
 	}
 	
-	public void saveEmpires() {
+	public void save(File datafile) {
 		List<String> list = new ArrayList<String>();
 		for (Empire empire : this.empires) {
 			StringBuilder str = new StringBuilder();
@@ -271,6 +266,13 @@ public class EmpireManager implements Manager {
 			empiredata.set(str.toString() + ".ranks", list4);
 		}
 		empiredata.set("empires", list);
+		
+		try {
+            empiredata.save(datafile);
+		    }
+		    catch (IOException e) {
+		            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
+		    }
 	}
 
 	public boolean isValidName(String string) {

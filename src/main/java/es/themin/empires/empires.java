@@ -61,6 +61,8 @@ public final class empires extends JavaPlugin {
 	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
 	
+	ArrayList<Manager> Managers = new ArrayList<Manager>();
+	
 	@Override
     public void onEnable(){
         plugin = this;
@@ -70,6 +72,12 @@ public final class empires extends JavaPlugin {
     	 Worlds = new WorldManager(this);
     	 Wars = new WarManager(this);
     	 Players = new PlayerManager(this);
+    	 
+    	 Managers.add(Empires);
+    	 Managers.add(Wars);
+    	 Managers.add(Players);
+    	 
+    	 loadManagers();
         
         settings = new SettingsManager(this);
         utils = new UtilManager(this);
@@ -86,11 +94,29 @@ public final class empires extends JavaPlugin {
 		registerEvents();
 		
     }
+	
+	public void loadManagers(){
+		for (Manager m : Managers){
+			m.load();
+		}
+	}
+	
+	public void saveManagers(){
+		for (Manager m : Managers){
+			m.save();
+		}
+	}
+	
+	public void reloadManagers(){
+		for (Manager m : Managers){
+			m.reload();
+		}
+	}
  
     @Override
     public void onDisable() {
         
-		Empires.saveEmpires();
+		Empires.save();
 		SettingsManager.saveAll();
 		Players.save();
 		Bukkit.getServer().clearRecipes();
@@ -171,9 +197,9 @@ public final class empires extends JavaPlugin {
 	    					File cfile = new File(epath + File.separator + "config.yml");
 	    					File wfile = new File(epath + File.separator + "worldconfig.yml");
 	    					File pfile = new File(epath + File.separator + "playerdata.yml");
-	    					Players.save();
-	    					//SettingsManager.saveEmpireDataToFile(efile);
-	    					//SettingsManager.saveConfigToFile(cfile);
+	    					Players.save(pfile);
+	    					Empires.save(efile);
+	    					SettingsManager.saveConfigToFile(cfile);
 //	    					SettingsManager.saveWorldDataToFile(wfile);
 	    					Players.save();
 	    					SettingsManager.getData().set("lastbackup", System.currentTimeMillis());

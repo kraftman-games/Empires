@@ -53,15 +53,19 @@ public class PlayerManager implements Manager {
     public  FileConfiguration getPlayerData() {
         return playerdata;
     }
+    
+    public void save(){
+    	this.save(pfile);
+    }
 
-    public  void save() {
+    public  void save(File datafile) {
     	for (CorePlayer myPlayer : players.values()) {
     		playerdata.set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire());
     		playerdata.set(myPlayer.getUUID() + ".name", myPlayer.getName());
     	}
     	
         try {
-                playerdata.save(pfile);
+                playerdata.save(datafile);
         }
         catch (IOException e) {
                 Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
