@@ -92,7 +92,7 @@ public class Empire {
 	
 	
 	
-	public int getId(){
+	public int getID(){
 		return ID;
 	}
 	public String getName(){

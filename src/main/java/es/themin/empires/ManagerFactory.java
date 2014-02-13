@@ -20,6 +20,6 @@ public class ManagerFactory {
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
 		
 	    return new PlayerManager(playerdata, pfile, players);
-		
+	    
 	}
 }

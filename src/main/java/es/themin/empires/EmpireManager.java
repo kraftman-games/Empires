@@ -194,13 +194,13 @@ public class EmpireManager implements Manager {
 	}
 	public Empire getEmpireWithID(int Id) {
 		for (Empire empire : this.getEmpires()) {
-			if (empire.getId() == Id) return empire;
+			if (empire.getID() == Id) return empire;
 		}
 		return null;
 	}
 	public boolean containsEmpireWithId(int Id) {
 		for (Empire empire : this.getEmpires()) {
-			if (empire.getId() == Id) return true;
+			if (empire.getID() == Id) return true;
 		}
 		return false;
 	}
@@ -209,11 +209,11 @@ public class EmpireManager implements Manager {
 		List<String> list = new ArrayList<String>();
 		for (Empire empire : this.empires) {
 			StringBuilder str = new StringBuilder();
-			str.append(empire.getId() + ":");
+			str.append(empire.getID() + ":");
 			str.append(empire.getName() + ":");
 			str.append(empire.getOwner());
 			list.add(str.toString());
-			empiredata.set(str.toString() + ".id", empire.getId());
+			empiredata.set(str.toString() + ".id", empire.getID());
 			empiredata.set(str.toString() + ".name", empire.getName());
 			empiredata.set(str.toString() + ".name", empire.getOwner());
 			List<String> playerList = new ArrayList<String>();
@@ -233,7 +233,7 @@ public class EmpireManager implements Manager {
 				str2.append(core.getLocation().getBlockY() + ":");
 				str2.append(core.getLocation().getBlockZ() + ":");
 				str2.append(core.getLevel() + ":");
-				str2.append(core.getEmpire().getId() + ":");
+				str2.append(core.getEmpire().getID() + ":");
 				str2.append(core.getEmpire().getName());
 				list3.add(str2.toString());
 			}

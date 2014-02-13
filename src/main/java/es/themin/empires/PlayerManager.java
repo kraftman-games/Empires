@@ -37,7 +37,9 @@ public class PlayerManager implements Manager {
 
     public  void save(File datafile) {
     	for (CorePlayer myPlayer : players.values()) {
-    		playerdata.set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire());
+    		if (myPlayer.getEmpire() != null){
+    			playerdata.set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire().getID());
+    		}
     		playerdata.set(myPlayer.getUUID() + ".name", myPlayer.getName());
     	}
     	
