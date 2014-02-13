@@ -3,6 +3,7 @@ package es.themin.empires;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -79,11 +80,7 @@ public class PlayerManagerTest {
 	public void PlayerManagerSave(){
 		File pfile = PowerMockito.mock(File.class);
         YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
-
         CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
-        
-		//PowerMockito.when(playerdata.set(myCorePlayer.getUUID().toString(), myCorePlayer.getEmpire())).re
-        
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
         
         
@@ -94,6 +91,24 @@ public class PlayerManagerTest {
 
 	    myPlayerManager.save();
 	    Mockito.verify(playerdata).set(myCorePlayer.getUUID().toString()+".empire", myCorePlayer.getEmpire().getID());
+	}
+	
+	
+	@Test 
+	public void PlayerManagerSaveToOtherFile() throws IOException {
+		File pfile = PowerMockito.mock(File.class);
+		File tfile = PowerMockito.mock(File.class);
+        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
+        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        
+        players.put(myCorePlayer.getUUID(), myCorePlayer);
+        
+	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+
+	    myPlayerManager.save(tfile);
+	    
+	    Mockito.verify(playerdata).save(tfile);
 	}
 }
 
