@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.api.mockito.PowerMockito;
 
 import es.themin.empires.util.CorePlayer;
 
@@ -24,9 +25,10 @@ public class PlayerManagerTest {
 	@Test
 	public void createNewPlayerManager(){
 		
-		File pfile = SettingsManager.createFile("playerdata.yml");
+		
+		File pfile = PowerMockito.mock(File.class);
 	       
-        YamlConfiguration playerdata = YamlConfiguration.loadConfiguration(pfile);
+        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
 
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
 		

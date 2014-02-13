@@ -7,16 +7,16 @@ public class EmpireManagerTest {
 
 	
 	
-	@Before
-	public void setupEnvironment(){
-		
-	}
-	
-	@Test
-	public void createNewEmpire(){
-		
-		empires myPlugin = new empires();
-		
-		
-	}
+//	@Before
+//	public void setupEnvironment(){
+//		
+//	}
+//	
+//	@Test
+//	public void createNewEmpire(){
+//		
+//		empires myPlugin = new empires();
+//		
+//		
+//	}
 }
