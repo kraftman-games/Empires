@@ -75,7 +75,7 @@ public class PlayerManager implements Manager {
     }
 
 	
-	public CorePlayer getPlayers(String playerName){
+	public CorePlayer getPlayer(String playerName){
 		for (CorePlayer myCorePlayer : this.players.values()){
 			if (myCorePlayer.getName().toLowerCase() == playerName.toLowerCase()){
 				return myCorePlayer;

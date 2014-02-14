@@ -110,6 +110,37 @@ public class PlayerManagerTest {
 	    
 	    Mockito.verify(playerdata).save(tfile);
 	}
+	
+	@Test 
+	public void GetPlayerByName() {
+		File pfile = PowerMockito.mock(File.class);
+        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
+        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        
+        myCorePlayer.setName("kraftman");
+        
+        players.put(myCorePlayer.getUUID(), myCorePlayer);
+        
+	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+
+	    assertTrue(myCorePlayer == myPlayerManager.getPlayer("kraftman"));
+	}
+	
+	@Test 
+	public void GetPlayerByUUID() {
+		File pfile = PowerMockito.mock(File.class);;
+        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
+        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        
+        
+        players.put(myCorePlayer.getUUID(), myCorePlayer);
+        
+	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+
+	    assertTrue(myCorePlayer == myPlayerManager.getPlayer(myCorePlayer.getUUID()));
+	}
 }
 
 
