@@ -141,6 +141,43 @@ public class PlayerManagerTest {
 
 	    assertTrue(myCorePlayer == myPlayerManager.getPlayer(myCorePlayer.getUUID()));
 	}
+	
+	@Test 
+	public void TestPlayerExistsbyUUID() {
+		File pfile = PowerMockito.mock(File.class);;
+        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
+        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        
+        
+        players.put(myCorePlayer.getUUID(), myCorePlayer);
+        
+	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+
+	    assertTrue(myPlayerManager.playerExists(myCorePlayer.getUUID()));
+	    
+	    UUID myUUID = UUID.randomUUID();
+	    assertFalse(myPlayerManager.playerExists(myUUID));
+	}
+	
+	@Test 
+	public void TestAddPlayer() {
+		File pfile = PowerMockito.mock(File.class);;
+        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
+        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        
+        
+        players.put(myCorePlayer.getUUID(), myCorePlayer);
+        
+	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+
+	    myPlayerManager.addPlayer(myCorePlayer);
+	    
+
+	    assertTrue(myPlayerManager.getPlayers().size() == 1);
+	    assertTrue(myPlayerManager.getPlayers().containsKey(myCorePlayer.getUUID()));
+	}
 }
 
 
