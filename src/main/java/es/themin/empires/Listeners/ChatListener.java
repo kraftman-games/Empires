@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerChatEvent;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.ChatCommand;
 import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
@@ -32,7 +32,7 @@ public class ChatListener implements Listener{
 	public void onPlayerChat(PlayerChatEvent event) {
 		
 		Player player = event.getPlayer();
-		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		if (ChatCommand.empirechatplayers.contains(player)) {
 			event.setCancelled(true);
 			if (myCorePlayer != null) {

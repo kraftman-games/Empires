@@ -16,7 +16,7 @@ import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
@@ -35,7 +35,7 @@ public class generatebasecore extends SubCommand{
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		if (myCorePlayer == null || myCorePlayer.getEmpire() == null) {
 			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");

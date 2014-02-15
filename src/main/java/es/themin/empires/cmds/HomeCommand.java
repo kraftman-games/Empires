@@ -11,7 +11,7 @@ import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.UtilManager;
 
 public class HomeCommand implements CommandExecutor{
@@ -27,7 +27,7 @@ public class HomeCommand implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player) sender;
-		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		
 		ArrayList<Core> myCores = myCorePlayer.getEmpire().getCores();

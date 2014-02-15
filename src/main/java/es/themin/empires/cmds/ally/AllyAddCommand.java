@@ -9,7 +9,7 @@ import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
@@ -33,7 +33,7 @@ public class AllyAddCommand extends EmpireSubCommand{
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		
-		CorePlayer myPlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myPlayer = Players.getPlayer(player.getUniqueId());
 		
 		if (myPlayer == null) {
 			player.sendMessage(MsgManager.notinemp);

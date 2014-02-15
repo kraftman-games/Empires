@@ -7,7 +7,7 @@ import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.UtilManager;
 
@@ -27,7 +27,7 @@ public class newemp extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		try {
 			player.sendMessage("debug 1 ");
-			CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+			EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 			if (!Empires.isValidName(args[1])){
 				player.sendMessage("Empire name is invalid");
 			}

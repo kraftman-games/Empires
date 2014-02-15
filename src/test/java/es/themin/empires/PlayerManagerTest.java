@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 
 import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 
 public class PlayerManagerTest {
@@ -39,10 +39,10 @@ public class PlayerManagerTest {
 		return myPlayer;
 	}
 	
-	private CorePlayer GetFakeCorePlayer(){
+	private EPlayer GetFakeCorePlayer(){
 		
 		
-		CorePlayer myCorePlayer = new CorePlayer(getFakePlayer());
+		EPlayer myCorePlayer = new EPlayer(getFakePlayer());
 		
 		return myCorePlayer;
 	}
@@ -53,9 +53,9 @@ public class PlayerManagerTest {
 		return myEmpire;
 	}
 	
-	private CorePlayer GetFakeCorePlayerInEmpire(){
+	private EPlayer GetFakeCorePlayerInEmpire(){
 		
-		CorePlayer myCorePlayer = GetFakeCorePlayer();
+		EPlayer myCorePlayer = GetFakeCorePlayer();
 		
 		Empire myEmpire = GetFakeEmpire();
 		myCorePlayer.setEmpire(myEmpire);
@@ -68,8 +68,8 @@ public class PlayerManagerTest {
 	
 	@Test
 	public void PlayerManagerSave(){
-        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
-        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
@@ -84,8 +84,8 @@ public class PlayerManagerTest {
 	@Test 
 	public void PlayerManagerSaveToOtherFile() throws IOException {
 		File tfile = PowerMockito.mock(File.class);
-        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
-        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
@@ -98,8 +98,8 @@ public class PlayerManagerTest {
 	
 	@Test 
 	public void GetPlayerByName() {
-        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
-        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         myCorePlayer.setName("kraftman");
         
@@ -112,8 +112,8 @@ public class PlayerManagerTest {
 	
 	@Test 
 	public void GetPlayerByUUID() {
-        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
-        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
@@ -125,8 +125,8 @@ public class PlayerManagerTest {
 	
 	@Test 
 	public void TestPlayerExistsbyUUID() {
-        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
-        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
@@ -141,8 +141,8 @@ public class PlayerManagerTest {
 	
 	@Test 
 	public void TestAddPlayer() {
-        CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
-        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);

@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import es.themin.empires.empires;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.managers.WarManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
@@ -275,7 +275,7 @@ public class War {
 				//str.append("%");
 			}
 			str.append("%");
-			for (CorePlayer player : empire.getOnlinePlayers().values()) {
+			for (EPlayer player : empire.getOnlinePlayers().values()) {
 				BarAPI.setMessage(player.getPlayer(), ChatColor.DARK_GREEN + "You        " + str.toString() + ChatColor.DARK_RED + empire2.getName(), fpc);
 			}
 		}for (Empire empire : getAllEmpiresOnTeam2()) {
@@ -303,7 +303,7 @@ public class War {
 				//str.append("%");
 			}
 			str.append("%");
-			for (CorePlayer player : empire.getOnlinePlayers().values()) {
+			for (EPlayer player : empire.getOnlinePlayers().values()) {
 				BarAPI.setMessage(player.getPlayer(), ChatColor.DARK_GREEN + "You        " + str.toString() +"        "+ ChatColor.DARK_RED + empire1.getName(), fpc);
 			}
 		}
@@ -312,7 +312,7 @@ public class War {
 			@Override
 			public void run() {
 				for (Empire empire : getAllEmpires()) {
-					for (CorePlayer player : empire.getOnlinePlayers().values()) {
+					for (EPlayer player : empire.getOnlinePlayers().values()) {
 						BarAPI.removeBar(player.getPlayer());
 					}
 				}

@@ -28,7 +28,7 @@ import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.managers.WorldManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;
@@ -57,13 +57,9 @@ public class PlayerListener implements Listener{
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		
-		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
-		if (myCorePlayer == null ){
-			myCorePlayer = new CorePlayer(player);
-			//save the player to the db
-			//add them to the player list
-			Players.addPlayer(myCorePlayer);
-		}
+		//we dont want to construct the player here, we want it to do it for us.
+		Players.loadPlayer(player.getUniqueId());
+		
 		
 		//if (Players.playerExists(player.getUniqueId()) && Empires.containsEmpireWithId(Players.getPlayerData().getInt(player.getName() + ".empire"))) {
 			
@@ -78,7 +74,7 @@ public class PlayerListener implements Listener{
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		
-		CorePlayer myPlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myPlayer = Players.getPlayer(player.getUniqueId());
 		
 		if (myPlayer != null) {
 			//Players.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
@@ -101,8 +97,8 @@ public class PlayerListener implements Listener{
 		if (player.getKiller() instanceof Player) {
 			Player killer = (Player) player.getKiller();
 			
-			CorePlayer defender = Players.getPlayer(player.getUniqueId());
-			CorePlayer attacker = Players.getPlayer(killer.getUniqueId());
+			EPlayer defender = Players.getPlayer(player.getUniqueId());
+			EPlayer attacker = Players.getPlayer(killer.getUniqueId());
 			
 			
 			if (defender != null && attacker != null) {
@@ -154,7 +150,7 @@ public class PlayerListener implements Listener{
 		
 		Player myPlayer = event.getPlayer();
 		
-		CorePlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
+		EPlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
 		Empire eventPlayerEmpire = myCorePlayer.getEmpire();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
 		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);

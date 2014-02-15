@@ -18,7 +18,7 @@ import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreUtils;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Permissions;
@@ -217,7 +217,7 @@ public class EmpireManager implements Manager {
 			empiredata.set(str.toString() + ".id", empire.getID());
 			empiredata.set(str.toString() + ".name", empire.getName());
 			List<String> playerList = new ArrayList<String>();
-			for (CorePlayer player : empire.getPlayers().values()) {
+			for (EPlayer player : empire.getPlayers().values()) {
 				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
 				playerList.add(player.getName());
 				

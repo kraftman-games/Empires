@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
 
@@ -59,7 +59,7 @@ public class CraftListener implements Listener{
 				myItem.setItemMeta(myMeta);
 				player.sendMessage("Crafted");
 				
-				CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+				EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 				
 				if (!(event.getInventory().contains(myItem)) || myCorePlayer == null || !(myCorePlayer.getEmpire().hasCoreOfType(CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), myCorePlayer.getEmpire().getCoreOfType(CoreType.BASE).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), myCorePlayer.getEmpire().getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
 					event.setCancelled(true);

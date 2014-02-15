@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
@@ -41,7 +41,7 @@ public class EmpireCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("empire") || commandLabel.equalsIgnoreCase("emp") || commandLabel.equalsIgnoreCase("e")) {
 			Player player = (Player) sender;
-			CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+			EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 			
 			
 			if (args.length == 0) {

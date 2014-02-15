@@ -27,7 +27,7 @@ public class Empire {
 	private int ID;
 	private String name;
 	private UUID owner;
-	private HashMap<UUID,CorePlayer> players = new HashMap<UUID,CorePlayer>();
+	private HashMap<UUID,EPlayer> players = new HashMap<UUID,EPlayer>();
 	private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
 	private boolean isProtected;
@@ -102,11 +102,11 @@ public class Empire {
 		this.owner = owner;
 		Save();
 	}
-	public HashMap<UUID,CorePlayer> getPlayers(){
+	public HashMap<UUID,EPlayer> getPlayers(){
 		return players;
 	}
 	
-	public boolean hasPlayer(CorePlayer myCorePlayer) {
+	public boolean hasPlayer(EPlayer myCorePlayer) {
 		if (players.get(myCorePlayer.getUUID()) != null){
 			return true;
 		}
@@ -114,7 +114,7 @@ public class Empire {
 	}
 	
 	public boolean hasPlayer(String playerName) {
-		for(CorePlayer myCorePlayer : players.values()){
+		for(EPlayer myCorePlayer : players.values()){
 			if (myCorePlayer.getName() == playerName){
 				return true;
 			}
@@ -129,7 +129,7 @@ public class Empire {
 		return false;
 	}
 	
-	public void addPlayer(CorePlayer myCorePlayer){
+	public void addPlayer(EPlayer myCorePlayer){
 		if (myCorePlayer.getEmpire() == null){
 			players.put(myCorePlayer.getUUID(), myCorePlayer);
 		}
@@ -300,7 +300,7 @@ public class Empire {
 
 	public void broadcastMessage(String message) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			CorePlayer myCorePlayer = players.get(player.getUniqueId());
+			EPlayer myCorePlayer = players.get(player.getUniqueId());
 			if (myCorePlayer != null){
 				myCorePlayer.sendMessage(message);
 			}
@@ -473,7 +473,7 @@ public class Empire {
 	public int getNumberOfOnlinePlayers(){
 		int number = 0;
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			CorePlayer myCorePlayer = players.get(player.getUniqueId());
+			EPlayer myCorePlayer = players.get(player.getUniqueId());
 			if (myCorePlayer != null){
 				number++;
 			}
@@ -486,11 +486,11 @@ public class Empire {
 	public void addBattleLosses(int i) {
 		this.battlelosses = this.battlelosses + i;
 	}
-	public HashMap<UUID,CorePlayer> getOnlinePlayers() {
-		HashMap<UUID,CorePlayer> list = new HashMap<UUID,CorePlayer>();
+	public HashMap<UUID,EPlayer> getOnlinePlayers() {
+		HashMap<UUID,EPlayer> list = new HashMap<UUID,EPlayer>();
 		
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			CorePlayer myCorePlayer = players.get(player.getUniqueId());
+			EPlayer myCorePlayer = players.get(player.getUniqueId());
 			if (myCorePlayer != null){
 				list.put(myCorePlayer.getUUID(), myCorePlayer);
 			}

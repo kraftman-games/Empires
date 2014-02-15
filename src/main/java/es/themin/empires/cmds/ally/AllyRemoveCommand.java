@@ -8,7 +8,7 @@ import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
@@ -29,7 +29,7 @@ public class AllyRemoveCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		
 		if (myCorePlayer == null || myCorePlayer.getEmpire() == null) {

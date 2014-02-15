@@ -21,7 +21,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.managers.SettingsManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 
 public class Battle {
@@ -452,7 +452,7 @@ public class Battle {
 					long l2 = l1 - System.currentTimeMillis();
 					if (l2 >= 0) {
 						for (Empire empire : getAllEmpires()) {
-							for (CorePlayer player : empire.getOnlinePlayers().values()) {
+							for (EPlayer player : empire.getOnlinePlayers().values()) {
 								upDateTimer(player.getPlayer());
 							}
 						}

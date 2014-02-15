@@ -12,16 +12,16 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpiresDAL;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 
 public class PlayerManager implements Manager {
 
-	private HashMap<UUID, CorePlayer> players;
+	private HashMap<UUID, EPlayer> players;
 	
     private EmpiresDAL EmpiresDAL;
 	
-	public PlayerManager( EmpiresDAL myEmpiresDAL, HashMap<UUID, CorePlayer> players) {
+	public PlayerManager( EmpiresDAL myEmpiresDAL, HashMap<UUID, EPlayer> players) {
 	    this.players = players;
 	    this.EmpiresDAL = myEmpiresDAL;
 	}
@@ -37,10 +37,9 @@ public class PlayerManager implements Manager {
     }
     
     public void load(){
-    	
     	for (Player player : Bukkit.getOnlinePlayers()) {
     		if (!playerExists(player.getUniqueId())){
-    			CorePlayer myCorePlayer = new CorePlayer(player);
+    			EPlayer myCorePlayer = new EPlayer(player);
     			addPlayer(myCorePlayer);
     		}
     		
@@ -60,8 +59,8 @@ public class PlayerManager implements Manager {
     }
 
 	
-	public CorePlayer getPlayer(String playerName){
-		for (CorePlayer myCorePlayer : this.players.values()){
+	public EPlayer getPlayer(String playerName){
+		for (EPlayer myCorePlayer : this.players.values()){
 			if (myCorePlayer.getName().toLowerCase() == playerName.toLowerCase()){
 				return myCorePlayer;
 			}
@@ -69,17 +68,17 @@ public class PlayerManager implements Manager {
 		return null;
 	}
 	
-	public CorePlayer getPlayer(UUID myUUID){
+	public EPlayer getPlayer(UUID myUUID){
 		return players.get(myUUID);
 	}
 	
-	public void addPlayer(CorePlayer myCorePlayer){
+	public void addPlayer(EPlayer myCorePlayer){
 		players.put(myCorePlayer.getUUID(), myCorePlayer);
 	}
 	
     
     
-    public HashMap<UUID, CorePlayer> getPlayers() {
+    public HashMap<UUID, EPlayer> getPlayers() {
 		return players;
 	}
 
@@ -89,6 +88,13 @@ public class PlayerManager implements Manager {
 			return true;
 		else
 			return false;
+	}
+
+
+
+	public void loadPlayer(UUID uniqueId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

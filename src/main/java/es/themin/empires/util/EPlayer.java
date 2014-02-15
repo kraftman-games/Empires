@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class CorePlayer {
+public class EPlayer {
 
 	private UUID UUID;
 	private Empire empire;
@@ -24,7 +24,7 @@ public class CorePlayer {
 		return empire;
 	}
 
-	public CorePlayer(Player player) {
+	public EPlayer(Player player) {
 		UUID = player.getUniqueId();
 		name = player.getName();
 		this.player = player;
@@ -44,7 +44,7 @@ public class CorePlayer {
 		
 	}
 
-	public boolean isAtWarWith(CorePlayer Enemy){
+	public boolean isAtWarWith(EPlayer Enemy){
 		return this.empire.isAtWarWith(Enemy.getEmpire());
 		
 	}

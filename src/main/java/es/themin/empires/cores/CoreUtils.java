@@ -15,7 +15,7 @@ import es.themin.empires.enums.EmpireState;
 import es.themin.empires.enums.PlaceType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpireUtils;
@@ -45,7 +45,7 @@ public class CoreUtils {
 	
 	public Core placeCore(Player myPlayer, CoreType myCoreType){
 		Core myCore = null;
-		CorePlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
+		EPlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
 		
 		Empire myEmpire = myCorePlayer.getEmpire();
 		

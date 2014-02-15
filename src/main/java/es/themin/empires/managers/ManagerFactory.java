@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import es.themin.empires.EmpiresDAL;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 
 public class ManagerFactory {
 
@@ -16,7 +16,7 @@ public class ManagerFactory {
 		
 		//File pfile = SettingsManager.createFile("playerdata.yml");
         
-        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         EmpiresDAL myempiresDAL = new EmpiresDAL();
 		

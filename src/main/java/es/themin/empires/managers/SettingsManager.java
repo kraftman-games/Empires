@@ -20,7 +20,7 @@ import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreUtils;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.util.CorePlayer;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Permissions;
