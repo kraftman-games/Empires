@@ -33,6 +33,7 @@ public class Event_BlockPlace implements Listener{
 	}
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
+		player.sendMessage("blockplace");
 		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();
