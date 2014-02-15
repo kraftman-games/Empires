@@ -39,8 +39,8 @@ public class Event_BlockPlace implements Listener{
 		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();
-		if (placed == Material.IRON_FENCE) {
-			if (im.getDisplayName().contains("base core")) {
+		if (placed == Material.BEACON) {
+			if (im.getDisplayName().equalsIgnoreCase("base core")) {
 				player.sendMessage("ItemCorrect");
 				if (myCorePlayer == null) {
 					player.sendMessage(MsgManager.notinemp);

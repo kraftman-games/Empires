@@ -86,6 +86,40 @@ public class UtilManager {
 		    }
 		}
 	}
+	public static void loopAndAddToList(Location corner1, Location corner2, ArrayList<Block> list) {
+		if (corner1.getWorld() == corner2.getWorld()) {
+			
+			World world = corner1.getWorld();
+			
+			int x1 = corner1.getBlockX();
+			int y1 = corner1.getBlockY();
+			int z1 = corner1.getBlockZ();
+			
+			int x2 = corner2.getBlockX();
+			int y2 = corner2.getBlockY();
+			int z2 = corner2.getBlockZ();
+			
+			if (x1 > x2) {
+				x1 = corner2.getBlockX();
+				x2 = corner1.getBlockX();
+			}if (y1 > y2) {
+				y1 = corner2.getBlockY();
+				y2 = corner1.getBlockY();
+			}if (z1 > z2) {
+				z1 = corner2.getBlockZ();
+				z2 = corner2.getBlockZ();
+			}
+			
+			for (int xPoint = x1; xPoint <= x2; xPoint++) { 
+		        for (int yPoint = y1; yPoint <= y2; yPoint++) {
+		            for (int zPoint = z1; zPoint <= z2; zPoint++) {
+		                Block b = world.getBlockAt(xPoint, yPoint, zPoint);
+		                list.add(b);
+		            }
+		        }
+		    }
+		}
+	}
 
 	
 
