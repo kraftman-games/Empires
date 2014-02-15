@@ -2,11 +2,13 @@ package es.themin.empires.Listeners;
 
 import java.util.UUID;
 
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import es.themin.empires.PlayerManager;
 import es.themin.empires.WorldManager;
@@ -30,28 +32,33 @@ public class Event_BlockPlace implements Listener{
 		Players = plugin.Players;
 	}
 	public void onBlockPlace(BlockPlaceEvent event) {
-		ItemStack item = event.getItemInHand();
 		Player player = event.getPlayer();
 		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
-		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("base core")) {
-			player.sendMessage("ItemCorrect");
-			if (myCorePlayer == null) {
-				player.sendMessage(MsgManager.notinemp);
-				event.setCancelled(true);
+		ItemMeta im = event.getItemInHand().getItemMeta();
+		Material placed = event.getBlockPlaced().getType();
+		if (placed == Material.IRON_FENCE) {
+			if (im.getDisplayName().contains("Pop Up Jail")) {
+				player.sendMessage("ItemCorrect");
+				if (myCorePlayer == null) {
+					player.sendMessage(MsgManager.notinemp);
+					event.setCancelled(true);
+				}
+				Empire myEmpire = myCorePlayer.getEmpire();
+				if (myEmpire == null) {
+					player.sendMessage(MsgManager.notinemp);
+					event.setCancelled(true);
+				}
+				Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.BASE, event.getBlock().getLocation(), 1, myEmpire);
+				myEmpire.addCore(myCore);
+				World world = player.getWorld();
+				UUID uuid = world.getUID();
+				CoreWorld cw = Worlds.getWorlds().get(uuid);
+				cw.addCore(myCore);
+				myCore.build2();
 			}
-			Empire myEmpire = myCorePlayer.getEmpire();
-			if (myEmpire == null) {
-				player.sendMessage(MsgManager.notinemp);
-				event.setCancelled(true);
-			}
-			Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.BASE, event.getBlock().getLocation(), 1, myEmpire);
-			myEmpire.addCore(myCore);
-			World world = player.getWorld();
-			UUID uuid = world.getUID();
-			CoreWorld cw = Worlds.getWorlds().get(uuid);
-			cw.addCore(myCore);
-			myCore.build2();
 		}
+			
+		
 	}
 
 }
