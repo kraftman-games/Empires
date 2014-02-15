@@ -86,7 +86,7 @@ public class UtilManager {
 		    }
 		}
 	}
-	public static void loopAndAddToList(Location corner1, Location corner2, ArrayList<Block> list) {
+	public static ArrayList<Block> loopAndAddToList(Location corner1, Location corner2, ArrayList<Block> list) {
 		if (corner1.getWorld() == corner2.getWorld()) {
 			
 			World world = corner1.getWorld();
@@ -119,6 +119,7 @@ public class UtilManager {
 		        }
 		    }
 		}
+		return list;
 	}
 
 	
