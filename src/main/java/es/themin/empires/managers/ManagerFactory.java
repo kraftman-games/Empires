@@ -27,7 +27,8 @@ public class ManagerFactory {
 		myPlugin = plugin;
 		Managers = new ArrayList<IManager>();
 
-		 sql = new MySQL(plugin.getLogger(), "test", "192.168.5.60", "empirestest", "senimeth345");
+		sql = new MySQL(myPlugin.getLogger(), "test", "192.168.5.60", 3306, "empirestest", "empires", "senimeth345");
+		 //sql = new MySQL(plugin.getLogger(), "test", "192.168.5.60", "empirestest", "senimeth345");
 	}
 
 
