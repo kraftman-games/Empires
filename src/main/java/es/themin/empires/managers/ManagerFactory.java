@@ -2,9 +2,11 @@ package es.themin.empires.managers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import es.themin.empires.CoreManager;
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
 import es.themin.empires.util.EPlayer;
@@ -13,9 +15,11 @@ public class ManagerFactory {
 
 	
 	private static empires myPlugin;
+	private static ArrayList<Manager> Managers;
 	
 	public ManagerFactory(empires plugin) {
 		myPlugin = plugin;
+		Managers = new ArrayList<Manager>();
 	}
 
 
@@ -47,7 +51,11 @@ public class ManagerFactory {
         File empireFile = createFile("Empires.yml");
         EmpiresDAL myempiresDAL = new EmpiresDAL(playerFile, empireFile);
 		
-	    return new PlayerManager(myempiresDAL, players);
+        PlayerManager myPlayerManager = new PlayerManager(myempiresDAL, players);
+        Managers.add(myPlayerManager);
+        
+        
+	    return myPlayerManager;
 	    
 	}
 	
@@ -56,6 +64,57 @@ public class ManagerFactory {
         File empireFile = createFile("Empires.yml");
         EmpiresDAL myempiresDAL = new EmpiresDAL(playerFile, empireFile);
 		
-		return new EmpireManager(myempiresDAL);
+        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL);
+        Managers.add(MyEmpireManager);
+		return MyEmpireManager;
+	}
+	
+	public void loadManagers(){
+		for (Manager m : Managers){
+			m.load();
+		}
+	}
+	
+	public void saveManagers(){
+		for (Manager m : Managers){
+			m.save();
+		}
+	}
+	
+	public void reloadManagers(){
+		for (Manager m : Managers){
+			m.reload();
+		}
+	}
+
+
+	public CoreManager CreateCoreManager(empires empires) {
+		return new CoreManager(empires);
+	}
+
+
+	public WorldManager CreateWorldManager(empires empires) {
+		return new WorldManager(empires);
+	}
+
+
+	public WarManager CreateWarManager(empires empires) {
+		return new WarManager(empires);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

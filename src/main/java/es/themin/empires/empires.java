@@ -72,16 +72,12 @@ public final class empires extends JavaPlugin {
         ManagerFactory = new ManagerFactory(this);
         
          Empires = ManagerFactory.CreateEmpireManager();
-    	 Cores = new CoreManager(this);
-    	 Worlds = new WorldManager(this);
-    	 Wars = new WarManager(this);
+    	 Cores = ManagerFactory.CreateCoreManager(this); 
+    	 Worlds = ManagerFactory.CreateWorldManager(this);
+    	 Wars = ManagerFactory.CreateWarManager(this);
     	 Players = ManagerFactory.CreatePlayerManager();
     	 
-    	 Managers.add(Empires);
-    	 Managers.add(Wars);
-    	 Managers.add(Players);
-    	 
-    	 loadManagers();
+    	ManagerFactory.loadManagers();
         
         settings = new SettingsManager(this);
         utils = new UtilManager(this);
@@ -100,28 +96,11 @@ public final class empires extends JavaPlugin {
 		
     }
 	
-	public void loadManagers(){
-		for (Manager m : Managers){
-			m.load();
-		}
-	}
-	
-	public void saveManagers(){
-		for (Manager m : Managers){
-			m.save();
-		}
-	}
-	
-	public void reloadManagers(){
-		for (Manager m : Managers){
-			m.reload();
-		}
-	}
- 
+
     @Override
     public void onDisable() {
         
-    	saveManagers();
+    	ManagerFactory.saveManagers();
 		SettingsManager.saveAll();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
@@ -200,7 +179,6 @@ public final class empires extends JavaPlugin {
 	    					(new File(epath)).mkdirs();
 	    					File efile = new File(epath + File.separator + "empiredata.yml");
 	    					File cfile = new File(epath + File.separator + "config.yml");
-	    					File wfile = new File(epath + File.separator + "worldconfig.yml");
 	    					File pfile = new File(epath + File.separator + "playerdata.yml");
 	    					Players.save(pfile);
 	    					Empires.save(efile);
