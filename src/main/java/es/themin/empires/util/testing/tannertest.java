@@ -42,8 +42,8 @@ public class tannertest extends SubCommand{
 				
 		        String myQueryString = "REPLACE INTO `Players`" +
 						" SET `UUID` = '" + player.getUniqueId().toString() + 
-						"' `FirstSeen` = '" + mysqlDateString + 
-						"' `LastSeen` = '" + mysqlDateString + "';";
+						"', `FirstSeen` = '" + mysqlDateString + 
+						"', `LastSeen` = '" + mysqlDateString + "';";
 				player.sendMessage(myQueryString);
 				Statement st = connection.createStatement();
 				st.executeUpdate(myQueryString);
