@@ -9,7 +9,6 @@ import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.UtilManager;
 import es.themin.empires.wars.War;
 
 public class WarListCommand extends EmpireSubCommand{

@@ -2,10 +2,7 @@ package es.themin.empires.cmds.empire;
 
 import java.util.HashMap;
 
-import me.confuser.barapi.BarAPI;
-
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -15,7 +12,6 @@ import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
-import es.themin.empires.util.UtilManager;
 
 public class EmpireTimelineCommand extends EmpireSubCommand{
 

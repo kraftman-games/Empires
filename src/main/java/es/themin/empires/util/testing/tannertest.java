@@ -1,26 +1,9 @@
 package es.themin.empires.util.testing;
 
-import java.util.ArrayList;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
-import es.themin.empires.cores.Core;
-import es.themin.empires.enums.CoreType;
-import es.themin.empires.util.Empire;
-import es.themin.empires.util.UtilManager;
 
 public class tannertest extends SubCommand{
 

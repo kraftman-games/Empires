@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,7 +17,6 @@ import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
 
 public class CraftListener implements Listener{

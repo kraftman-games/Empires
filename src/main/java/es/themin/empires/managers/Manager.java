@@ -1,6 +1,5 @@
 package es.themin.empires.managers;
 
-import java.io.File;
 
 public interface Manager {
 

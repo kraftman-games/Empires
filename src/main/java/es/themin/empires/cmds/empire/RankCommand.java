@@ -9,7 +9,6 @@ import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;
-import es.themin.empires.util.UtilManager;
 
 public class RankCommand extends EmpireSubCommand{
 	

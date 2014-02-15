@@ -7,7 +7,6 @@ import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.UtilManager;
 
 public class list extends EmpireSubCommand{
 

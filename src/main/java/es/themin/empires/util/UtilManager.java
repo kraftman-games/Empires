@@ -1,29 +1,13 @@
 package es.themin.empires.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import es.themin.empires.empires;
-import es.themin.empires.cores.Core;
-import es.themin.empires.enums.BattleType;
-import es.themin.empires.enums.ConfirmType;
-import es.themin.empires.enums.CoreType;
-import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.wars.Battle;
-import es.themin.empires.wars.Battle.BattleTeam;
-import es.themin.empires.wars.War;
-import es.themin.empires.cores.CoreUtils;
 
 public class UtilManager {
 	

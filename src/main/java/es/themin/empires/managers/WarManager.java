@@ -14,8 +14,8 @@ import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.util.Empire;
 import es.themin.empires.wars.Battle;
-import es.themin.empires.wars.War;
 import es.themin.empires.wars.Battle.BattleTeam;
+import es.themin.empires.wars.War;
 
 public class WarManager implements Manager {
 	

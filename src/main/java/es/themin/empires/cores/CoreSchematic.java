@@ -4,21 +4,9 @@ package es.themin.empires.cores;
 
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.zip.GZIPInputStream;
 
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;

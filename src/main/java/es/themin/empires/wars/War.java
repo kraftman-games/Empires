@@ -7,7 +7,6 @@ import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.managers.SettingsManager;
@@ -15,7 +14,6 @@ import es.themin.empires.managers.WarManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
-import es.themin.empires.util.UtilManager;
 
 public class War {
 

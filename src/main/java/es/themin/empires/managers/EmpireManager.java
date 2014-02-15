@@ -19,11 +19,9 @@ import es.themin.empires.cores.CoreUtils;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Permissions;
 import es.themin.empires.util.Rank;
-import es.themin.empires.util.UtilManager;
 
 public class EmpireManager implements Manager {
 	

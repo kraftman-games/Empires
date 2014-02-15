@@ -1,25 +1,17 @@
 package es.themin.empires.util.testing;
 
-import java.util.UUID;
-
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
-import es.themin.empires.cores.Core;
-import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.UtilManager;
 
 public class generatebasecore extends SubCommand{
 

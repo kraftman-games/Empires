@@ -15,7 +15,6 @@ import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
-import es.themin.empires.util.UtilManager;
 
 public class AllyCommandStem implements CommandExecutor{
 	public String plprefix;

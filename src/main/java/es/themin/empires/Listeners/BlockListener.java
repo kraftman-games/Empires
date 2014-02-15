@@ -1,30 +1,18 @@
 package es.themin.empires.Listeners;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 
 import es.themin.empires.empires;
-import es.themin.empires.cores.Core;
-import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.SettingsManager;
-import es.themin.empires.util.EWorld;
-import es.themin.empires.util.UtilManager;
 
 public class BlockListener implements Listener {
 

@@ -6,16 +6,12 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
 import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
@@ -32,8 +28,6 @@ import es.themin.empires.cmds.HomeCommand;
 import es.themin.empires.cmds.ally.AllyCommandStem;
 import es.themin.empires.cmds.empire.EmpireCommand;
 import es.themin.empires.cmds.war.WarCommand;
-import es.themin.empires.cores.Core;
-import es.themin.empires.cores.CoreSchematic;
 import es.themin.empires.enums.ConfirmType;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.Manager;
@@ -44,13 +38,10 @@ import es.themin.empires.managers.WarManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.BaseSchematic;
 import es.themin.empires.schematics.Schematic;
-import es.themin.empires.util.EWorld;
-import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
 import es.themin.empires.util.testing.UtilityTesting;
-import es.themin.empires.wars.War;
  
 public final class empires extends JavaPlugin {
  

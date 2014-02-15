@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.CoreManager;
@@ -20,7 +18,6 @@ import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpireUtils;
 import es.themin.empires.util.PlayerUtils;
-import es.themin.empires.util.UtilManager;
 
 public class CoreUtils {
 	

@@ -1,19 +1,14 @@
 package es.themin.empires.managers;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.Empire;
 
 public class PlayerManager implements Manager {
 

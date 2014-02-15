@@ -3,6 +3,7 @@ package es.themin.empires.util;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.bukkit.Location;
 
 import es.themin.empires.cores.Core;

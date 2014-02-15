@@ -15,9 +15,6 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 //import org.bukkit.scoreboard.Team;
 
-
-
-
 import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.managers.SettingsManager;

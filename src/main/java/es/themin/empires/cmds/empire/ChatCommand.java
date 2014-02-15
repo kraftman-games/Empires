@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.util.Empire;
-import es.themin.empires.util.UtilManager;
 
 public class ChatCommand extends EmpireSubCommand{
 	public static ArrayList<Player> empirechatplayers = new ArrayList<Player>();

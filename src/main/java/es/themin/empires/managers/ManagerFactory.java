@@ -1,10 +1,7 @@
 package es.themin.empires.managers;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
-
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;

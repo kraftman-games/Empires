@@ -1,15 +1,11 @@
 package es.themin.empires.util;
 
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 
 public class PlayerUtils {

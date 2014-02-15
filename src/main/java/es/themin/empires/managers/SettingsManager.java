@@ -2,29 +2,14 @@ package es.themin.empires.managers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 
 import es.themin.empires.empires;
-import es.themin.empires.cores.Core;
-import es.themin.empires.cores.CoreUtils;
-import es.themin.empires.enums.CoreType;
-import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.EWorld;
-import es.themin.empires.util.Empire;
-import es.themin.empires.util.Permissions;
-import es.themin.empires.util.Rank;
 
 public class SettingsManager {
 	    
