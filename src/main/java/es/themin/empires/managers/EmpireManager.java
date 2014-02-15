@@ -46,17 +46,15 @@ public class EmpireManager implements Manager {
 	}
 
     public void save() {
-        this.save(efile);
+    	myEmpiresDAL.saveEmpires(empires);
     }
-
-	public void save(File datafile) {
-		myEmpiresDAL.saveEmpires(empires, datafile);
-		
-	}
+    
+    public void save(File myFile){
+    	myEmpiresDAL.saveEmpires(empires, myFile);
+    }
 
     public  void reload() {
     	empires = myEmpiresDAL.loadEmpires();
-        //empiredata = YamlConfiguration.loadConfiguration(efile);
     }
 	
 	public void addEmpire(Empire empire) {

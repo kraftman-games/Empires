@@ -104,7 +104,7 @@ public class PlayerManagerTest {
         myCorePlayer.setName("kraftman");
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        EmpiresDAL myEmpiresDal = new EmpiresDAL();
+        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myCorePlayer == myPlayerManager.getPlayer("kraftman"));
@@ -117,7 +117,7 @@ public class PlayerManagerTest {
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        EmpiresDAL myEmpiresDal = new EmpiresDAL();
+        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myCorePlayer == myPlayerManager.getPlayer(myCorePlayer.getUUID()));
@@ -130,7 +130,7 @@ public class PlayerManagerTest {
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        EmpiresDAL myEmpiresDal = new EmpiresDAL();
+        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myPlayerManager.playerExists(myCorePlayer.getUUID()));
@@ -146,7 +146,7 @@ public class PlayerManagerTest {
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        EmpiresDAL myEmpiresDal = new EmpiresDAL();
+        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    myPlayerManager.addPlayer(myCorePlayer);

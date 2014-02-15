@@ -19,14 +19,20 @@ import es.themin.empires.util.Rank;
 
 public class EmpiresDAL {
 
-
-	public void savePlayers(HashMap<UUID, EPlayer> players){
-		//call the below with a default file.
-		
+	File EmpireFile;
+	File PlayerFile;
+	
+	public EmpiresDAL(File eFile, File pFile){
+		EmpireFile = eFile;
+		PlayerFile = pFile;
 	}
 	
-	public void savePlayers(HashMap<UUID, EPlayer> players, File datafile){
-		YamlConfiguration playerdata = YamlConfiguration.loadConfiguration(datafile);
+	public void savePlayers(HashMap<UUID, EPlayer> players){
+		savePlayers(players, PlayerFile);
+	}
+	
+	public void savePlayers(HashMap<UUID, EPlayer> players, File myFile){
+		YamlConfiguration playerdata = YamlConfiguration.loadConfiguration(myFile);
 		
 		for (EPlayer myPlayer : players.values()) {
     		if (myPlayer.getEmpire() != null){
@@ -36,12 +42,11 @@ public class EmpiresDAL {
     	}
     	
         try {
-                playerdata.save(datafile);
+                playerdata.save(myFile);
         }
         catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
+                //Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
         }
-		
 	}
 	
 	public HashMap<UUID, EPlayer> loadPlayers(){
@@ -66,8 +71,14 @@ public class EmpiresDAL {
 		return null;
 	}
 
-	public void saveEmpires(ArrayList<Empire> empires, File datafile) {
-		YamlConfiguration empiredata = YamlConfiguration.loadConfiguration(datafile);
+	public void saveEmpires(ArrayList<Empire> empires){
+		saveEmpires(empires, EmpireFile);
+	}
+	
+	public void saveEmpires(ArrayList<Empire> empires, File myFile) {
+		
+		
+		YamlConfiguration empiredata = YamlConfiguration.loadConfiguration(myFile);
 		
 		List<String> list = new ArrayList<String>();
 		for (Empire empire : empires) {
@@ -123,7 +134,7 @@ public class EmpiresDAL {
 		empiredata.set("empires", list);
 		
 		try {
-            empiredata.save(datafile);
+            empiredata.save(myFile);
 	    }
 	    catch (IOException e) {
 	            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");

@@ -61,13 +61,15 @@ public final class empires extends JavaPlugin {
 	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
 	
-	private ManagerFactory ManagerFactory = new ManagerFactory();
+	private ManagerFactory ManagerFactory;
 	
 	ArrayList<Manager> Managers = new ArrayList<Manager>();
 	
 	@Override
     public void onEnable(){
         plugin = this;
+        
+        ManagerFactory = new ManagerFactory(this);
         
          Empires = ManagerFactory.CreateEmpireManager();
     	 Cores = new CoreManager(this);
