@@ -67,13 +67,10 @@ public class Empire {
 		myPlugin = plugin;
 		Empires = plugin.Empires;
 		Players = plugin.Players;
-		
-		
-		
 		this.ID = Empires.nextUnusedEmpireId();
 		this.name = empireName;
 		this.owner = myUUID;
-		this.atWar =false;
+		this.atWar = false;
 		this.warwins = 0;
 		this.warlosses = 0;
 		this.battlelosses = 0;

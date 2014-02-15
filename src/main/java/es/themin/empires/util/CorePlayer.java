@@ -28,6 +28,7 @@ public class CorePlayer {
 		UUID = player.getUniqueId();
 		name = player.getName();
 		this.player = player;
+		this.empire = null;
 	}
 
 	public String getName() {

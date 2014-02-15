@@ -26,16 +26,18 @@ public class newemp extends SubCommand{
 
 	public boolean onCommand(Player player, String[] args) {
 		try {
+			player.sendMessage("debug 1 ");
 			CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 			if (!Empires.isValidName(args[1])){
 				player.sendMessage("Empire name is invalid");
 			}
-			
+			player.sendMessage("debug 2");
 			if (myCorePlayer.getEmpire() != null){
 				myCorePlayer.sendMessage("You are already in an empire");
 			}
-			
+			player.sendMessage("debug 3");
 			Empire empire = new Empire(myPlugin, args[1], myCorePlayer.getUUID());
+			player.sendMessage("debug 4");
 			empire.Save();
 			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
 		} catch (Exception e) {
