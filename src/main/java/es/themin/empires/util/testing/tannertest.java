@@ -40,7 +40,7 @@ public class tannertest extends SubCommand{
 		        System.out.println("Java's Default Date Format: " + now);
 		        System.out.println("Mysql's Default Date Format: " + mysqlDateString);
 				
-		        String myQueryString = "INSERT INTO `Player` (`UUID`, `FirstSeen`, `LastSeen`) VALUES ('" + player.getUniqueId().toString() + "','" + mysqlDateString + "','" + mysqlDateString + "');";
+		        String myQueryString = "INSERT INTO `Player` (`UUID`, `FirstSeen`, `LastSeen`) VALUES ('" + player.getUniqueId().toString() + "','" + mysqlDateString + "','" + mysqlDateString + "') ON DUPLICATE KEY UPDATE;";
 				player.sendMessage(myQueryString);
 				Statement st = connection.createStatement();
 				st.executeUpdate(myQueryString);
