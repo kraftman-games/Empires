@@ -23,12 +23,12 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import es.themin.empires.CoreManager;
-import es.themin.empires.EmpireManager;
-import es.themin.empires.PlayerManager;
-import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
+import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.CoreWorld;

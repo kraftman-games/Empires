@@ -14,9 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;

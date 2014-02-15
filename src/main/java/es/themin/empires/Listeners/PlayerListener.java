@@ -20,14 +20,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import es.themin.empires.EmpireManager;
-import es.themin.empires.PlayerManager;
-import es.themin.empires.SettingsManager;
-import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.managers.SettingsManager;
+import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;

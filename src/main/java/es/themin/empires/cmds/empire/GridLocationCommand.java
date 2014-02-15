@@ -4,9 +4,9 @@ import java.awt.Point;
 
 import org.bukkit.entity.Player;
 
-import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.UtilManager;
 
 public class GridLocationCommand extends EmpireSubCommand{

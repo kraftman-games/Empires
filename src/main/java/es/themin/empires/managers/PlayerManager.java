@@ -1,4 +1,4 @@
-package es.themin.empires;
+package es.themin.empires.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 

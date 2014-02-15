@@ -1,4 +1,4 @@
-package es.themin.empires;
+package es.themin.empires.managers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
+import es.themin.empires.empires;
 import es.themin.empires.util.CoreWorld;
 
 public class WorldManager {

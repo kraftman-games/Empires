@@ -5,11 +5,11 @@ import java.sql.Date;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.EmpireManager;
-import es.themin.empires.PlayerManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;

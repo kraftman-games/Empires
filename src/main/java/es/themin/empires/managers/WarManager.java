@@ -1,4 +1,4 @@
-package es.themin.empires;
+package es.themin.empires.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
 import es.themin.empires.util.Empire;
 import es.themin.empires.wars.Battle;

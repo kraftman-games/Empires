@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 
+import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 

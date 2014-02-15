@@ -11,11 +11,11 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import es.themin.empires.PlayerManager;
-import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;

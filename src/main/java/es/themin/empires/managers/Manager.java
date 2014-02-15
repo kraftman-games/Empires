@@ -1,4 +1,4 @@
-package es.themin.empires;
+package es.themin.empires.managers;
 
 import java.io.File;
 

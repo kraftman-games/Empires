@@ -1,4 +1,4 @@
-package es.themin.empires;
+package es.themin.empires.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreUtils;
 import es.themin.empires.enums.CoreType;

@@ -17,9 +17,10 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 
 
-import es.themin.empires.SettingsManager;
+
 import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
+import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.Empire;
 
