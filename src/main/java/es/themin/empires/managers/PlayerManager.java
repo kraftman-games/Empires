@@ -85,8 +85,6 @@ public class PlayerManager implements Manager {
 			return false;
 	}
 
-
-
 	public EPlayer loadPlayer(Player myPlayer) {
 		//so we want to get the player if it exists in memory
 		//if it doesnt try and get it from the DAL
