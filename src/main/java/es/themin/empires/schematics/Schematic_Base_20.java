@@ -99,7 +99,7 @@ public class Schematic_Base_20 extends Schematic{
 		Location c2112 = new Location(w,x-4,y,z+1);
 		ops = UtilManager.loopAndAddToList(c2111, c2112, ops);
 		Location c2121 = new Location(w,x-1,y,z+4);
-		Location c2122 = new Location(w,x+2,y,z+4);
+		Location c2122 = new Location(w,x+1,y,z+4);
 		ops = UtilManager.loopAndAddToList(c2121, c2122, ops);
 		Location c2131 = new Location(w,x-1,y,z-4);
 		Location c2132 = new Location(w,x+1,y,z-4);
