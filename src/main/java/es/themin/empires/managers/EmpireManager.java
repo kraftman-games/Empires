@@ -26,111 +26,44 @@ import es.themin.empires.util.Rank;
 
 public class EmpireManager implements Manager {
 	
-	//private empires myPlugin;
 	private ArrayList<Empire> empires = new ArrayList<Empire>();
-	//private PlayerManager Players;
-	//private WorldManager Worlds;
 	
 	private EmpiresDAL myEmpiresDAL;
 	
-    private YamlConfiguration empiredata;
     private File efile;
 
 	public ArrayList<Empire> getEmpires() {
 		return empires;
 	}
 
-	public EmpireManager(EmpiresDAL myEmpiresDAL) {
-		myEmpiresDAL = myEmpiresDAL;
+	public EmpireManager(EmpiresDAL empiresDAL) {
+		myEmpiresDAL = empiresDAL;
 	}
 	
 	public void load(){
 		empires = myEmpiresDAL.loadEmpires();
-		//efile = createFile("empiredata.yml");
-	       
-       	//empiredata = YamlConfiguration.loadConfiguration(efile);
+
 	}
-
-	
-
-	
-	public  FileConfiguration getEmpireData() {
-        return empiredata;
-    }
 
     public void save() {
         this.save(efile);
     }
-//    public static void saveEmpireDataToFile(File file) {
-//        try {
-//                empiredata.save(file);
-//        }
-//        catch (IOException e) {
-//                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
-//        }
-//    }
+
+	public void save(File datafile) {
+		myEmpiresDAL.saveEmpires(empires, datafile);
+		
+	}
 
     public  void reload() {
-        empiredata = YamlConfiguration.loadConfiguration(efile);
+    	empires = myEmpiresDAL.loadEmpires();
+        //empiredata = YamlConfiguration.loadConfiguration(efile);
     }
 	
 	public void addEmpire(Empire empire) {
 		this.empires.add(empire);
 		
 	}
-	
-	public  void loadEmpires(empires plugin) {
 		
-		
-		
-		List<String> list = empiredata.getStringList("empires");
-		for (String empireName : list) {
-			String[] words = empireName.split(":");
-			Integer Id = Integer.parseInt(words[0]);
-			String name = words[1];
-			String owner = words[2];
-			Empire empire = new Empire(this, name, UUID.fromString(owner));
-			
-			//loadEmpireCores(plugin, empire);
-			
-			loadEmpirePlayers(empire);
-			
-			loadEmpireRanks(empire);
-			
-			empire.Save();
-		}
-	}
-	
-	private  void loadEmpireRanks(Empire empire){
-		List<String> rankList = empiredata.getStringList(empire.getName() + ".ranks");
-		for (String rankString : rankList) {
-			String[] words2 = rankString.split(":");
-			Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1], empire, words2[2]);
-			List<String> playersInRank = empiredata.getStringList(empire.getName() + ".rank." + rankString + ".players");
-			for (String playername : playersInRank) {
-				rank.addPlayer(playername);
-			}
-			List<String> playerPermissions = empiredata.getStringList(empire.getName() + ".rank." + rankString + ".permissions");
-			for (String permission : playerPermissions) {
-				EmpirePermission ep = Permissions.getPermission(permission);
-				if (ep != null){
-					rank.addPermission(ep);
-				}
-			}
-			empire.addRank(rank);
-		}
-	}
-	
-	private  void loadEmpirePlayers(Empire empire){
-		List<String> playerList = empiredata.getStringList(empire.getName() + ".players");
-		for ( String playerUUID : playerList) {
-			UUID myUUID = UUID.fromString(playerUUID);
-			//empire.addPlayer(myUUID);
-		}
-	}
-	
-
-	
 	public int nextUnusedEmpireId(){
 		int i = 0;
 		while (getEmpireWithID(i) != null){
@@ -143,6 +76,7 @@ public class EmpireManager implements Manager {
 	public void removeEmpire(Empire empire) {
 		int i = this.getEmpires().indexOf(empire);
 		this.empires.remove(i);
+		myEmpiresDAL.removeEmpire(empire);
 		
 	}
 	public Empire getEmpireWithName(String name) {
@@ -170,68 +104,6 @@ public class EmpireManager implements Manager {
 		return false;
 	}
 	
-	public void save(File datafile) {
-		List<String> list = new ArrayList<String>();
-		for (Empire empire : this.empires) {
-			StringBuilder str = new StringBuilder();
-			str.append(empire.getID() + ":");
-			str.append(empire.getName() + ":");
-			str.append(empire.getOwner());
-			list.add(str.toString());
-			empiredata.set(str.toString() + ".id", empire.getID());
-			empiredata.set(str.toString() + ".name", empire.getName());
-			List<String> playerList = new ArrayList<String>();
-			for (EPlayer player : empire.getPlayers().values()) {
-				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
-				playerList.add(player.getName());
-				
-			}
-			empiredata.set(str.toString() + ".players", playerList);
-			List<String> list3 = new ArrayList<String>();
-			for (Core core : empire.getCores()) {
-				StringBuilder str2 = new StringBuilder();
-				str2.append(core.getId() + ":");
-				str2.append(core.getType().toString() + ":");
-				str2.append(core.getLocation().getWorld().getName() + ":");
-				str2.append(core.getLocation().getBlockX() + ":");
-				str2.append(core.getLocation().getBlockY() + ":");
-				str2.append(core.getLocation().getBlockZ() + ":");
-				str2.append(core.getLevel() + ":");
-				str2.append(core.getEmpire().getID() + ":");
-				str2.append(core.getEmpire().getName());
-				list3.add(str2.toString());
-			}
-			empiredata.set(str.toString() + ".cores", list3);
-			List<String> list4 = new ArrayList<String>();
-			for (Rank rank : empire.getRanks()) {
-				StringBuilder str3 = new StringBuilder();
-				str3.append(rank.getWeight() + ":");
-				str3.append(rank.getName() + ":");
-				str3.append(rank.getPreifx());
-				list4.add(str3.toString());
-				List<String> list5 = new ArrayList<String>();
-				for (String p : rank.getPlayers()) {
-					list5.add(p);
-				}
-				empiredata.set(str.toString() + ".rank." + str3.toString() + ".players", list5);
-				List<String> list6 = new ArrayList<String>();
-				for (EmpirePermission ep : rank.getPermissions()) {
-					list6.add(ep.toString());
-				}
-				empiredata.set(str.toString() + ".rank." + str3.toString() + ".permissions", list6);
-			}
-			empiredata.set(str.toString() + ".ranks", list4);
-		}
-		empiredata.set("empires", list);
-		
-		try {
-            empiredata.save(datafile);
-	    }
-	    catch (IOException e) {
-	            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
-		    }
-	}
-
 	public boolean isValidName(String string) {
 		if (string.isEmpty())
 			return false;
@@ -242,6 +114,56 @@ public class EmpireManager implements Manager {
 	}
 }
 
+
+//public  void loadEmpires(empires plugin) {
+//
+//
+//
+//List<String> list = empiredata.getStringList("empires");
+//for (String empireName : list) {
+//	String[] words = empireName.split(":");
+//	Integer Id = Integer.parseInt(words[0]);
+//	String name = words[1];
+//	String owner = words[2];
+//	Empire empire = new Empire(this, name, UUID.fromString(owner));
+//	
+//	//loadEmpireCores(plugin, empire);
+//	
+//	loadEmpirePlayers(empire);
+//	
+//	loadEmpireRanks(empire);
+//	
+//	empire.Save();
+//}
+//}
+
+//private  void loadEmpireRanks(Empire empire){
+//List<String> rankList = empiredata.getStringList(empire.getName() + ".ranks");
+//for (String rankString : rankList) {
+//	String[] words2 = rankString.split(":");
+//	Rank rank = new Rank(Integer.parseInt(words2[0]), words2[1], empire, words2[2]);
+//	List<String> playersInRank = empiredata.getStringList(empire.getName() + ".rank." + rankString + ".players");
+//	for (String playername : playersInRank) {
+//		rank.addPlayer(playername);
+//	}
+//	List<String> playerPermissions = empiredata.getStringList(empire.getName() + ".rank." + rankString + ".permissions");
+//	for (String permission : playerPermissions) {
+//		EmpirePermission ep = Permissions.getPermission(permission);
+//		if (ep != null){
+//			rank.addPermission(ep);
+//		}
+//	}
+//	empire.addRank(rank);
+//}
+//}
+
+//private  void loadEmpirePlayers(Empire empire){
+//List<String> playerList = empiredata.getStringList(empire.getName() + ".players");
+//for ( String playerUUID : playerList) {
+//	UUID myUUID = UUID.fromString(playerUUID);
+//	//empire.addPlayer(myUUID);
+//}
+//}
 
 
 

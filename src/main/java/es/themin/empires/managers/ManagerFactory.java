@@ -11,8 +11,6 @@ public class ManagerFactory {
 
 	
 	public PlayerManager CreatePlayerManager(){
-		
-		//File pfile = SettingsManager.createFile("playerdata.yml");
         
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
