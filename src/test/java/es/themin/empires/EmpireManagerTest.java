@@ -86,7 +86,9 @@ public class EmpireManagerTest {
 	public void AddEmpireTest(){
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
+        
+        @SuppressWarnings( "unchecked" )
+        ArrayList<Empire> empires = PowerMockito.mock(ArrayList.class);
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         
@@ -119,7 +121,8 @@ public class EmpireManagerTest {
 	public void RemoveEmpireTest(){
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
+        @SuppressWarnings( "unchecked" )
+        ArrayList<Empire> empires = PowerMockito.mock(ArrayList.class);
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         
