@@ -40,12 +40,13 @@ public class tannertest extends SubCommand{
 		        System.out.println("Java's Default Date Format: " + now);
 		        System.out.println("Mysql's Default Date Format: " + mysqlDateString);
 				
-				
+		        String myQueryString = "REPLACE INTO `Players`" +
+						" SET `UUID` = '" + player.getUniqueId().toString() + 
+						"' `FirstSeen` = '" + mysqlDateString + 
+						"' `LastSeen` = '" + mysqlDateString + "';";
+				player.sendMessage(myQueryString);
 				Statement st = connection.createStatement();
-				st.executeUpdate("REPLACE INTO `Players`" +
-				" SET `UUID` = '" + player.getUniqueId().toString() + 
-				"' `FirstSeen` = '" + mysqlDateString + 
-				"' `LastSeen` = '" + mysqlDateString + "';");
+				st.executeUpdate(myQueryString);
 				
 				
 				connection.close();
