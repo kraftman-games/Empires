@@ -15,6 +15,8 @@ import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
+import es.themin.empires.schematics.Schematic;
+import es.themin.empires.schematics.Schematic_Base_20;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
@@ -34,14 +36,12 @@ public class Event_BlockPlace implements Listener{
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		player.sendMessage("blockplace");
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();
 		if (placed == Material.BEACON) {
 			if (im.getDisplayName().equalsIgnoreCase("base core")) {
-				player.sendMessage("ItemCorrect");
-				if (myCorePlayer == null) {
+				/*if (myCorePlayer == null) {
 					player.sendMessage(MsgManager.notinemp);
 					event.setCancelled(true);
 				}
@@ -50,14 +50,15 @@ public class Event_BlockPlace implements Listener{
 					player.sendMessage(MsgManager.notinemp);
 					event.setCancelled(true);
 				}
-				Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.MOB, event.getBlock().getLocation(), 1, myEmpire);
+				Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.BASE, event.getBlock().getLocation(), 1, myEmpire);
 				myEmpire.addCore(myCore);
 				World world = player.getWorld();
 				UUID uuid = world.getUID();
 				myCore.build2();
 				EWorld cw = Worlds.getWorld(uuid);
-				cw.addCore(myCore);
-				
+				cw.addCore(myCore);*/
+				Schematic schem = new Schematic_Base_20();
+				schem.pasteFromCentre(event.getBlock().getLocation());
 			}
 		}
 			

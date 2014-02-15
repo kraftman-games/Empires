@@ -38,6 +38,8 @@ import es.themin.empires.managers.WarManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.BaseSchematic;
 import es.themin.empires.schematics.Schematic;
+import es.themin.empires.schematics.Schematic_Base_20;
+import es.themin.empires.schematics.Schematic_Mob_1;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
@@ -214,6 +216,8 @@ public final class empires extends JavaPlugin {
     public void loadSchematics() {
     	this.schematics = new ArrayList<Schematic>();
     	this.schematics.add(new BaseSchematic());
+    	this.schematics.add(new Schematic_Mob_1());
+    	this.schematics.add(new Schematic_Base_20());
     }
 
 	
