@@ -18,37 +18,21 @@ public class PlayerManager implements Manager {
 
 	private HashMap<UUID, CorePlayer> players;
 	
-	private YamlConfiguration playerdata;
-    private File pfile;
+    private EmpiresDAL EmpiresDAL;
 	
-	public PlayerManager(YamlConfiguration playerdata, File pfile, HashMap<UUID, CorePlayer> players) {
-		this.playerdata = playerdata;
-	    this.pfile = pfile;
+	public PlayerManager( EmpiresDAL myEmpiresDAL, HashMap<UUID, CorePlayer> players) {
 	    this.players = players;
+	    this.EmpiresDAL = myEmpiresDAL;
 	}
 	
-    public  FileConfiguration getPlayerData() {
-        return playerdata;
-    }
+
     
     public void save(){
-    	this.save(pfile);
+    	EmpiresDAL.savePlayers(players);
     }
 
     public  void save(File datafile) {
-    	for (CorePlayer myPlayer : players.values()) {
-    		if (myPlayer.getEmpire() != null){
-    			playerdata.set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire().getID());
-    		}
-    		playerdata.set(myPlayer.getUUID() + ".name", myPlayer.getName());
-    	}
-    	
-        try {
-                playerdata.save(datafile);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
-        }
+    	EmpiresDAL.savePlayers(players, datafile);
     }
     
     public void load(){
@@ -59,19 +43,19 @@ public class PlayerManager implements Manager {
     			addPlayer(myCorePlayer);
     		}
     		
-    		if (playerdata.get(player.getUniqueId() + ".empire") != null) {
-    			int empireID = playerdata.getInt(player.getUniqueId() + ".empire");
+//    		if (playerdata.get(player.getUniqueId() + ".empire") != null) {
+//    			int empireID = playerdata.getInt(player.getUniqueId() + ".empire");
 //    			if (empire != null){
 //    				CorePlayer myCorePlayer = new CorePlayer(player);
 //        			addPlayer(myCorePlayer);
 //        			player.sendMessage(myPlugin.plprefix + ChatColor.GREEN + "You were found to be in an empire");
 //    			}
-    		}
+//    		}
     	}
     }
 
     public  void reload() {
-        playerdata = YamlConfiguration.loadConfiguration(pfile);
+        //playerdata = YamlConfiguration.loadConfiguration(pfile);
     }
 
 	

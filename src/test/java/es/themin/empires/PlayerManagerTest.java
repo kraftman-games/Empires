@@ -63,96 +63,74 @@ public class PlayerManagerTest {
 	}
 	
 	
-	@Test
-	public void createNewPlayerManager(){
-		
-		
-		File pfile = PowerMockito.mock(File.class);
-        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
-        HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
-		
-	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
-		
-		assertTrue(myPlayerManager.getPlayerData() == playerdata);
-	}
+	
 	
 	@Test
 	public void PlayerManagerSave(){
-		File pfile = PowerMockito.mock(File.class);
-        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
         CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
         
-		
-	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
-
+        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 	    myPlayerManager.save();
-	    Mockito.verify(playerdata).set(myCorePlayer.getUUID().toString()+".empire", myCorePlayer.getEmpire().getID());
+	    Mockito.verify(myEmpiresDal).savePlayers(players);
 	}
 	
 	
 	@Test 
 	public void PlayerManagerSaveToOtherFile() throws IOException {
-		File pfile = PowerMockito.mock(File.class);
 		File tfile = PowerMockito.mock(File.class);
-        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
         CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        
-	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    myPlayerManager.save(tfile);
 	    
-	    Mockito.verify(playerdata).save(tfile);
+	    Mockito.verify(myEmpiresDal).savePlayers(players, tfile);
 	}
 	
 	@Test 
 	public void GetPlayerByName() {
-		File pfile = PowerMockito.mock(File.class);
-        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
         CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
         
         myCorePlayer.setName("kraftman");
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        
-	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+        EmpiresDAL myEmpiresDal = new EmpiresDAL();
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myCorePlayer == myPlayerManager.getPlayer("kraftman"));
 	}
 	
 	@Test 
 	public void GetPlayerByUUID() {
-		File pfile = PowerMockito.mock(File.class);;
-        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
         CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        
-	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+        EmpiresDAL myEmpiresDal = new EmpiresDAL();
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myCorePlayer == myPlayerManager.getPlayer(myCorePlayer.getUUID()));
 	}
 	
 	@Test 
 	public void TestPlayerExistsbyUUID() {
-		File pfile = PowerMockito.mock(File.class);;
-        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
         CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        
-	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+        EmpiresDAL myEmpiresDal = new EmpiresDAL();
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myPlayerManager.playerExists(myCorePlayer.getUUID()));
 	    
@@ -162,15 +140,13 @@ public class PlayerManagerTest {
 	
 	@Test 
 	public void TestAddPlayer() {
-		File pfile = PowerMockito.mock(File.class);;
-        YamlConfiguration playerdata = PowerMockito.mock(YamlConfiguration.class);
         CorePlayer myCorePlayer = GetFakeCorePlayerInEmpire();
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
         
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
-        
-	    PlayerManager myPlayerManager = new PlayerManager(playerdata, pfile, players);
+        EmpiresDAL myEmpiresDal = new EmpiresDAL();
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    myPlayerManager.addPlayer(myCorePlayer);
 	    

@@ -13,13 +13,13 @@ public class ManagerFactory {
 	
 	public PlayerManager CreatePlayerManager(){
 		
-		File pfile = SettingsManager.createFile("playerdata.yml");
-	       
-        YamlConfiguration playerdata = YamlConfiguration.loadConfiguration(pfile);
+		//File pfile = SettingsManager.createFile("playerdata.yml");
         
         HashMap<UUID, CorePlayer> players = new HashMap<UUID, CorePlayer>();
+        
+        EmpiresDAL myempiresDAL = new EmpiresDAL();
 		
-	    return new PlayerManager(playerdata, pfile, players);
+	    return new PlayerManager(myempiresDAL, players);
 	    
 	}
 }

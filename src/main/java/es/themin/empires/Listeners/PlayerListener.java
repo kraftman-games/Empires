@@ -60,13 +60,16 @@ public class PlayerListener implements Listener{
 		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		if (myCorePlayer == null ){
 			myCorePlayer = new CorePlayer(player);
-		}
-		
-		if (Players.getPlayerData().get(player.getName()) != null && Empires.containsEmpireWithId(Players.getPlayerData().getInt(player.getName() + ".empire"))) {
-			
-			myCorePlayer.setEmpire(Empires.getEmpireWithID(Players.getPlayerData().getInt(player.getName() + ".empire")));
+			//save the player to the db
+			//add them to the player list
 			Players.addPlayer(myCorePlayer);
 		}
+		
+		//if (Players.playerExists(player.getUniqueId()) && Empires.containsEmpireWithId(Players.getPlayerData().getInt(player.getName() + ".empire"))) {
+			
+			//myCorePlayer.setEmpire(Empires.getEmpireWithID(Players.getPlayerData().getInt(player.getName() + ".empire")));
+			//Players.addPlayer(myCorePlayer);
+		//}
 		
 		Players.save();
 	}
@@ -78,11 +81,11 @@ public class PlayerListener implements Listener{
 		CorePlayer myPlayer = Players.getPlayer(player.getUniqueId());
 		
 		if (myPlayer != null) {
-			Players.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
-			Players.save();
+			//Players.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
+			//Players.save();
 		}else {
-			Players.getPlayerData().set(player.getName(), null);
-			Players.save();
+			//Players.getPlayerData().set(player.getName(), null);
+			//Players.save();
 		}
 	}
 		
