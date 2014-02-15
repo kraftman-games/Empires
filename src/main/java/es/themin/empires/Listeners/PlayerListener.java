@@ -49,7 +49,7 @@ public class PlayerListener implements Listener{
 		Player player = event.getPlayer();
 		
 		//we dont want to construct the player here, we want it to do it for us.
-		Players.loadPlayer(player.getUniqueId());
+		Players.loadPlayer(player);
 		
 		
 		//if (Players.playerExists(player.getUniqueId()) && Empires.containsEmpireWithId(Players.getPlayerData().getInt(player.getName() + ".empire"))) {
@@ -65,15 +65,17 @@ public class PlayerListener implements Listener{
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		
-		EPlayer myPlayer = Players.getPlayer(player.getUniqueId());
+		Players.removePlayer(player);
 		
-		if (myPlayer != null) {
-			//Players.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
-			//Players.save();
-		}else {
-			//Players.getPlayerData().set(player.getName(), null);
-			//Players.save();
-		}
+//		EPlayer myPlayer = Players.getPlayer(player.getUniqueId());
+//		
+//		if (myPlayer != null) {
+//			//Players.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
+//			//Players.save();
+//		}else {
+//			//Players.getPlayerData().set(player.getName(), null);
+//			//Players.save();
+//		}
 	}
 		
 	@EventHandler

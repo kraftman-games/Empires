@@ -43,4 +43,14 @@ public class EmpiresDAL {
 		
 		return myPlayers;
 	}
+
+	public EPlayer loadPlayer(UUID uniqueId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void savePlayer(EPlayer myEPlayer) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -87,8 +87,30 @@ public class PlayerManager implements Manager {
 
 
 
-	public void loadPlayer(UUID uniqueId) {
-		// TODO Auto-generated method stub
+	public EPlayer loadPlayer(Player myPlayer) {
+		//so we want to get the player if it exists in memory
+		//if it doesnt try and get it from the DAL
+		// if there's still nothing then create it.
+		if (players.get(myPlayer.getUniqueId()) != null){
+			return players.get(myPlayer.getUniqueId());
+		}
+		
+		EPlayer myEPlayer = EmpiresDAL.loadPlayer(myPlayer.getUniqueId());
+		
+		if (myEPlayer == null){
+			myEPlayer = new EPlayer(myPlayer);
+			EmpiresDAL.savePlayer(myEPlayer);
+			players.put(myEPlayer.getUUID(), myEPlayer);
+		}
+		return myEPlayer;
+	}
+
+
+
+	public void removePlayer(Player player) {
+		
+		EPlayer myEPlayer = getPlayer(player.getUniqueId());
+		EmpiresDAL.savePlayer(myEPlayer);
 		
 	}
 
