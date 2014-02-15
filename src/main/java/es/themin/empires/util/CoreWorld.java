@@ -11,7 +11,7 @@ public class CoreWorld {
 	
 	private HashMap<Integer, Core> Cores;
 	private Map<Point, HashMap<Integer, Core>> CoreGrid;
-	private Integer GridSize = 100;
+	private Integer GridSize = 400;
 	
 	
 	//TODO: IMPORTANT. check if the core its overlapping is itself

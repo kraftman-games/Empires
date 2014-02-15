@@ -4,8 +4,11 @@ import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import es.themin.empires.PlayerManager;
 import es.themin.empires.WorldManager;
@@ -39,7 +42,12 @@ public class generatebasecore extends SubCommand{
 			return false;
 		}
 		Empire empire = myCorePlayer.getEmpire();
-		if (empire.hasCoreOfType(CoreType.BASE)) {
+		ItemStack item = new ItemStack(Material.BEACON, 1);
+		ItemMeta im = item.getItemMeta();
+		im.setDisplayName("base core");
+		item.setItemMeta(im);
+		player.getInventory().addItem(item);
+		/*if (empire.hasCoreOfType(CoreType.BASE)) {
 			player.sendMessage(plprefix + ChatColor.RED + "You already have a core of this type");
 			return false;
 		}
@@ -49,6 +57,7 @@ public class generatebasecore extends SubCommand{
 		UUID uuid = world.getUID();
 		CoreWorld cw = Worlds.getWorlds().get(uuid);
 		cw.addCore(myCore);
+		*/
 		return false;
 		
 	}

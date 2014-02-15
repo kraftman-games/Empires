@@ -29,6 +29,7 @@ import es.themin.empires.WorldManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
+import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.CorePlayer;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
@@ -58,6 +59,7 @@ public class Core {
 	private CoreManager Cores;
 	private WorldManager Worlds;
 	private PlayerManager Players;
+	private Schematic schem;
 	
 	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
 	
@@ -100,6 +102,7 @@ public class Core {
 		this.setSchematic(CoreSchematic.getSchematic(type));
 		this.setDestroyCost(CoreSchematic.getDestroyCost(type));
 		this.setPlaceType(CoreSchematic.getPlaceType(type));
+		
 	}
 	
 	
@@ -214,6 +217,9 @@ public class Core {
 
 	public void setPlaceType(PlaceType placeType) {
 		this.placeType = placeType;
+	}
+	public void build2() {
+		this.getSchematic2().pasteFromCentre(this.location);
 	}
 	
 	public void build() {
@@ -333,6 +339,11 @@ public class Core {
 		}
 		return false;
 	}
-
+	public Schematic getSchematic2() {
+		for (Schematic schem : empires.schematics) {
+			if (this.coreType == schem.coreType()) return schem;
+		}
+		return null;
+	}
 }
 

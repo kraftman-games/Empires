@@ -23,6 +23,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.ChatListener;
 import es.themin.empires.Listeners.CraftListener;
+import es.themin.empires.Listeners.Event_BlockPlace;
 import es.themin.empires.Listeners.PlayerListener;
 import es.themin.empires.Listeners.WorldListener;
 import es.themin.empires.cmds.GlobalCommand;
@@ -34,6 +35,8 @@ import es.themin.empires.cmds.war.WarCommand;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreSchematic;
 import es.themin.empires.enums.ConfirmType;
+import es.themin.empires.schematics.BaseSchematic;
+import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.CoreWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpirePlayer;
@@ -57,7 +60,7 @@ public final class empires extends JavaPlugin {
 	public WorldManager Worlds;
 	public WarManager Wars;
 	public PlayerManager Players;
-	
+	public static ArrayList<Schematic> schematics;
 	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
 	
@@ -94,6 +97,7 @@ public final class empires extends JavaPlugin {
 		Players.load();
 		scheduleBackUps();
 		registerEvents();
+		loadSchematics();
 		
     }
 	
@@ -131,6 +135,7 @@ public final class empires extends JavaPlugin {
     
     public void registerEvents(){
     	PluginManager pm = this.getServer().getPluginManager();
+    	pm.registerEvents(new Event_BlockPlace(this), this);
     	pm.registerEvents(new PlayerListener(this), this);
 		pm.registerEvents(new BlockListener(this), this);
 		pm.registerEvents(new CraftListener(this), this);
@@ -228,6 +233,10 @@ public final class empires extends JavaPlugin {
         	}
     	}
     	
+    }
+    public void loadSchematics() {
+    	this.schematics = new ArrayList<Schematic>();
+    	this.schematics.add(new BaseSchematic());
     }
 
 	

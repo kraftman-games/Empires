@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.UtilManager;
 
 public class BaseSchematic extends Schematic{
@@ -83,6 +84,11 @@ public class BaseSchematic extends Schematic{
 		for (Block myObsidian : sobs) {
 			myObsidian.setType(Material.AIR);
 		}
+	}
+
+	@Override
+	public CoreType coreType() {
+		return CoreType.BASE;
 	}
 
 }
