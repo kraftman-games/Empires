@@ -69,6 +69,14 @@ public class Schematic_Mob_1 extends Schematic{
 		for (Block b : wall) {
 			b.setType(Material.COBBLE_WALL);
 		}
+		ArrayList<Block> dia = new ArrayList<Block>();
+		dia.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+3, location.getBlockZ() + 1));
+		dia.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+3, location.getBlockZ() - 1));
+		dia.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+3, location.getBlockZ() + 1));
+		dia.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+3, location.getBlockZ() - 1));
+		for (Block b : dia) {
+			b.setType(Material.DIAMOND_BLOCK);
+		}
 		
 		world.getBlockAt(location).setType(Material.WORKBENCH);
 		world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ()).setType(Material.BRICK);
@@ -160,17 +168,6 @@ World world = location.getWorld();
 		return null;
 	}
 
-	@Override
-	public ArrayList<Block> getFlagBlocks(Location location) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setFlagBlock(Location location, FlagMatrix fm) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public int getLevel() {

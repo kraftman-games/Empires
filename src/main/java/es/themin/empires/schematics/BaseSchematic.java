@@ -33,6 +33,15 @@ public class BaseSchematic extends Schematic{
 		sobs.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY() + 1, location.getBlockZ() - 1));
 		sobs.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY() + 1, location.getBlockZ() - 1));
 		
+		ArrayList<Block> obs = new ArrayList<Block>();
+		obs.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY() + 3, location.getBlockZ() + 1));
+		obs.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY() + 3, location.getBlockZ() + 1));
+		obs.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY() + 3, location.getBlockZ() - 1));
+		obs.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY() + 3, location.getBlockZ() - 1));
+		for (Block b : obs) {
+			b.setType(Material.DIAMOND_BLOCK);
+		}
+
 		sobs.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY() + 3, location.getBlockZ() + 1));
 		sobs.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY() + 3, location.getBlockZ() + 1));
 		sobs.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY() + 3, location.getBlockZ() - 1));
@@ -89,7 +98,7 @@ public class BaseSchematic extends Schematic{
 
 	@Override
 	public CoreType coreType() {
-		return CoreType.BASE;
+		return CoreType.FORTIFICATION;
 	}
 
 	@Override
@@ -128,21 +137,11 @@ public class BaseSchematic extends Schematic{
 		return sobs;
 	}
 
-	@Override
-	public ArrayList<Block> getFlagBlocks(Location location) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int getLevel() {
 		return 0;
 	}
 
-	@Override
-	public void setFlagBlock(Location location, FlagMatrix fm) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

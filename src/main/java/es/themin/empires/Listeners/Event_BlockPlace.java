@@ -34,13 +34,11 @@ public class Event_BlockPlace implements Listener{
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		player.sendMessage("blockplace");
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();
 		if (placed == Material.BEACON) {
 			if (im.getDisplayName().equalsIgnoreCase("base core")) {
-				player.sendMessage("ItemCorrect");
 				if (myCorePlayer == null) {
 					player.sendMessage(MsgManager.notinemp);
 					event.setCancelled(true);
@@ -50,7 +48,7 @@ public class Event_BlockPlace implements Listener{
 					player.sendMessage(MsgManager.notinemp);
 					event.setCancelled(true);
 				}
-				Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.MOB, event.getBlock().getLocation(), 1, myEmpire);
+				Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.BASE, event.getBlock().getLocation(), 1, myEmpire);
 				myEmpire.addCore(myCore);
 				World world = player.getWorld();
 				UUID uuid = world.getUID();
