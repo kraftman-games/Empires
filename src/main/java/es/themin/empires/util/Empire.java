@@ -50,6 +50,7 @@ public class Empire {
 	private empires myPlugin;
 	private EmpireManager Empires;
 	private PlayerManager Players;
+	private FlagMatrix flagmatrix;
 	
 	public Empire getEnemyEmpire() {
 		return enemyEmpire;

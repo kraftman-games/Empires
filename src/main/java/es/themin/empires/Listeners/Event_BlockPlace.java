@@ -50,7 +50,7 @@ public class Event_BlockPlace implements Listener{
 					player.sendMessage(MsgManager.notinemp);
 					event.setCancelled(true);
 				}
-				Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.BASE, event.getBlock().getLocation(), 1, myEmpire);
+				Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.MOB, event.getBlock().getLocation(), 1, myEmpire);
 				myEmpire.addCore(myCore);
 				World world = player.getWorld();
 				UUID uuid = world.getUID();

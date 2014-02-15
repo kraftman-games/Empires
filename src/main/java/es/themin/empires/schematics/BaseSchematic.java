@@ -8,6 +8,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.util.FlagMatrix;
 import es.themin.empires.util.UtilManager;
 
 public class BaseSchematic extends Schematic{
@@ -125,6 +126,23 @@ public class BaseSchematic extends Schematic{
 		sobs.add(world.getBlockAt(location.getBlockX(), location.getBlockY() + 4, location.getBlockZ() + 1));
 		sobs.add(world.getBlockAt(location.getBlockX(), location.getBlockY() + 4, location.getBlockZ() - 1));
 		return sobs;
+	}
+
+	@Override
+	public ArrayList<Block> getFlagBlocks(Location location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getLevel() {
+		return 0;
+	}
+
+	@Override
+	public void setFlagBlock(Location location, FlagMatrix fm) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
