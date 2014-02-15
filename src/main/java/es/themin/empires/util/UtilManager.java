@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 
 import es.themin.empires.empires;
 
@@ -106,6 +107,25 @@ public class UtilManager {
 		return list;
 	}
 
-	
+	@SuppressWarnings("deprecation")
+	public static void setStairsData(Material material,Block b, BlockFace dir){
+        byte d = 0;
+       
+        if(dir == BlockFace.WEST){
+            d = 0x1;
+        }else if(dir == BlockFace.EAST){
+            d = 0x0;
+        }else if(dir == BlockFace.NORTH){
+            d = 0x3;
+        }else if(dir == BlockFace.SOUTH){
+            d = 0x2;
+        }
+       b.setTypeIdAndData(material.getId(), d, false);
+    }
+	public static void setStairsFromList(ArrayList<Block> blocks, Material material, BlockFace dir) {
+		for (Block b : blocks) {
+			setStairsData(material, b, dir);
+		}
+	}
 
 }
