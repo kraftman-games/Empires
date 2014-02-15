@@ -44,10 +44,10 @@ public class Core {
 	private PlaceType placeType;
 	private int destroyCost;
 	private empires myPlugin;
-	private EmpireManager Empires;
+	//private EmpireManager Empires;
 	private CoreManager Cores;
 	private WorldManager Worlds;
-	private PlayerManager Players;
+	//private PlayerManager Players;
 	private Schematic schem;
 	
 	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
@@ -78,10 +78,9 @@ public class Core {
 
 	public Core(empires plugin,int Id, CoreType type, Location location, int level, Empire empire) {
 		this.myPlugin = plugin;
-		this.Empires = plugin.Empires;
+		//this.Empires = plugin.Empires;
 		this.Worlds = plugin.Worlds;
 		this.Cores = plugin.Cores;
-		this.Players = plugin.Players;
 		this.coreSize = 8;
 		this.empire = empire;
 		this.Id = Id;
@@ -265,9 +264,9 @@ public class Core {
 	}
 
 
-	public void playerInteract(PlayerInteractEvent event) {
+	public void playerInteract(PlayerInteractEvent event, EPlayer myCorePlayer) {
 		Player player = event.getPlayer();
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		//EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		if (myCorePlayer == null )
 			return;

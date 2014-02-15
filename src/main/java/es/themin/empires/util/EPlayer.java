@@ -60,4 +60,27 @@ public class EPlayer {
 	public Player getPlayer() {
 		return this.player;
 	}
+	
+//	public boolean canPlayerAttack(Player myPlayer) {
+//		Empire playerEmpire = Players.getPlayer(myPlayer.getUniqueId()).getEmpire();
+//		if (!this.isProtected()){
+//			if (this.isAtWar()){
+//				if (playerEmpire == this.getEnemyEmpire()){
+//					return true;
+//				}
+//				else {
+//					myPlayer.sendMessage("This war is not yours to fight!");
+//					return false;
+//				}
+//				
+//			} else if (playerEmpire.isProtected){
+//				myPlayer.sendMessage("You cannot attack an empire until yours is rebuilt!");
+//				return false;
+//			}
+//		} else {
+//			myPlayer.sendMessage("There is no honor in attack this fallen empire");
+//			return false;
+//		}
+//		return false;
+//	}
 }

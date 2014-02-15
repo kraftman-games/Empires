@@ -13,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreUtils;
@@ -25,12 +26,13 @@ import es.themin.empires.util.Rank;
 
 public class EmpireManager implements Manager {
 	
-	private empires myPlugin;
+	//private empires myPlugin;
 	private ArrayList<Empire> empires = new ArrayList<Empire>();
 	//private PlayerManager Players;
 	//private WorldManager Worlds;
 	
-
+	private EmpiresDAL myEmpiresDAL;
+	
     private YamlConfiguration empiredata;
     private File efile;
 
@@ -38,35 +40,19 @@ public class EmpireManager implements Manager {
 		return empires;
 	}
 
-	public EmpireManager(empires plugin) {
-		myPlugin = plugin;
+	public EmpireManager(EmpiresDAL myEmpiresDAL) {
+		myEmpiresDAL = myEmpiresDAL;
 	}
 	
 	public void load(){
-		
-		efile = createFile("empiredata.yml");
+		empires = myEmpiresDAL.loadEmpires();
+		//efile = createFile("empiredata.yml");
 	       
-       	empiredata = YamlConfiguration.loadConfiguration(efile);
+       	//empiredata = YamlConfiguration.loadConfiguration(efile);
 	}
 
 	
-	private  File createFile(String fileName){
-    	
-    	File myFile = new File(myPlugin.getDataFolder() + File.separator + fileName);
-        
-        if (!myFile.exists()) {
-                try {
-                	myFile.createNewFile();
-        				myPlugin.getLogger().info("[Empires] "+fileName+" not found, making you one");
-                }
-                catch (IOException e) {
-                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create "+fileName);
-                }
-        }
-        
-        return myFile;
-    	
-    }
+
 	
 	public  FileConfiguration getEmpireData() {
         return empiredata;
@@ -103,9 +89,9 @@ public class EmpireManager implements Manager {
 			Integer Id = Integer.parseInt(words[0]);
 			String name = words[1];
 			String owner = words[2];
-			Empire empire = new Empire(myPlugin, name, UUID.fromString(owner));
+			Empire empire = new Empire(this, name, UUID.fromString(owner));
 			
-			loadEmpireCores(plugin, empire);
+			//loadEmpireCores(plugin, empire);
 			
 			loadEmpirePlayers(empire);
 			
@@ -143,27 +129,7 @@ public class EmpireManager implements Manager {
 		}
 	}
 	
-	private  void loadEmpireCores(empires plugin, Empire empire){
-		List<String> list2 = empiredata.getStringList(empire.getName() + ".cores");
-		for (String s2: list2) {
-			String[] words2 = s2.split(":");
-			int coreID  = Integer.parseInt(words2[0]);
-			
-			CoreType coretype = CoreUtils.GetCoreType(words2[1]);
-			
-			World world2 = Bukkit.getServer().getWorld(words2[2]);
-			int x2 = Integer.parseInt(words2[3]); // - 0:BASE:world:-249:78:223:1:0:kraft
-			int y2 = Integer.parseInt(words2[4]);
-			int z2 = Integer.parseInt(words2[5]);
-			Location location = new Location(world2, x2, y2, z2);
-			int level = Integer.parseInt(words2[6]);
-			Core core = new Core(myPlugin, coreID, coretype, location, level, empire);
-		    //core.build();
-		    //Worlds.getWorlds().get(world2.getUID()).addCore(core);
-			plugin.Cores.getCores().add(core);
-			empire.ac(core);
-		}
-	}
+
 	
 	public int nextUnusedEmpireId(){
 		int i = 0;

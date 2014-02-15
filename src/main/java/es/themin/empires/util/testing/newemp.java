@@ -35,7 +35,7 @@ public class newemp extends SubCommand{
 				myCorePlayer.sendMessage("You are already in an empire");
 			}
 			player.sendMessage("debug 3");
-			Empire empire = new Empire(myPlugin, args[1], myCorePlayer.getUUID());
+			Empire empire = new Empire(Empires, args[1], myCorePlayer.getUUID());
 			empire.addPlayer(myCorePlayer);
 			myCorePlayer.setEmpire(empire);
 			player.sendMessage("debug 4");

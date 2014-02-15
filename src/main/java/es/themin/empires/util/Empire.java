@@ -47,9 +47,9 @@ public class Empire {
 	private Long lastbattlewin;
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
-	private empires myPlugin;
+	//private empires myPlugin;
 	private EmpireManager Empires;
-	private PlayerManager Players;
+	//private PlayerManager Players;
 	private FlagMatrix flagmatrix;
 	
 	public Empire getEnemyEmpire() {
@@ -62,10 +62,9 @@ public class Empire {
 
 	
 
-	public Empire(empires plugin, String empireName, UUID myUUID){
-		myPlugin = plugin;
-		Empires = plugin.Empires;
-		Players = plugin.Players;
+	public Empire(EmpireManager empires, String empireName, UUID myUUID){
+		
+		Empires = empires;
 		this.ID = Empires.nextUnusedEmpireId();
 		this.name = empireName;
 		this.owner = myUUID;
@@ -76,7 +75,7 @@ public class Empire {
 		this.battlewins = 0;
 		this.wars = new ArrayList<War>();
 		this.setProtected(true);
-		plugin.Empires.addEmpire(this);
+		Empires.addEmpire(this);
 		this.allies = new ArrayList<Empire>();
 		this.exallies = new HashMap<Empire, Long>();
 		this.exenemies = new HashMap<Empire, Long>();
@@ -320,24 +319,24 @@ public class Empire {
 		Save();
 	}
 
-	public boolean canPlayerAttack(Player myPlayer) {
-		Empire playerEmpire = Players.getPlayer(myPlayer.getUniqueId()).getEmpire();
+	public boolean canPlayerAttack(Empire playerEmpire) {
+		//Empire playerEmpire = Players.getPlayer(myPlayer.getUniqueId()).getEmpire();
 		if (!this.isProtected()){
 			if (this.isAtWar()){
 				if (playerEmpire == this.getEnemyEmpire()){
 					return true;
 				}
 				else {
-					myPlayer.sendMessage("This war is not yours to fight!");
+					//myPlayer.sendMessage("This war is not yours to fight!");
 					return false;
 				}
 				
 			} else if (playerEmpire.isProtected){
-				myPlayer.sendMessage("You cannot attack an empire until yours is rebuilt!");
+				//myPlayer.sendMessage("You cannot attack an empire until yours is rebuilt!");
 				return false;
 			}
 		} else {
-			myPlayer.sendMessage("There is no honor in attack this fallen empire");
+			//myPlayer.sendMessage("There is no honor in attack this fallen empire");
 			return false;
 		}
 		return false;

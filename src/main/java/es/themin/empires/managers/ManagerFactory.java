@@ -22,8 +22,10 @@ public class ManagerFactory {
 	    
 	}
 	
-	public EmpireManager CreateEmpireManager(empires plugin){
+	public EmpireManager CreateEmpireManager(){
 		
-		return new EmpireManager(plugin);
+		EmpiresDAL myempiresDAL = new EmpiresDAL();
+		
+		return new EmpireManager(myempiresDAL);
 	}
 }

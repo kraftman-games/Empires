@@ -185,9 +185,9 @@ public class PlayerListener implements Listener{
 			}
 		} else {
 			//its an enemy empire, which can either be protected (repairing) at war, or ready for war.
-			if (selectedCore.getEmpire().canPlayerAttack(myPlayer)){
-				//selectedCore.getEmpire().startWar(eventPlayerEmpire);
-			}
+//			if (selectedCore.getEmpire().canPlayerAttack(myCorePlayer)){
+//				//selectedCore.getEmpire().startWar(eventPlayerEmpire);
+//			}
 		}			
 	}
 	

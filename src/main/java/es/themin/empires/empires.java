@@ -69,7 +69,7 @@ public final class empires extends JavaPlugin {
     public void onEnable(){
         plugin = this;
         
-         Empires = ManagerFactory.CreateEmpireManager(this);
+         Empires = ManagerFactory.CreateEmpireManager();
     	 Cores = new CoreManager(this);
     	 Worlds = new WorldManager(this);
     	 Wars = new WarManager(this);
