@@ -9,7 +9,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
 import es.themin.empires.enums.CoreType;
-import es.themin.empires.util.FlagMatrix;
 import es.themin.empires.util.UtilManager;
 
 public class Schematic_Mob_1 extends Schematic{

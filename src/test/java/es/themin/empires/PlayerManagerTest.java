@@ -1,15 +1,14 @@
 package es.themin.empires;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerRegisterChannelEvent;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

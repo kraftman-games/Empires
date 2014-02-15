@@ -1,9 +1,5 @@
 package es.themin.empires;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import es.themin.empires.Listeners.PlayerListener;
 
 public class PlayerListenerTest {
 

@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 
 import es.themin.empires.enums.CoreType;
-import es.themin.empires.util.FlagMatrix;
 
 public abstract class Schematic {
 	public abstract void pasteFromCentre(Location location);

@@ -8,7 +8,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import es.themin.empires.enums.CoreType;
-import es.themin.empires.util.FlagMatrix;
 import es.themin.empires.util.UtilManager;
 
 public class BaseSchematic extends Schematic{

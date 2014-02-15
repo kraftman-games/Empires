@@ -8,12 +8,10 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.wars.Battle;
 import es.themin.empires.wars.War;
 

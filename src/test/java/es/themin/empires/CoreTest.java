@@ -1,29 +1,10 @@
 package es.themin.empires;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
-
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import org.powermock.api.mockito.PowerMockito;
 
-import es.themin.empires.cores.Core;
-import es.themin.empires.cores.CoreUtils;
-import es.themin.empires.enums.CoreType;
-import es.themin.empires.enums.PlaceType;
-import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.PlayerUtils;
-import es.themin.empires.util.UtilManager;
 
 public class CoreTest {
 

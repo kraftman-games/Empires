@@ -1,20 +1,5 @@
 package es.themin.empires;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
-
 import org.bukkit.entity.Player;
-import org.junit.Before;
-import org.junit.Test;
-
-import es.themin.empires.cores.Core;
-import es.themin.empires.util.EWorld;
-import es.themin.empires.util.Empire;
-import es.themin.empires.util.UtilManager;
-import static org.junit.Assert.*;
-
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 
 public class EmpiresTest {
 	

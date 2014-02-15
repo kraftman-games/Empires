@@ -1,15 +1,10 @@
 package es.themin.empires;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 
 import es.themin.empires.cores.Core;
-import es.themin.empires.cores.CoreUtils;
-import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Empire;
 
 public class CoreManager {
