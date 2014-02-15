@@ -8,12 +8,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 import es.themin.empires.empires;
-import es.themin.empires.util.CoreWorld;
+import es.themin.empires.util.EWorld;
 
 public class WorldManager {
 
 	private empires myPlugin;
-	private HashMap<UUID,CoreWorld> worlds = new HashMap<UUID,CoreWorld>();
+	private HashMap<UUID,EWorld> worlds = new HashMap<UUID,EWorld>();
 	
 	public WorldManager(empires plugin) {
 		myPlugin = plugin;
@@ -21,12 +21,12 @@ public class WorldManager {
 		List<World> myWorlds = Bukkit.getServer().getWorlds();
 		
 		for(World myWorld : myWorlds){
-			worlds.put(myWorld.getUID(), new CoreWorld());
+			worlds.put(myWorld.getUID(), new EWorld());
 		}
 	}
 
 	
-	public HashMap<UUID, CoreWorld> getWorlds() {
+	public HashMap<UUID, EWorld> getWorlds() {
 		return worlds;
 	}
 }

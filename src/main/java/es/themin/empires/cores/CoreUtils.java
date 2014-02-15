@@ -16,7 +16,7 @@ import es.themin.empires.enums.PlaceType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.CoreWorld;
+import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.EmpireUtils;
 import es.themin.empires.util.PlayerUtils;
@@ -92,7 +92,7 @@ public class CoreUtils {
 		myEmpire.addCore(myCore);
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
+		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		myCoreWorld.addCore(myCore);
 		
 		return myCore;
@@ -103,7 +103,7 @@ public class CoreUtils {
 		ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
+		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		
 		// check if its too close to another empire
 		if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){
@@ -138,7 +138,7 @@ public class CoreUtils {
 		return true;
 	}
 	
-	public static boolean coresOverlap(CoreWorld myCoreWorld, Core myCore){
+	public static boolean coresOverlap(EWorld myCoreWorld, Core myCore){
 		HashMap<Integer, Core> myCores = myCoreWorld.getFriendlyCoresInGrid(myCore.getEmpire(), myCore.getLocation());
 		
 		if (myCores == null){

@@ -29,9 +29,8 @@ import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.CoreWorld;
+import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.EmpirePlayer;
 import es.themin.empires.util.PlayerUtils;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.wars.Battle;
@@ -153,7 +152,7 @@ public class PlayerListener implements Listener{
 		EPlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
 		Empire eventPlayerEmpire = myCorePlayer.getEmpire();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
-		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
+		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		HashMap<Integer, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
 		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
 		

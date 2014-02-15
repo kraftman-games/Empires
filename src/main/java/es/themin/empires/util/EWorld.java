@@ -7,7 +7,7 @@ import org.bukkit.Location;
 
 import es.themin.empires.cores.Core;
 
-public class CoreWorld {
+public class EWorld {
 	
 	private HashMap<Integer, Core> Cores;
 	private Map<Point, HashMap<Integer, Core>> CoreGrid;
@@ -16,7 +16,7 @@ public class CoreWorld {
 	
 	//TODO: IMPORTANT. check if the core its overlapping is itself
 
-	public CoreWorld() {
+	public EWorld() {
 		CoreGrid = new HashMap<Point, HashMap<Integer, Core>>();
 		Cores = new HashMap<Integer, Core>();
 	}

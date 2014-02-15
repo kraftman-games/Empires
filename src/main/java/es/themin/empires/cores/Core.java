@@ -31,7 +31,7 @@ import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.CoreWorld;
+import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.PlayerUtils;
 import es.themin.empires.util.UtilManager;
@@ -261,7 +261,7 @@ public class Core {
 		Location myLocation = this.getLocation();
 		
 		UUID myUUID = this.location.getWorld().getUID();
-		CoreWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
+		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		myCoreWorld.removeCore(this);
 		
 		if (this.schematic != null){
