@@ -30,7 +30,7 @@ import es.themin.empires.cmds.empire.EmpireCommand;
 import es.themin.empires.cmds.war.WarCommand;
 import es.themin.empires.enums.ConfirmType;
 import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.Manager;
+import es.themin.empires.managers.IManager;
 import es.themin.empires.managers.ManagerFactory;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
@@ -65,7 +65,7 @@ public final class empires extends JavaPlugin {
 	
 	private ManagerFactory ManagerFactory;
 	
-	ArrayList<Manager> Managers = new ArrayList<Manager>();
+	ArrayList<IManager> Managers = new ArrayList<IManager>();
 	
 	@Override
     public void onEnable(){

@@ -17,7 +17,7 @@ import es.themin.empires.wars.Battle;
 import es.themin.empires.wars.Battle.BattleTeam;
 import es.themin.empires.wars.War;
 
-public class WarManager implements Manager {
+public class WarManager implements IManager {
 	
 	private empires myPlugin;
 	private ArrayList<War> wars = new ArrayList<War>();

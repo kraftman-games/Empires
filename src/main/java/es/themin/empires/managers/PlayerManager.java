@@ -4,13 +4,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
 
-public class PlayerManager implements Manager {
+public class PlayerManager implements IManager {
 
 	private HashMap<UUID, EPlayer> players;
 	
@@ -21,8 +20,6 @@ public class PlayerManager implements Manager {
 	    this.EmpiresDAL = myEmpiresDAL;
 	}
 	
-
-    
     public void save(){
     	EmpiresDAL.savePlayers(players);
     }
@@ -32,25 +29,11 @@ public class PlayerManager implements Manager {
     }
     
     public void load(){
-    	for (Player player : Bukkit.getOnlinePlayers()) {
-    		if (!playerExists(player.getUniqueId())){
-    			EPlayer myCorePlayer = new EPlayer(player);
-    			addPlayer(myCorePlayer);
-    		}
-    		
-//    		if (playerdata.get(player.getUniqueId() + ".empire") != null) {
-//    			int empireID = playerdata.getInt(player.getUniqueId() + ".empire");
-//    			if (empire != null){
-//    				CorePlayer myCorePlayer = new CorePlayer(player);
-//        			addPlayer(myCorePlayer);
-//        			player.sendMessage(myPlugin.plprefix + ChatColor.GREEN + "You were found to be in an empire");
-//    			}
-//    		}
-    	}
+    	players = EmpiresDAL.loadPlayers();
     }
 
     public  void reload() {
-        //playerdata = YamlConfiguration.loadConfiguration(pfile);
+    	players = EmpiresDAL.loadPlayers();
     }
 
 	
@@ -112,8 +95,22 @@ public class PlayerManager implements Manager {
 		
 	}
 
-
-
-
 	
 }
+
+
+//for (Player player : Bukkit.getOnlinePlayers()) {
+//	if (!playerExists(player.getUniqueId())){
+//		EPlayer myCorePlayer = new EPlayer(player);
+//		addPlayer(myCorePlayer);
+//	}
+//	
+////	if (playerdata.get(player.getUniqueId() + ".empire") != null) {
+////		int empireID = playerdata.getInt(player.getUniqueId() + ".empire");
+////		if (empire != null){
+////			CorePlayer myCorePlayer = new CorePlayer(player);
+////			addPlayer(myCorePlayer);
+////			player.sendMessage(myPlugin.plprefix + ChatColor.GREEN + "You were found to be in an empire");
+////		}
+////	}
+

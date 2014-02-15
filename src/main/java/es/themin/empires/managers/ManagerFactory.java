@@ -15,11 +15,11 @@ public class ManagerFactory {
 
 	
 	private static empires myPlugin;
-	private static ArrayList<Manager> Managers;
+	private static ArrayList<IManager> Managers;
 	
 	public ManagerFactory(empires plugin) {
 		myPlugin = plugin;
-		Managers = new ArrayList<Manager>();
+		Managers = new ArrayList<IManager>();
 	}
 
 
@@ -70,19 +70,19 @@ public class ManagerFactory {
 	}
 	
 	public void loadManagers(){
-		for (Manager m : Managers){
+		for (IManager m : Managers){
 			m.load();
 		}
 	}
 	
 	public void saveManagers(){
-		for (Manager m : Managers){
+		for (IManager m : Managers){
 			m.save();
 		}
 	}
 	
 	public void reloadManagers(){
-		for (Manager m : Managers){
+		for (IManager m : Managers){
 			m.reload();
 		}
 	}

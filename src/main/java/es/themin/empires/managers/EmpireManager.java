@@ -24,7 +24,7 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.Permissions;
 import es.themin.empires.util.Rank;
 
-public class EmpireManager implements Manager {
+public class EmpireManager implements IManager {
 	
 	private ArrayList<Empire> empires = new ArrayList<Empire>();
 	

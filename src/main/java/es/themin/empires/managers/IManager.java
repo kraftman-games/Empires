@@ -1,7 +1,7 @@
 package es.themin.empires.managers;
 
 
-public interface Manager {
+public interface IManager {
 
 	void save();
 	

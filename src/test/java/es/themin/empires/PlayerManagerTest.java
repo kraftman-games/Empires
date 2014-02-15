@@ -21,9 +21,6 @@ import es.themin.empires.util.Empire;
 
 public class PlayerManagerTest {
 
-//	Mockito.when(myPlayer.getName()).thenReturn("kraft");
-//	Mockito.when(myPlayer.getWorld()).thenReturn(myWorld);
-//	Mockito.when(myPlayer.getLocation()).thenReturn(myLocation);	
 
 	@Before
 	public void setupEnvironment(){
