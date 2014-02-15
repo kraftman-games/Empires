@@ -41,6 +41,7 @@ public class Schematic_Mob_1 extends Schematic{
 		sstairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() + 2));
 		sstairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() + 1));
 		UtilManager.setStairsFromList(nstairs, Material.getMaterial(108), BlockFace.SOUTH);
+		UtilManager.setStairsUpData(Material.getMaterial(108),world.getBlockAt(location.getBlockX() + 1,location.getBlockY() + 2, location.getBlockZ()) ,BlockFace.WEST);
 	}
 
 	@Override

@@ -110,7 +110,7 @@ public class UtilManager {
 	@SuppressWarnings("deprecation")
 	public static void setStairsData(Material material,Block b, BlockFace dir){
         byte d = 0;
-       
+
         if(dir == BlockFace.WEST){
             d = 0x1;
         }else if(dir == BlockFace.EAST){
@@ -127,5 +127,19 @@ public class UtilManager {
 			setStairsData(material, b, dir);
 		}
 	}
+	@SuppressWarnings("deprecation")
+	public static void setStairsUpData(Material material,Block b, BlockFace dir){
+        byte d = 0;
 
+        if(dir == BlockFace.WEST){
+            d = 0x5;
+        }else if(dir == BlockFace.EAST){
+            d = 0x4;
+        }else if(dir == BlockFace.NORTH){
+            d = 0x7;
+        }else if(dir == BlockFace.SOUTH){
+            d = 0x6;
+        }
+       b.setTypeIdAndData(material.getId(), d, false);
+    }
 }
