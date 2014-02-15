@@ -31,21 +31,21 @@ public class Schematic_Mob_1 extends Schematic{
 		UtilManager.setStairsFromList(estairs, Material.getMaterial(108), BlockFace.EAST);
 		
 		ArrayList<Block> nstairs = new ArrayList<Block>();
-		nstairs.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY(), location.getBlockZ() + 2));
-		nstairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() + 2));
-		nstairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() + 1));
+		nstairs.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY(), location.getBlockZ() - 2));
+		nstairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() - 2));
+		nstairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() - 1));
 		UtilManager.setStairsFromList(nstairs, Material.getMaterial(108), BlockFace.NORTH);
 		
 		ArrayList<Block> sstairs = new ArrayList<Block>();
-		sstairs.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY(), location.getBlockZ() - 2));
-		sstairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() - 2));
-		sstairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() - 1));
-		UtilManager.setStairsFromList(nstairs, Material.getMaterial(108), BlockFace.SOUTH);
+		sstairs.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY(), location.getBlockZ() + 2));
+		sstairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() + 2));
+		sstairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() + 1));
+		UtilManager.setStairsFromList(sstairs, Material.getMaterial(108), BlockFace.SOUTH);
 		
 		UtilManager.setStairsUpData(Material.getMaterial(108),world.getBlockAt(location.getBlockX() + 1,location.getBlockY() + 2, location.getBlockZ()) ,BlockFace.WEST);
 		UtilManager.setStairsUpData(Material.getMaterial(108),world.getBlockAt(location.getBlockX() - 1,location.getBlockY() + 2, location.getBlockZ()) ,BlockFace.EAST);
-		UtilManager.setStairsUpData(Material.getMaterial(108),world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ() + 1) ,BlockFace.NORTH);
-		UtilManager.setStairsUpData(Material.getMaterial(108),world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ() - 1) ,BlockFace.SOUTH);
+		UtilManager.setStairsUpData(Material.getMaterial(108),world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ() - 1) ,BlockFace.NORTH);
+		UtilManager.setStairsUpData(Material.getMaterial(108),world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ() + 1) ,BlockFace.SOUTH);
 	}
 
 	@Override
