@@ -53,7 +53,7 @@ public class EmpireManager implements Manager {
 	
 	private  File createFile(String fileName){
     	
-    	File myFile = new File(myPlugin.getDataFolder(), fileName);
+    	File myFile = new File(myPlugin.getDataFolder() + File.separator + fileName);
         
         if (!myFile.exists()) {
                 try {
