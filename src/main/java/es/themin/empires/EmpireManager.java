@@ -215,7 +215,6 @@ public class EmpireManager implements Manager {
 			list.add(str.toString());
 			empiredata.set(str.toString() + ".id", empire.getID());
 			empiredata.set(str.toString() + ".name", empire.getName());
-			empiredata.set(str.toString() + ".name", empire.getOwner());
 			List<String> playerList = new ArrayList<String>();
 			for (CorePlayer player : empire.getPlayers().values()) {
 				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
