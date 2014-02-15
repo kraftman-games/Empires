@@ -28,7 +28,7 @@ public class emp extends SubCommand{
 		CorePlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		if (args.length == 1) {
-			if (myCorePlayer != null) {
+			if (myCorePlayer == null) {
 				player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			}else {
 				Empire empire = myCorePlayer.getEmpire();

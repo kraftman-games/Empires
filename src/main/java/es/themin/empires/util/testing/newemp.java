@@ -38,6 +38,7 @@ public class newemp extends SubCommand{
 			player.sendMessage("debug 3");
 			Empire empire = new Empire(myPlugin, args[1], myCorePlayer.getUUID());
 			empire.addPlayer(myCorePlayer);
+			myCorePlayer.setEmpire(empire);
 			player.sendMessage("debug 4");
 			empire.Save();
 			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
