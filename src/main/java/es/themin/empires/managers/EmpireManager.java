@@ -27,17 +27,16 @@ import es.themin.empires.util.Rank;
 public class EmpireManager implements IManager {
 	
 	private ArrayList<Empire> empires = new ArrayList<Empire>();
-	
 	private EmpiresDAL myEmpiresDAL;
-	
-    private File efile;
+
+
+	public EmpireManager(EmpiresDAL empiresDAL, ArrayList<Empire> myEmpires) {
+		myEmpiresDAL = empiresDAL;
+		empires = myEmpires;
+	}
 
 	public ArrayList<Empire> getEmpires() {
 		return empires;
-	}
-
-	public EmpireManager(EmpiresDAL empiresDAL) {
-		myEmpiresDAL = empiresDAL;
 	}
 	
 	public void load(){
@@ -62,7 +61,7 @@ public class EmpireManager implements IManager {
 		
 	}
 		
-	public int nextUnusedEmpireId(){
+	public int getUnusedEmpireID(){
 		int i = 0;
 		while (getEmpireWithID(i) != null){
 			i++;

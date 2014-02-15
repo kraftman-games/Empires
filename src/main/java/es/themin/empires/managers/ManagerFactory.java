@@ -10,6 +10,7 @@ import es.themin.empires.CoreManager;
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
 import es.themin.empires.util.EPlayer;
+import es.themin.empires.util.Empire;
 
 public class ManagerFactory {
 
@@ -63,8 +64,10 @@ public class ManagerFactory {
 		File playerFile = createFile("Players.yml");
         File empireFile = createFile("Empires.yml");
         EmpiresDAL myempiresDAL = new EmpiresDAL(playerFile, empireFile);
+        
+        ArrayList<Empire> empires = new ArrayList<Empire>();
 		
-        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL);
+        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         Managers.add(MyEmpireManager);
 		return MyEmpireManager;
 	}

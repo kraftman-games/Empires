@@ -65,7 +65,7 @@ public class Empire {
 	public Empire(EmpireManager empires, String empireName, UUID myUUID){
 		
 		Empires = empires;
-		this.ID = Empires.nextUnusedEmpireId();
+		this.ID = Empires.getUnusedEmpireID();
 		this.name = empireName;
 		this.owner = myUUID;
 		this.atWar = false;
