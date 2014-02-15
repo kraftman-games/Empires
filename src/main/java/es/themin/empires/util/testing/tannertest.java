@@ -27,7 +27,7 @@ public class tannertest extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		
 
-		Database sql = new MySQL(myPlugin.getLogger(), "test", "192.168.5.60", "empires", "senimeth345");
+		Database sql = new MySQL(myPlugin.getLogger(), "test", "192.168.5.60", 3306, "empirestest", "empires", "senimeth345");
 		if (sql.open()){
 			Connection connection;
 			try {
