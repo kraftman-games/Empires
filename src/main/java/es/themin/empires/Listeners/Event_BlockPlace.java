@@ -55,7 +55,7 @@ public class Event_BlockPlace implements Listener{
 				World world = player.getWorld();
 				UUID uuid = world.getUID();
 				myCore.build2();
-				EWorld cw = Worlds.getWorlds().get(uuid);
+				EWorld cw = Worlds.getWorld(uuid);
 				cw.addCore(myCore);
 				
 			}

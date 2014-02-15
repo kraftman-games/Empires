@@ -29,4 +29,12 @@ public class WorldManager {
 	public HashMap<UUID, EWorld> getWorlds() {
 		return worlds;
 	}
+	public EWorld getWorld(UUID uuid) {
+		if (this.worlds.containsKey(uuid)) {
+			return worlds.get(uuid);
+		}
+		EWorld ew = new EWorld();
+		worlds.put(uuid, ew);
+		return ew;
+	}
 }
