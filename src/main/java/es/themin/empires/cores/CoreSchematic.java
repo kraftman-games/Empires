@@ -11,12 +11,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
-import jnbt.ByteArrayTag;
-import jnbt.CompoundTag;
-import jnbt.NBTInputStream;
-import jnbt.ShortTag;
-import jnbt.StringTag;
-import jnbt.Tag;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,12 +26,7 @@ import es.themin.empires.enums.ProtectionType;
 
 public class CoreSchematic {
 	
-	
-	
-	
-	public static Schematic baseschem;
-	public static Schematic farmschem;
-	public static Schematic mobschem; 
+
 	public static ArrayList<CoreBlock> getSchematic(CoreType myCoreType){
 
 		ArrayList<CoreBlock> mySchem = null;
@@ -140,7 +129,7 @@ public class CoreSchematic {
 		
 		return PlaceType.INSIDE;
 	}
-	public static void loadSchematics() {
+	/*public static void loadSchematics() {
 		String epath = Bukkit.getServer().getPluginManager().getPlugin("Empires").getDataFolder().getAbsolutePath() + "/cores";
 		(new File(epath)).mkdirs();
 		File bcore = new File(epath + File.separator + "BASE.zip");
@@ -158,7 +147,7 @@ public class CoreSchematic {
 	}
 
 	
-    public static Schematic loadSchematic(File file) throws IOException
+/*    public static Schematic loadSchematic(File file) throws IOException
     {
         FileInputStream stream = new FileInputStream(file);
 		NBTInputStream nbtStream = new NBTInputStream(new GZIPInputStream(stream));
@@ -196,7 +185,7 @@ public class CoreSchematic {
     * @return child tag casted to the expected type
     * @throws DataException if the tag does not exist or the tag is not of the
     * expected type
-    */
+    
     private static <T extends Tag> T getChildTag(Map<String, Tag> items, String key, Class<T> expected) throws IllegalArgumentException
     {
         if (!items.containsKey(key)) {
@@ -207,7 +196,7 @@ public class CoreSchematic {
             throw new IllegalArgumentException(key + " tag is not of tag type " + expected.getName());
         }
         return expected.cast(tag);
-    }
+    }*/
 }
 
 

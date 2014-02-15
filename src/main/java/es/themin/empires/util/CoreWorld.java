@@ -1,20 +1,11 @@
 package es.themin.empires.util;
 
-import java.awt.List;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.block.Block;
 
 import es.themin.empires.cores.Core;
-import es.themin.empires.cores.Schematic;
-import es.themin.empires.enums.CoreType;
 
 public class CoreWorld {
 	
@@ -272,6 +263,7 @@ public class CoreWorld {
 	public HashMap<Integer, Core> getFriendlyCoresInGrid(Empire empire,	Location location) {
 		return getFriendlyCoresInGrid(empire, location.getBlockX(), location.getBlockZ());
 	}
+	
 
 }
 
