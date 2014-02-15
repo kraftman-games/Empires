@@ -2,6 +2,7 @@ package es.themin.empires;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,20 +12,28 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import com.gmail.favorlock.bonesqlib.Database;
+import com.jolbox.bonecp.BoneCP;
+
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;
+import es.themin.empires.util.testing.newemp;
 
 public class EmpiresDAL {
 
 	File EmpireFile;
 	File PlayerFile;
 	
+	
 	public EmpiresDAL(File eFile, File pFile){
 		EmpireFile = eFile;
 		PlayerFile = pFile;
+		
+
+
 	}
 	
 	public void savePlayers(HashMap<UUID, EPlayer> players){

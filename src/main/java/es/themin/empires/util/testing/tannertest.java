@@ -1,6 +1,15 @@
 package es.themin.empires.util.testing;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.bukkit.entity.Player;
+
+import com.gmail.favorlock.bonesqlib.Database;
+import com.gmail.favorlock.bonesqlib.MySQL;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
@@ -17,8 +26,33 @@ public class tannertest extends SubCommand{
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		
-		
-		
+
+		Database sql = new MySQL(myPlugin.getLogger(), "test", "192.168.5.60", "empires", "senimeth345");
+		if (sql.open()){
+			Connection connection;
+			try {
+				connection = sql.getConnection();
+				
+				Date now = new Date();
+		        String pattern = "yyyy-MM-dd";
+		        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+		        String mysqlDateString = formatter.format(now);
+		        System.out.println("Java's Default Date Format: " + now);
+		        System.out.println("Mysql's Default Date Format: " + mysqlDateString);
+				
+				
+				Statement st = connection.createStatement();
+				st.executeUpdate("REPLACE INTO `Players`" +
+				" SET `UUID` = '" + player.getUniqueId().toString() + 
+				"' `FirstSeen` = '" + mysqlDateString + 
+				"' `LastSeen` = '" + mysqlDateString + "';");
+				
+				
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		return true;
 
