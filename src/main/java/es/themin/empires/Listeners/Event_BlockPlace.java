@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
@@ -31,6 +32,7 @@ public class Event_BlockPlace implements Listener{
 		plprefix = plugin.plprefix;
 		Players = plugin.Players;
 	}
+	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
 		player.sendMessage("blockplace");
