@@ -15,6 +15,8 @@ import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
+import es.themin.empires.schematics.Schematic;
+import es.themin.empires.schematics.Schematic_Base_20;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
@@ -39,7 +41,7 @@ public class Event_BlockPlace implements Listener{
 		Material placed = event.getBlockPlaced().getType();
 		if (placed == Material.BEACON) {
 			if (im.getDisplayName().equalsIgnoreCase("base core")) {
-				if (myCorePlayer == null) {
+				/*if (myCorePlayer == null) {
 					player.sendMessage(MsgManager.notinemp);
 					event.setCancelled(true);
 				}
@@ -54,8 +56,9 @@ public class Event_BlockPlace implements Listener{
 				UUID uuid = world.getUID();
 				myCore.build2();
 				EWorld cw = Worlds.getWorld(uuid);
-				cw.addCore(myCore);
-				
+				cw.addCore(myCore);*/
+				Schematic schem = new Schematic_Base_20();
+				schem.pasteFromCentre(event.getBlock().getLocation());
 			}
 		}
 			
