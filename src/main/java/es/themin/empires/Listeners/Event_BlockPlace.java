@@ -12,6 +12,7 @@ import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.schematics.base.Schematic_Base_20;
+import es.themin.empires.schematics.mob.Schematic_Mob_10;
 import es.themin.empires.util.EPlayer;
 
 public class Event_BlockPlace implements Listener{
@@ -49,7 +50,7 @@ public class Event_BlockPlace implements Listener{
 				myCore.build2();
 				EWorld cw = Worlds.getWorld(uuid);
 				cw.addCore(myCore);*/
-				Schematic schem = new Schematic_Base_20();
+				Schematic schem = new Schematic_Mob_10();
 				schem.pasteFromCentre(event.getBlock().getLocation());
 			}
 		}

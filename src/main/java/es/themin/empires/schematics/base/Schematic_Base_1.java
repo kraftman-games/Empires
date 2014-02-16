@@ -2,6 +2,7 @@ package es.themin.empires.schematics.base;
 
 import java.util.ArrayList;
 
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -25,6 +26,7 @@ public class Schematic_Base_1 extends Schematic{
 
 	@Override
 	public void pasteFromCentre(Location location) {
+		playEffectsFrom(location);
 		World world = location.getWorld();
 		Location ironcorner1 = new Location(location.getWorld(), location.getX() - 1, location.getY() - 1, location.getZ() - 1);
 		Location ironcorner2 = new Location(location.getWorld(), location.getX() + 1, location.getY() - 1, location.getZ() + 1);
@@ -100,6 +102,18 @@ public class Schematic_Base_1 extends Schematic{
 		sobs.add(world.getBlockAt(location.getBlockX(), location.getBlockY() + 4, location.getBlockZ() + 1));
 		sobs.add(world.getBlockAt(location.getBlockX(), location.getBlockY() + 4, location.getBlockZ() - 1));
 		return sobs;
+	}
+
+	@Override
+	public void playEffectsFrom(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Effect getEffectType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
