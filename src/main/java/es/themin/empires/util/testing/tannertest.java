@@ -69,6 +69,7 @@ public class tannertest extends SubCommand{
 					" SET `UUID` = '" + player.getUniqueId().toString() + 
 					"', `FirstSeen` = '" + mysqlDateString + 
 					"', `LastSeen` = '" + mysqlDateString + "';";
+				player.sendMessage(myQueryString);
 				ResultSet rs = stmt.executeQuery(myQueryString); // do something with the connection.
 				//player.sendMessage(rs.getString(0));
 			}
