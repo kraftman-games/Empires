@@ -13,6 +13,10 @@ import org.bukkit.entity.Player;
 
 
 
+
+
+import com.gmail.favorlock.bonesqlib.Database;
+import com.gmail.favorlock.bonesqlib.MySQL;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
@@ -32,92 +36,39 @@ public class tannertest extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		
 
-		BoneCP connectionPool = null;
-		Connection connection = null;
- 
-		try {
-			// load the database driver (make sure this is in your classpath!)
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+
 		
-		try {
-			// setup the connection pool
-			BoneCPConfig config = new BoneCPConfig();
-			config.setJdbcUrl("jdbc:mysql://192.168.5.60/empirestest"); // jdbc url specific to your database, eg jdbc:mysql://127.0.0.1/yourdb
-			config.setUsername("empires"); 
-			config.setPassword("senimeth345");
-			config.setMinConnectionsPerPartition(5);
-			config.setMaxConnectionsPerPartition(10);
-			config.setPartitionCount(1);
-			config.setDefaultAutoCommit(true);
-			connectionPool = new BoneCP(config); // setup the connection pool
-			
-			connection = connectionPool.getConnection(); // fetch a connection
-			
-			if (connection != null){
-				System.out.println("Connection successful!");
-				Statement stmt = connection.createStatement();
+		
+		Database sql = new MySQL(myPlugin.getLogger(), "test", "192.168.5.60", 3306, "empirestest", "empires", "senimeth345");
+		if (sql.open()){
+			Connection connection;
+			try {
+				connection = sql.getConnection();
 				
 				Date now = new Date();
-				String pattern = "yyyy-MM-dd";
+		        String pattern = "yyyy-MM-dd";
 		        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		        String mysqlDateString = formatter.format(now);
+		        System.out.println("Java's Default Date Format: " + now);
+		        System.out.println("Mysql's Default Date Format: " + mysqlDateString);
 				
-				String myQueryString = "INSERT INTO `Players` (`UUID`) VALUES ('"+ player.getUniqueId().toString()+"');";
-					//" SET `UUID` = '" + player.getUniqueId().toString() + 
-					//"', `FirstSeen` = '" + mysqlDateString + 
-					//"', `LastSeen` = '" + mysqlDateString + "';";
+//		        String myQueryString = "REPLACE INTO `Players`" +
+//						" SET `UUID` = '" + player.getUniqueId().toString() + 
+//						"', `FirstSeen` = '" + mysqlDateString + 
+//						"', `LastSeen` = '" + mysqlDateString + "';";
+		        //String myQueryString = "replace INTO Players  set `UUID` = 'testr', `FirstSeen` = '2014-2-15', `LastSeen` = '2014-2-15';";
+		        String myQueryString = "INSERT INTO `Players` (`UUID`) VALUES ('"+ player.getUniqueId().toString()+"');";
+		        
 				player.sendMessage(myQueryString);
-				Integer rs = stmt.executeUpdate(myQueryString); // do something with the connection.
-				//player.sendMessage(rs.getString(0));
+				Statement st = connection.createStatement();
+				st.executeUpdate(myQueryString);
 				
-			}
-			connectionPool.shutdown(); // shutdown connection pool.
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
-		
-		
-//		Database sql = new MySQL(myPlugin.getLogger(), "test", "192.168.5.60", 3306, "empirestest", "empires", "senimeth345");
-//		if (sql.open()){
-//			Connection connection;
-//			try {
-//				connection = sql.getConnection();
-//				
-//				Date now = new Date();
-//		        String pattern = "yyyy-MM-dd";
-//		        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-//		        String mysqlDateString = formatter.format(now);
-//		        System.out.println("Java's Default Date Format: " + now);
-//		        System.out.println("Mysql's Default Date Format: " + mysqlDateString);
-//				
-////		        String myQueryString = "REPLACE INTO `Players`" +
-////						" SET `UUID` = '" + player.getUniqueId().toString() + 
-////						"', `FirstSeen` = '" + mysqlDateString + 
-////						"', `LastSeen` = '" + mysqlDateString + "';";
-//		        String myQueryString = "replace INTO Players  set `UUID` = 'testr', `FirstSeen` = '2014-2-15', `LastSeen` = '2014-2-15';";
-//		        connection.
-//				player.sendMessage(myQueryString);
-//				Statement st = connection.createStatement();
-//				st.executeUpdate(myQueryString);
-//				
-//				
-//				connection.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
 		
 		return true;
 
@@ -141,13 +92,61 @@ public class tannertest extends SubCommand{
 }
 
 
-//<dependency>
-//<groupId>gmail.favorlock</groupId>
-//<artifactId>BoneSQLib</artifactId>
-//<version>0.8.0.RELEASE</version>
-//<scope>system</scope>
-//<systemPath>${basedir}/src/main/resources/BoneSQLib-0.0.1.jar</systemPath>
-//</dependency>
+//BoneCP connectionPool = null;
+//Connection connection = null;
+//
+//try {
+//	// load the database driver (make sure this is in your classpath!)
+//	Class.forName("com.mysql.jdbc.Driver");
+//} catch (Exception e) {
+//	e.printStackTrace();
+//	return false;
+//}
+//
+//try {
+	// setup the connection pool
+//	BoneCPConfig config = new BoneCPConfig();
+//	config.setJdbcUrl("jdbc:mysql://192.168.5.60/empirestest"); // jdbc url specific to your database, eg jdbc:mysql://127.0.0.1/yourdb
+//	config.setUsername("empires"); 
+//	config.setPassword("senimeth345");
+//	config.setMinConnectionsPerPartition(5);
+//	config.setMaxConnectionsPerPartition(10);
+//	config.setPartitionCount(1);
+//	config.setDefaultAutoCommit(true);
+//	connectionPool = new BoneCP(config); // setup the connection pool
+//	
+//	connection = connectionPool.getConnection(); // fetch a connection
+//	
+//	if (connection != null){
+//		System.out.println("Connection successful!");
+//		Statement stmt = connection.createStatement();
+//		
+//		Date now = new Date();
+//		String pattern = "yyyy-MM-dd";
+//        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+//        String mysqlDateString = formatter.format(now);
+//		
+//		String myQueryString = "INSERT INTO `Players` (`UUID`) VALUES ('"+ player.getUniqueId().toString()+"');";
+//			//" SET `UUID` = '" + player.getUniqueId().toString() + 
+//			//"', `FirstSeen` = '" + mysqlDateString + 
+//			//"', `LastSeen` = '" + mysqlDateString + "';";
+//		player.sendMessage(myQueryString);
+//		Integer rs = stmt.executeUpdate(myQueryString); // do something with the connection.
+//		//player.sendMessage(rs.getString(0));
+//		
+//	}
+//	connectionPool.shutdown(); // shutdown connection pool.
+//} catch (SQLException e) {
+//	e.printStackTrace();
+//} finally {
+//	if (connection != null) {
+//		try {
+//			connection.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//}
 
 
 //int x = Integer.parseInt(args[1]);
