@@ -65,10 +65,10 @@ public class tannertest extends SubCommand{
 		        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		        String mysqlDateString = formatter.format(now);
 				
-				String myQueryString = "REPLACE INTO `Players`" +
-					" SET `UUID` = '" + player.getUniqueId().toString() + 
-					"', `FirstSeen` = '" + mysqlDateString + 
-					"', `LastSeen` = '" + mysqlDateString + "';";
+				String myQueryString = "INSERT INTO `Players` (`UUID`) VALUES ('"+ player.getUniqueId().toString()+"');";
+					//" SET `UUID` = '" + player.getUniqueId().toString() + 
+					//"', `FirstSeen` = '" + mysqlDateString + 
+					//"', `LastSeen` = '" + mysqlDateString + "';";
 				player.sendMessage(myQueryString);
 				ResultSet rs = stmt.executeQuery(myQueryString); // do something with the connection.
 				//player.sendMessage(rs.getString(0));
