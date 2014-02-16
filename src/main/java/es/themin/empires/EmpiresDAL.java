@@ -76,8 +76,8 @@ public class EmpiresDAL {
 			
 			if (connection != null){
 			
-		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Players` WHERE `UUID` = (?)");
-		        stmnt.setString(1, myPlayer.getUniqueId().toString());
+		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Players` WHERE `UUID` = '"+myPlayer.getUniqueId().toString()+"'");
+		        //stmnt.setString(1, myPlayer.getUniqueId().toString());
 		        System.out.println(stmnt.toString());
 		        
 				ResultSet results = stmnt.executeQuery();
