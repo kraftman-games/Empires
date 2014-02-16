@@ -229,4 +229,10 @@ public class Schematic_Base_20 extends Schematic{
 		return 20;
 	}
 
+	@Override
+	public boolean isSafeToBuildAround(Location location) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
