@@ -21,7 +21,7 @@ public class PlayerManager implements IManager {
 	public PlayerManager( EmpiresDAL myEmpiresDAL, HashMap<UUID, EPlayer> players, Database sql) {
 	    this.players = players;
 	    this.EmpiresDAL = myEmpiresDAL;
-	    this.sql = sql;
+	    //this.sql = sql;
 	}
 	
     public void save(){
