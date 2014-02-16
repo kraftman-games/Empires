@@ -1,13 +1,17 @@
 package es.themin.empires.util.testing;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.bukkit.entity.Player;
+
+
 
 
 
@@ -65,13 +69,20 @@ public class tannertest extends SubCommand{
 				String pattern = "yyyy-MM-dd";
 		        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		        String mysqlDateString = formatter.format(now);
+		        
+		        
+		        Calendar cal = Calendar.getInstance();
+		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`) VALUES (?,?);");
+		        stmnt.setString(1, player.getUniqueId().toString());
+		        stmnt.setDate(2, new java.sql.Date(cal.getTimeInMillis()));
+		        //stmnt.executeQuery();
 				
-				String myQueryString = "INSERT INTO `Players` (`UUID`) VALUES ('"+ player.getUniqueId().toString()+"');";
 					//" SET `UUID` = '" + player.getUniqueId().toString() + 
 					//"', `FirstSeen` = '" + mysqlDateString + 
 					//"', `LastSeen` = '" + mysqlDateString + "';";
-				player.sendMessage(myQueryString);
-				Integer rs = stmt.executeUpdate(myQueryString); // do something with the connection.
+				player.sendMessage(stmnt.toString());
+				Integer returnsInteger = stmnt.executeUpdate();
+				//Integer rs = stmt.executeUpdate(myQueryString); // do something with the connection.
 				//player.sendMessage(rs.getString(0));
 				
 			}
