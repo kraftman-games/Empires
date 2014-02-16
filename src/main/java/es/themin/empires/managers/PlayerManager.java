@@ -78,6 +78,7 @@ public class PlayerManager implements IManager {
 		
 		//if the player is already loaded just return them
 		if (players.get(myPlayer.getUniqueId()) != null){
+			System.out.println(myPlayer.getName()+ " found in memory");
 			return players.get(myPlayer.getUniqueId());
 		}
 
@@ -86,6 +87,7 @@ public class PlayerManager implements IManager {
 		
 		//or create them if they dont exist
 		if (myEPlayer == null){
+			System.out.println(myPlayer.getName()+ " created in db");
 			myEPlayer = new EPlayer(myPlayer);
 			long timeNow = System.currentTimeMillis()/1000;
 			myEPlayer.setFirstSeen(timeNow);
@@ -96,6 +98,8 @@ public class PlayerManager implements IManager {
 				//do something
 			}
 			
+		} else {
+			System.out.println(myPlayer.getName()+ " found in DB");
 		}
 		return myEPlayer;
 	}
