@@ -76,13 +76,16 @@ public class tannertest extends SubCommand{
 		        stmnt.setString(1, player.getUniqueId().toString());
 		        //stmnt.setDate(2, new java.sql.(cal.getTimeInMillis()));
 		        
+		        long epoch = System.currentTimeMillis()/1000;
+		        stmnt.setLong(2, epoch);
+		        
 		        java.util.Date dt = new java.util.Date();
 
 		        java.text.SimpleDateFormat sdf = 
 		             new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		        String currentTime = sdf.format(dt);
-		        stmnt.setString(2, currentTime);
+		        //stmnt.setString(2, currentTime);
 		        
 		        //stmnt.executeQuery();
 				
