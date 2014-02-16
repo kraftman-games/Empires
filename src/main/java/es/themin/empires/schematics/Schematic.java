@@ -21,12 +21,12 @@ public abstract class Schematic {
 		World w = location.getWorld();
 		Random r = new Random();
 		for (Block b : getBlocks(location)) {
-			int i = r.nextInt(10);
-			if (i==5) {
+			int i = r.nextInt(3);
+			if (i==2) {
 				if (getEffectType() != null) {
 					w.playEffect(b.getLocation(), getEffectType(), 3);;
 				}
-				w.playSound(b.getLocation(), Sound.ANVIL_USE, 1, 3);
+				w.playSound(b.getLocation(), Sound.ANVIL_USE, 1, 1);
 				
 			}
 		}
