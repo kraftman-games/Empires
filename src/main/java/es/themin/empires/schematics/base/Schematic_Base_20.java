@@ -2,6 +2,7 @@ package es.themin.empires.schematics.base;
 
 import java.util.ArrayList;
 
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -16,6 +17,7 @@ public class Schematic_Base_20 extends Schematic{
 	@SuppressWarnings("deprecation")
 	@Override
 	public void pasteFromCentre(Location location) {
+		playEffectsFrom(location);
 		Location l = location;
 		World w = l.getWorld();
 		int x = l.getBlockX();
@@ -392,6 +394,20 @@ public class Schematic_Base_20 extends Schematic{
 	@Override
 	public int getLevel() {
 		return 20;
+	}
+
+
+	@Override
+	public void playEffectsFrom(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Effect getEffectType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
