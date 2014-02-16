@@ -1,4 +1,4 @@
-package es.themin.empires.schematics;
+package es.themin.empires.schematics.mob;
 
 import java.util.ArrayList;
 
@@ -9,9 +9,10 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.UtilManager;
 
-public class Schematic_Mob_1 extends Schematic{
+public class Schematic_Mob_5 extends Schematic{
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -88,73 +89,6 @@ public class Schematic_Mob_1 extends Schematic{
 		
 	}
 
-	@Override
-	public void destroyFromCentre(Location location) {
-		ArrayList<Block> blocks = new ArrayList<Block>();
-World world = location.getWorld();
-		
-		ArrayList<Block> stairs = new ArrayList<Block>();
-		
-		stairs.add(world.getBlockAt(location.getBlockX() + 2,location.getBlockY(), location.getBlockZ() + 1));
-		stairs.add(world.getBlockAt(location.getBlockX() + 2,location.getBlockY(), location.getBlockZ() - 1));
-		stairs.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY() + 3, location.getBlockZ()));	
-		
-		stairs.add(world.getBlockAt(location.getBlockX() - 2,location.getBlockY(), location.getBlockZ() + 1));
-		stairs.add(world.getBlockAt(location.getBlockX() - 2,location.getBlockY(), location.getBlockZ() - 1));
-		stairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY() + 3, location.getBlockZ()));
-
-		stairs.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY(), location.getBlockZ() + 2));
-		stairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() + 2));
-		stairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() + 1));
-		
-		stairs.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY(), location.getBlockZ() - 2));
-		stairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() - 2));
-		stairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() - 1));
-		
-		stairs.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY() + 2, location.getBlockZ()));
-		stairs.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY() + 2, location.getBlockZ()));
-		stairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ() + 1));
-		stairs.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ() - 1));
-
-		for (Block b : stairs) {
-			b.setType(Material.AIR);
-		}
-		
-		ArrayList<Block> coal = new ArrayList<Block>();
-		coal.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY(), location.getBlockZ() + 1));
-		coal.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY(), location.getBlockZ() - 1));
-		coal.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY(), location.getBlockZ() + 1));
-		coal.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY(), location.getBlockZ() - 1));
-		coal.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+1, location.getBlockZ() + 1));
-		coal.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+1, location.getBlockZ() - 1));
-		coal.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+1, location.getBlockZ() + 1));
-		coal.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+1, location.getBlockZ() - 1));
-		for (Block b : coal){
-			b.setType(Material.AIR);
-		}
-		
-		ArrayList<Block> wall = new ArrayList<Block>();
-		wall.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+2, location.getBlockZ() + 1));
-		wall.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+2, location.getBlockZ() - 1));
-		wall.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+2, location.getBlockZ() + 1));
-		wall.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+2, location.getBlockZ() - 1));
-		
-		wall.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+3, location.getBlockZ() + 1));
-		wall.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+3, location.getBlockZ() - 1));
-		wall.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+3, location.getBlockZ() + 1));
-		wall.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+3, location.getBlockZ() - 1));
-		
-		for (Block b : wall) {
-			b.setType(Material.AIR);
-		}
-		
-		world.getBlockAt(location).setType(Material.AIR);
-		world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ()).setType(Material.AIR);
-		world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ()).setType(Material.AIR);
-		world.getBlockAt(location.getBlockX(),location.getBlockY() + 4, location.getBlockZ()).setType(Material.AIR);
-		world.getBlockAt(location.getBlockX(),location.getBlockY() + 5, location.getBlockZ()).setType(Material.AIR);
-		
-	}
 
 	@Override
 	public CoreType coreType() {
@@ -163,8 +97,58 @@ World world = location.getWorld();
 
 	@Override
 	public ArrayList<Block> getBlocks(Location location) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		World world = location.getWorld();
+		
+		
+		blocks.add(world.getBlockAt(location.getBlockX() + 2,location.getBlockY(), location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() + 2,location.getBlockY(), location.getBlockZ() - 1));
+		blocks.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY() + 3, location.getBlockZ()));	
+		
+		blocks.add(world.getBlockAt(location.getBlockX() - 2,location.getBlockY(), location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 2,location.getBlockY(), location.getBlockZ() - 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY() + 3, location.getBlockZ()));
+
+		blocks.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY(), location.getBlockZ() + 2));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() + 2));
+		blocks.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() + 1));
+		
+		blocks.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY(), location.getBlockZ() - 2));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY(), location.getBlockZ() - 2));
+		blocks.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ() - 1));
+		
+		blocks.add(world.getBlockAt(location.getBlockX() + 1,location.getBlockY() + 2, location.getBlockZ()));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1,location.getBlockY() + 2, location.getBlockZ()));
+		blocks.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ() - 1));
+
+		blocks.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY(), location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY(), location.getBlockZ() - 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY(), location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY(), location.getBlockZ() - 1));
+		blocks.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+1, location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+1, location.getBlockZ() - 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+1, location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+1, location.getBlockZ() - 1));
+		
+		blocks.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+2, location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+2, location.getBlockZ() - 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+2, location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+2, location.getBlockZ() - 1));
+		
+		blocks.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+3, location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() + 1, location.getBlockY()+3, location.getBlockZ() - 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+3, location.getBlockZ() + 1));
+		blocks.add(world.getBlockAt(location.getBlockX() - 1, location.getBlockY()+3, location.getBlockZ() - 1));
+		
+		
+		blocks.add(world.getBlockAt(location));
+		blocks.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 2, location.getBlockZ()));
+		blocks.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 3, location.getBlockZ()));
+		blocks.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 4, location.getBlockZ()));
+		blocks.add(world.getBlockAt(location.getBlockX(),location.getBlockY() + 5, location.getBlockZ()));
+		
+		return blocks;
 	}
 
 
@@ -173,11 +157,5 @@ World world = location.getWorld();
 		return 5;
 	}
 
-	@Override
-	public boolean isSafeToBuildAround(Location location) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 
 }

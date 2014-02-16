@@ -1,4 +1,4 @@
-package es.themin.empires.schematics;
+package es.themin.empires.schematics.base;
 
 import java.util.ArrayList;
 
@@ -8,6 +8,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.UtilManager;
 
 public class Schematic_Base_20 extends Schematic{
@@ -207,11 +208,6 @@ public class Schematic_Base_20 extends Schematic{
 		w.getBlockAt(l).setType(Material.BEACON);
 	}
 
-	@Override
-	public void destroyFromCentre(Location location) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public CoreType coreType() {
@@ -220,8 +216,177 @@ public class Schematic_Base_20 extends Schematic{
 
 	@Override
 	public ArrayList<Block> getBlocks(Location location) {
-		// TODO Auto-generated method stub
-		return null;
+		Location l = location;
+		World w = l.getWorld();
+		int x = l.getBlockX();
+		int y = l.getBlockY();
+		int z = l.getBlockZ();
+
+		/**
+		 * blocksiblocksn blocks bellow base
+		 */
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		Location c301 = new Location(w,x-2,y-1,z-4);
+		Location c302 = new Location(w,x+2,y-1,z+4);
+		blocks = UtilManager.loopAndAddToList(c301, c302, blocks);
+		Location c401 = new Location(w,x-4,y-1,z-2);
+		Location c402 = new Location(w,x+4,y-1,z+2);
+		blocks = UtilManager.loopAndAddToList(c401, c402, blocks);
+		Location c501 = new Location(w,x-3,y-1,z-3);
+		Location c502 = new Location(w,x+3,y-1,z+3);
+		blocks = UtilManager.loopAndAddToList(c501, c502, blocks);
+		blocks.add(w.getBlockAt(x+5,y-1,z));
+		blocks.add(w.getBlockAt(x-5,y-1,z));
+		blocks.add(w.getBlockAt(x,y-1,z+5));
+		blocks.add(w.getBlockAt(x,y-1,z-5));
+		/**
+		 * Step blocks bellow base
+		 */
+		Location c601 = new Location(w,x-1,y-1,z-3);
+		Location c602 = new Location(w,x+1,y-1,z+3);
+		blocks = UtilManager.loopAndAddToList(c601, c602, blocks);
+		Location c701 = new Location(w,x-3,y-1,z-1);
+		Location c702 = new Location(w,x+3,y-1,z+1);
+		blocks = UtilManager.loopAndAddToList(c701, c702, blocks);
+		Location c801 = new Location(w,x-2,y-1,z-2);
+		Location c802 = new Location(w,x+2,y-1,z+2);
+		blocks = UtilManager.loopAndAddToList(c801, c802, blocks);
+
+		/**
+		 * blocksmond blocks bellow base
+		 */
+		Location c101 = new Location(w,x-1,y-1,z-1);
+		Location c102 = new Location(w,x+1,y-1,z+1);
+		blocks = UtilManager.loopAndAddToList(c101, c102, blocks);
+		
+		/**
+		 * Stone blocks level with base
+		 */
+		Location c201 = new Location(w,x-1,y,z-1);
+		Location c202 = new Location(w,x+1,y,z+1);
+		blocks = UtilManager.loopAndAddToList(c201, c202, blocks);
+		blocks.add(w.getBlockAt(x+2,y,z));
+		blocks.add(w.getBlockAt(x-2,y,z));
+		blocks.add(w.getBlockAt(x,y,z));
+		blocks.add(w.getBlockAt(x,y,z));
+		
+		/**
+		 * blocksiblocksn pillars
+		 */
+		Location c901 = new Location(w,x+4,y,z);
+		Location c902 = new Location(w,x+4,y+2,z);
+		blocks = UtilManager.loopAndAddToList(c901, c902, blocks);
+		Location c111 = new Location(w,x-4,y,z);
+		Location c112 = new Location(w,x-4,y+2,z);
+		blocks = UtilManager.loopAndAddToList(c111, c112, blocks);
+		Location c121 = new Location(w,x,y,z+4);
+		Location c122 = new Location(w,x,y+2,z+4);
+		blocks = UtilManager.loopAndAddToList(c121, c122, blocks);
+		Location c131 = new Location(w,x,y,z-4);
+		Location c132 = new Location(w,x,y+2,z-4);
+		blocks = UtilManager.loopAndAddToList(c131, c132, blocks);
+		
+		Location c2901 = new Location(w,x+4,y,z-1);
+		Location c2902 = new Location(w,x+4,y,z+1);
+		blocks = UtilManager.loopAndAddToList(c2901, c2902, blocks);
+		Location c2111 = new Location(w,x-4,y,z-1);
+		Location c2112 = new Location(w,x-4,y,z+1);
+		blocks = UtilManager.loopAndAddToList(c2111, c2112, blocks);
+		Location c2121 = new Location(w,x-1,y,z+4);
+		Location c2122 = new Location(w,x+1,y,z+4);
+		blocks = UtilManager.loopAndAddToList(c2121, c2122, blocks);
+		Location c2131 = new Location(w,x-1,y,z-4);
+		Location c2132 = new Location(w,x+1,y,z-4);
+		blocks = UtilManager.loopAndAddToList(c2131, c2132, blocks);
+		
+		Location c3901 = new Location(w,x+3,y+2,z);
+		Location c3902 = new Location(w,x+3,y+4,z);
+		blocks = UtilManager.loopAndAddToList(c3901, c3902, blocks);
+		Location c3111 = new Location(w,x-3,y+2,z);
+		Location c3112 = new Location(w,x-3,y+4,z);
+		blocks = UtilManager.loopAndAddToList(c3111, c3112, blocks);
+		Location c3121 = new Location(w,x,y+2,z+3);
+		Location c3122 = new Location(w,x,y+4,z+3);
+		blocks = UtilManager.loopAndAddToList(c3121, c3122, blocks);
+		Location c3131 = new Location(w,x,y+2,z-3);
+		Location c3132 = new Location(w,x,y+4,z-3);
+		blocks = UtilManager.loopAndAddToList(c3131, c3132, blocks);
+		
+		blocks.add(w.getBlockAt(x+2,y+3,z));
+		blocks.add(w.getBlockAt(x-2,y+3,z));
+		blocks.add(w.getBlockAt(x,y+3,z+2));
+		blocks.add(w.getBlockAt(x,y+3,z-2));
+		
+
+		/**
+		 * blocks part
+		 */
+		blocks.add(w.getBlockAt(x,y+4,z));
+		blocks.add(w.getBlockAt(x,y+5,z));
+		blocks.add(w.getBlockAt(x,y+6,z));
+		
+		/**
+		 * blocksmond star thingy
+		 */
+
+		blocks.add(w.getBlockAt(x+1,y+5,z));
+		blocks.add(w.getBlockAt(x-1,y+5,z));
+		blocks.add(w.getBlockAt(x,y+5,z+1));
+		blocks.add(w.getBlockAt(x,y+5,z-1));
+
+		/**
+		 * blocksines
+		 */
+		
+		blocks.add(w.getBlockAt(x+5,y,z));
+		blocks.add(w.getBlockAt(x-5,y,z));
+		blocks.add(w.getBlockAt(x,y,z+5));
+		blocks.add(w.getBlockAt(x,y,z-5));
+		
+		blocks.add(w.getBlockAt(x+5,y+1,z));
+		blocks.add(w.getBlockAt(x-5,y+1,z));
+		blocks.add(w.getBlockAt(x,y+1,z+5));
+		blocks.add(w.getBlockAt(x,y+1,z-5));
+		
+		blocks.add(w.getBlockAt(x+4,y+1,z+1));
+		blocks.add(w.getBlockAt(x+4,y+1,z-1));
+		blocks.add(w.getBlockAt(x-4,y+1,z+1));
+		blocks.add(w.getBlockAt(x-4,y+1,z-1));
+		blocks.add(w.getBlockAt(x+1,y+1,z+4));
+		blocks.add(w.getBlockAt(x-1,y+1,z+4));
+		blocks.add(w.getBlockAt(x+1,y+1,z-4));
+		blocks.add(w.getBlockAt(x-1,y+1,z-4));
+		
+		blocks.add(w.getBlockAt(x+3,y+2,z+1));
+		blocks.add(w.getBlockAt(x+3,y+2,z-1));
+		blocks.add(w.getBlockAt(x-3,y+2,z+1));
+		blocks.add(w.getBlockAt(x-3,y+2,z-1));
+		blocks.add(w.getBlockAt(x+1,y+2,z+3));
+		blocks.add(w.getBlockAt(x-1,y+2,z+3));
+		blocks.add(w.getBlockAt(x+1,y+2,z-3));
+		blocks.add(w.getBlockAt(x-1,y+2,z-3));
+		
+		blocks.add(w.getBlockAt(x+3,y+4,z+1));
+		blocks.add(w.getBlockAt(x+3,y+4,z-1));
+		blocks.add(w.getBlockAt(x-3,y+4,z+1));
+		blocks.add(w.getBlockAt(x-3,y+4,z-1));
+		blocks.add(w.getBlockAt(x+1,y+4,z+3));
+		blocks.add(w.getBlockAt(x-1,y+4,z+3));
+		blocks.add(w.getBlockAt(x+1,y+4,z-3));
+		blocks.add(w.getBlockAt(x-1,y+4,z-3));
+		
+		blocks.add(w.getBlockAt(x+4,y+3,z));
+		blocks.add(w.getBlockAt(x-4,y+3,z));
+		blocks.add(w.getBlockAt(x,y+3,z+4));
+		blocks.add(w.getBlockAt(x,y+3,z-4));
+		
+		blocks.add(w.getBlockAt(x+3,y+5,z));
+		blocks.add(w.getBlockAt(x-3,y+5,z));
+		blocks.add(w.getBlockAt(x,y+5,z+3));
+		blocks.add(w.getBlockAt(x,y+5,z-3));
+		
+		blocks.add(w.getBlockAt(l));
+		return blocks;
 	}
 
 	@Override
@@ -229,10 +394,5 @@ public class Schematic_Base_20 extends Schematic{
 		return 20;
 	}
 
-	@Override
-	public boolean isSafeToBuildAround(Location location) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }
