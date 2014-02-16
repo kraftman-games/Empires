@@ -59,7 +59,17 @@ public class tannertest extends SubCommand{
 			if (connection != null){
 				System.out.println("Connection successful!");
 				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS"); // do something with the connection.
+				
+				Date now = new Date();
+				String pattern = "yyyy-MM-dd";
+		        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+		        String mysqlDateString = formatter.format(now);
+				
+				String myQueryString = "REPLACE INTO `Players`" +
+					" SET `UUID` = '" + player.getUniqueId().toString() + 
+					"', `FirstSeen` = '" + mysqlDateString + 
+					"', `LastSeen` = '" + mysqlDateString + "';";
+				ResultSet rs = stmt.executeQuery(myQueryString); // do something with the connection.
 				while(rs.next()){
 					System.out.println(rs.getString(1)); // should print out "1"'
 				}
