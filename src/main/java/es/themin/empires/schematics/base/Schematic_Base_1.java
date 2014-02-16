@@ -1,4 +1,4 @@
-package es.themin.empires.schematics;
+package es.themin.empires.schematics.base;
 
 import java.util.ArrayList;
 
@@ -8,6 +8,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.UtilManager;
 
 public class Schematic_Base_1 extends Schematic{

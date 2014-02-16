@@ -21,6 +21,8 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 
 
+
+
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.ChatListener;
 import es.themin.empires.Listeners.CraftListener;
@@ -42,8 +44,8 @@ import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.managers.WarManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.Schematic;
-import es.themin.empires.schematics.Schematic_Base_20;
-import es.themin.empires.schematics.Schematic_Mob_1;
+import es.themin.empires.schematics.base.Schematic_Base_20;
+import es.themin.empires.schematics.mob.Schematic_Mob_1;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;

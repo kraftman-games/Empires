@@ -11,7 +11,7 @@ import es.themin.empires.empires;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.Schematic;
-import es.themin.empires.schematics.Schematic_Base_20;
+import es.themin.empires.schematics.base.Schematic_Base_20;
 import es.themin.empires.util.EPlayer;
 
 public class Event_BlockPlace implements Listener{

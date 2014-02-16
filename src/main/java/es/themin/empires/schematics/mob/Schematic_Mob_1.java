@@ -1,4 +1,4 @@
-package es.themin.empires.schematics;
+package es.themin.empires.schematics.mob;
 
 import java.util.ArrayList;
 
@@ -9,10 +9,13 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.UtilManager;
 
-public class Schematic_Mob_5 extends Schematic{
+public class Schematic_Mob_1 extends Schematic{
 
+	
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void pasteFromCentre(Location location) {
@@ -71,13 +74,6 @@ public class Schematic_Mob_5 extends Schematic{
 		w.getBlockAt(location).setType(Material.WORKBENCH);
 	}
 
-	@Override
-	public void destroyFromCentre(Location location) {
-		ArrayList<Block> blocks = getBlocks(location);
-		for (Block b: blocks){
-			b.setType(Material.AIR);
-		}
-	}
 
 	@Override
 	public CoreType coreType() {
@@ -134,12 +130,6 @@ public class Schematic_Mob_5 extends Schematic{
 	@Override
 	public int getLevel() {
 		return 0;
-	}
-
-	@Override
-	public boolean isSafeToBuildAround(Location location) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
