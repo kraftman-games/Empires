@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 
-import com.gmail.favorlock.bonesqlib.Database;
 
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
@@ -72,8 +71,7 @@ public class PlayerManagerTest {
         players.put(myCorePlayer.getUUID(), myCorePlayer);
         
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
-        Database sql = PowerMockito.mock(Database.class);
-	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players, sql);
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 	    myPlayerManager.save();
 	    Mockito.verify(myEmpiresDal).savePlayers(players);
 	}
@@ -87,8 +85,7 @@ public class PlayerManagerTest {
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
-        Database sql = PowerMockito.mock(Database.class);
-	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players, sql);
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    myPlayerManager.save(tfile);
 	    
@@ -104,8 +101,7 @@ public class PlayerManagerTest {
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
-        Database sql = PowerMockito.mock(Database.class);
-	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players, sql);
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myCorePlayer == myPlayerManager.getPlayer("kraftman"));
 	}
@@ -118,8 +114,7 @@ public class PlayerManagerTest {
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
-        Database sql = PowerMockito.mock(Database.class);
-	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players, sql);
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myCorePlayer == myPlayerManager.getPlayer(myCorePlayer.getUUID()));
 	}
@@ -132,8 +127,7 @@ public class PlayerManagerTest {
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
-        Database sql = PowerMockito.mock(Database.class);
-	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players, sql);
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    assertTrue(myPlayerManager.playerExists(myCorePlayer.getUUID()));
 	    
@@ -149,8 +143,7 @@ public class PlayerManagerTest {
         
         players.put(myCorePlayer.getUUID(), myCorePlayer);
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
-        Database sql = PowerMockito.mock(Database.class);
-	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players, sql);
+	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
 	    myPlayerManager.addPlayer(myCorePlayer);
 	    

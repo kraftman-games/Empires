@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import com.gmail.favorlock.bonesqlib.Database;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
@@ -16,9 +15,9 @@ public class PlayerManager implements IManager {
 	private HashMap<UUID, EPlayer> players;
 	
     private EmpiresDAL EmpiresDAL;
-    private Database sql = null;
+    //private Database sql = null;
 	
-	public PlayerManager( EmpiresDAL myEmpiresDAL, HashMap<UUID, EPlayer> players, Database sql) {
+	public PlayerManager( EmpiresDAL myEmpiresDAL, HashMap<UUID, EPlayer> players) {
 	    this.players = players;
 	    this.EmpiresDAL = myEmpiresDAL;
 	    //this.sql = sql;

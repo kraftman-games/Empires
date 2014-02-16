@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import com.gmail.favorlock.bonesqlib.Database;
-import com.gmail.favorlock.bonesqlib.MySQL;
 
 import es.themin.empires.CoreManager;
 import es.themin.empires.EmpiresDAL;
@@ -21,7 +19,7 @@ public class ManagerFactory {
 	private static empires myPlugin;
 	private static ArrayList<IManager> Managers;
 
-	 Database sql = null;
+	 //Database sql = null;
 	
 	public ManagerFactory(empires plugin) {
 		myPlugin = plugin;
@@ -58,7 +56,7 @@ public class ManagerFactory {
         File empireFile = createFile("Empires.yml");
         EmpiresDAL myempiresDAL = new EmpiresDAL(playerFile, empireFile);
 		
-        PlayerManager myPlayerManager = new PlayerManager(myempiresDAL, players, sql);
+        PlayerManager myPlayerManager = new PlayerManager(myempiresDAL, players);
         Managers.add(myPlayerManager);
         
         

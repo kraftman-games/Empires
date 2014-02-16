@@ -16,8 +16,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
 
-import com.gmail.favorlock.bonesqlib.Database;
-import com.gmail.favorlock.bonesqlib.MySQL;
 
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.ChatListener;

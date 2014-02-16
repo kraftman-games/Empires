@@ -12,7 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.gmail.favorlock.bonesqlib.Database;
 import com.jolbox.bonecp.BoneCP;
 
 import es.themin.empires.cores.Core;
