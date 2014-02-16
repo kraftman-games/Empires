@@ -76,11 +76,14 @@
 				<version>3.0</version>
 			</dependency>
 			<dependency>
-			<groupId>gmail.favorlock</groupId>
-			<artifactId>BoneSQLib</artifactId>
-			<version>0.8.0.RELEASE</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/resources/BoneSQLib-0.0.1.jar</systemPath>
+				<groupId>com.jolbox</groupId>
+				<artifactId>bonecp</artifactId>
+				<version>0.8.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.28</version>
 			</dependency>
             
             
