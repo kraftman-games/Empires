@@ -72,6 +72,7 @@ public class tannertest extends SubCommand{
 				player.sendMessage(myQueryString);
 				Integer rs = stmt.executeUpdate(myQueryString); // do something with the connection.
 				//player.sendMessage(rs.getString(0));
+				
 			}
 			connectionPool.shutdown(); // shutdown connection pool.
 		} catch (SQLException e) {
