@@ -63,40 +63,15 @@ public class tannertest extends SubCommand{
 			
 			if (connection != null){
 				System.out.println("Connection successful!");
-				Statement stmt = connection.createStatement();
-				
-				Date now = new Date();
-				String pattern = "yyyy-MM-dd";
-		        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-		        String mysqlDateString = formatter.format(now);
-		        
-		        
-		        Calendar cal = Calendar.getInstance();
+			
+		        long epoch = System.currentTimeMillis()/1000;
 		        PreparedStatement stmnt = connection.prepareStatement("REPLACE INTO `Players` (`UUID`,`FirstSeen`) VALUES (?,?);");
 		        stmnt.setString(1, player.getUniqueId().toString());
-		        //stmnt.setDate(2, new java.sql.(cal.getTimeInMillis()));
-		        
-		        long epoch = System.currentTimeMillis()/1000;
 		        stmnt.setLong(2, epoch);
-		        
-		        java.util.Date dt = new java.util.Date();
 
-		        java.text.SimpleDateFormat sdf = 
-		             new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		        String currentTime = sdf.format(dt);
-		        //stmnt.setString(2, currentTime);
-		        
-		        //stmnt.executeQuery();
-				
-					//" SET `UUID` = '" + player.getUniqueId().toString() + 
-					//"', `FirstSeen` = '" + mysqlDateString + 
-					//"', `LastSeen` = '" + mysqlDateString + "';";
 				player.sendMessage(stmnt.toString());
 				Integer returnsInteger = stmnt.executeUpdate();
-				//Integer rs = stmt.executeUpdate(myQueryString); // do something with the connection.
-				//player.sendMessage(rs.getString(0));
-				
+				System.out.println(returnsInteger + " records updated!");
 			}
 			connectionPool.shutdown(); // shutdown connection pool.
 		} catch (SQLException e) {

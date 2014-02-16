@@ -7,6 +7,9 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 
 
+
+import com.jolbox.bonecp.BoneCP;
+
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
 
@@ -20,7 +23,6 @@ public class PlayerManager implements IManager {
 	public PlayerManager( EmpiresDAL myEmpiresDAL, HashMap<UUID, EPlayer> players) {
 	    this.players = players;
 	    this.EmpiresDAL = myEmpiresDAL;
-	    //this.sql = sql;
 	}
 	
     public void save(){
@@ -83,8 +85,12 @@ public class PlayerManager implements IManager {
 		
 		if (myEPlayer == null){
 			myEPlayer = new EPlayer(myPlayer);
-			EmpiresDAL.savePlayer(myEPlayer);
-			players.put(myEPlayer.getUUID(), myEPlayer);
+			if (EmpiresDAL.createPlayer(myEPlayer) == true){
+				players.put(myEPlayer.getUUID(), myEPlayer);
+			} else {
+				//do something
+			}
+			
 		}
 		return myEPlayer;
 	}

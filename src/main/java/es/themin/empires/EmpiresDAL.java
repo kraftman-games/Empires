@@ -3,6 +3,8 @@ package es.themin.empires;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPConfig;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.EmpirePermission;
@@ -25,14 +28,13 @@ public class EmpiresDAL {
 
 	File EmpireFile;
 	File PlayerFile;
+	BoneCP connectionPool = null;
 	
 	
-	public EmpiresDAL(File eFile, File pFile){
+	public EmpiresDAL(File eFile, File pFile, BoneCP connectionPool){
 		EmpireFile = eFile;
 		PlayerFile = pFile;
-		
-
-
+		this.connectionPool = connectionPool;
 	}
 	
 	public void savePlayers(HashMap<UUID, EPlayer> players){
@@ -153,6 +155,45 @@ public class EmpiresDAL {
 	public void removeEmpire(Empire empire) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Boolean createPlayer(EPlayer myEPlayer) {
+		Connection connection = null;
+		try {
+			
+			 connection = connectionPool.getConnection(); // fetch a connection
+			
+			if (connection != null){
+			
+		        long timeNow = System.currentTimeMillis()/1000;
+		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?);");
+		        stmnt.setString(1, myEPlayer.getUUID().toString());
+		        stmnt.setLong(2, timeNow);
+		        stmnt.setLong(3, timeNow);
+		        stmnt.setString(4, myEPlayer.getName());
+
+		        myEPlayer.sendMessage(stmnt.toString());
+				Integer returnsInteger = stmnt.executeUpdate();
+				myEPlayer.sendMessage(returnsInteger.toString() + "results updated");
+				if (returnsInteger == 1){
+					return true;
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}
+		return false;
 	}
 }
 

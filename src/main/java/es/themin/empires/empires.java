@@ -3,7 +3,9 @@ package es.themin.empires;
 
 
 import java.io.File;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,12 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 
 
+
+
+
+
+import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPConfig;
 
 import es.themin.empires.Listeners.BlockListener;
 import es.themin.empires.Listeners.ChatListener;
@@ -73,11 +81,32 @@ public final class empires extends JavaPlugin {
 	
 	ArrayList<IManager> Managers = new ArrayList<IManager>();
 	
+	BoneCP connectionPool = null;
+	Connection connection = null;
+	BoneCPConfig config = null;
+	
+	
 	@Override
     public void onEnable(){
         plugin = this;
         
-        ManagerFactory = new ManagerFactory(this);
+        BoneCPConfig config = new BoneCPConfig();
+		config.setJdbcUrl("jdbc:mysql://192.168.5.60/empirestest"); // jdbc url specific to your database, eg jdbc:mysql://127.0.0.1/yourdb
+		config.setUsername("empires"); 
+		config.setPassword("senimeth345");
+		config.setMinConnectionsPerPartition(5);
+		config.setMaxConnectionsPerPartition(10);
+		config.setPartitionCount(1);
+		config.setDefaultAutoCommit(true);
+		
+		try{
+			connectionPool = new BoneCP(config); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        
+        ManagerFactory = new ManagerFactory(this, connectionPool);
         
          Empires = ManagerFactory.CreateEmpireManager();
     	 Cores = ManagerFactory.CreateCoreManager(this); 
@@ -109,6 +138,8 @@ public final class empires extends JavaPlugin {
     @Override
     public void onDisable() {
         
+    	connectionPool.shutdown();
+    	
     	ManagerFactory.saveManagers();
 		SettingsManager.saveAll();
 		Bukkit.getServer().clearRecipes();

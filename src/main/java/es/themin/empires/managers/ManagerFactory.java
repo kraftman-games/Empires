@@ -2,10 +2,16 @@ package es.themin.empires.managers;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+
+
+
+import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPConfig;
 
 import es.themin.empires.CoreManager;
 import es.themin.empires.EmpiresDAL;
@@ -16,17 +22,30 @@ import es.themin.empires.util.Empire;
 public class ManagerFactory {
 
 	
-	private static empires myPlugin;
-	private static ArrayList<IManager> Managers;
-
-	 //Database sql = null;
+	private empires myPlugin;
+	private ArrayList<IManager> Managers;
+	private BoneCP connectionPool;
+	File playerFile = null;
+    File empireFile = null;
+    EmpiresDAL myempiresDAL = null;
 	
-	public ManagerFactory(empires plugin) {
+	public ManagerFactory(empires plugin,BoneCP connectionPool) {
 		myPlugin = plugin;
 		Managers = new ArrayList<IManager>();
 
-		//
-		 //sql = new MySQL(plugin.getLogger(), "test", "192.168.5.60", "empirestest", "senimeth345");
+		BoneCPConfig config = new BoneCPConfig();
+		config.setJdbcUrl("jdbc:mysql://192.168.5.60/empirestest"); // jdbc url specific to your database, eg jdbc:mysql://127.0.0.1/yourdb
+		config.setUsername("empires"); 
+		config.setPassword("senimeth345");
+		config.setMinConnectionsPerPartition(5);
+		config.setMaxConnectionsPerPartition(10);
+		config.setPartitionCount(1);
+		config.setDefaultAutoCommit(true);
+		this.connectionPool = connectionPool;
+		
+		 playerFile = createFile("Players.yml");
+         empireFile = createFile("Empires.yml");
+         myempiresDAL = new EmpiresDAL(playerFile, empireFile, connectionPool);
 	}
 
 
@@ -52,23 +71,16 @@ public class ManagerFactory {
 	public PlayerManager CreatePlayerManager(){
         
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
-        File playerFile = createFile("Players.yml");
-        File empireFile = createFile("Empires.yml");
-        EmpiresDAL myempiresDAL = new EmpiresDAL(playerFile, empireFile);
-		
+        
         PlayerManager myPlayerManager = new PlayerManager(myempiresDAL, players);
         Managers.add(myPlayerManager);
-        
         
 	    return myPlayerManager;
 	    
 	}
 	
 	public EmpireManager CreateEmpireManager(){
-		File playerFile = createFile("Players.yml");
-        File empireFile = createFile("Empires.yml");
-        EmpiresDAL myempiresDAL = new EmpiresDAL(playerFile, empireFile);
-        
+		        
         ArrayList<Empire> empires = new ArrayList<Empire>();
 		
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
