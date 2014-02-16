@@ -72,7 +72,7 @@ public class tannertest extends SubCommand{
 		        
 		        
 		        Calendar cal = Calendar.getInstance();
-		        PreparedStatement stmnt = connection.prepareStatement("REPLACE INTO `Players` (`UUID`,`FirstSeen`) VALUES (?,?);");
+		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`) VALUES (?,?) ON DUPLICATE KEY UPDATE;");
 		        stmnt.setString(1, player.getUniqueId().toString());
 		        //stmnt.setDate(2, new java.sql.(cal.getTimeInMillis()));
 		        
