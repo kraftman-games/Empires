@@ -52,6 +52,7 @@ public class tannertest extends SubCommand{
 			config.setMinConnectionsPerPartition(5);
 			config.setMaxConnectionsPerPartition(10);
 			config.setPartitionCount(1);
+			config.setDefaultAutoCommit(true);
 			connectionPool = new BoneCP(config); // setup the connection pool
 			
 			connection = connectionPool.getConnection(); // fetch a connection
