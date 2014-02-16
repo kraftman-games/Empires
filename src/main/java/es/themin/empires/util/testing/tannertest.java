@@ -75,7 +75,7 @@ public class tannertest extends SubCommand{
 		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`) VALUES (?,?);");
 		        stmnt.setString(1, player.getUniqueId().toString());
 		        stmnt.setDate(2, new java.sql.Date(cal.getTimeInMillis()));
-		        stmnt.executeQuery();
+		        //stmnt.executeQuery();
 				
 					//" SET `UUID` = '" + player.getUniqueId().toString() + 
 					//"', `FirstSeen` = '" + mysqlDateString + 
