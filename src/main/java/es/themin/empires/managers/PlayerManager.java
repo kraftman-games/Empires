@@ -99,6 +99,7 @@ public class PlayerManager implements IManager {
 			}
 			
 		} else {
+			players.put(myEPlayer.getUUID(), myEPlayer);
 			System.out.println(myPlayer.getName()+ " found in DB");
 		}
 		return myEPlayer;
