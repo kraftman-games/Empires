@@ -298,7 +298,7 @@ public class Empire {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			EPlayer myCorePlayer = players.get(player.getUniqueId());
 			if (myCorePlayer != null){
-				myCorePlayer.sendMessage(message);
+				player.sendMessage(message);
 			}
 		}
 	}

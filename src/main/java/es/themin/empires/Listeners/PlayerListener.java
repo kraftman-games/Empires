@@ -48,17 +48,11 @@ public class PlayerListener implements Listener{
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		
-		//we dont want to construct the player here, we want it to do it for us.
-		Players.loadPlayer(player);
+		if (!Players.playerExists(player.getUniqueId())){
+			Players.loadPlayer(player);
+		}
 		
 		
-		//if (Players.playerExists(player.getUniqueId()) && Empires.containsEmpireWithId(Players.getPlayerData().getInt(player.getName() + ".empire"))) {
-			
-			//myCorePlayer.setEmpire(Empires.getEmpireWithID(Players.getPlayerData().getInt(player.getName() + ".empire")));
-			//Players.addPlayer(myCorePlayer);
-		//}
-		
-		Players.save();
 	}
 	
 	@EventHandler

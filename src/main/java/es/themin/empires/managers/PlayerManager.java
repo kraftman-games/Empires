@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 
 
+
 import com.jolbox.bonecp.BoneCP;
 
 import es.themin.empires.EmpiresDAL;
@@ -74,17 +75,21 @@ public class PlayerManager implements IManager {
 	}
 
 	public EPlayer loadPlayer(Player myPlayer) {
-		//so we want to get the player if it exists in memory
-		//if it doesnt try and get it from the DAL
-		// if there's still nothing then create it.
+		
+		//if the player is already loaded just return them
 		if (players.get(myPlayer.getUniqueId()) != null){
 			return players.get(myPlayer.getUniqueId());
 		}
+
+		//otherwise try and get them from the db
+		EPlayer myEPlayer = EmpiresDAL.loadPlayer(myPlayer);
 		
-		EPlayer myEPlayer = EmpiresDAL.loadPlayer(myPlayer.getUniqueId());
-		
+		//or create them if they dont exist
 		if (myEPlayer == null){
 			myEPlayer = new EPlayer(myPlayer);
+			long timeNow = System.currentTimeMillis()/1000;
+			myEPlayer.setFirstSeen(timeNow);
+			myEPlayer.setLastSeen(timeNow);
 			if (EmpiresDAL.createPlayer(myEPlayer) == true){
 				players.put(myEPlayer.getUUID(), myEPlayer);
 			} else {

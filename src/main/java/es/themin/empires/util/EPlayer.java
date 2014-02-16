@@ -11,6 +11,24 @@ public class EPlayer {
 	private Empire empire;
 	private String name;
 	private Player player;
+	private long firstSeen;
+	private long lastSeen;
+
+	public long getLastSeen() {
+		return lastSeen;
+	}
+
+	public void setLastSeen(long lastSeen) {
+		this.lastSeen = lastSeen;
+	}
+
+	public long getFirstSeen() {
+		return firstSeen;
+	}
+
+	public void setFirstSeen(long timeNow) {
+		this.firstSeen = timeNow;
+	}
 
 	public UUID getUUID() {
 		return UUID;
@@ -22,6 +40,9 @@ public class EPlayer {
 
 	public Empire getEmpire() {
 		return empire;
+	}
+	
+	public EPlayer() {
 	}
 
 	public EPlayer(Player player) {
@@ -51,10 +72,6 @@ public class EPlayer {
 	
 	public Location getLocation(){
 		return this.player.getLocation();
-	}
-
-	public void sendMessage(String message) {
-		player.sendMessage(message);
 	}
 
 	public Player getPlayer() {

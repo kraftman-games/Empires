@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
@@ -66,8 +68,38 @@ public class EmpiresDAL {
 		return myPlayers;
 	}
 
-	public EPlayer loadPlayer(UUID uniqueId) {
-		// TODO Auto-generated method stub
+	public EPlayer loadPlayer(Player myPlayer) {
+		Connection connection = null;
+		try {
+			
+			 connection = connectionPool.getConnection(); // fetch a connection
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Players` where `UUID` = ?;");
+		        stmnt.setString(1, myPlayer.getUniqueId().toString());
+
+		        myPlayer.sendMessage(stmnt.toString());
+				ResultSet results = stmnt.executeQuery();
+				 EPlayer myEPlayer = new EPlayer(myPlayer);
+				 if (results.next()) {
+					 myEPlayer.setFirstSeen(results.getLong("FirstSeen"));
+					 myEPlayer.setFirstSeen(results.getLong("LastSeen"));
+				}
+				 return myEPlayer;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return null;
 	}
 
@@ -161,20 +193,18 @@ public class EmpiresDAL {
 		Connection connection = null;
 		try {
 			
-			 connection = connectionPool.getConnection(); // fetch a connection
+			connection = connectionPool.getConnection(); // fetch a connection
 			
 			if (connection != null){
 			
 		        long timeNow = System.currentTimeMillis()/1000;
 		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?);");
 		        stmnt.setString(1, myEPlayer.getUUID().toString());
-		        stmnt.setLong(2, timeNow);
-		        stmnt.setLong(3, timeNow);
+		        stmnt.setLong(2, myEPlayer.getFirstSeen());
+		        stmnt.setLong(3, myEPlayer.getLastSeen());
 		        stmnt.setString(4, myEPlayer.getName());
 
-		        myEPlayer.sendMessage(stmnt.toString());
 				Integer returnsInteger = stmnt.executeUpdate();
-				myEPlayer.sendMessage(returnsInteger.toString() + "results updated");
 				if (returnsInteger == 1){
 					return true;
 				}

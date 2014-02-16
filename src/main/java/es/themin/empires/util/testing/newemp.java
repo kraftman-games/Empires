@@ -32,7 +32,7 @@ public class newemp extends SubCommand{
 			}
 			player.sendMessage("debug 2");
 			if (myCorePlayer.getEmpire() != null){
-				myCorePlayer.sendMessage("You are already in an empire");
+				player.sendMessage("You are already in an empire");
 			}
 			player.sendMessage("debug 3");
 			Empire empire = new Empire(Empires, args[1], myCorePlayer.getUUID());
