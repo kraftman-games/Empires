@@ -84,7 +84,7 @@ public class EmpiresDAL {
 				 EPlayer myEPlayer = new EPlayer(myPlayer);
 				 if (results.next()) {
 					 myEPlayer.setFirstSeen(results.getLong("FirstSeen"));
-					 myEPlayer.setFirstSeen(results.getLong("LastSeen"));
+					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
 				}
 				 return myEPlayer;
 			}
