@@ -86,8 +86,10 @@ public class EmpiresDAL {
 					 myEPlayer.setFirstSeen(results.getLong("FirstSeen"));
 					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
 					 System.out.println(results.getLong("FirstSeen"));
+					 return myEPlayer;
+				} else {
+				 return null;
 				}
-				 return myEPlayer;
 			}
 			
 		} catch (SQLException e) {
