@@ -70,7 +70,7 @@ public class tannertest extends SubCommand{
 					//"', `FirstSeen` = '" + mysqlDateString + 
 					//"', `LastSeen` = '" + mysqlDateString + "';";
 				player.sendMessage(myQueryString);
-				ResultSet rs = stmt.executeQuery(myQueryString); // do something with the connection.
+				Integer rs = stmt.executeUpdate(myQueryString); // do something with the connection.
 				//player.sendMessage(rs.getString(0));
 			}
 			connectionPool.shutdown(); // shutdown connection pool.
