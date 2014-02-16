@@ -37,7 +37,7 @@ public class tannertest extends SubCommand{
  
 		try {
 			// load the database driver (make sure this is in your classpath!)
-			Class.forName("org.mysql.jdbcDriver");
+			Class.forName("com.mysql.jdbc.Driver");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
