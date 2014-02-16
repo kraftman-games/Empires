@@ -1,6 +1,7 @@
 package es.themin.empires;
 
 
+
 import java.io.File;
 import java.sql.Date;
 import java.sql.Time;
@@ -11,10 +12,13 @@ import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
+
+
 
 
 import es.themin.empires.Listeners.BlockListener;
@@ -37,7 +41,6 @@ import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.managers.WarManager;
 import es.themin.empires.managers.WorldManager;
-import es.themin.empires.schematics.BaseSchematic;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.schematics.Schematic_Base_20;
 import es.themin.empires.schematics.Schematic_Mob_1;
@@ -52,7 +55,7 @@ public final class empires extends JavaPlugin {
 	public String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
 	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
 	
-	
+	public static ArrayList<Material> destroyable = new ArrayList<Material>();
 	private HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
 	
 	public EmpireManager Empires;
@@ -216,10 +219,22 @@ public final class empires extends JavaPlugin {
     	
     }
     public void loadSchematics() {
-    	this.schematics = new ArrayList<Schematic>();
-    	this.schematics.add(new BaseSchematic());
-    	this.schematics.add(new Schematic_Mob_1());
-    	this.schematics.add(new Schematic_Base_20());
+    	schematics = new ArrayList<Schematic>();
+    	schematics.add(new Schematic_Mob_1());
+    	schematics.add(new Schematic_Base_20());
+    	destroyable.add(Material.STONE);
+    	destroyable.add(Material.AIR);
+    	destroyable.add(Material.WATER);
+    	destroyable.add(Material.DIRT);
+    	destroyable.add(Material.GRASS);
+    	destroyable.add(Material.WOOD);
+    	destroyable.add(Material.LOG);
+    	destroyable.add(Material.WOOD_STAIRS);
+    	destroyable.add(Material.WOOD_STEP);
+    	destroyable.add(Material.COBBLESTONE);
+    	destroyable.add(Material.COBBLESTONE_STAIRS);
+    	destroyable.add(Material.SMOOTH_BRICK);
+    	destroyable.add(Material.SMOOTH_STAIRS);
     }
 
 	

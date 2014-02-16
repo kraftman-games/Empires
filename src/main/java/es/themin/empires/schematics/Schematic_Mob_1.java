@@ -170,7 +170,13 @@ World world = location.getWorld();
 
 	@Override
 	public int getLevel() {
-		return 0;
+		return 5;
+	}
+
+	@Override
+	public boolean isSafeToBuildAround(Location location) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 
