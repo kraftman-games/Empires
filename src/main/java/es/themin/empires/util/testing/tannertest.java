@@ -40,10 +40,11 @@ public class tannertest extends SubCommand{
 		        System.out.println("Java's Default Date Format: " + now);
 		        System.out.println("Mysql's Default Date Format: " + mysqlDateString);
 				
-		        String myQueryString = "REPLACE INTO `Players`" +
-						" SET `UUID` = '" + player.getUniqueId().toString() + 
-						"', `FirstSeen` = '" + mysqlDateString + 
-						"', `LastSeen` = '" + mysqlDateString + "';";
+//		        String myQueryString = "REPLACE INTO `Players`" +
+//						" SET `UUID` = '" + player.getUniqueId().toString() + 
+//						"', `FirstSeen` = '" + mysqlDateString + 
+//						"', `LastSeen` = '" + mysqlDateString + "';";
+		        String myQueryString = "replace INTO Players set `PlayerID` = INDEX, `UUID` = 'testr', `FirstSeen` = '2014-2-15', `LastSeen` = '2014-2-15';";
 				player.sendMessage(myQueryString);
 				Statement st = connection.createStatement();
 				st.executeUpdate(myQueryString);
