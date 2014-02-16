@@ -80,6 +80,12 @@
 				<artifactId>bonecp</artifactId>
 				<version>0.8.0.RELEASE</version>
 			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.28</version>
+			</dependency>
+            
             
             
 	         
