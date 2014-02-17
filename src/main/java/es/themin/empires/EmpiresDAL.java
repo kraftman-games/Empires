@@ -71,8 +71,7 @@ public class EmpiresDAL {
 	public EPlayer loadPlayer(Player myPlayer) {
 		Connection connection = null;
 		try {
-			
-			 connection = connectionPool.getConnection(); // fetch a connection
+			connection = connectionPool.getConnection(); 
 			
 			if (connection != null){
 			
@@ -86,8 +85,6 @@ public class EmpiresDAL {
 					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
 					 System.out.println(results.getLong("FirstSeen"));
 					 return myEPlayer;
-				} else {
-				 return null;
 				}
 			}
 			
@@ -105,37 +102,37 @@ public class EmpiresDAL {
 		return null;
 	}
 
-	public void savePlayer(EPlayer myEPlayer) {
-		Connection connection = null;
-		try {
-			
-			connection = connectionPool.getConnection(); // fetch a connection
-			
-			if (connection != null){
-			
-		        PreparedStatement stmnt = connection.prepareStatement("UPDATE `Players` SET `LastSeen`=?,`Name`=? WHERE `UUID` = ?;");
-		        
-		        stmnt.setLong(1, myEPlayer.getLastSeen());
-		        stmnt.setString(2, myEPlayer.getName());
-		        stmnt.setString(3, myEPlayer.getUUID().toString());
-
-				Integer returnsInteger = stmnt.executeUpdate();
-				if (returnsInteger == 1){
-				}
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+//	public void savePlayer(EPlayer myEPlayer) {
+//		Connection connection = null;
+//		try {
+//			
+//			connection = connectionPool.getConnection(); // fetch a connection
+//			
+//			if (connection != null){
+//			
+//		        PreparedStatement stmnt = connection.prepareStatement("UPDATE `Players` SET `LastSeen`=?,`Name`=? WHERE `UUID` = ?;");
+//		        
+//		        stmnt.setLong(1, myEPlayer.getLastSeen());
+//		        stmnt.setString(2, myEPlayer.getName());
+//		        stmnt.setString(3, myEPlayer.getUUID().toString());
+//
+//				Integer returnsInteger = stmnt.executeUpdate();
+//				if (returnsInteger == 1){
+//				}
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (connection != null) {
+//				try {
+//					connection.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//	}
 
 	public ArrayList<Empire> loadEmpires() {
 		// TODO Auto-generated method stub
@@ -218,7 +215,7 @@ public class EmpiresDAL {
 		
 	}
 
-	public Boolean createPlayer(EPlayer myEPlayer) {
+	public Boolean updatePlayer(EPlayer myEPlayer) {
 		Connection connection = null;
 		try {
 			
@@ -226,12 +223,15 @@ public class EmpiresDAL {
 			
 			if (connection != null){
 			
-		        long timeNow = System.currentTimeMillis()/1000;
-		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?);");
+		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=? WHERE `UUID` = ? ;");
 		        stmnt.setString(1, myEPlayer.getUUID().toString());
 		        stmnt.setLong(2, myEPlayer.getFirstSeen());
 		        stmnt.setLong(3, myEPlayer.getLastSeen());
 		        stmnt.setString(4, myEPlayer.getName());
+		        
+		        stmnt.setLong(5, myEPlayer.getLastSeen());
+		        stmnt.setString(6, myEPlayer.getName());
+		        stmnt.setString(7, myEPlayer.getUUID().toString());
 
 				Integer returnsInteger = stmnt.executeUpdate();
 				if (returnsInteger == 1){

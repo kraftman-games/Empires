@@ -92,7 +92,7 @@ public class PlayerManager implements IManager {
 			long timeNow = System.currentTimeMillis()/1000;
 			myEPlayer.setFirstSeen(timeNow);
 			myEPlayer.setLastSeen(timeNow);
-			if (EmpiresDAL.createPlayer(myEPlayer) == true){
+			if (EmpiresDAL.updatePlayer(myEPlayer) == true){
 				players.put(myEPlayer.getUUID(), myEPlayer);
 			} else {
 				//do something
@@ -100,7 +100,7 @@ public class PlayerManager implements IManager {
 			
 		} else {
 			myEPlayer.setLastSeen(System.currentTimeMillis()/1000);
-			EmpiresDAL.savePlayer(myEPlayer);
+			EmpiresDAL.updatePlayer(myEPlayer);
 			players.put(myEPlayer.getUUID(), myEPlayer);
 			System.out.println(myPlayer.getName()+ " found in DB");
 		}
@@ -108,11 +108,12 @@ public class PlayerManager implements IManager {
 	}
 
 
+	
 
 	public void removePlayer(Player player) {
 		
 		EPlayer myEPlayer = getPlayer(player.getUniqueId());
-		EmpiresDAL.savePlayer(myEPlayer);
+		EmpiresDAL.updatePlayer(myEPlayer);
 		
 	}
 
