@@ -68,7 +68,7 @@ public class EmpiresDAL {
 		return myPlayers;
 	}
 
-	public EPlayer loadPlayer(Player myPlayer) {
+	public EPlayer loadPlayer(UUID myUUID) {
 		Connection connection = null;
 		try {
 			connection = connectionPool.getConnection(); 
@@ -76,14 +76,14 @@ public class EmpiresDAL {
 			if (connection != null){
 			
 		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Players` WHERE `UUID` = ?");
-		        stmnt.setString(1, myPlayer.getUniqueId().toString());
+		        stmnt.setString(1, myUUID.toString());
 		        
 				ResultSet results = stmnt.executeQuery();
-				 EPlayer myEPlayer = new EPlayer(myPlayer);
+				
 				 if (results.next()) {
+					 EPlayer myEPlayer = new EPlayer(myUUID, results.getString("Name"));
 					 myEPlayer.setFirstSeen(results.getLong("FirstSeen"));
 					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
-					 System.out.println(results.getLong("FirstSeen"));
 					 return myEPlayer;
 				}
 			}

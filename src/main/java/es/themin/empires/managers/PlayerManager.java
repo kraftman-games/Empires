@@ -85,7 +85,7 @@ public class PlayerManager implements IManager {
 		}
 
 		//otherwise try and get them from the db
-		EPlayer myEPlayer = EmpiresDAL.loadPlayer(myPlayer);
+		EPlayer myEPlayer = EmpiresDAL.loadPlayer(myPlayer.getUniqueId());
 		
 		//or create them if they dont exist
 		if (myEPlayer == null){

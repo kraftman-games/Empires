@@ -43,13 +43,15 @@ public class EPlayer {
 		return empire;
 	}
 	
-	public EPlayer() {
+	public EPlayer(UUID mUUID, String playerName) {
+		UUID = mUUID;
+		name = playerName;
+		this.empire = null;
 	}
 
 	public EPlayer(Player player) {
 		UUID = player.getUniqueId();
 		name = player.getName();
-		//this.player = player;
 		this.empire = null;
 	}
 
