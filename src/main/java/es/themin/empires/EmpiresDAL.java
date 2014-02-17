@@ -77,7 +77,6 @@ public class EmpiresDAL {
 			if (connection != null){
 			
 		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Players` WHERE `UUID` = ?");
-		        stmnt.setString(1, myPlayer.getUniqueId().toString());
 		        System.out.println(stmnt.toString());
 		        
 				ResultSet results = stmnt.executeQuery();
@@ -107,8 +106,35 @@ public class EmpiresDAL {
 	}
 
 	public void savePlayer(EPlayer myEPlayer) {
-		// TODO Auto-generated method stub
-		
+		Connection connection = null;
+		try {
+			
+			connection = connectionPool.getConnection(); // fetch a connection
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("UPDATE `Players` SET `LastSeen`=?,`Name`=? WHERE `UUID` = ?;");
+		        
+		        stmnt.setLong(1, myEPlayer.getLastSeen());
+		        stmnt.setString(2, myEPlayer.getName());
+		        stmnt.setString(3, myEPlayer.getUUID().toString());
+
+				Integer returnsInteger = stmnt.executeUpdate();
+				if (returnsInteger == 1){
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public ArrayList<Empire> loadEmpires() {

@@ -99,6 +99,8 @@ public class PlayerManager implements IManager {
 			}
 			
 		} else {
+			myEPlayer.setLastSeen(System.currentTimeMillis()/1000);
+			EmpiresDAL.savePlayer(myEPlayer);
 			players.put(myEPlayer.getUUID(), myEPlayer);
 			System.out.println(myPlayer.getName()+ " found in DB");
 		}
