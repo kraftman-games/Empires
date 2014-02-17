@@ -79,13 +79,11 @@ public class RankCommand extends EmpireSubCommand{
 						}
 						Rank rank = new Rank(weight, args[1], empire, args[1]);
 						empire.addRank(rank);
-						empire.Save();
 						player.sendMessage(plprefix + ChatColor.GREEN + "Rank '" + args[1] + "' with weight '" + weight + "' was succesfuly created");
 						return false;
 					}else if (args[2].equalsIgnoreCase("delete") || args[2].equalsIgnoreCase("del")) {
 						if (empire.hasRankWithNameAp(args[1])) {
 							empire.removeRank(empire.getRankWithName(args[1]));
-							empire.Save();
 							player.sendMessage(plprefix + ChatColor.GREEN + "Succesfuly removed rank '" +args[1] + "'");
 							return false;
 						}else {
@@ -104,7 +102,6 @@ public class RankCommand extends EmpireSubCommand{
 						}else {
 							if (empire.hasPlayer(args[3])) {
 								empire.setRankOfPlayer(args[3], rank);
-								empire.Save();
 								player.sendMessage(plprefix + ChatColor.GREEN + "'" + args[3] + "' now has rank of " + args[1]);
 								return false;
 							}else {
@@ -129,7 +126,6 @@ public class RankCommand extends EmpireSubCommand{
 							return false;
 						}
 						empire.removePlayerFromRank(args[3], rank);
-						empire.Save();
 						player.sendMessage(plprefix + ChatColor.GREEN + "'" + args[3] + "' no longer holds rank of "  + args[1]);
 						return false;
 					}else if (args[2].equalsIgnoreCase("set")) {
@@ -150,12 +146,10 @@ public class RankCommand extends EmpireSubCommand{
 								i++;
 								if (args[4].equalsIgnoreCase("true")) {
 									rank.addPermission(ep);
-									empire.Save();
 									player.sendMessage(plprefix + ChatColor.GREEN + "'"  + args[1] + " now have the permission '" + args[3] + "'");
 									return false;
 								}else if (args[4].equalsIgnoreCase("false")) {
 									rank.removePermissions(ep);
-									empire.Save();
 									player.sendMessage(plprefix + ChatColor.GREEN + args[1] + " now do not have the permission " + args[3]);
 									return false;
 								}else {

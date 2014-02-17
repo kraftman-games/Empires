@@ -35,11 +35,10 @@ public class newemp extends SubCommand{
 				player.sendMessage("You are already in an empire");
 			}
 			player.sendMessage("debug 3");
-			Empire empire = new Empire(Empires, args[1], myCorePlayer.getUUID());
+			Empire empire = new Empire(args[1], myCorePlayer.getUUID());
 			empire.addPlayer(myCorePlayer);
 			myCorePlayer.setEmpire(empire);
 			player.sendMessage("debug 4");
-			empire.Save();
 			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
 		} catch (Exception e) {
 			

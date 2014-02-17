@@ -135,7 +135,6 @@ public class War {
 	public void addEmpireToTeam1(Empire empire) {
 		empire1allies.add(empire);
 		if (onGoing) empire.addWar(this);
-		empire.Save();
 		empire1alliesjoin.put(empire, System.currentTimeMillis());
 		empire1alliespercentage.put(empire, (float) 100);
 		Save();
@@ -143,7 +142,6 @@ public class War {
 	public void addEmpireToTeam2(Empire empire) {
 		empire2allies.add(empire);
 		if (onGoing) empire.addWar(this);
-		empire.Save();
 		empire2alliesjoin.put(empire, System.currentTimeMillis());
 		empire2alliespercentage.put(empire, (float) 100);
 		Save();
@@ -151,13 +149,11 @@ public class War {
 	public void removeEmpireFromTeam1(Empire empire) {
 		empire2allies.add(empire);
 		if (empire.getWars().contains(this)) empire.removeWar(this);
-		empire.Save();
 		Save();
 	}
 	public void removeEmpireFromTeam2(Empire empire) {
 		empire2allies.remove(empire);
 		if (empire.getWars().contains(this)) empire.removeWar(this);
-		empire.Save();
 		Save();
 	}
 	public boolean hasBattleOnGoing() {

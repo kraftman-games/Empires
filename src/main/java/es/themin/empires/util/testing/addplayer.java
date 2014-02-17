@@ -44,7 +44,6 @@ public class addplayer extends SubCommand{
 		Empire empire = myCorePlayer.getEmpire();
 		empire.addPlayer(myTargetPlayer);
 		Players.addPlayer(myTargetPlayer);
-		empire.Save();
 		player.sendMessage(plprefix + ChatColor.GREEN + "Added " + target.getName() + " To your empire");
 		target.sendMessage(plprefix + ChatColor.GREEN + "You were added to " + empire.getID() + " by " + player.getName());
 		return false;

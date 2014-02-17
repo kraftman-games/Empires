@@ -46,7 +46,7 @@ public class Empire {
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
 	//private empires myPlugin;
-	private EmpireManager Empires;
+	//private EmpireManager Empires;
 	//private PlayerManager Players;
 	private FlagMatrix flagmatrix;
 	
@@ -60,10 +60,8 @@ public class Empire {
 
 	
 
-	public Empire(EmpireManager empires, String empireName, UUID myUUID){
+	public Empire(String empireName, UUID myUUID){
 		
-		Empires = empires;
-		this.ID = Empires.getUnusedEmpireID();
 		this.name = empireName;
 		this.owner = myUUID;
 		this.atWar = false;
@@ -73,7 +71,6 @@ public class Empire {
 		this.battlewins = 0;
 		this.wars = new ArrayList<War>();
 		this.setProtected(true);
-		Empires.addEmpire(this);
 		this.allies = new ArrayList<Empire>();
 		this.exallies = new HashMap<Empire, Long>();
 		this.exenemies = new HashMap<Empire, Long>();
@@ -96,7 +93,6 @@ public class Empire {
 	}
 	public void setOwner(UUID owner){
 		this.owner = owner;
-		Save();
 	}
 	public HashMap<UUID,EPlayer> getPlayers(){
 		return players;
@@ -145,14 +141,12 @@ public class Empire {
 	}
 	public void ac(Core c) {
 		cores.add(c);
-		Save();
 	}
 	public void addCore(Core c) {
 		c.setEmpire(this);
 	}
 	public void removeCore(Core c){
 		cores.remove(c);
-		Save();
 	}
 	public int numberOfCores(){
 		int i = cores.size();
@@ -163,13 +157,7 @@ public class Empire {
 		return i;
 	}
 	
-	public void Save(){
-		if (Empires.containsEmpireWithId(this.ID)) {
-			
-			Empires.removeEmpire(this);
-		}
-		Empires.addEmpire(this);
-	}
+	
 	public Core getCoreOfType(CoreType type) {
 		for (Core core : cores) {
 			if (core.getType() == type) {
@@ -191,11 +179,9 @@ public class Empire {
 	}
 	public void addRank(Rank rank) {
 		ranks.add(rank);
-		Save();
 	}
 	public void removeRank(Rank rank) {
 		ranks.remove(rank);
-		Save();
 	}
 	public boolean hasRankWithName(String name) {
 		for (Rank r : ranks) {
@@ -243,32 +229,7 @@ public class Empire {
 		}
 		rank.addPlayer(playername);
 	}
-	public int getRanking() {
-		int xp = 0;
-		int rank = 1;
-		int total = 1;
-		int pos = 1;
-		xp = this.numberOfPlayers() * 5;
-		for (Core core : cores) {
-			xp = xp + core.getLevel() * 2;
-		}
-		//xp = xp + this.numberOfAmplifiers() * 2;
-		for (Empire empire : Empires.getEmpires()) {
-			int xp2;
-			xp2 = empire.numberOfPlayers() * 5;
-			for (Core core : empire.getCores()) {
-				xp2 = xp2 + core.getLevel() * 2;
-			}
-			//xp2 = xp2 + empire.numberOfAmplifiers() * 2;
-			if (xp2 > xp) {
-				rank  = rank + pos;
-				pos = 1;
-			}if (xp2 == xp) {
-				pos ++;
-			}
-		}
-		return rank;
-	}
+
 	public int getExp() {
 		int xp = 0;
 		xp = this.numberOfPlayers() * 5;
@@ -290,7 +251,6 @@ public class Empire {
 				rank.removePlayer(p);
 			}
 		}
-		Save();
 	}
 
 
@@ -310,11 +270,9 @@ public class Empire {
 	}
 	public void setOwnerPrefix(String s) {
 		this.ownerprefix = s;
-		Save();
 	}
 	public void setDefaultPrefix(String s) {
 		this.defaultprefix = s;
-		Save();
 	}
 
 	public boolean canPlayerAttack(Empire playerEmpire) {
@@ -394,12 +352,10 @@ public class Empire {
 	public void addWar(War war) {
 		this.atWar = true;
 		this.wars.add(war);
-		Save();
 	}
 	public void removeWar(War war) {
 		this.wars.remove(war);
 		if (wars.isEmpty()) this.atWar = false;
-		Save();
 	}
 	public boolean isInABattle() {
 		if (isAtWar()) {
@@ -424,7 +380,6 @@ public class Empire {
 	}
 	public void addAlly(Empire empire) {
 		allies.add(empire);
-		Save();
 	}
 	public void removeAlly(Empire empire) {
 		allies.remove(empire);
@@ -496,14 +451,12 @@ public class Empire {
 	}
 	public void setLastBattleLoss(Long l) {
 		this.lastbattleloss = l;
-		Save();
 	}
 	public Long getLastBattleLoss() {
 		return lastbattleloss;
 	}
 	public void setLastBattleWin(Long l) {
 		this.lastbattlewin = l;
-		Save();
 	}
 	public Long getLastBattleWin() {
 		return lastbattlewin;
@@ -519,35 +472,28 @@ public class Empire {
 	}
 	public void addExAlly(Empire e) {
 		this.exallies.put(e, System.currentTimeMillis());
-		Save();
 	}
 	public void addExAlly(Empire e, Long l) {
 		this.exallies.put(e, l);
-		Save();
 	}public void removeExAlly(Empire e) {
 		if (exAlliesContains(e)) {
 			this.exallies.remove(e);
-			Save();
 		}
 	}
 	public void addWarLosses(int i) {
 		this.warlosses = warlosses + i;
-		Save();
 	}
 	public void addWarWins(int i) {
 		this.warwins = warwins + i;
-		Save();
 	}public boolean exEnemiesContains(Empire e) {
 		if (this.exenemies.containsKey(e)) return true;
 		return false;
 	}
 	public void addExEnemy(Empire e) {
 		this.exenemies.put(e, System.currentTimeMillis());
-		Save();
 	}
 	public void addExEnemy(Empire e, Long l) {
 		this.exenemies.put(e, l);
-		Save();
 	}
 	public Long getLastEnemyWith(Empire e) {
 		if (exEnemiesContains(e)) {
@@ -558,7 +504,6 @@ public class Empire {
 	public void removeExEnemy(Empire e) {
 		if (exEnemiesContains(e)) {
 			this.exenemies.remove(e);
-			Save();
 		}
 	}
 	public HashMap<Empire,Long> getAllianceRequests() {

@@ -60,46 +60,6 @@ public class EmpiresDAL {
                 //Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
         }
 	}
-	
-	public HashMap<UUID, EPlayer> loadPlayers(){
-		
-		HashMap<UUID, EPlayer> myPlayers = new HashMap<UUID, EPlayer>();
-		
-		Connection connection = null;
-		try {
-			connection = connectionPool.getConnection(); 
-			
-			if (connection != null){
-			
-		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Players` WHERE `UUID` = ?");
-		        stmnt.setString(1, myUUID.toString());
-		        
-				ResultSet results = stmnt.executeQuery();
-				
-				 if (results.next()) {
-					 EPlayer myEPlayer = new EPlayer(myUUID, results.getString("Name"));
-					 myEPlayer.setFirstSeen(results.getLong("FirstSeen"));
-					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
-					 return myEPlayer;
-				}
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return null;
-		
-		
-		return myPlayers;
-	}
 
 	public EPlayer loadPlayer(UUID myUUID) {
 		Connection connection = null;
@@ -168,8 +128,35 @@ public class EmpiresDAL {
 //	}
 
 	public ArrayList<Empire> loadEmpires() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Empire> myEmpires = new ArrayList<Empire>();
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection(); 
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Empires`");
+		        
+				ResultSet results = stmnt.executeQuery();
+				
+				 while (results.next()) {
+					 Empire myEmpire = new Empire(results.getString("Name"), UUID.fromString(results.getString("OwnerUUID")));
+					 myEmpires.add(myEmpire);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return myEmpires;
 	}
 
 	public void saveEmpires(ArrayList<Empire> empires){
