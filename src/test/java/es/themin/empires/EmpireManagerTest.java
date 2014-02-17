@@ -66,20 +66,7 @@ public class EmpireManagerTest {
 		
 	}
 	
-	@Test
-	public void SaveEmpiresToFileTest(){
-		
-        EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
-        
-        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
-        
-        File myFile = Mockito.mock(File.class);
-        
-        MyEmpireManager.save(myFile);
-		Mockito.verify(myempiresDAL).saveEmpires(empires, myFile);
-		
-	}
+	
 	
 	
 	@Test
@@ -100,22 +87,6 @@ public class EmpireManagerTest {
 		
 	}
 	
-	@Test
-	public void GetNextUnusedEmpireIDTest(){
-		
-        EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
-        
-        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
-        
-        Empire myEmpire = Mockito.mock(Empire.class);
-        
-        assertTrue(MyEmpireManager.getUnusedEmpireID() == 0);
-        MyEmpireManager.addEmpire(myEmpire);
-        assertTrue(MyEmpireManager.getUnusedEmpireID() == 1);
-        
-		
-	}
 	
 	@Test
 	public void RemoveEmpireTest(){
@@ -155,20 +126,20 @@ public class EmpireManagerTest {
         assertTrue(MyEmpireManager.getEmpireWithName(EmpireName) == myEmpire);
 	}
 	
-	@Test
-	public void GetEmpireByIDTest(){
-		
-        EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
-        
-        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
-        
-        Empire myEmpire = Mockito.mock(Empire.class);
-        
-        MyEmpireManager.addEmpire(myEmpire);
-        
-        assertTrue(MyEmpireManager.getEmpireWithID(0) == myEmpire);
-	}
+//	@Test
+//	public void GetEmpireByIDTest(){
+//		
+//        EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
+//        ArrayList<Empire> empires = new ArrayList<Empire>();
+//        
+//        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
+//        
+//        Empire myEmpire = Mockito.mock(Empire.class);
+//        
+//        MyEmpireManager.addEmpire(myEmpire);
+//        
+//        assertTrue(MyEmpireManager.getEmpireWithID(0) == myEmpire);
+//	}
 	
 	@Test
 	public void EmpireNameValidationTest(){

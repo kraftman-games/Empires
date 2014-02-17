@@ -20,7 +20,7 @@ public class Empire {
 //Important
 
 //For use in this class	
-	private int ID;
+	private UUID ID;
 	private String name;
 	private UUID owner;
 	private HashMap<UUID,EPlayer> players = new HashMap<UUID,EPlayer>();
@@ -45,10 +45,6 @@ public class Empire {
 	private Long lastbattlewin;
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
-	//private empires myPlugin;
-	//private EmpireManager Empires;
-	//private PlayerManager Players;
-	private FlagMatrix flagmatrix;
 	
 	public Empire getEnemyEmpire() {
 		return enemyEmpire;
@@ -62,6 +58,7 @@ public class Empire {
 
 	public Empire(String empireName, UUID myUUID){
 		
+		this.ID = UUID.randomUUID();
 		this.name = empireName;
 		this.owner = myUUID;
 		this.atWar = false;
@@ -82,7 +79,7 @@ public class Empire {
 	
 	
 	
-	public int getID(){
+	public UUID getID(){
 		return ID;
 	}
 	public String getName(){

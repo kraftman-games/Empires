@@ -2,6 +2,7 @@ package es.themin.empires.managers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.cores.Core;
@@ -32,7 +33,7 @@ public class EmpireManager implements IManager {
     }
     
     public void save(File myFile){
-    	myEmpiresDAL.saveEmpires(empires, myFile);
+    	myEmpiresDAL.saveEmpires(empires);
     }
 
     public  void reload() {
@@ -41,15 +42,6 @@ public class EmpireManager implements IManager {
 	
 	public void addEmpire(Empire empire) {
 		this.empires.add(empire);
-		
-	}
-		
-	public int getUnusedEmpireID(){
-		int i = 0;
-		while (getEmpireWithID(i) != null){
-			i++;
-		}
-		return i;
 		
 	}
 
@@ -71,13 +63,13 @@ public class EmpireManager implements IManager {
 		}
 		return false;
 	}
-	public Empire getEmpireWithID(int Id) {
+	public Empire getEmpirewithUUID(UUID Id) {
 		for (Empire empire : this.getEmpires()) {
 			if (empire.getID() == Id) return empire;
 		}
 		return null;
 	}
-	public boolean containsEmpireWithId(int Id) {
+	public boolean containsEmpireWithId(UUID Id) {
 		for (Empire empire : this.getEmpires()) {
 			if (empire.getID() == Id) return true;
 		}
@@ -118,6 +110,11 @@ public class EmpireManager implements IManager {
 //			}
 //		}
 		return rank;
+	}
+
+	public void saveEmpire(Empire myEmpire) {
+		myEmpiresDAL.saveEmpire(myEmpire);
+		
 	}
 }
 

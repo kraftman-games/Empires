@@ -159,75 +159,47 @@ public class EmpiresDAL {
 		return myEmpires;
 	}
 
-	public void saveEmpires(ArrayList<Empire> empires){
-		saveEmpires(empires, EmpireFile);
+	
+	public void saveEmpire(Empire myEmpire){
+		Connection connection = null;
+		try {
+			
+			connection = connectionPool.getConnection(); // fetch a connection
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Empires` (`UUID`,`OwnerUUID`,`Name`,`Created`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `OwnerUUID`=?,`Name`=? ;");
+		        stmnt.setString(1, myEmpire.getID().toString());
+		        stmnt.setString(2, myEmpire.getOwner().toString());
+		        stmnt.setString(3, myEmpire.getName());
+		        stmnt.setLong(4, System.currentTimeMillis()/1000);
+		        
+		        stmnt.setString(5, myEmpire.getOwner().toString());
+		        stmnt.setString(6, myEmpire.getName());
+
+				Integer returnsInteger = stmnt.executeUpdate();
+				if (returnsInteger == 1){
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
-	public void saveEmpires(ArrayList<Empire> empires, File myFile) {
-		
-		
-		YamlConfiguration empiredata = YamlConfiguration.loadConfiguration(myFile);
-		
-		List<String> list = new ArrayList<String>();
-		for (Empire empire : empires) {
-			StringBuilder str = new StringBuilder();
-			str.append(empire.getID() + ":");
-			str.append(empire.getName() + ":");
-			str.append(empire.getOwner());
-			list.add(str.toString());
-			empiredata.set(str.toString() + ".id", empire.getID());
-			empiredata.set(str.toString() + ".name", empire.getName());
-			List<String> playerList = new ArrayList<String>();
-			for (EPlayer player : empire.getPlayers().values()) {
-				//FixedMetadataValue playerEmpire = new FixedMetadataValue (myPlugin, this.getId());
-				playerList.add(player.getName());
-				
-			}
-			empiredata.set(str.toString() + ".players", playerList);
-			List<String> list3 = new ArrayList<String>();
-			for (Core core : empire.getCores()) {
-				StringBuilder str2 = new StringBuilder();
-				str2.append(core.getId() + ":");
-				str2.append(core.getType().toString() + ":");
-				str2.append(core.getLocation().getWorld().getName() + ":");
-				str2.append(core.getLocation().getBlockX() + ":");
-				str2.append(core.getLocation().getBlockY() + ":");
-				str2.append(core.getLocation().getBlockZ() + ":");
-				str2.append(core.getLevel() + ":");
-				str2.append(core.getEmpire().getID() + ":");
-				str2.append(core.getEmpire().getName());
-				list3.add(str2.toString());
-			}
-			empiredata.set(str.toString() + ".cores", list3);
-			List<String> list4 = new ArrayList<String>();
-			for (Rank rank : empire.getRanks()) {
-				StringBuilder str3 = new StringBuilder();
-				str3.append(rank.getWeight() + ":");
-				str3.append(rank.getName() + ":");
-				str3.append(rank.getPreifx());
-				list4.add(str3.toString());
-				List<String> list5 = new ArrayList<String>();
-				for (String p : rank.getPlayers()) {
-					list5.add(p);
-				}
-				empiredata.set(str.toString() + ".rank." + str3.toString() + ".players", list5);
-				List<String> list6 = new ArrayList<String>();
-				for (EmpirePermission ep : rank.getPermissions()) {
-					list6.add(ep.toString());
-				}
-				empiredata.set(str.toString() + ".rank." + str3.toString() + ".permissions", list6);
-			}
-			empiredata.set(str.toString() + ".ranks", list4);
-		}
-		empiredata.set("empires", list);
-		
-		try {
-            empiredata.save(myFile);
-	    }
-	    catch (IOException e) {
-	            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save empiredata.yml!");
-		    }
-		
+	public void saveEmpires(ArrayList<Empire> myEmpires){
+		//for now just do them individually, later it will be better to build a statement
+		for(Empire myEmpire : myEmpires){
+			saveEmpire(myEmpire);
+		}		
 	}
 
 	public void removeEmpire(Empire empire) {

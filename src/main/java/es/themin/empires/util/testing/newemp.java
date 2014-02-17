@@ -40,6 +40,7 @@ public class newemp extends SubCommand{
 			myCorePlayer.setEmpire(empire);
 			player.sendMessage("debug 4");
 			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
+			Empires.saveEmpire(empire);
 		} catch (Exception e) {
 			
 		}

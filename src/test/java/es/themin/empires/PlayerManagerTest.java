@@ -48,8 +48,10 @@ public class PlayerManagerTest {
 	}
 	
 	private Empire GetFakeEmpire(){
+		
+		UUID myUuid = UUID.randomUUID();
 		Empire myEmpire = PowerMockito.mock(Empire.class);
-		PowerMockito.when(myEmpire.getID()).thenReturn(1);
+		PowerMockito.when(myEmpire.getID()).thenReturn(myUuid);
 		return myEmpire;
 	}
 	
