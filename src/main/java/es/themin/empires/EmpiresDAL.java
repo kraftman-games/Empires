@@ -231,7 +231,6 @@ public class EmpiresDAL {
 		        
 		        stmnt.setLong(5, myEPlayer.getLastSeen());
 		        stmnt.setString(6, myEPlayer.getName());
-		        stmnt.setString(7, myEPlayer.getUUID().toString());
 
 				Integer returnsInteger = stmnt.executeUpdate();
 				if (returnsInteger == 1){
