@@ -223,7 +223,7 @@ public class EmpiresDAL {
 			
 			if (connection != null){
 			
-		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=? WHERE `UUID` = ? ;");
+		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?) WHERE `UUID` = ? ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=?  ;");
 		        stmnt.setString(1, myEPlayer.getUUID().toString());
 		        stmnt.setLong(2, myEPlayer.getFirstSeen());
 		        stmnt.setLong(3, myEPlayer.getLastSeen());
