@@ -90,29 +90,11 @@ public final class empires extends JavaPlugin {
     public void onEnable(){
         plugin = this;
         
-        BoneCPConfig config = new BoneCPConfig();
-		config.setJdbcUrl("jdbc:mysql://192.168.5.60/empirestest"); // jdbc url specific to your database, eg jdbc:mysql://127.0.0.1/yourdb
-		config.setUsername("empires"); 
-		config.setPassword("senimeth345");
-		config.setMinConnectionsPerPartition(5);
-		config.setMaxConnectionsPerPartition(10);
-		config.setPartitionCount(1);
-		config.setDefaultAutoCommit(true);
-		
-		try{
-			connectionPool = new BoneCP(config); 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-        
+        loadMySQL();
         
         ManagerFactory = new ManagerFactory(this, connectionPool);
         
-         Empires = ManagerFactory.CreateEmpireManager();
-    	 Cores = ManagerFactory.CreateCoreManager(this); 
-    	 Worlds = ManagerFactory.CreateWorldManager(this);
-    	 Wars = ManagerFactory.CreateWarManager(this);
-    	 Players = ManagerFactory.CreatePlayerManager();
+        createManagers();
     	 
     	ManagerFactory.loadManagers();
         
@@ -126,11 +108,9 @@ public final class empires extends JavaPlugin {
 		MsgManager.setPrefix(plprefix);
 		
 		loadCommands();
-		Players.load();
 		scheduleBackUps();
 		registerEvents();
 		loadSchematics();
-		
 		
     }
 	
@@ -151,6 +131,14 @@ public final class empires extends JavaPlugin {
 		}
     }
     
+    private void createManagers(){
+    	Empires = ManagerFactory.CreateEmpireManager();
+	   	 Cores = ManagerFactory.CreateCoreManager(this); 
+	   	 Worlds = ManagerFactory.CreateWorldManager(this);
+	   	 Wars = ManagerFactory.CreateWarManager(this);
+	   	 Players = ManagerFactory.CreatePlayerManager();
+    }
+    
     public void registerEvents(){
     	PluginManager pm = this.getServer().getPluginManager();
     	pm.registerEvents(new Event_BlockPlace(this), this);
@@ -160,6 +148,23 @@ public final class empires extends JavaPlugin {
 		pm.registerEvents(new ChatListener(this), this);
 		pm.registerEvents(new WorldListener(this), this);
     	
+    }
+    
+    private void loadMySQL(){
+    	BoneCPConfig config = new BoneCPConfig();
+		config.setJdbcUrl("jdbc:mysql://192.168.5.60/empirestest"); // jdbc url specific to your database, eg jdbc:mysql://127.0.0.1/yourdb
+		config.setUsername("empires"); 
+		config.setPassword("senimeth345");
+		config.setMinConnectionsPerPartition(5);
+		config.setMaxConnectionsPerPartition(10);
+		config.setPartitionCount(1);
+		config.setDefaultAutoCommit(true);
+		
+		try{
+			connectionPool = new BoneCP(config); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
     
     public void loadCommands() {

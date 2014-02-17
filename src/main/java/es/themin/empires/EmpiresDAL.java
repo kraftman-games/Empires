@@ -65,6 +65,39 @@ public class EmpiresDAL {
 		
 		HashMap<UUID, EPlayer> myPlayers = new HashMap<UUID, EPlayer>();
 		
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection(); 
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Players` WHERE `UUID` = ?");
+		        stmnt.setString(1, myUUID.toString());
+		        
+				ResultSet results = stmnt.executeQuery();
+				
+				 if (results.next()) {
+					 EPlayer myEPlayer = new EPlayer(myUUID, results.getString("Name"));
+					 myEPlayer.setFirstSeen(results.getLong("FirstSeen"));
+					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
+					 return myEPlayer;
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+		
+		
 		return myPlayers;
 	}
 

@@ -11,10 +11,13 @@ import org.bukkit.entity.Player;
 
 
 
+import org.bukkit.event.player.PlayerShearEntityEvent;
+
 import com.jolbox.bonecp.BoneCP;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
+import es.themin.empires.util.testing.newemp;
 
 public class PlayerManager implements IManager {
 
@@ -37,11 +40,14 @@ public class PlayerManager implements IManager {
     }
     
     public void load(){
-    	players = EmpiresDAL.loadPlayers();
+    	for (Player myPlayer : Bukkit.getOnlinePlayers()){
+    		loadPlayer(myPlayer);
+    	}
     }
 
     public  void reload() {
-    	players = EmpiresDAL.loadPlayers();
+    	players = new HashMap<UUID, EPlayer>();
+    	this.load();
     }
 
 	
@@ -89,7 +95,6 @@ public class PlayerManager implements IManager {
 		
 		//or create them if they dont exist
 		if (myEPlayer == null){
-			System.out.println(myPlayer.getName()+ " created in db");
 			myEPlayer = new EPlayer(myPlayer);
 			long timeNow = System.currentTimeMillis()/1000;
 			myEPlayer.setFirstSeen(timeNow);
@@ -104,7 +109,6 @@ public class PlayerManager implements IManager {
 			myEPlayer.setLastSeen(System.currentTimeMillis()/1000);
 			EmpiresDAL.updatePlayer(myEPlayer);
 			players.put(myEPlayer.getUUID(), myEPlayer);
-			System.out.println(myPlayer.getName()+ " found in DB");
 		}
 		return myEPlayer;
 	}
@@ -115,6 +119,7 @@ public class PlayerManager implements IManager {
 	public void removePlayer(Player player) {
 		
 		EPlayer myEPlayer = getPlayer(player.getUniqueId());
+		players.remove(player.getUniqueId());
 		EmpiresDAL.updatePlayer(myEPlayer);
 		
 	}

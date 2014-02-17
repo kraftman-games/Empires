@@ -61,15 +61,6 @@ public class PlayerListener implements Listener{
 		
 		Players.removePlayer(player);
 		
-//		EPlayer myPlayer = Players.getPlayer(player.getUniqueId());
-//		
-//		if (myPlayer != null) {
-//			//Players.getPlayerData().set(player.getName() + ".empire", myPlayer.getEmpire());
-//			//Players.save();
-//		}else {
-//			//Players.getPlayerData().set(player.getName(), null);
-//			//Players.save();
-//		}
 	}
 		
 	@EventHandler
