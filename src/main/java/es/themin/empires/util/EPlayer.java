@@ -2,6 +2,7 @@ package es.themin.empires.util;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -10,7 +11,7 @@ public class EPlayer {
 	private UUID UUID;
 	private Empire empire;
 	private String name;
-	private Player player;
+	//private Player player;
 	private long firstSeen;
 	private long lastSeen;
 
@@ -48,7 +49,7 @@ public class EPlayer {
 	public EPlayer(Player player) {
 		UUID = player.getUniqueId();
 		name = player.getName();
-		this.player = player;
+		//this.player = player;
 		this.empire = null;
 	}
 
@@ -71,12 +72,23 @@ public class EPlayer {
 	}
 	
 	public Location getLocation(){
-		return this.player.getLocation();
+		for(Player p : Bukkit.getServer().getOnlinePlayers()){
+            if(p.getUniqueId().equals(this.getUUID())){
+                return p.getLocation();
+            }
+        }
+            return null;
 	}
-
+//
 	public Player getPlayer() {
-		return this.player;
+		for(Player p : Bukkit.getServer().getOnlinePlayers()){
+            if(p.getUniqueId().equals(this.getUUID())){
+                return p;
+            }
+        }
+            return null;
 	}
+	
 	
 //	public boolean canPlayerAttack(Player myPlayer) {
 //		Empire playerEmpire = Players.getPlayer(myPlayer.getUniqueId()).getEmpire();
