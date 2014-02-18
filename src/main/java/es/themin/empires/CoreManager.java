@@ -1,6 +1,7 @@
 package es.themin.empires;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
@@ -13,7 +14,7 @@ import es.themin.empires.util.Empire;
 public class CoreManager {
 
 	private empires myPlugin;
-	private ArrayList<Core> cores = new ArrayList<Core>();
+	private HashMap<UUID,Core> cores = new HashMap<UUID,Core>();
 	
 	
 	
@@ -21,47 +22,27 @@ public class CoreManager {
 		myPlugin = plugin;
 	}
 
-	public ArrayList<Core> getCores() {
+	public HashMap<UUID,Core> getCores() {
 		return cores;
 	}
 	
-	public  Core getCoreWithId(int Id) {
-
-		for (Core core : this.cores) {
-			if (core.getId() == Id) return core;
-		}
-		return null;
+	public  Core getCoreWithId(UUID ID) {
+		return cores.get(ID);
 	}
 	public  Core getCoreWithLocation(Location l) {
-		for (Core core : this.cores) {
+		for (Core core : cores.values()) {
 			if (core.getLocation() == l) return core;
 		}
 		return null;
 	}
-	public  boolean containsCoreWithId(int Id) {
-		for (Core core : this.cores) {
-			if (core.getId() == Id) return true;
-		}
-		return false;
-	}
-	public  int nextUnusedCoreId(){
-		int i = 0;
-		while (getCoreWithId(i) != null){
-			i++;
-		}
-		return i;
+	public  boolean containsCoreWithID(UUID ID) {
+		return cores.get(ID) != null ? true : false;
 	}
 	
-	public boolean hasCore(Core c){
-		if (cores.contains(c)) return true;
-		else return false;
-	}
-	public void ac(Core c) {
-		cores.add(c);
-	}
+	
 	
 	public void addCore(Core c) {
-		this.cores.add(c);
+		this.cores.put(c.getUUID(), c);
 		//myempiresDAL save
 	}
 	
@@ -84,7 +65,7 @@ public class CoreManager {
 	}	
 	
 	public Core getCoreOfType(CoreType type) {
-		for (Core core : cores) {
+		for (Core core : cores.values()) {
 			if (core.getType() == type) {
 				return core;
 			}
@@ -92,7 +73,7 @@ public class CoreManager {
 		return null;
 	}
 	public boolean hasCoreOfType(CoreType type) {
-		for (Core core : cores) {
+		for (Core core : cores.values()) {
 			if (core.getType() == type) {
 				return true;
 			}

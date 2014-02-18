@@ -132,7 +132,7 @@ public class PlayerListener implements Listener{
 		Empire eventPlayerEmpire = myCorePlayer.getEmpire();
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
 		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
-		HashMap<Integer, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
+		HashMap<UUID, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
 		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
 		
 		Core selectedCore = null;

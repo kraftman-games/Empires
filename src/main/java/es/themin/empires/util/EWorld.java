@@ -11,23 +11,23 @@ import es.themin.empires.cores.Core;
 
 public class EWorld {
 	
-	private HashMap<Integer, Core> Cores;
-	private Map<Point, HashMap<Integer, Core>> CoreGrid;
+	private HashMap<UUID, Core> Cores;
+	private Map<Point, HashMap<UUID, Core>> CoreGrid;
 	private Integer GridSize = 400;
 	
 	
 	//TODO: IMPORTANT. check if the core its overlapping is itself
 
 	public EWorld() {
-		CoreGrid = new HashMap<Point, HashMap<Integer, Core>>();
-		Cores = new HashMap<Integer, Core>();
+		CoreGrid = new HashMap<Point, HashMap<UUID, Core>>();
+		Cores = new HashMap<UUID, Core>();
 	}
 
 	public Integer getGridSize() {
 		return GridSize;
 	}
 
-	public HashMap<Integer, Core> getCores() {
+	public HashMap<UUID, Core> getCores() {
 		return Cores;
 	}
 
@@ -58,11 +58,11 @@ public class EWorld {
 				Point gridPoint = new Point((int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
 				//only add the core if its not listed already
 				if (CoreGrid.get(gridPoint) == null) {
-					CoreGrid.put(gridPoint, new HashMap<Integer,Core>());
+					CoreGrid.put(gridPoint, new HashMap<UUID,Core>());
 				}
 				
 				if (!CoreGrid.get(gridPoint).containsKey((myCore.getId()))){
-					CoreGrid.get(gridPoint).put(myCore.getId(), myCore);
+					CoreGrid.get(gridPoint).put(myCore.getUUID(), myCore);
 				}
 			}
 		}
@@ -86,7 +86,7 @@ public class EWorld {
 		}
 	}
 
-	public HashMap<Integer, Core> getCoresInGrid(int x, int z){
+	public HashMap<UUID, Core> getCoresInGrid(int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));	
 		return CoreGrid.get(gridPoint);
 	}
@@ -100,10 +100,10 @@ public class EWorld {
 	}
 
 	
-	public HashMap<Integer, Core> getEnemyCoresInGrid(UUID myEmpireUUID, int x, int z){
+	public HashMap<UUID, Core> getEnemyCoresInGrid(UUID myEmpireUUID, int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		HashMap<Integer, Core> allCores = CoreGrid.get(gridPoint);
-		HashMap<Integer, Core> enemyCores = new HashMap<Integer, Core>();
+		HashMap<UUID, Core> allCores = CoreGrid.get(gridPoint);
+		HashMap<UUID, Core> enemyCores = new HashMap<UUID, Core>();
 		
 		if (allCores == null){
 			return null;
@@ -111,7 +111,7 @@ public class EWorld {
 		
 		for (Core myCore : allCores.values()){
 			if (myCore.getEmpireUUID() != myEmpireUUID){
-				enemyCores.put(myCore.getId(), myCore);
+				enemyCores.put(myCore.getUUID(), myCore);
 			}
 		}
 		if (enemyCores.values().size() == 0){
@@ -121,10 +121,10 @@ public class EWorld {
 		return enemyCores;
 	}
 	
-	public HashMap<Integer, Core> getFriendlyCoresInGrid(UUID myEmpireUUID, int x, int z){
+	public HashMap<UUID, Core> getFriendlyCoresInGrid(UUID myEmpireUUID, int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		HashMap<Integer, Core> allCores = CoreGrid.get(gridPoint);
-		HashMap<Integer, Core> friendlyCores = new HashMap<Integer, Core>();
+		HashMap<UUID, Core> allCores = CoreGrid.get(gridPoint);
+		HashMap<UUID, Core> friendlyCores = new HashMap<UUID, Core>();
 		
 		if (allCores == null){
 			return null;
@@ -132,13 +132,13 @@ public class EWorld {
 		
 		for (Core myCore : allCores.values()){
 			if (myCore.getEmpireUUID() == myEmpireUUID){
-				friendlyCores.put(myCore.getId(), myCore);
+				friendlyCores.put(myCore.getUUID(), myCore);
 			}
 		}
 		return CoreGrid.get(gridPoint);
 	}
 	
-	public HashMap<Integer, Core> getFriendlyCoresInGrid(UUID myEmpireUUID, Point myPoint){
+	public HashMap<UUID, Core> getFriendlyCoresInGrid(UUID myEmpireUUID, Point myPoint){
 		return getFriendlyCoresInGrid(myEmpireUUID, myPoint.x, myPoint.y);
 	}
 	
@@ -148,7 +148,7 @@ public class EWorld {
 		
 		for (int i = -range;i <= range; i+=(range/2)){
 			for (int j = -range;j <= range; j+=(range/2)){
-				HashMap<Integer, Core> myCores = this.getEnemyCoresInGrid(myCore.getEmpireUUID(),i, j);
+				HashMap<UUID, Core> myCores = this.getEnemyCoresInGrid(myCore.getEmpireUUID(),i, j);
 				if (myCores != null ){
 					return true;
 				}
@@ -168,7 +168,7 @@ public class EWorld {
 		
 		for (int i = c1x1;i <= c1x2; i +=areaSize){
 			for (int j = c1z1;j <= c1z2; j += areaSize){
-				HashMap<Integer, Core> coreList = getFriendlyCoresInGrid(myCore.getEmpireUUID(),(int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
+				HashMap<UUID, Core> coreList = getFriendlyCoresInGrid(myCore.getEmpireUUID(),(int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
 				if (coreList == null){
 					return false;
 				}
@@ -240,7 +240,7 @@ public class EWorld {
 		int x = (int) myPoint.getX();
 		int z = (int) myPoint.getY();
 		
-		HashMap<Integer, Core> myEmpireCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), x, z);
+		HashMap<UUID, Core> myEmpireCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), x, z);
 		if (myEmpireCores == null ){
 			return false;
 		}
@@ -262,7 +262,7 @@ public class EWorld {
 		return false;
 	}
 
-	public HashMap<Integer, Core> getFriendlyCoresInGrid(UUID empireUUID,	Location location) {
+	public HashMap<UUID, Core> getFriendlyCoresInGrid(UUID empireUUID,	Location location) {
 		return getFriendlyCoresInGrid(empireUUID, location.getBlockX(), location.getBlockZ());
 	}
 	

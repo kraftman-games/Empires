@@ -85,7 +85,6 @@ public class CoreUtils {
 		}
 		
 		//we're good to go. Give the core an id and add it to the empire
-		myCore.setId(Cores.nextUnusedCoreId());
 		myCore.setEmpireUUID(myEmpire.getUUID());
 		Cores.addCore(myCore);
 		
@@ -137,7 +136,7 @@ public class CoreUtils {
 	}
 	
 	public static boolean coresOverlap(EWorld myCoreWorld, Core myCore){
-		HashMap<Integer, Core> myCores = myCoreWorld.getFriendlyCoresInGrid(myCore.getEmpireUUID(), myCore.getLocation());
+		HashMap<UUID, Core> myCores = myCoreWorld.getFriendlyCoresInGrid(myCore.getEmpireUUID(), myCore.getLocation());
 		
 		if (myCores == null){
 			return false;

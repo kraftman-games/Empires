@@ -33,7 +33,7 @@ public class Core {
 	* 
 	*/
 	
-	private int Id;
+	private UUID ID;
 	private CoreType coreType;
 	private Location location;
 	private int level;
@@ -76,14 +76,13 @@ public class Core {
 		this.areaSize = areaSize;
 	}
 
-	public Core(empires plugin,int Id, CoreType type, Location location, int level, UUID empireID) {
+	public Core(CoreType type, Location location, UUID empireID) {
 		
 		this.coreSize = 8;
+		
 		this.empireUUID = empireID;
-		this.Id = Id;
 		this.coreType = type;
 		this.location = location;
-		this.level = level;
 		this.setSchematic(CoreSchematic.getSchematic(type));
 		this.setDestroyCost(CoreSchematic.getDestroyCost(type));
 		this.setPlaceType(CoreSchematic.getPlaceType(type));
@@ -118,8 +117,8 @@ public class Core {
 
 	
 
-	public void setId(int id) {
-		Id = id;
+	public void setId(UUID id) {
+		ID = id;
 	}
 
 	public ArrayList<CoreBlock> getSchematic() {
@@ -132,9 +131,9 @@ public class Core {
 
 	
 	
-	public int getId(){
+	public UUID getId(){
 		
-		return Id;
+		return ID;
 	}
 	public CoreType getType(){
 		return coreType;
@@ -310,6 +309,10 @@ public class Core {
 			if (this.coreType == schem.coreType()) return schem;
 		}
 		return null;
+	}
+
+	public UUID getUUID() {
+		return this.ID;
 	}
 }
 
