@@ -9,17 +9,18 @@ import org.bukkit.Location;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.managers.IManager;
 import es.themin.empires.util.Empire;
 
-public class CoreManager {
+public class CoreManager implements IManager{
 
-	private empires myPlugin;
 	private HashMap<UUID,Core> cores = new HashMap<UUID,Core>();
+	private EmpiresDAL empiresDAL = null;
 	
 	
-	
-	public CoreManager(empires plugin) {
-		myPlugin = plugin;
+	public CoreManager(EmpiresDAL myEmpiresDAL, HashMap<UUID, Core> myCores) {
+		empiresDAL = myEmpiresDAL;
+		cores = myCores;
 	}
 
 	public HashMap<UUID,Core> getCores() {
@@ -144,6 +145,24 @@ public class CoreManager {
 	public ChatColor numberOfCores(Empire empire) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reload() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

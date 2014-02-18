@@ -12,18 +12,19 @@ import com.jolbox.bonecp.BoneCPConfig;
 import es.themin.empires.CoreManager;
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
+import es.themin.empires.cores.Core;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.testing.newemp;
 
 public class ManagerFactory {
 
 	
 	private empires myPlugin;
 	private ArrayList<IManager> Managers;
-	private BoneCP connectionPool;
 	File playerFile = null;
     File empireFile = null;
-    EmpiresDAL myempiresDAL = null;
+    EmpiresDAL myEmpiresDAL = null;
 	
 	public ManagerFactory(empires plugin,BoneCP connectionPool) {
 		myPlugin = plugin;
@@ -37,11 +38,10 @@ public class ManagerFactory {
 		config.setMaxConnectionsPerPartition(10);
 		config.setPartitionCount(1);
 		config.setDefaultAutoCommit(true);
-		this.connectionPool = connectionPool;
 		
 		 playerFile = createFile("Players.yml");
          empireFile = createFile("Empires.yml");
-         myempiresDAL = new EmpiresDAL(playerFile, empireFile, connectionPool);
+         myEmpiresDAL = new EmpiresDAL(playerFile, empireFile, connectionPool);
 	}
 
 
@@ -68,7 +68,7 @@ public class ManagerFactory {
         
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
-        PlayerManager myPlayerManager = new PlayerManager(myempiresDAL, players);
+        PlayerManager myPlayerManager = new PlayerManager(myEmpiresDAL, players);
         Managers.add(myPlayerManager);
         
 	    return myPlayerManager;
@@ -79,7 +79,7 @@ public class ManagerFactory {
 		        
 		HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
 		
-        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
+        EmpireManager MyEmpireManager = new EmpireManager(myEmpiresDAL, empires);
         Managers.add(MyEmpireManager);
 		return MyEmpireManager;
 	}
@@ -104,7 +104,12 @@ public class ManagerFactory {
 
 
 	public CoreManager CreateCoreManager(empires empires) {
-		return new CoreManager(empires);
+		
+		HashMap<UUID, Core> cores = new HashMap<UUID,Core>();
+		
+		CoreManager myCoreManager = new  CoreManager(myEmpiresDAL, cores);
+		Managers.add(myCoreManager);
+		return myCoreManager;
 	}
 
 
