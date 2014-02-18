@@ -37,7 +37,7 @@ public class Core {
 	private Integer coreSize;
 	private Integer areaSize;
 	private int level;
-	private Empire empire;
+	private UUID empireUUID;
 	private ArrayList<CoreBlock> schematic;
 	private PlaceType placeType;
 	private int destroyCost;
@@ -74,13 +74,13 @@ public class Core {
 		this.areaSize = areaSize;
 	}
 
-	public Core(empires plugin,int Id, CoreType type, Location location, int level, Empire empire) {
+	public Core(empires plugin,int Id, CoreType type, Location location, int level, UUID empireID) {
 		this.myPlugin = plugin;
 		//this.Empires = plugin.Empires;
 		this.Worlds = plugin.Worlds;
 		this.Cores = plugin.Cores;
 		this.coreSize = 8;
-		this.empire = empire;
+		this.empireUUID = empireID;
 		this.Id = Id;
 		this.coreType = type;
 		this.location = location;
@@ -100,7 +100,7 @@ public class Core {
 		
 		
 		this.coreSize = 8;
-		this.empire = myCorePlayer.getEmpire();
+		this.empireUUID = myCorePlayer.getEmpire().getUUID();
 		this.coreType = myCoreType;
 		this.location = myCorePlayer.getLocation();
 		this.level = 1;
@@ -155,15 +155,12 @@ public class Core {
 	public void setLevel(int level){
 		this.level = level;
 	}
-	public Empire getEmpire(){
-		return empire;
+	public UUID getEmpireUUID(){
+		return this.empireUUID;
 	}
-	public void setEmpire(Empire e){
-		Empire e2 = this.empire;
-		e2.removeCore(this);
-		this.empire = e;
-		e.ac(this);
-		Save();
+
+	public void setEmpireUUID(UUID e){
+		this.empireUUID = e;
 	}
 	public Location[] getFlagSlots() {
 		CoreType type = getType();
@@ -233,15 +230,7 @@ public class Core {
 		}
 		Cores.getCores().add(this);
 	}
-	public void Delete() {
-		this.destroy();
-		this.getEmpire().removeCore(this);
-		if (Cores.containsCoreWithId(this.Id)) {
-			int i = Cores.getCores().indexOf(this);
-			Cores.getCores().remove(i);
-		}
-		
-	}
+
 	
 	public void destroy(){
 		Location myLocation = this.getLocation();
@@ -262,33 +251,33 @@ public class Core {
 	}
 
 
-	public void playerInteract(PlayerInteractEvent event, EPlayer myCorePlayer) {
-		Player player = event.getPlayer();
-		//EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
-		
-		if (myCorePlayer == null )
-			return;
-		
-		if (this.getType() == CoreType.GRIEF){
-			// treat it normally for residents
-			// allow insta break for enemies if not a protection block
-		} else {
-			
-			if (this.getEmpire() == myCorePlayer.getEmpire()){
-				if (PlayerUtils.deductShards(player, this.getDestroyCost())){
-					this.Delete();
-					event.setCancelled(true);
-					Bukkit.broadcastMessage("deleted core block of type: " + this.getType());
-				} else {
-					player.sendMessage("You cannot afford to remove this core");
-				} 
-			}else {
-				Bukkit.broadcastMessage("cannot delete core block of type: " + this.getType());
-				event.setCancelled(true);
-			} 
-		}
-		
-	}
+//	public void playerInteract(PlayerInteractEvent event, EPlayer myCorePlayer) {
+//		Player player = event.getPlayer();
+//		//EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+//		
+//		if (myCorePlayer == null )
+//			return;
+//		
+//		if (this.getType() == CoreType.GRIEF){
+//			// treat it normally for residents
+//			// allow insta break for enemies if not a protection block
+//		} else {
+//			
+//			if (this.getEmpire() == myCorePlayer.getEmpire()){
+//				if (PlayerUtils.deductShards(player, this.getDestroyCost())){
+//					this.Delete();
+//					event.setCancelled(true);
+//					Bukkit.broadcastMessage("deleted core block of type: " + this.getType());
+//				} else {
+//					player.sendMessage("You cannot afford to remove this core");
+//				} 
+//			}else {
+//				Bukkit.broadcastMessage("cannot delete core block of type: " + this.getType());
+//				event.setCancelled(true);
+//			} 
+//		}
+//		
+//	}
 
 	public int getDestroyCost() {
 		return destroyCost;

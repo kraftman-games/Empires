@@ -9,6 +9,7 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
+import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.EmpireManager;
@@ -22,12 +23,14 @@ public class Stats extends EmpireSubCommand{
 	private EmpireManager Empires;
 	public String plprefix;
 	private  PlayerManager Players;
+	private CoreManager Cores;
 	
 	public Stats(empires plugin) {
 		myPlugin = plugin;
 		Empires = plugin.Empires;
 		plprefix = plugin.plprefix;
 		Players = plugin.Players;
+		Cores = plugin.Cores;
 	}
 
 	@Override
@@ -43,11 +46,11 @@ public class Stats extends EmpireSubCommand{
 			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 			obj.setDisplayName(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + "Empire Stats" + ChatColor.GOLD + "====");
 			Score Exp = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
-			Exp.setScore(empire.getExp());
+			Exp.setScore(empire.getXP());
 			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + Empires.getEmpires().size() +" : "));
 			ranking.setScore(Empires.getRank(empire));
 			Score cores = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Cores: "));
-			cores.setScore(empire.numberOfCores());
+			cores.setScore(Cores.getCoreCount(empire));
 			Score players = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Players: "));
 			players.setScore(empire.numberOfPlayers());
 			

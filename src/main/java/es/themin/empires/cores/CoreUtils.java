@@ -86,7 +86,8 @@ public class CoreUtils {
 		
 		//we're good to go. Give the core an id and add it to the empire
 		myCore.setId(Cores.nextUnusedCoreId());
-		myEmpire.addCore(myCore);
+		myCore.setEmpireUUID(myEmpire.getUUID());
+		Cores.addCore(myCore);
 		
 		UUID myUUID = myCore.getLocation().getWorld().getUID();
 		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
@@ -136,7 +137,7 @@ public class CoreUtils {
 	}
 	
 	public static boolean coresOverlap(EWorld myCoreWorld, Core myCore){
-		HashMap<Integer, Core> myCores = myCoreWorld.getFriendlyCoresInGrid(myCore.getEmpire(), myCore.getLocation());
+		HashMap<Integer, Core> myCores = myCoreWorld.getFriendlyCoresInGrid(myCore.getEmpireUUID(), myCore.getLocation());
 		
 		if (myCores == null){
 			return false;
@@ -150,11 +151,11 @@ public class CoreUtils {
 		
 		for(Core friendlyCore : myCores.values()){
 			
-			int coreSize2 = myCore.getCoreSize();
-			int c2x1 = myCore.getLocation().getBlockX()-coreSize2;
-			int c2x2 = myCore.getLocation().getBlockX()+coreSize2;
-			int c2z1 = myCore.getLocation().getBlockZ()-coreSize2;
-			int c2z2 = myCore.getLocation().getBlockZ()+coreSize2;
+			int coreSize2 = friendlyCore.getCoreSize();
+			int c2x1 = friendlyCore.getLocation().getBlockX()-coreSize2;
+			int c2x2 = friendlyCore.getLocation().getBlockX()+coreSize2;
+			int c2z1 = friendlyCore.getLocation().getBlockZ()-coreSize2;
+			int c2z2 = friendlyCore.getLocation().getBlockZ()+coreSize2;
 			
 			if(!(c1x2 < c2x1 || c1x1 > c2x2 || c1z2 < c2z1 || c1z1 > c2z2)){
 				return true;

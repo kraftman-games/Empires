@@ -8,23 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 
-import es.themin.empires.cores.Core;
-import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.Rank;
-import es.themin.empires.util.testing.newemp;
 
 public class EmpiresDAL {
 
@@ -48,7 +39,7 @@ public class EmpiresDAL {
 		
 		for (EPlayer myPlayer : players.values()) {
     		if (myPlayer.getEmpire() != null){
-    			playerdata.set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire().getID());
+    			playerdata.set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire().getUUID());
     		}
     		playerdata.set(myPlayer.getUUID() + ".name", myPlayer.getName());
     	}
@@ -127,8 +118,8 @@ public class EmpiresDAL {
 //		}
 //	}
 
-	public ArrayList<Empire> loadEmpires() {
-		ArrayList<Empire> myEmpires = new ArrayList<Empire>();
+	public HashMap<UUID,Empire> loadEmpires() {
+		HashMap<UUID,Empire> myEmpires = new HashMap<UUID,Empire>();
 		Connection connection = null;
 		try {
 			connection = connectionPool.getConnection(); 
@@ -141,7 +132,7 @@ public class EmpiresDAL {
 				
 				 while (results.next()) {
 					 Empire myEmpire = new Empire(results.getString("Name"), UUID.fromString(results.getString("OwnerUUID")));
-					 myEmpires.add(myEmpire);
+					 myEmpires.put(myEmpire.getUUID(), myEmpire);
 				}
 			}
 			
@@ -168,8 +159,8 @@ public class EmpiresDAL {
 			
 			if (connection != null){
 			
-		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Empires` (`UUID`,`OwnerUUID`,`Name`,`Created`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `OwnerUUID`=?,`Name`=? ;");
-		        stmnt.setString(1, myEmpire.getID().toString());
+		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Empires` (`EmpireUUID`,`OwnerUUID`,`Name`,`Created`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `OwnerUUID`=?,`Name`=? ;");
+		        stmnt.setString(1, myEmpire.getUUID().toString());
 		        stmnt.setString(2, myEmpire.getOwner().toString());
 		        stmnt.setString(3, myEmpire.getName());
 		        stmnt.setLong(4, System.currentTimeMillis()/1000);
@@ -195,9 +186,9 @@ public class EmpiresDAL {
 		}
 	}
 	
-	public void saveEmpires(ArrayList<Empire> myEmpires){
+	public void saveEmpires(HashMap<UUID,Empire> myEmpires){
 		//for now just do them individually, later it will be better to build a statement
-		for(Empire myEmpire : myEmpires){
+		for(Empire myEmpire : myEmpires.values()){
 			saveEmpire(myEmpire);
 		}		
 	}
@@ -215,7 +206,7 @@ public class EmpiresDAL {
 			
 			if (connection != null){
 			
-		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`UUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=?  ;");
+		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`PlayerUUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=?  ;");
 		        stmnt.setString(1, myEPlayer.getUUID().toString());
 		        stmnt.setLong(2, myEPlayer.getFirstSeen());
 		        stmnt.setLong(3, myEPlayer.getLastSeen());

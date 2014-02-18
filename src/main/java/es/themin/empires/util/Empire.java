@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
-import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.wars.Battle;
 import es.themin.empires.wars.War;
 
@@ -24,7 +24,7 @@ public class Empire {
 	private String name;
 	private UUID owner;
 	private HashMap<UUID,EPlayer> players = new HashMap<UUID,EPlayer>();
-	private ArrayList<Core> cores = new ArrayList<Core>();
+	//private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
 	private boolean isProtected;
 	private String ownerprefix;
@@ -79,7 +79,7 @@ public class Empire {
 	
 	
 	
-	public UUID getID(){
+	public UUID getUUID(){
 		return ID;
 	}
 	public String getName(){
@@ -129,48 +129,14 @@ public class Empire {
 	public void setName(String name){
 		this.name = name;
 	}
-	public ArrayList<Core> getCores(){
-		return cores;
-	}
-	public boolean hasCore(Core c){
-		if (cores.contains(c)) return true;
-		else return false;
-	}
-	public void ac(Core c) {
-		cores.add(c);
-	}
-	public void addCore(Core c) {
-		c.setEmpire(this);
-	}
-	public void removeCore(Core c){
-		cores.remove(c);
-	}
-	public int numberOfCores(){
-		int i = cores.size();
-		return i;
-	}
+
+	
+
 	public int numberOfPlayers(){
 		int i = players.size();
 		return i;
 	}
 	
-	
-	public Core getCoreOfType(CoreType type) {
-		for (Core core : cores) {
-			if (core.getType() == type) {
-				return core;
-			}
-		}
-		return null;
-	}
-	public boolean hasCoreOfType(CoreType type) {
-		for (Core core : cores) {
-			if (core.getType() == type) {
-				return true;
-			}
-		}
-		return false;
-	}
 	public ArrayList<Rank> getRanks(){
 		return ranks;
 	}
@@ -227,15 +193,7 @@ public class Empire {
 		rank.addPlayer(playername);
 	}
 
-	public int getExp() {
-		int xp = 0;
-		xp = this.numberOfPlayers() * 5;
-		for (Core core : cores) {
-			xp = xp + core.getLevel() * 2;
-		}
-		//xp = xp + this.numberOfAmplifiers() * 2;
-		return xp;
-	}
+	
 	public Rank getRankWithName(String name) {
 		for (Rank rank : ranks) {
 			if (rank.getName().equalsIgnoreCase(name))return rank;
@@ -524,6 +482,12 @@ public class Empire {
 	public void addToTimeline(String string) {
 		timeline.put(System.currentTimeMillis(), string);
 	}
+
+	public Integer getXP() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
 

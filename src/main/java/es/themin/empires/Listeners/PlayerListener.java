@@ -161,7 +161,7 @@ public class PlayerListener implements Listener{
 		//get block metadata to see if its special.
 		
 		// if its the players own empire
-		if (selectedCore.getEmpire().equals(eventPlayerEmpire)){
+		if (selectedCore.getEmpireUUID().equals(eventPlayerEmpire.getUUID())){
 			if (isCoreBlock){
 				myPlayer.sendMessage("You cannot destroy your own core!");
 				return;

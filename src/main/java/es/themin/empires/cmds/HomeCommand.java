@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
@@ -18,10 +19,12 @@ public class HomeCommand implements CommandExecutor{
 	
 	private empires plugin;
 	private PlayerManager Players;
+	private CoreManager Cores;
 	
 	public HomeCommand(empires plugin) {
 		this.plugin = plugin;
 		Players = plugin.Players;
+		this.Cores = plugin.Cores;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -29,7 +32,7 @@ public class HomeCommand implements CommandExecutor{
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		
-		ArrayList<Core> myCores = myCorePlayer.getEmpire().getCores();
+		ArrayList<Core> myCores = Cores.getEmpireCores(myCorePlayer.getEmpire());
 		
 		Core BaseCore = null;
 		

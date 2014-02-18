@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -15,6 +16,7 @@ public class AllyListCommand extends EmpireSubCommand{
 
 	private empires myPlugin;
 	private PlayerManager Players;
+	private EmpireManager Empires;
 	
 	public String plprefix;
 	
@@ -39,8 +41,8 @@ public class AllyListCommand extends EmpireSubCommand{
 			return false;
 		}
 		
-		for (Empire ally : empire.getAllies()) {
-			player.sendMessage(ChatColor.WHITE + "- " + ChatColor.GREEN +ally.getName()+ ChatColor.WHITE + " - " + ally.getExp());
+		for (Empire allyEmpire : empire.getAllies()) {
+			player.sendMessage(ChatColor.WHITE + "- " + ChatColor.GREEN +allyEmpire.getName()+ ChatColor.WHITE + " - " + allyEmpire.getXP());
 		}
 		return false;
 	}

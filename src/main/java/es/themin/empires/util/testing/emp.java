@@ -3,6 +3,7 @@ package es.themin.empires.util.testing;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.managers.EmpireManager;
@@ -15,12 +16,14 @@ public class emp extends SubCommand{
 	public String plprefix;
 	private EmpireManager Empires;
 	private PlayerManager Players;
+	private CoreManager Cores;
 	
 	public emp(empires plugin) {
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
 		Empires = plugin.Empires;
 		Players = plugin.Players;
+		Cores = plugin.Cores;
 	}
 
 	public boolean onCommand(Player player, String[] args) {
@@ -33,7 +36,7 @@ public class emp extends SubCommand{
 				Empire empire = myCorePlayer.getEmpire();
 				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
 				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
-				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
+				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + Cores.numberOfCores(empire));
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;
@@ -52,7 +55,7 @@ public class emp extends SubCommand{
 				Empire empire = Empires.getEmpireWithName(args[1]);
 				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
 				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
-				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + empire.numberOfCores());
+				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + Cores.numberOfCores(empire));
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;

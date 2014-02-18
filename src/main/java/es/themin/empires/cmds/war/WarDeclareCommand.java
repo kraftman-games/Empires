@@ -52,7 +52,7 @@ public class WarDeclareCommand extends EmpireSubCommand{
 				return false;
 			}
 			Empire attacked = Empires.getEmpireWithName(args[1]);
-			if (empire.getExp() - attacked.getExp() < -50) {
+			if (empire.getXP() - attacked.getXP() < -50) {
 				player.sendMessage(plprefix + ChatColor.RED + "You are too strong to attack this empire");
 				return false;
 			}

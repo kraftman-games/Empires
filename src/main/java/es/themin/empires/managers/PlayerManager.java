@@ -7,17 +7,8 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-
-
-
-
-import org.bukkit.event.player.PlayerShearEntityEvent;
-
-import com.jolbox.bonecp.BoneCP;
-
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.testing.newemp;
 
 public class PlayerManager implements IManager {
 

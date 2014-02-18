@@ -45,7 +45,7 @@ public class addplayer extends SubCommand{
 		empire.addPlayer(myTargetPlayer);
 		Players.addPlayer(myTargetPlayer);
 		player.sendMessage(plprefix + ChatColor.GREEN + "Added " + target.getName() + " To your empire");
-		target.sendMessage(plprefix + ChatColor.GREEN + "You were added to " + empire.getID() + " by " + player.getName());
+		target.sendMessage(plprefix + ChatColor.GREEN + "You were added to " + empire.getName() + " by " + player.getName());
 		return false;
 	}
 

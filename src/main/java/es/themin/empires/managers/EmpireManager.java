@@ -2,24 +2,26 @@ package es.themin.empires.managers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
+
 import es.themin.empires.EmpiresDAL;
-import es.themin.empires.cores.Core;
 import es.themin.empires.util.Empire;
 
 public class EmpireManager implements IManager {
 	
-	private ArrayList<Empire> empires = new ArrayList<Empire>();
+	private HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
 	private EmpiresDAL myEmpiresDAL;
 
 
-	public EmpireManager(EmpiresDAL empiresDAL, ArrayList<Empire> myEmpires) {
+	public EmpireManager(EmpiresDAL empiresDAL, HashMap<UUID,Empire> myEmpires) {
 		myEmpiresDAL = empiresDAL;
 		empires = myEmpires;
 	}
 
-	public ArrayList<Empire> getEmpires() {
+	public HashMap<UUID,Empire> getEmpires() {
 		return empires;
 	}
 	
@@ -41,39 +43,33 @@ public class EmpireManager implements IManager {
     }
 	
 	public void addEmpire(Empire empire) {
-		this.empires.add(empire);
+		this.empires.put(empire.getUUID(),empire);
+		myEmpiresDAL.saveEmpire(empire);
 		
 	}
 
 	public void removeEmpire(Empire empire) {
-		int i = this.getEmpires().indexOf(empire);
-		this.empires.remove(i);
+		empires.remove(empire.getUUID());
 		myEmpiresDAL.removeEmpire(empire);
 		
 	}
 	public Empire getEmpireWithName(String name) {
-		for (Empire empire : this.empires) {
+		for (Empire empire : empires.values()) {
 			if (empire.getName().equalsIgnoreCase(name)) return empire;
 		}
 		return null;
 	}
 	public boolean containsEmpireWithName(String name) {
-		for (Empire empire : this.getEmpires()) {
+		for (Empire empire : this.getEmpires().values()) {
 			if (empire.getName().equalsIgnoreCase(name)) return true;
 		}
 		return false;
 	}
-	public Empire getEmpirewithUUID(UUID Id) {
-		for (Empire empire : this.getEmpires()) {
-			if (empire.getID() == Id) return empire;
-		}
-		return null;
+	public Empire getEmpirewithUUID(UUID ID) {
+		return empires.get(ID);
 	}
-	public boolean containsEmpireWithId(UUID Id) {
-		for (Empire empire : this.getEmpires()) {
-			if (empire.getID() == Id) return true;
-		}
-		return false;
+	public boolean containsEmpireWithId(UUID ID) {
+		return empires.get(ID) != null ? true : false;
 	}
 	
 	public boolean isValidName(String string) {
@@ -116,6 +112,7 @@ public class EmpireManager implements IManager {
 		myEmpiresDAL.saveEmpire(myEmpire);
 		
 	}
+
 }
 
 

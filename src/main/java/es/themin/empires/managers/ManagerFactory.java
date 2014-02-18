@@ -2,13 +2,9 @@ package es.themin.empires.managers;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
-
-
-
 
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
@@ -81,7 +77,7 @@ public class ManagerFactory {
 	
 	public EmpireManager CreateEmpireManager(){
 		        
-        ArrayList<Empire> empires = new ArrayList<Empire>();
+		HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
 		
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         Managers.add(MyEmpireManager);

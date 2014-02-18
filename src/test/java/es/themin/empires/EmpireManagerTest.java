@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -34,7 +36,7 @@ public class EmpireManagerTest {
 	public void GetEmpiresTest(){
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
+        HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         
@@ -46,7 +48,7 @@ public class EmpireManagerTest {
 	public void LoadEmpiresTest(){
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
+        HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         MyEmpireManager.load();
@@ -58,7 +60,7 @@ public class EmpireManagerTest {
 	public void SaveEmpiresTest(){
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
+        HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         MyEmpireManager.save();
@@ -75,7 +77,7 @@ public class EmpireManagerTest {
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
         
         @SuppressWarnings( "unchecked" )
-        ArrayList<Empire> empires = PowerMockito.mock(ArrayList.class);
+        HashMap<UUID,Empire> empires = PowerMockito.mock(HashMap.class);
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         
@@ -83,7 +85,7 @@ public class EmpireManagerTest {
         
         MyEmpireManager.addEmpire(myEmpire);
         
-        Mockito.verify(empires).add(myEmpire);
+        Mockito.verify(empires).put(myEmpire.getUUID(),myEmpire);
 		
 	}
 	
@@ -93,7 +95,7 @@ public class EmpireManagerTest {
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
         @SuppressWarnings( "unchecked" )
-        ArrayList<Empire> empires = PowerMockito.mock(ArrayList.class);
+        HashMap<UUID,Empire> empires = PowerMockito.mock(HashMap.class);
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         
@@ -103,7 +105,7 @@ public class EmpireManagerTest {
         
         MyEmpireManager.removeEmpire(myEmpire);
         
-        Mockito.verify(empires).remove(myEmpire.getID());
+        Mockito.verify(empires).remove(myEmpire.getUUID());
         Mockito.verify(myempiresDAL).removeEmpire(myEmpire);
         
 	}
@@ -112,7 +114,7 @@ public class EmpireManagerTest {
 	public void GetEmpireByNameTest(){
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
+        HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         
@@ -145,7 +147,7 @@ public class EmpireManagerTest {
 	public void EmpireNameValidationTest(){
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        ArrayList<Empire> empires = new ArrayList<Empire>();
+        HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         

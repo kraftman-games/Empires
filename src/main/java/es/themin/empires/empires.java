@@ -20,14 +20,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.ScoreboardManager;
 
-
-
-
-
-
-
-
-
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
@@ -61,7 +53,6 @@ import es.themin.empires.util.testing.UtilityTesting;
  
 public final class empires extends JavaPlugin {
  
-	public static empires plugin;
 	public String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
 	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
 	
@@ -88,19 +79,15 @@ public final class empires extends JavaPlugin {
 	
 	@Override
     public void onEnable(){
-        plugin = this;
         
         loadMySQL();
         
         ManagerFactory = new ManagerFactory(this, connectionPool);
-        
         createManagers();
-    	 
     	ManagerFactory.loadManagers();
         
         settings = new SettingsManager(this);
         utils = new UtilManager(this);
-        
         settings.loadSettings();
 		
 		Recipes.setupamplifierRecipe();
