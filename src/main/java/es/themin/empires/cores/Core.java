@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -22,6 +23,7 @@ import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.PlayerUtils;
+import es.themin.empires.util.testing.newemp;
 
 public class Core {
 	
@@ -34,19 +36,19 @@ public class Core {
 	private int Id;
 	private CoreType coreType;
 	private Location location;
-	private Integer coreSize;
-	private Integer areaSize;
 	private int level;
 	private UUID empireUUID;
+	//private WorldManager Worlds;
+	private Schematic schem;
+	
+	// a tonne of this stuff isnt specific to the cores and needs to be moved to another object
+	// ive started moving them to below for now
+	private Integer coreSize;
+	private Integer areaSize;
 	private ArrayList<CoreBlock> schematic;
 	private PlaceType placeType;
 	private int destroyCost;
-	private empires myPlugin;
-	//private EmpireManager Empires;
-	private CoreManager Cores;
-	private WorldManager Worlds;
-	//private PlayerManager Players;
-	private Schematic schem;
+	
 	
 	private HashMap<Location, Block> GriefedBlocks = new HashMap<Location, Block>();
 	
@@ -75,10 +77,7 @@ public class Core {
 	}
 
 	public Core(empires plugin,int Id, CoreType type, Location location, int level, UUID empireID) {
-		this.myPlugin = plugin;
-		//this.Empires = plugin.Empires;
-		this.Worlds = plugin.Worlds;
-		this.Cores = plugin.Cores;
+		
 		this.coreSize = 8;
 		this.empireUUID = empireID;
 		this.Id = Id;
@@ -222,22 +221,14 @@ public class Core {
 	}
 	
 
-	
-	public void Save() {
-		if (Cores.containsCoreWithId(this.Id)) {
-			int i = Cores.getCores().indexOf(Cores.containsCoreWithId(this.Id));
-			Cores.getCores().remove(i);
-		}
-		Cores.getCores().add(this);
-	}
 
 	
 	public void destroy(){
 		Location myLocation = this.getLocation();
 		
 		UUID myUUID = this.location.getWorld().getUID();
-		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
-		myCoreWorld.removeCore(this);
+//		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
+//		myCoreWorld.removeCore(this);
 		
 		if (this.schematic != null){
 			for (CoreBlock myBlock : this.schematic){
