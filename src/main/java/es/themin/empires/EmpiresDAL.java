@@ -101,26 +101,34 @@ public class EmpiresDAL {
 		return myEmpires;
 	}
 
+	public Boolean executeEmpireUpdate(Connection myConnection, Empire myEmpire) throws SQLException{
+		PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Empires` (`EmpireUUID`,`OwnerUUID`,`Name`,`Created`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `OwnerUUID`=?,`Name`=? ;");
+        stmnt.setString(1, myEmpire.getUUID().toString());
+        stmnt.setString(2, myEmpire.getOwner().toString());
+        stmnt.setString(3, myEmpire.getName());
+        stmnt.setLong(4, System.currentTimeMillis()/1000);
+        
+        stmnt.setString(5, myEmpire.getOwner().toString());
+        stmnt.setString(6, myEmpire.getName());
+
+		Integer returnsInteger = stmnt.executeUpdate();
+		if (returnsInteger == 1){
+			return true;
+		}
+		return false;
+	}
 	
 	public void saveEmpire(Empire myEmpire){
 		Connection connection = null;
 		try {
-			
 			connection = connectionPool.getConnection(); // fetch a connection
 			
 			if (connection != null){
 			
-		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Empires` (`EmpireUUID`,`OwnerUUID`,`Name`,`Created`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `OwnerUUID`=?,`Name`=? ;");
-		        stmnt.setString(1, myEmpire.getUUID().toString());
-		        stmnt.setString(2, myEmpire.getOwner().toString());
-		        stmnt.setString(3, myEmpire.getName());
-		        stmnt.setLong(4, System.currentTimeMillis()/1000);
-		        
-		        stmnt.setString(5, myEmpire.getOwner().toString());
-		        stmnt.setString(6, myEmpire.getName());
-
-				Integer returnsInteger = stmnt.executeUpdate();
-				if (returnsInteger == 1){
+				if (executeEmpireUpdate(connection, myEmpire)){
+					connection.commit();
+				} else {
+					connection.rollback();
 				}
 			}
 			
@@ -138,9 +146,32 @@ public class EmpiresDAL {
 	}
 	
 	public void saveEmpires(HashMap<UUID,Empire> myEmpires){
-		//for now just do them individually, later it will be better to build a statement
-		for(Empire myEmpire : myEmpires.values()){
-			saveEmpire(myEmpire);
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection(); // fetch a connection
+			
+			if (connection != null){
+				Boolean success = false;
+				for (Empire myEmpire : myEmpires.values()){
+					success = executeEmpireUpdate(connection, myEmpire) ? success : false;
+				}
+				if (success){
+					connection.commit();
+				} else {
+					connection.rollback();
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}		
 	}
 
@@ -205,10 +236,10 @@ public class EmpiresDAL {
 			
 			if (connection != null){
 			
-				Boolean success = false;
+				Boolean success = true;
 				
 				for (EPlayer myPlayer : myEPlayers.values()){
-					success = executePlayerUpdate(connection, myPlayer) == true ? success : false;
+					success = executePlayerUpdate(connection, myPlayer) ? success : false;
 				}
 				
 		        if (success) {
