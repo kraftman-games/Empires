@@ -32,27 +32,29 @@ public class HomeCommand implements CommandExecutor{
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		
-		ArrayList<Core> myCores = Cores.getEmpireCores(myCorePlayer.getEmpire());
+		//i think we need to store a home location per player or empire rather than using the base core
 		
-		Core BaseCore = null;
-		
-		if (myCores == null){
-			player.sendMessage("You have no cores, oh dear");
-		}
-		
-		for (Core myCore : myCores){
-			if (myCore.getType() == CoreType.BASE){
-				BaseCore = myCore;
-				break;
-			}			
-		}
-		
-		if (BaseCore == null){
-			player.sendMessage("you have no base core! oh dear.");
-			return true;
-		}
-		
-		player.teleport(BaseCore.getLocation());
+//		ArrayList<Core> myCores = Cores.getEmpireCores(myCorePlayer.getEmpire());
+//		
+//		Core BaseCore = null;
+//		
+//		if (myCores == null){
+//			player.sendMessage("You have no cores, oh dear");
+//		}
+//		
+//		for (Core myCore : myCores){
+//			if (myCore.getType() == CoreType.BASE){
+//				BaseCore = myCore;
+//				break;
+//			}			
+//		}
+//		
+//		if (BaseCore == null){
+//			player.sendMessage("you have no base core! oh dear.");
+//			return true;
+//		}
+//		
+//		player.teleport(BaseCore.getLocation());
 		
 		
 		return true;

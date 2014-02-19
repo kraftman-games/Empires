@@ -36,7 +36,7 @@ public class emp extends SubCommand{
 				Empire empire = myCorePlayer.getEmpire();
 				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
 				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
-				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + Cores.numberOfCores(empire));
+				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + Cores.getCoreCount(empire));
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;
@@ -55,7 +55,7 @@ public class emp extends SubCommand{
 				Empire empire = Empires.getEmpireWithName(args[1]);
 				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
 				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
-				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + Cores.numberOfCores(empire));
+				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + Cores.getCoreCount(empire));
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;

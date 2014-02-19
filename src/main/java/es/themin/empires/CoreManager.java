@@ -11,6 +11,7 @@ import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.IManager;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.testing.newemp;
 
 public class CoreManager implements IManager{
 
@@ -23,8 +24,6 @@ public class CoreManager implements IManager{
 		cores = myCores;
 	}
 	
-
-	
 	public void addCore(Core myCore) {
 		this.cores.put(myCore.getUUID(), myCore);
 		empiresDAL.createOrUpdateCore(myCore);
@@ -36,78 +35,30 @@ public class CoreManager implements IManager{
 	}
 	
 	public int numberOfCores(){
-		int i = cores.size();
-		return i;
+		return cores.size();
 	}
 	
-	public int getExp() {
+	public int getExp(UUID empireUUID) {
 		int xp = 0;
-//		xp = this.numberOfPlayers() * 5;
-//		for (Core core : cores) {
-//			xp = xp + core.getLevel() * 2;
-//		}
-		//xp = xp + this.numberOfAmplifiers() * 2;
+		for (Core core : cores.values()) {
+			xp = xp + core.getLevel() * 2;
+		}
 		return xp;
 	}	
 	
-	public Core getCoreOfType(CoreType type) {
-		for (Core core : cores.values()) {
-			if (core.getType() == type) {
-				return core;
-			}
-		}
-		return null;
-	}
-	public boolean hasCoreOfType(CoreType type) {
-		for (Core core : cores.values()) {
-			if (core.getType() == type) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void Delete(Core myCore) {
-		cores.remove(myCore);
-//		this.destroy();
-//		this.getEmpire().removeCore(this);
-//		if (Cores.containsCoreWithId(this.Id)) {
-//			int i = Cores.getCores().indexOf(this);
-//			Cores.getCores().remove(i);
-//		}
+	public HashMap<UUID,Core> getEmpireCores(UUID empireUUID) {
+		HashMap<UUID,Core> empireCores = new HashMap<UUID,Core>();
 		
+		for (Core myCore : cores.values()){
+			if (myCore.getEmpireUUID() == empireUUID){
+				empireCores.put(myCore.getUUID(), myCore);
+			}
+		}
+		return empireCores;
 	}
 	
-
-
-	public ArrayList<Core> getEmpireCores(Empire empire) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	public ArrayList<Core> getEmpireCores(UUID empireUUID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public int getCoreCount(Empire empire) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public boolean empireHasCoreOfType(Empire empire, CoreType base) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public Object empireGetCoreOfType(Empire empire, CoreType base) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ChatColor numberOfCores(Empire empire) {
-		// TODO Auto-generated method stub
-		return null;
+		return getEmpireCores(empire.getUUID()).size();
 	}
 
 	@Override
@@ -126,9 +77,48 @@ public class CoreManager implements IManager{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
 
+
+//reimplement the below if needed
+
+//public boolean empireHasCoreOfType(Empire empire, CoreType base) {
+//// TODO Auto-generated method stub
+//return false;
+//}
+//
+//public Object empireGetCoreOfType(Empire empire, CoreType base) {
+//// TODO Auto-generated method stub
+//return null;
+//}
+
+//public void Delete(Core myCore) {
+//cores.remove(myCore);
+////this.destroy();
+////this.getEmpire().removeCore(this);
+////if (Cores.containsCoreWithId(this.Id)) {
+////	int i = Cores.getCores().indexOf(this);
+////	Cores.getCores().remove(i);
+////}
+//
+//}
+
+//public Core getCoreOfType(CoreType type) {
+//for (Core core : cores.values()) {
+//	if (core.getType() == type) {
+//		return core;
+//	}
+//}
+//return null;
+//}
+//public boolean hasCoreOfType(CoreType type) {
+//for (Core core : cores.values()) {
+//	if (core.getType() == type) {
+//		return true;
+//	}
+//}
+//return false;
+//}
 //public  boolean containsCoreWithID(UUID ID) {
 //	return cores.get(ID) != null ? true : false;
 //}
