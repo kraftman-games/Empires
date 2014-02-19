@@ -14,6 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.jolbox.bonecp.BoneCP;
 
+import es.themin.empires.cores.Core;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 
@@ -235,6 +236,50 @@ public class EmpiresDAL {
 			}
 		}
 		return false;
+	}
+	
+	public Boolean updateCore(Core myCore){
+		Connection connection = null;
+		try {
+			
+			connection = connectionPool.getConnection(); // fetch a connection
+			
+			if (connection != null){
+			
+//		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Cores` (`CoreUUID`,`EmpireUUID`,`CoreTypeID`,`World`,`X`,`Y`,`Z`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=?  ;");
+//		        stmnt.setString(1, myCore.getUUID().toString());
+//		        stmnt.setString(2, myCore.getEmpireUUID());
+//		        stmnt.setString(3, myCore.getCoreType());
+//		        stmnt.setString(4, myCore.getName());
+//		        
+//		        stmnt.setLong(5, myCore.getLastSeen());
+//		        stmnt.setString(6, myCore.getName());
+//
+//				Integer returnsInteger = stmnt.executeUpdate();
+//				if (returnsInteger == 1){
+//					return true;
+//				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+
+	public void saveCores(HashMap<UUID, Core> cores) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

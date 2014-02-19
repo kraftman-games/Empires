@@ -149,7 +149,7 @@ public class CoreManager implements IManager{
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
+		empiresDAL.saveCores(cores);
 		
 	}
 
