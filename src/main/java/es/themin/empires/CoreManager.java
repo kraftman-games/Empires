@@ -133,8 +133,7 @@ public class CoreManager implements IManager{
 
 	@Override
 	public void load() {
-		// TODO Auto-generated method stub
-		
+		cores = empiresDAL.loadCores();		
 	}
 
 	@Override

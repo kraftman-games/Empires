@@ -8,11 +8,17 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+
 import com.jolbox.bonecp.BoneCP;
 
 import es.themin.empires.cores.Core;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.testing.newemp;
 
 public class EmpiresDAL {
 
@@ -96,6 +102,47 @@ public class EmpiresDAL {
 			}
 		}
 		return myEmpires;
+	}
+
+	public HashMap<UUID,Core> loadCores() {
+		HashMap<UUID,Core> myCores = new HashMap<UUID,Core>();
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection(); 
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Cores`");
+		        
+				ResultSet results = stmnt.executeQuery();
+				
+				 while (results.next()) {
+					 CoreType myCoreType = CoreType.valueOf(results.getString("CoreType"));
+					 World myWorld = Bukkit.getWorld(UUID.fromString(results.getString("WorldUUID")));
+					 Double X =  results.getDouble("X");
+					 Double Y =  results.getDouble("Y");
+					 Double Z =  results.getDouble("Z");
+					 UUID myCoreUuid = UUID.fromString(results.getString("CoreUUID"));
+					 
+					 Location myLocation = new Location(myWorld,X,Y,Z);
+					 UUID myEmpireUUID = UUID.fromString(results.getString("EmpireUUID"));
+					Core myCore = new Core(myCoreUuid, myCoreType, myLocation, myEmpireUUID);
+					myCores.put(myCore.getUUID(), myCore);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return myCores;
 	}
 
 	
@@ -193,8 +240,8 @@ public class EmpiresDAL {
 			myConnection = connectionPool.getConnection(); // fetch a connection
 			
 			if (myConnection != null){
-				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Players` (`CoreUUID`,`EmpireUUID`,`CoreTypeID`,`WorldUUID`,`X`,`Y`,`Z`) VALUES (?,?,?,?,?,?,?,?)"+
-																			" ON DUPLICATE KEY UPDATE `CoreUUID`=?,`EmpireUUID`=?,`CoreTypeID`=?,`WorldUUID`=?,`X`=?,`Y`=?,`Z`=?;");
+				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Players` (`CoreUUID`,`EmpireUUID`,`CoreType`,`WorldUUID`,`X`,`Y`,`Z`) VALUES (?,?,?,?,?,?,?,?)"+
+																			" ON DUPLICATE KEY UPDATE `CoreUUID`=?,`EmpireUUID`=?,`CoreType`=?,`WorldUUID`=?,`X`=?,`Y`=?,`Z`=?;");
 			       
 				for (Core myCore : myCores.values()){
 					

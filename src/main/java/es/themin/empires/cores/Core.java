@@ -66,10 +66,10 @@ public class Core {
 		this.areaSize = areaSize;
 	}
 
-	public Core(CoreType type, Location location, UUID empireID) {
+	public Core(UUID CoreUUID, CoreType type, Location location, UUID empireID) {
 		
 		this.coreSize = 8;
-		
+		this.ID = CoreUUID;
 		this.empireUUID = empireID;
 		this.coreType = type;
 		this.location = location;
