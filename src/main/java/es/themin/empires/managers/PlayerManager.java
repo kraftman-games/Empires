@@ -23,12 +23,9 @@ public class PlayerManager implements IManager {
 	}
 	
     public void save(){
-    	EmpiresDAL.savePlayers(players);
+    	EmpiresDAL.createOrUpdatePlayers(players);
     }
 
-    public  void save(File datafile) {
-    	EmpiresDAL.savePlayers(players, datafile);
-    }
     
     public void load(){
     	for (Player myPlayer : Bukkit.getOnlinePlayers()){
@@ -90,7 +87,7 @@ public class PlayerManager implements IManager {
 			long timeNow = System.currentTimeMillis()/1000;
 			myEPlayer.setFirstSeen(timeNow);
 			myEPlayer.setLastSeen(timeNow);
-			if (EmpiresDAL.updatePlayer(myEPlayer) == true){
+			if (EmpiresDAL.createOrUpdatePlayer(myEPlayer) == true){
 				players.put(myEPlayer.getUUID(), myEPlayer);
 			} else {
 				//do something
@@ -98,7 +95,7 @@ public class PlayerManager implements IManager {
 			
 		} else {
 			myEPlayer.setLastSeen(System.currentTimeMillis()/1000);
-			EmpiresDAL.updatePlayer(myEPlayer);
+			EmpiresDAL.createOrUpdatePlayer(myEPlayer);
 			players.put(myEPlayer.getUUID(), myEPlayer);
 		}
 		return myEPlayer;
@@ -111,7 +108,7 @@ public class PlayerManager implements IManager {
 		
 		EPlayer myEPlayer = getPlayer(player.getUniqueId());
 		players.remove(player.getUniqueId());
-		EmpiresDAL.updatePlayer(myEPlayer);
+		EmpiresDAL.createOrUpdatePlayer(myEPlayer);
 		
 	}
 

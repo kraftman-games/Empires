@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 
 import com.jolbox.bonecp.BoneCP;
 
@@ -31,27 +32,6 @@ public class EmpiresDAL {
 		this.connectionPool = connectionPool;
 	}
 	
-	public void savePlayers(HashMap<UUID, EPlayer> players){
-		savePlayers(players, PlayerFile);
-	}
-	
-	public void savePlayers(HashMap<UUID, EPlayer> players, File myFile){
-		YamlConfiguration playerdata = YamlConfiguration.loadConfiguration(myFile);
-		
-		for (EPlayer myPlayer : players.values()) {
-    		if (myPlayer.getEmpire() != null){
-    			playerdata.set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire().getUUID());
-    		}
-    		playerdata.set(myPlayer.getUUID() + ".name", myPlayer.getName());
-    	}
-    	
-        try {
-                playerdata.save(myFile);
-        }
-        catch (IOException e) {
-                //Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
-        }
-	}
 
 	public EPlayer loadPlayer(UUID myUUID) {
 		Connection connection = null;
@@ -87,37 +67,7 @@ public class EmpiresDAL {
 		return null;
 	}
 
-//	public void savePlayer(EPlayer myEPlayer) {
-//		Connection connection = null;
-//		try {
-//			
-//			connection = connectionPool.getConnection(); // fetch a connection
-//			
-//			if (connection != null){
-//			
-//		        PreparedStatement stmnt = connection.prepareStatement("UPDATE `Players` SET `LastSeen`=?,`Name`=? WHERE `UUID` = ?;");
-//		        
-//		        stmnt.setLong(1, myEPlayer.getLastSeen());
-//		        stmnt.setString(2, myEPlayer.getName());
-//		        stmnt.setString(3, myEPlayer.getUUID().toString());
-//
-//				Integer returnsInteger = stmnt.executeUpdate();
-//				if (returnsInteger == 1){
-//				}
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (connection != null) {
-//				try {
-//					connection.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//	}
+
 
 	public HashMap<UUID,Empire> loadEmpires() {
 		HashMap<UUID,Empire> myEmpires = new HashMap<UUID,Empire>();
@@ -198,30 +148,76 @@ public class EmpiresDAL {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	private Boolean executePlayerUpdate(Connection myConnection, EPlayer myPlayer) throws SQLException{
+		
+		PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Players` (`PlayerUUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=?  ;");
+        stmnt.setString(1, myPlayer.getUUID().toString());
+        stmnt.setLong(2, myPlayer.getFirstSeen());
+        stmnt.setLong(3, myPlayer.getLastSeen());
+        stmnt.setString(4, myPlayer.getName());
+        
+        stmnt.setLong(5, myPlayer.getLastSeen());
+        stmnt.setString(6, myPlayer.getName());
 
-	public Boolean updatePlayer(EPlayer myEPlayer) {
+		Integer returnsInteger = stmnt.executeUpdate();
+		if (returnsInteger == 1){
+			return true;
+		}
+		return false;
+	}
+
+	public Boolean createOrUpdatePlayer(EPlayer myEPlayer) {
 		Connection connection = null;
 		try {
-			
-			connection = connectionPool.getConnection(); // fetch a connection
+			connection = connectionPool.getConnection(); 
 			
 			if (connection != null){
 			
-		        PreparedStatement stmnt = connection.prepareStatement("INSERT INTO `Players` (`PlayerUUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=?  ;");
-		        stmnt.setString(1, myEPlayer.getUUID().toString());
-		        stmnt.setLong(2, myEPlayer.getFirstSeen());
-		        stmnt.setLong(3, myEPlayer.getLastSeen());
-		        stmnt.setString(4, myEPlayer.getName());
-		        
-		        stmnt.setLong(5, myEPlayer.getLastSeen());
-		        stmnt.setString(6, myEPlayer.getName());
-
-				Integer returnsInteger = stmnt.executeUpdate();
-				if (returnsInteger == 1){
-					return true;
+		        if (executePlayerUpdate(connection, myEPlayer)) {
+		        	connection.commit();
+		        	return true;
+		        } else {
+		        	connection.rollback();
+		        }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return false;
 				}
 			}
+		}
+		return false;
+	}
+	
+	public Boolean createOrUpdatePlayers(HashMap<UUID, EPlayer> myEPlayers) {
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection(); 
 			
+			if (connection != null){
+			
+				Boolean success = false;
+				
+				for (EPlayer myPlayer : myEPlayers.values()){
+					success = executePlayerUpdate(connection, myPlayer) == true ? success : false;
+				}
+				
+		        if (success) {
+		        	connection.commit();
+		        	return true;
+		        } else {
+		        	connection.rollback();
+		        }
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -282,6 +278,57 @@ public class EmpiresDAL {
 		
 	}
 }
+//
+//public void savePlayers(HashMap<UUID, EPlayer> players, File myFile){
+//	YamlConfiguration playerdata = YamlConfiguration.loadConfiguration(myFile);
+//	
+//	for (EPlayer myPlayer : players.values()) {
+//		if (myPlayer.getEmpire() != null){
+//			playerdata.set(myPlayer.getUUID() + ".empire", myPlayer.getEmpire().getUUID());
+//		}
+//		playerdata.set(myPlayer.getUUID() + ".name", myPlayer.getName());
+//	}
+//	
+//    try {
+//            playerdata.save(myFile);
+//    }
+//    catch (IOException e) {
+//            //Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save playerdata.yml!");
+//    }
+//}
+
+
+//public void savePlayer(EPlayer myEPlayer) {
+//Connection connection = null;
+//try {
+//	
+//	connection = connectionPool.getConnection(); // fetch a connection
+//	
+//	if (connection != null){
+//	
+//        PreparedStatement stmnt = connection.prepareStatement("UPDATE `Players` SET `LastSeen`=?,`Name`=? WHERE `UUID` = ?;");
+//        
+//        stmnt.setLong(1, myEPlayer.getLastSeen());
+//        stmnt.setString(2, myEPlayer.getName());
+//        stmnt.setString(3, myEPlayer.getUUID().toString());
+//
+//		Integer returnsInteger = stmnt.executeUpdate();
+//		if (returnsInteger == 1){
+//		}
+//	}
+//	
+//} catch (SQLException e) {
+//	e.printStackTrace();
+//} finally {
+//	if (connection != null) {
+//		try {
+//			connection.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//}
+//}
 
 //private  File createFile(String fileName){
 //

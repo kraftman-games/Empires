@@ -145,7 +145,7 @@ public final class empires extends JavaPlugin {
 		config.setMinConnectionsPerPartition(5);
 		config.setMaxConnectionsPerPartition(10);
 		config.setPartitionCount(1);
-		config.setDefaultAutoCommit(true);
+		//config.setDefaultAutoCommit(true);
 		
 		try{
 			connectionPool = new BoneCP(config); 
@@ -212,8 +212,8 @@ public final class empires extends JavaPlugin {
 	    					File efile = new File(epath + File.separator + "empiredata.yml");
 	    					File cfile = new File(epath + File.separator + "config.yml");
 	    					File pfile = new File(epath + File.separator + "playerdata.yml");
-	    					Players.save(pfile);
-	    					Empires.save(efile);
+//	    					Players.save(pfile);
+//	    					Empires.save(efile);
 	    					SettingsManager.saveConfigToFile(cfile);
 //	    					SettingsManager.saveWorldDataToFile(wfile);
 	    					Players.save();
