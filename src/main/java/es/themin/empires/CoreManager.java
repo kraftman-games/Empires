@@ -93,29 +93,7 @@ public class CoreManager implements IManager{
 		
 	}
 	
-	private  void loadEmpireCores(empires plugin, Empire empire){
-		
-		//foreach empire in plugin get empires. load cores.
-//		List<String> list2 = empiredata.getStringList(empire.getName() + ".cores");
-//		for (String s2: list2) {
-//			String[] words2 = s2.split(":");
-//			int coreID  = Integer.parseInt(words2[0]);
-//			
-//			CoreType coretype = CoreUtils.GetCoreType(words2[1]);
-//			
-//			World world2 = Bukkit.getServer().getWorld(words2[2]);
-//			int x2 = Integer.parseInt(words2[3]); // - 0:BASE:world:-249:78:223:1:0:kraft
-//			int y2 = Integer.parseInt(words2[4]);
-//			int z2 = Integer.parseInt(words2[5]);
-//			Location location = new Location(world2, x2, y2, z2);
-//			int level = Integer.parseInt(words2[6]);
-//			Core core = new Core(myPlugin, coreID, coretype, location, level, empire);
-//		    //core.build();
-//		    //Worlds.getWorlds().get(world2.getUID()).addCore(core);
-//			plugin.Cores.getCores().add(core);
-//			empire.ac(core);
-//		}
-	}
+
 
 	public ArrayList<Core> getEmpireCores(Empire empire) {
 		// TODO Auto-generated method stub

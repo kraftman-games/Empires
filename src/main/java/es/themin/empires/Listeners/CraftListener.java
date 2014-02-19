@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
-import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.testing.Recipes;

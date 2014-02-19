@@ -1,26 +1,18 @@
 package es.themin.empires;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
-
-import javassist.compiler.ast.Stmnt;
-
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 
 import com.jolbox.bonecp.BoneCP;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.testing.newemp;
 
 public class EmpiresDAL {
 

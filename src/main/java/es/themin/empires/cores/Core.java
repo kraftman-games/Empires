@@ -5,25 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 
-import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
-import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.EWorld;
-import es.themin.empires.util.Empire;
-import es.themin.empires.util.PlayerUtils;
-import es.themin.empires.util.testing.newemp;
 
 public class Core {
 	

@@ -105,7 +105,7 @@ public final class empires extends JavaPlugin {
     @Override
     public void onDisable() {
         
-    	connectionPool.shutdown();
+    	
     	
     	ManagerFactory.saveManagers();
 		SettingsManager.saveAll();
@@ -116,6 +116,7 @@ public final class empires extends JavaPlugin {
 			player.setScoreboard(sbm.getNewScoreboard());
 			BarAPI.removeBar(player);
 		}
+		connectionPool.shutdown();
     }
     
     private void createManagers(){

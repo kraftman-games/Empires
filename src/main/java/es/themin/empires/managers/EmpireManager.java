@@ -1,11 +1,7 @@
 package es.themin.empires.managers;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
-
-import org.bukkit.ChatColor;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.Empire;
