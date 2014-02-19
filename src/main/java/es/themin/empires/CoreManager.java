@@ -22,34 +22,19 @@ public class CoreManager implements IManager{
 		empiresDAL = myEmpiresDAL;
 		cores = myCores;
 	}
+	
 
-	public HashMap<UUID,Core> getCores() {
-		return cores;
-	}
 	
-	public  Core getCoreWithId(UUID ID) {
-		return cores.get(ID);
-	}
-	public  Core getCoreWithLocation(Location l) {
-		for (Core core : cores.values()) {
-			if (core.getLocation() == l) return core;
-		}
-		return null;
-	}
-	public  boolean containsCoreWithID(UUID ID) {
-		return cores.get(ID) != null ? true : false;
-	}
-	
-	
-	
-	public void addCore(Core c) {
-		this.cores.put(c.getUUID(), c);
-		//myempiresDAL save
+	public void addCore(Core myCore) {
+		this.cores.put(myCore.getUUID(), myCore);
+		empiresDAL.createOrUpdateCore(myCore);
 	}
 	
 	public void removeCore(Core c){
 		cores.remove(c);
+		empiresDAL.deleteCore(c);
 	}
+	
 	public int numberOfCores(){
 		int i = cores.size();
 		return i;
@@ -143,3 +128,14 @@ public class CoreManager implements IManager{
 	}
 
 }
+
+//public  boolean containsCoreWithID(UUID ID) {
+//	return cores.get(ID) != null ? true : false;
+//}
+
+//public  Core getCoreWithLocation(Location l) {
+//for (Core core : cores.values()) {
+//	if (core.getLocation() == l) return core;
+//}
+//return null;
+//}

@@ -281,7 +281,7 @@ public class EmpiresDAL {
 		}		
 	}
 	
-	public void createOrUpdateCores(Core myCore){
+	public void createOrUpdateCore(Core myCore){
 		HashMap<UUID,Core> myCores = new HashMap<UUID,Core>();
 		myCores.put(myCore.getUUID(), myCore);
 		createOrUpdateCores(myCores);
@@ -293,12 +293,35 @@ public class EmpiresDAL {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 
-	
 
-	
+
+
+	public void deleteCore(Core myCore) {
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection(); 
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("DELETE FROM `Cores` where `CoreUUID` = ?");
+		        stmnt.setString(1, myCore.getUUID().toString());
+				Integer results = stmnt.executeUpdate();
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}	
 }
 
 //private Boolean executeCoreUpdate(Connection myConnection, Core myCore){
