@@ -87,11 +87,8 @@ public class PlayerManager implements IManager {
 			long timeNow = System.currentTimeMillis()/1000;
 			myEPlayer.setFirstSeen(timeNow);
 			myEPlayer.setLastSeen(timeNow);
-			if (EmpiresDAL.createOrUpdatePlayer(myEPlayer) == true){
-				players.put(myEPlayer.getUUID(), myEPlayer);
-			} else {
-				//do something
-			}
+			EmpiresDAL.createOrUpdatePlayer(myEPlayer);
+			players.put(myEPlayer.getUUID(), myEPlayer);
 			
 		} else {
 			myEPlayer.setLastSeen(System.currentTimeMillis()/1000);

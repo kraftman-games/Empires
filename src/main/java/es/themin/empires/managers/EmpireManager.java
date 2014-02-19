@@ -31,12 +31,9 @@ public class EmpireManager implements IManager {
 	}
 
     public void save() {
-    	myEmpiresDAL.saveEmpires(empires);
+    	myEmpiresDAL.createOrUpdateEmpires(empires);
     }
     
-    public void save(File myFile){
-    	myEmpiresDAL.saveEmpires(empires);
-    }
 
     public  void reload() {
     	empires = myEmpiresDAL.loadEmpires();
@@ -44,7 +41,7 @@ public class EmpireManager implements IManager {
 	
 	public void addEmpire(Empire empire) {
 		this.empires.put(empire.getUUID(),empire);
-		myEmpiresDAL.saveEmpire(empire);
+		myEmpiresDAL.createOrUpdateEmpire(empire);
 		
 	}
 
@@ -109,7 +106,7 @@ public class EmpireManager implements IManager {
 	}
 
 	public void saveEmpire(Empire myEmpire) {
-		myEmpiresDAL.saveEmpire(myEmpire);
+		myEmpiresDAL.createOrUpdateEmpire(myEmpire);
 		
 	}
 

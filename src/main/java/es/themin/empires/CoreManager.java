@@ -149,7 +149,7 @@ public class CoreManager implements IManager{
 
 	@Override
 	public void save() {
-		empiresDAL.saveCores(cores);
+		empiresDAL.createOrUpdateCores(cores);
 		
 	}
 

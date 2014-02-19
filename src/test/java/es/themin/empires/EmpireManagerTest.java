@@ -64,7 +64,7 @@ public class EmpireManagerTest {
         
         EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
         MyEmpireManager.save();
-		Mockito.verify(myempiresDAL).saveEmpires(empires);
+		Mockito.verify(myempiresDAL).createOrUpdateEmpires(empires);
 		
 	}
 	
