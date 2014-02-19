@@ -95,11 +95,6 @@ public class ManagerFactory {
 		}
 	}
 	
-	public void reloadManagers(){
-		for (IManager m : Managers){
-			m.reload();
-		}
-	}
 
 
 	public CoreManager CreateCoreManager(empires empires) {

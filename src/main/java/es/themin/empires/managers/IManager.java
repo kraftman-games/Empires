@@ -7,5 +7,4 @@ public interface IManager {
 	
 	void load();
 	
-	void reload();
 }

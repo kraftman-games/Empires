@@ -72,11 +72,6 @@ public class CoreManager implements IManager{
 		cores = empiresDAL.loadCores();		
 	}
 
-	@Override
-	public void reload() {
-		// TODO Auto-generated method stub
-		
-	}
 }
 
 
