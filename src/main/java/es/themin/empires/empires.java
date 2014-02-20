@@ -96,7 +96,7 @@ public final class empires extends JavaPlugin {
 		MsgManager.setPrefix(plprefix);
 		
 		loadCommands();
-		scheduleBackUps();
+		
 		registerEvents();
 		loadSchematics();
 		
@@ -106,8 +106,6 @@ public final class empires extends JavaPlugin {
     @Override
     public void onDisable() {
         
-    	
-    	
     	ManagerFactory.saveManagers();
 		SettingsManager.saveAll();
 		Bukkit.getServer().clearRecipes();
@@ -122,8 +120,8 @@ public final class empires extends JavaPlugin {
     
     private void createManagers(){
     	Empires = ManagerFactory.CreateEmpireManager();
-	   	 Cores = ManagerFactory.CreateCoreManager(this); 
-	   	 Worlds = ManagerFactory.CreateWorldManager(this);
+	   	 Cores = ManagerFactory.CreateCoreManager(); 
+	   	 Worlds = ManagerFactory.CreateWorldManager();
 	   	 Wars = ManagerFactory.CreateWarManager(this);
 	   	 Players = ManagerFactory.CreatePlayerManager();
     }
@@ -173,78 +171,7 @@ public final class empires extends JavaPlugin {
 		ally_ce.setUp();
     }
 
-    private void scheduleBackUps() {
-    	String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
-		(new File(pluginFolder)).mkdirs();
-    	
-    	if (getConfig().getString("enable_back_ups").equalsIgnoreCase("true")) {
-    		
-			try {
-				final Long l = Long.parseLong(getConfig().getString("time_between_back_ups_in_hours")) * 3600000;
-				getLogger().info("[Empires] Automatic backups enabled");
-	        	for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-	        		if (player.isOp()) {
-	        			player.sendMessage(plprefix + ChatColor.GREEN + "Automatic backups enabled");
-	        		}
-	        	}
-	        	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-
-	    			@SuppressWarnings("deprecation")
-	    			@Override
-	    			public void run() {
-	    				
-	    				long lastbackup = SettingsManager.getData().getLong("lastbackup");
-	    				
-	    				if (System.currentTimeMillis() - lastbackup > l) {
-	    					getLogger().info("[Empires] Backing Up");
-	    					for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-	    			    		if (player.isOp()) {
-	    			    			player.sendMessage(plprefix + ChatColor.GREEN + "Backing Up");
-	    			    		}
-	    			    	}
-	    					Date date = new Date(System.currentTimeMillis());
-	    					Time time = new Time(date.getTime());
-	    					StringBuilder str = new StringBuilder();
-	    					str.append(time.getHours() + ":" + time.getMinutes() + "-");
-	    					str.append(date.getDay() + "-");
-	    					str.append(date.getMonth() + "-");
-	    					str.append(date.getYear());
-	    					String epath = Bukkit.getServer().getPluginManager().getPlugin("Empires").getDataFolder().getAbsolutePath() + "/backups/backup-" + str.toString();
-	    					(new File(epath)).mkdirs();
-	    					File efile = new File(epath + File.separator + "empiredata.yml");
-	    					File cfile = new File(epath + File.separator + "config.yml");
-	    					File pfile = new File(epath + File.separator + "playerdata.yml");
-//	    					Players.save(pfile);
-//	    					Empires.save(efile);
-	    					SettingsManager.saveConfigToFile(cfile);
-//	    					SettingsManager.saveWorldDataToFile(wfile);
-	    					Players.save();
-	    					SettingsManager.getData().set("lastbackup", System.currentTimeMillis());
-	    					SettingsManager.saveData();
-	    					getLogger().info("[Empires] Backed Up");
-	    					for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-	    			    		if (player.isOp()) {
-	    			    			player.sendMessage(plprefix + ChatColor.GREEN + "Backed Up");
-	    			    		}
-	    			    	}
-	    				}
-	    			}
-	        		
-	        	}, 100L, 12000L);
-			}catch(NumberFormatException e) {
-				getLogger().severe("[Empires] Time between backups is invalid");
-			}
-    		
-    	}else {
-    		getLogger().info("[Empires] Automatic backups disabled");
-        	for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-        		if (player.isOp()) {
-        			player.sendMessage(plprefix + ChatColor.GREEN + "Automatic backups disabled");
-        		}
-        	}
-    	}
-    	
-    }
+  
     public void loadSchematics() {
     	schematics = new ArrayList<Schematic>();
     	schematics.add(new Schematic_Mob_1());
@@ -267,3 +194,79 @@ public final class empires extends JavaPlugin {
 	
     
 }
+
+
+
+
+//private void scheduleBackUps() {
+//	String pluginFolder = this.getDataFolder().getAbsolutePath() + "/backups";
+//	(new File(pluginFolder)).mkdirs();
+//	
+//	if (getConfig().getString("enable_back_ups").equalsIgnoreCase("true")) {
+//		
+//		try {
+//			final Long l = Long.parseLong(getConfig().getString("time_between_back_ups_in_hours")) * 3600000;
+//			getLogger().info("[Empires] Automatic backups enabled");
+//        	for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+//        		if (player.isOp()) {
+//        			player.sendMessage(plprefix + ChatColor.GREEN + "Automatic backups enabled");
+//        		}
+//        	}
+//        	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+//
+//    			@SuppressWarnings("deprecation")
+//    			@Override
+//    			public void run() {
+//    				
+//    				long lastbackup = SettingsManager.getData().getLong("lastbackup");
+//    				
+//    				if (System.currentTimeMillis() - lastbackup > l) {
+//    					getLogger().info("[Empires] Backing Up");
+//    					for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+//    			    		if (player.isOp()) {
+//    			    			player.sendMessage(plprefix + ChatColor.GREEN + "Backing Up");
+//    			    		}
+//    			    	}
+//    					Date date = new Date(System.currentTimeMillis());
+//    					Time time = new Time(date.getTime());
+//    					StringBuilder str = new StringBuilder();
+//    					str.append(time.getHours() + ":" + time.getMinutes() + "-");
+//    					str.append(date.getDay() + "-");
+//    					str.append(date.getMonth() + "-");
+//    					str.append(date.getYear());
+//    					String epath = Bukkit.getServer().getPluginManager().getPlugin("Empires").getDataFolder().getAbsolutePath() + "/backups/backup-" + str.toString();
+//    					(new File(epath)).mkdirs();
+//    					File efile = new File(epath + File.separator + "empiredata.yml");
+//    					File cfile = new File(epath + File.separator + "config.yml");
+//    					File pfile = new File(epath + File.separator + "playerdata.yml");
+////    					Players.save(pfile);
+////    					Empires.save(efile);
+//    					SettingsManager.saveConfigToFile(cfile);
+////    					SettingsManager.saveWorldDataToFile(wfile);
+//    					Players.save();
+//    					SettingsManager.getData().set("lastbackup", System.currentTimeMillis());
+//    					SettingsManager.saveData();
+//    					getLogger().info("[Empires] Backed Up");
+//    					for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+//    			    		if (player.isOp()) {
+//    			    			player.sendMessage(plprefix + ChatColor.GREEN + "Backed Up");
+//    			    		}
+//    			    	}
+//    				}
+//    			}
+//        		
+//        	}, 100L, 12000L);
+//		}catch(NumberFormatException e) {
+//			getLogger().severe("[Empires] Time between backups is invalid");
+//		}
+//		
+//	}else {
+//		getLogger().info("[Empires] Automatic backups disabled");
+//    	for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+//    		if (player.isOp()) {
+//    			player.sendMessage(plprefix + ChatColor.GREEN + "Automatic backups disabled");
+//    		}
+//    	}
+//	}
+//	
+//}

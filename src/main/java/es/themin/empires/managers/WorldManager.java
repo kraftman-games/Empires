@@ -12,11 +12,9 @@ import es.themin.empires.util.EWorld;
 
 public class WorldManager {
 
-	private empires myPlugin;
 	private HashMap<UUID,EWorld> worlds = new HashMap<UUID,EWorld>();
 	
-	public WorldManager(empires plugin) {
-		myPlugin = plugin;
+	public WorldManager() {
 		
 		List<World> myWorlds = Bukkit.getServer().getWorlds();
 		

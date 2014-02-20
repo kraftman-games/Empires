@@ -96,7 +96,7 @@ public class ManagerFactory {
 	
 
 
-	public CoreManager CreateCoreManager(empires empires) {
+	public CoreManager CreateCoreManager() {
 		
 		HashMap<UUID, Core> cores = new HashMap<UUID,Core>();
 		
@@ -106,8 +106,8 @@ public class ManagerFactory {
 	}
 
 
-	public WorldManager CreateWorldManager(empires empires) {
-		return new WorldManager(empires);
+	public WorldManager CreateWorldManager() {
+		return new WorldManager();
 	}
 
 
