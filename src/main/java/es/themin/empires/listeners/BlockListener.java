@@ -1,4 +1,4 @@
-package es.themin.empires.Listeners;
+package es.themin.empires.listeners;
 
 import java.util.HashMap;
 import java.util.Random;

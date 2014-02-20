@@ -1,4 +1,4 @@
-package es.themin.empires.Listeners;
+package es.themin.empires.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
