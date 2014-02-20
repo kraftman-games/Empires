@@ -1,5 +1,7 @@
 package es.themin.empires;
 
+
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -16,8 +18,10 @@ import org.powermock.api.mockito.PowerMockito;
 
 
 
+
 import com.jolbox.bonecp.BoneCP;
 
+import es.themin.empires.EmpiresDAL;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -30,50 +34,15 @@ public class PlayerManagerTest {
 		
 	}
 	
-	private Player getFakePlayer(){
-		Player myPlayer = PowerMockito.mock(Player.class);
-		PowerMockito.when(myPlayer.getName()).thenReturn("kraft");
-		PowerMockito.when(myPlayer.getUniqueId()).thenReturn(UUID.randomUUID());
-		
-		
-		return myPlayer;
-	}
-	
-	private EPlayer GetFakeCorePlayer(){
-		
-		
-		EPlayer myCorePlayer = new EPlayer(getFakePlayer());
-		
-		return myCorePlayer;
-	}
-	
-	private Empire GetFakeEmpire(){
-		
-		UUID myUuid = UUID.randomUUID();
-		Empire myEmpire = PowerMockito.mock(Empire.class);
-		PowerMockito.when(myEmpire.getUUID()).thenReturn(myUuid);
-		return myEmpire;
-	}
-	
-	private EPlayer GetFakeCorePlayerInEmpire(){
-		
-		EPlayer myCorePlayer = GetFakeCorePlayer();
-		Empire myEmpire = GetFakeEmpire();
-		myCorePlayer.setEmpire(myEmpire);
-		
-		return myCorePlayer;
-	}
-	
+
 	
 	
 	
 	@Test
 	public void PlayerManagerSave(){
-        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
-        players.put(myCorePlayer.getUUID(), myCorePlayer);
         
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
@@ -82,38 +51,26 @@ public class PlayerManagerTest {
 	}
 	
 	
+
+	
 //	@Test 
-//	public void PlayerManagerSaveToOtherFile() throws IOException {
-//		File tfile = PowerMockito.mock(File.class);
-//        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+//	public void GetPlayerByName() {
+//        EPlayer myCorePlayer = PowerMockito.mock(EPlayer.class);
 //        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
+//        
+//        Mockito.when(myCorePlayer.getName()).thenReturn("kraftman");
 //        
 //        players.put(myCorePlayer.getUUID(), myCorePlayer);
 //        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 //	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 //
-//	    myPlayerManager.save(tfile);
-//	    
-//	    Mockito.verify(myEmpiresDal).createOrUpdatePlayers(players, tfile);
+//	    assertTrue(myCorePlayer == myPlayerManager.getPlayer("kraftman"));
 //	}
 	
 	@Test 
-	public void GetPlayerByName() {
-        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
-        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
-        
-        myCorePlayer.setName("kraftman");
-        
-        players.put(myCorePlayer.getUUID(), myCorePlayer);
-        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
-	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
-
-	    assertTrue(myCorePlayer == myPlayerManager.getPlayer("kraftman"));
-	}
-	
-	@Test 
 	public void GetPlayerByUUID() {
-        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        EPlayer myCorePlayer = PowerMockito.mock(EPlayer.class);
+        Mockito.when(myCorePlayer.getUUID()).thenReturn(UUID.randomUUID());
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
@@ -126,7 +83,8 @@ public class PlayerManagerTest {
 	
 	@Test 
 	public void TestPlayerExistsbyUUID() {
-        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        EPlayer myCorePlayer = PowerMockito.mock(EPlayer.class);
+        Mockito.when(myCorePlayer.getUUID()).thenReturn(UUID.randomUUID());
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
@@ -142,7 +100,8 @@ public class PlayerManagerTest {
 	
 	@Test 
 	public void TestAddPlayer() {
-        EPlayer myCorePlayer = GetFakeCorePlayerInEmpire();
+        EPlayer myCorePlayer = PowerMockito.mock(EPlayer.class);
+        Mockito.when(myCorePlayer.getUUID()).thenReturn(UUID.randomUUID());
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
