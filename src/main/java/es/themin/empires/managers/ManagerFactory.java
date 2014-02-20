@@ -9,7 +9,6 @@ import java.util.UUID;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
-import es.themin.empires.CoreManager;
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;

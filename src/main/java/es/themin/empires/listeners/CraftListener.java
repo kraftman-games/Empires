@@ -13,8 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
+import es.themin.empires.managers.CoreManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.testing.Recipes;

@@ -1,10 +1,10 @@
-package es.themin.empires;
+package es.themin.empires.managers;
 
 import java.util.HashMap;
 import java.util.UUID;
 
+import es.themin.empires.EmpiresDAL;
 import es.themin.empires.cores.Core;
-import es.themin.empires.managers.IManager;
 import es.themin.empires.util.Empire;
 
 public class CoreManager implements IManager{

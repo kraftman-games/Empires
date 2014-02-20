@@ -6,11 +6,11 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.enums.PlaceType;
+import es.themin.empires.managers.CoreManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.EPlayer;

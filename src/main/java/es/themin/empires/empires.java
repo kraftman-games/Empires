@@ -36,6 +36,7 @@ import es.themin.empires.listeners.CraftListener;
 import es.themin.empires.listeners.Event_BlockPlace;
 import es.themin.empires.listeners.PlayerListener;
 import es.themin.empires.listeners.WorldListener;
+import es.themin.empires.managers.CoreManager;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.IManager;
 import es.themin.empires.managers.ManagerFactory;

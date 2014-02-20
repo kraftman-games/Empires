@@ -9,9 +9,9 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
-import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.managers.CoreManager;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
