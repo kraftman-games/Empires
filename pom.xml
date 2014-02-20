@@ -29,23 +29,6 @@
           <source>1.7</source>
           <target>1.7</target>
         </configuration>
-        <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>com.jolbox:bonecp</include>
-                                    <include>org.slf4j:*</include>
-                                    <include>slf4j_simple_1_6_2:*</include>
-                                </includes>
-                            </artifactSet>
-                        </configuration>
-                    </execution>
-                </executions>
       </plugin>
     </plugins>
     
@@ -53,7 +36,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <bonecpVersion>0.8.0-rc1</bonecpVersion>
 </properties>
   
  <repositories>
@@ -98,28 +80,17 @@
 				<version>3.0</version>
 			</dependency>
 			<dependency>
-	            <groupId>com.jolbox</groupId>
-	            <artifactId>bonecp</artifactId>
-	            <version>${bonecpVersion}</version>
-	            <scope>compile</scope>
-	        </dependency>
+				<groupId>com.jolbox</groupId>
+				<artifactId>bonecp</artifactId>
+				<version>0.8.0.RELEASE</version>
+			</dependency>
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.28</version>
 			</dependency>
-            <dependency>
-			    <groupId>com.google.guava</groupId>
-			    <artifactId>guava</artifactId>
-			    <version>16.0.1</version>
-			</dependency>
-			
-			
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.2</version>
-        </dependency>
+            
+            
             
 	         
         </dependencies>
