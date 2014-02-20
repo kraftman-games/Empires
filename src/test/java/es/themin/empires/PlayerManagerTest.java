@@ -5,26 +5,16 @@ package es.themin.empires;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 
-
-
-
-import com.jolbox.bonecp.BoneCP;
-
-import es.themin.empires.EmpiresDAL;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.Empire;
 
 public class PlayerManagerTest {
 

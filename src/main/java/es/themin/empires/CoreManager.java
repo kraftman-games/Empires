@@ -1,17 +1,11 @@
 package es.themin.empires;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-
 import es.themin.empires.cores.Core;
-import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.IManager;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.testing.newemp;
 
 public class CoreManager implements IManager{
 

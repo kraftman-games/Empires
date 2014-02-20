@@ -1,7 +1,5 @@
 package es.themin.empires.cmds;
 
-import java.util.ArrayList;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,8 +7,6 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.CoreManager;
 import es.themin.empires.empires;
-import es.themin.empires.cores.Core;
-import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 
