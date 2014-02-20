@@ -29,6 +29,23 @@
           <source>1.7</source>
           <target>1.7</target>
         </configuration>
+        <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>com.jolbox:bonecp</include>
+                                    <include>org.slf4j:*</include>
+                                    <include>slf4j_simple_1_6_2:*</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
       </plugin>
     </plugins>
     
