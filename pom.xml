@@ -36,7 +36,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <slf4jVersion>1.6.1</slf4jVersion>
+    <bonecpVersion>0.8.0-rc1</bonecpVersion>
 </properties>
   
  <repositories>
@@ -81,10 +81,11 @@
 				<version>3.0</version>
 			</dependency>
 			<dependency>
-				<groupId>com.jolbox</groupId>
-				<artifactId>bonecp</artifactId>
-				<version>0.8.0.RELEASE</version>
-			</dependency>
+	            <groupId>com.jolbox</groupId>
+	            <artifactId>bonecp</artifactId>
+	            <version>${bonecpVersion}</version>
+	            <scope>compile</scope>
+	        </dependency>
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
@@ -95,13 +96,9 @@
 			    <artifactId>guava</artifactId>
 			    <version>16.0.1</version>
 			</dependency>
-			<dependency>
-			    <groupId>org.slf4j</groupId>
-			    <artifactId>slf4j-api</artifactId>
-			    <version>${slf4jVersion}</version>
-			</dependency>
 			
-             <dependency>
+			
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.2</version>
