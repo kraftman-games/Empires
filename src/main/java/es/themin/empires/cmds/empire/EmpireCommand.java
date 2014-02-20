@@ -62,7 +62,7 @@ public class EmpireCommand implements CommandExecutor{
 					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
 				if (scmd.permission() != null){
-					if (myCorePlayer != null || myCorePlayer.getEmpire() != null) {
+					if (myCorePlayer != null & myCorePlayer.getEmpire() != null) {
 						Empire empire = myCorePlayer.getEmpire();
 						if ((empire.getOwner() != myCorePlayer.getUUID())) {
 							if (empire.playerHasARank(player.getName())) {
