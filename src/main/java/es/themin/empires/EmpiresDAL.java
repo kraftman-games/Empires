@@ -51,7 +51,12 @@ public class EmpiresDAL {
 					 EPlayer myEPlayer = new EPlayer(myUUID, results.getString("Name"));
 					 myEPlayer.setFirstSeen(results.getLong("FirstSeen"));
 					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
-					 myEPlayer.setEmpireUUID(UUID.fromString(results.getString("EmpireUUID")));
+					 
+					 String empireUUID = results.getString("EmpireUUID");
+					 if (empireUUID.isEmpty() == false){
+						 myEPlayer.setEmpireUUID(UUID.fromString(empireUUID));
+					 }
+					 
 					 return myEPlayer;
 				}
 			}
@@ -202,15 +207,17 @@ public class EmpiresDAL {
 			       
 				for (EPlayer myPlayer : myPlayers.values()){
 					
+					String EmpireUUID = myPlayer.getEmpireUUID() != null ? myPlayer.getEmpireUUID().toString() : "";
+					
 			        stmnt.setString(1, myPlayer.getUUID().toString());
 			        stmnt.setLong(2, myPlayer.getFirstSeen());
 			        stmnt.setLong(3, myPlayer.getLastSeen());
 			        stmnt.setString(4, myPlayer.getName());
-			        stmnt.setString(5, myPlayer.getEmpireUUID().toString());
+			        stmnt.setString(5, EmpireUUID);
 			        
 			        stmnt.setLong(6, myPlayer.getLastSeen());
 			        stmnt.setString(7, myPlayer.getName());
-			        stmnt.setString(8, myPlayer.getEmpireUUID().toString());
+			        stmnt.setString(8, EmpireUUID);
 					stmnt.addBatch();
 					
 				}
