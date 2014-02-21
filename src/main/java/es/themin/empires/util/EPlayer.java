@@ -11,7 +11,7 @@ public class EPlayer {
 	private UUID UUID;
 	private UUID empireUUID;
 	private String name;
-	//private Player player;
+	private Player player;
 	private long firstSeen;
 	private long lastSeen;
 
@@ -90,6 +90,15 @@ public class EPlayer {
             }
         }
             return null;
+	}
+
+	public void setPlayer(Player myPlayer) {
+		player = myPlayer;
+		
+	}
+	
+	public void sendMessage(String myMessage){
+		player.sendMessage(myMessage);
 	}
 	
 	

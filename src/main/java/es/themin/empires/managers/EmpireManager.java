@@ -114,12 +114,26 @@ public class EmpireManager implements IManager {
 	}
 
 	public Empire createEmpire(String empireName, EPlayer owner) {
+		
+		if (!isValidName(empireName)){
+			owner.sendMessage("Empire name is invalid");
+			return null;
+		}
+
+		if (owner.getEmpireUUID() != null){
+			owner.sendMessage("You are already in an empire");
+			return null;
+		}
+
 		Empire empire = new Empire(empireName,owner.getUUID());
 		empires.put(empire.getUUID(), empire);
 		
 		empire.addPlayer(owner);
 
 		saveEmpire(empire);
+		
+		owner.sendMessage(ChatColor.GREEN + "Created Empire: " + empireName);
+		
 		return empire;
 	}
 

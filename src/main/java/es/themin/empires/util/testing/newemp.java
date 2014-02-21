@@ -28,15 +28,8 @@ public class newemp extends SubCommand{
 		EPlayer myEplayer = Players.loadEPlayer(player);
 		
 		
-		if (!Empires.isValidName(args[1])){
-			player.sendMessage("Empire name is invalid");
-		}
-
-		if (myEplayer.getEmpireUUID() != null){
-			player.sendMessage("You are already in an empire");
-		}
-
-		Empire myEmpire = Empires.createEmpire(args[1], myEplayer);
+		
+		Empires.createEmpire(args[1], myEplayer);
 		
 		player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
 			

@@ -68,25 +68,26 @@ public class PlayerManager implements IManager {
 	public EPlayer loadEPlayer(Player myPlayer) {
 		
 		EPlayer myEPlayer = players.get(myPlayer.getUniqueId());
+		
 
 		if ( myEPlayer!= null)
 			return myEPlayer;
 		
+		long timeNow = System.currentTimeMillis()/1000;		
 		myEPlayer = EmpiresDAL.loadPlayer(myPlayer.getUniqueId());
 		
 		if (myEPlayer == null){
 			myEPlayer = new EPlayer(myPlayer);
-			long timeNow = System.currentTimeMillis()/1000;
 			myEPlayer.setFirstSeen(timeNow);
-			myEPlayer.setLastSeen(timeNow);
-			EmpiresDAL.createOrUpdatePlayer(myEPlayer);
-			players.put(myEPlayer.getUUID(), myEPlayer);
-			
 		} else {
-			myEPlayer.setLastSeen(System.currentTimeMillis()/1000);
-			EmpiresDAL.createOrUpdatePlayer(myEPlayer);
-			players.put(myEPlayer.getUUID(), myEPlayer);
+			
 		}
+
+		myEPlayer.setLastSeen(timeNow);
+		EmpiresDAL.createOrUpdatePlayer(myEPlayer);
+		players.put(myEPlayer.getUUID(), myEPlayer);
+		myEPlayer.setPlayer(myPlayer);
+		
 		return myEPlayer;
 	}
 
