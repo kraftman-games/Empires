@@ -222,7 +222,6 @@ public class EmpiresDAL {
 					
 				}
 				stmnt.executeBatch();
-				stmnt.close();
 				myConnection.commit();
 			}
 			
