@@ -34,7 +34,7 @@ public class addplayer extends SubCommand{
 		}if (args.length == 1) {
 			player.sendMessage(plprefix + "Please specify a player");
 		}
-		Player target = Bukkit.getServer().loadEPlayer(args[1]);
+		Player target = Bukkit.getServer().getPlayer(args[1]);
 		EPlayer myTarloadEPlayer = Players.loadEPlayer(target);
 		
 		if (!(target.isOnline())) {

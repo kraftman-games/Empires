@@ -37,11 +37,11 @@ public class EmpireInviteCommand extends EmpireSubCommand{
 			player.sendMessage(MsgManager.toofewargs);
 			return false;
 		}
-		if (Bukkit.getServer().loadEPlayer(args[1]) == null) {
+		if (Bukkit.getServer().getPlayer(args[1]) == null) {
 			player.sendMessage(plprefix + ChatColor.RED +"That player is not online.");
 			return false;
 		}
-		Player invited = Bukkit.getServer().loadEPlayer(args[1]);
+		Player invited = Bukkit.getServer().getPlayer(args[1]);
 		if (!invited.isOnline()) {
 			player.sendMessage(plprefix + ChatColor.RED +"That player is not online.");
 			return false;

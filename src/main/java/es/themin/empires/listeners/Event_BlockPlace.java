@@ -27,7 +27,7 @@ public class Event_BlockPlace implements Listener{
 	}
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
-		Player player = event.loadEPlayer();
+		Player player = event.getPlayer();
 		EPlayer myEPlayer = Players.loadEPlayer(player);
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();

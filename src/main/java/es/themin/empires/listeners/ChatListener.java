@@ -33,7 +33,7 @@ public class ChatListener implements Listener{
 	@EventHandler
 	public void onPlayerChat(PlayerChatEvent event) {
 		
-		Player player = event.loadEPlayer();
+		Player player = event.getPlayer();
 		EPlayer myEPlayer = Players.loadEPlayer(player);
 		if (ChatCommand.empirechatplayers.contains(player)) {
 			event.setCancelled(true);

@@ -46,7 +46,7 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent event) {
-		Player player = event.loadEPlayer();
+		Player player = event.getPlayer();
 		
 		if (!Players.playerExists(player.getUniqueId())){
 			Players.loadEPlayer(player);
@@ -57,7 +57,7 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		Player player = event.loadEPlayer();
+		Player player = event.getPlayer();
 		
 		Players.removePlayer(player);
 		
@@ -126,7 +126,7 @@ public class PlayerListener implements Listener{
 		
 		Block myBlock = event.getClickedBlock();
 		
-		Player myPlayer = event.loadEPlayer();
+		Player myPlayer = event.getPlayer();
 		
 		EPlayer myEPlayer = Players.loadEPlayer(myPlayer);
 		Empire eventPlayerEmpire = Empires.getEmpire(myEPlayer.getEmpireUUID());

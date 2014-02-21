@@ -33,7 +33,7 @@ public class CraftListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerCraft(CraftItemEvent event) {
-		Player player = (Player) event.getView().loadEPlayer();
+		Player player = (Player) event.getView().getPlayer();
 		ItemStack amp = new ItemStack(Material.BRICK, 1);
 		ItemMeta meta2 = amp.getItemMeta();
 	    meta2.setDisplayName(ChatColor.ITALIC + "Amplifier");
