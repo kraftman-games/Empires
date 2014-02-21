@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.enums.EmpireState;
@@ -120,6 +121,7 @@ public class Empire {
 
 			myEPlayer.setEmpireUUID(this.getUUID());
 			players.put(myEPlayer.getUUID(), myEPlayer);
+			myEPlayer.sendMessage(ChatColor.GREEN + "You were added to " + this.getName());
 		}
 	}
 	public void removePlayer(String p) {

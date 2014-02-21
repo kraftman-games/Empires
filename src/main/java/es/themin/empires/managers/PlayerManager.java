@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
+import es.themin.empires.util.Empire;
 
 public class PlayerManager implements IManager {
 
@@ -100,6 +102,28 @@ public class PlayerManager implements IManager {
 		players.remove(player.getUniqueId());
 		EmpiresDAL.createOrUpdatePlayer(myEPlayer);
 		
+	}
+
+	public boolean playerCanAdd(Player player, String string) {
+		EPlayer myEPlayer = loadEPlayer(player);
+		if ( myEPlayer.getEmpireUUID() == null) {
+			player.sendMessage(ChatColor.RED + "you are not in an empire");
+			return false;
+		}
+		
+		Player target = Bukkit.getServer().getPlayer(string);
+		if (target == null || !target.isOnline()){
+			player.sendMessage("Player could not be found");
+			return false;
+		} else {
+			EPlayer myTargetPlayer = loadEPlayer(target);
+			if (myTargetPlayer.getEmpireUUID() == null){
+				myTargetPlayer.sendMessage(myTargetPlayer.getName()+" is already in an empire!");
+				return false;
+			} else {
+				return true;
+			}
+		}
 	}
 
 	
