@@ -53,7 +53,7 @@ public class EmpiresDAL {
 					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
 					 
 					 String empireUUID = results.getString("EmpireUUID");
-					 if (empireUUID.isEmpty() == false){
+					 if (empireUUID != null && empireUUID.isEmpty() == false){
 						 myEPlayer.setEmpireUUID(UUID.fromString(empireUUID));
 					 }
 					 
@@ -222,6 +222,7 @@ public class EmpiresDAL {
 					
 				}
 				stmnt.executeBatch();
+				stmnt.close();
 				myConnection.commit();
 			}
 			
