@@ -51,6 +51,7 @@ public class EmpiresDAL {
 					 EPlayer myEPlayer = new EPlayer(myUUID, results.getString("Name"));
 					 myEPlayer.setFirstSeen(results.getLong("FirstSeen"));
 					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
+					 myEPlayer.setEmpireUUID(UUID.fromString(results.getString("EmpireUUID")));
 					 return myEPlayer;
 				}
 			}
@@ -196,7 +197,8 @@ public class EmpiresDAL {
 			myConnection = connectionPool.getConnection(); // fetch a connection
 			
 			if (myConnection != null){
-				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Players` (`PlayerUUID`,`FirstSeen`,`LastSeen`,`Name`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=?  ;");
+				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Players` (`PlayerUUID`,`FirstSeen`,`LastSeen`,`Name`,`EmpireUUID`) VALUES (?,?,?,?,?) "
+																		+" ON DUPLICATE KEY UPDATE `LastSeen`=?,`Name`=?,`EmpireUUID`=?  ;");
 			       
 				for (EPlayer myPlayer : myPlayers.values()){
 					
@@ -204,9 +206,11 @@ public class EmpiresDAL {
 			        stmnt.setLong(2, myPlayer.getFirstSeen());
 			        stmnt.setLong(3, myPlayer.getLastSeen());
 			        stmnt.setString(4, myPlayer.getName());
+			        stmnt.setString(5, myPlayer.getEmpireUUID().toString());
 			        
-			        stmnt.setLong(5, myPlayer.getLastSeen());
-			        stmnt.setString(6, myPlayer.getName());
+			        stmnt.setLong(6, myPlayer.getLastSeen());
+			        stmnt.setString(7, myPlayer.getName());
+			        stmnt.setString(8, myPlayer.getEmpireUUID().toString());
 					stmnt.addBatch();
 					
 				}
