@@ -68,14 +68,7 @@ public class EmpireManager implements IManager {
 		return empires.get(ID) != null ? true : false;
 	}
 	
-	public boolean isValidName(String string) {
-		if (string.isEmpty())
-			return false;
-		else if(getEmpireWithName(string) != null)
-			return false;
-		
-		return true;
-	}
+	
 	
 	public int getRank(Empire myEmpire) {
 		int xp = 0;
@@ -115,13 +108,16 @@ public class EmpireManager implements IManager {
 
 	public Empire createEmpire(String empireName, EPlayer owner) {
 		
-		if (!isValidName(empireName)){
-			owner.sendMessage("Empire name is invalid");
-			return null;
-		}
-
 		if (owner.getEmpireUUID() != null){
 			owner.sendMessage("You are already in an empire");
+			return null;
+		}
+		
+		if (empireName.isEmpty()){
+			owner.sendMessage("Your nation needs a name!");
+			return null;
+		}else if(getEmpireWithName(empireName) != null){
+			owner.sendMessage("An empire with that name already exists!");
 			return null;
 		}
 

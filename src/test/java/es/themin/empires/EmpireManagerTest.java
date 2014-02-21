@@ -141,25 +141,7 @@ public class EmpireManagerTest {
 //        assertTrue(MyEmpireManager.getEmpireWithID(0) == myEmpire);
 //	}
 	
-	@Test
-	public void EmpireNameValidationTest(){
-		
-        EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
-        HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
-        
-        EmpireManager MyEmpireManager = new EmpireManager(myempiresDAL, empires);
-        
-        Empire myEmpire = Mockito.mock(Empire.class);
-        String EmpireName = "KraftPire";
-        
-        Mockito.when(myEmpire.getName()).thenReturn(EmpireName);
-        
-        assertTrue(MyEmpireManager.isValidName(EmpireName));
-        MyEmpireManager.addEmpire(myEmpire);
-        
-        assertFalse(MyEmpireManager.isValidName(EmpireName));
-        assertFalse(MyEmpireManager.isValidName(""));
-	}
+
 	
 	
 	

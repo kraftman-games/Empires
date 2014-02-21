@@ -27,12 +27,8 @@ public class newemp extends SubCommand{
 		
 		EPlayer myEplayer = Players.loadEPlayer(player);
 		
-		
-		
 		Empires.createEmpire(args[1], myEplayer);
-		
-		player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
-			
+					
 		return false;
 	}
 
