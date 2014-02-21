@@ -25,9 +25,12 @@ public class newemp extends SubCommand{
 
 	public boolean onCommand(Player player, String[] args) {
 		
-		EPlayer myEplayer = Players.loadEPlayer(player);
-		
-		Empires.createEmpire(args[1], myEplayer);
+		if (args.length > 0 && args[1] != null){
+			EPlayer myEplayer = Players.loadEPlayer(player);
+			Empires.createEmpire(args[1], myEplayer);
+		} else {
+			player.sendMessage("you must provide an empire name");
+		}
 					
 		return false;
 	}
