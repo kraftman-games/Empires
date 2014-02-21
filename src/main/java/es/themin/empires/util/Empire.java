@@ -88,20 +88,20 @@ public class Empire {
 	public void setOwner(UUID owner){
 		this.owner = owner;
 	}
-	public HashMap<UUID,EPlayer> getPlayers(){
+	public HashMap<UUID,EPlayer> loadEPlayers(){
 		return players;
 	}
 	
-	public boolean hasPlayer(EPlayer myCorePlayer) {
-		if (players.get(myCorePlayer.getUUID()) != null){
+	public boolean hasPlayer(EPlayer myEPlayer) {
+		if (players.get(myEPlayer.getUUID()) != null){
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean hasPlayer(String playerName) {
-		for(EPlayer myCorePlayer : players.values()){
-			if (myCorePlayer.getName() == playerName){
+		for(EPlayer myEPlayer : players.values()){
+			if (myEPlayer.getName() == playerName){
 				return true;
 			}
 		}
@@ -115,9 +115,11 @@ public class Empire {
 		return false;
 	}
 	
-	public void addPlayer(EPlayer myCorePlayer){
-		if (myCorePlayer.getEmpireUUID() == null){
-			players.put(myCorePlayer.getUUID(), myCorePlayer);
+	public void addPlayer(EPlayer myEPlayer){
+		if (myEPlayer.getEmpireUUID() == null){
+
+			myEPlayer.setEmpireUUID(this.getUUID());
+			players.put(myEPlayer.getUUID(), myEPlayer);
 		}
 	}
 	public void removePlayer(String p) {
@@ -179,7 +181,7 @@ public class Empire {
 	}
 	public Rank getRankOfPlayer(String playername) {
 		for (Rank rank : ranks) {
-			if (rank.getPlayers().contains(playername)) return rank;
+			if (rank.loadEPlayers().contains(playername)) return rank;
 		}
 		return null;
 	}
@@ -208,8 +210,8 @@ public class Empire {
 
 	public void broadcastMessage(String message) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			EPlayer myCorePlayer = players.get(player.getUniqueId());
-			if (myCorePlayer != null){
+			EPlayer myEPlayer = players.get(player.getUniqueId());
+			if (myEPlayer != null){
 				player.sendMessage(message);
 			}
 		}
@@ -228,7 +230,7 @@ public class Empire {
 	}
 
 	public boolean canPlayerAttack(Empire playerEmpire) {
-		//Empire playerEmpire = Players.getPlayer(myPlayer.getUniqueId()).getEmpire();
+		//Empire playerEmpire = Players.loadEPlayer(myPlayer.getUniqueId()).getEmpire();
 		if (!this.isProtected()){
 			if (this.isAtWar()){
 				if (playerEmpire == this.getEnemyEmpire()){
@@ -272,7 +274,7 @@ public class Empire {
 	
 	public boolean playerHasARank(String player) {
 		for (Rank rank : ranks) {
-			if (rank.getPlayers().contains(player)) return true;
+			if (rank.loadEPlayers().contains(player)) return true;
 		}
 		return false;
 	}
@@ -376,8 +378,8 @@ public class Empire {
 	public int getNumberOfOnlinePlayers(){
 		int number = 0;
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			EPlayer myCorePlayer = players.get(player.getUniqueId());
-			if (myCorePlayer != null){
+			EPlayer myEPlayer = players.get(player.getUniqueId());
+			if (myEPlayer != null){
 				number++;
 			}
 		}
@@ -393,9 +395,9 @@ public class Empire {
 		HashMap<UUID,EPlayer> list = new HashMap<UUID,EPlayer>();
 		
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			EPlayer myCorePlayer = players.get(player.getUniqueId());
-			if (myCorePlayer != null){
-				list.put(myCorePlayer.getUUID(), myCorePlayer);
+			EPlayer myEPlayer = players.get(player.getUniqueId());
+			if (myEPlayer != null){
+				list.put(myEPlayer.getUUID(), myEPlayer);
 			}
 		}
 		

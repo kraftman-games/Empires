@@ -25,12 +25,12 @@ public class HomeCommand implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player) sender;
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		
 		
 		//i think we need to store a home location per player or empire rather than using the base core
 		
-//		ArrayList<Core> myCores = Cores.getEmpireCores(myCorePlayer.getEmpire());
+//		ArrayList<Core> myCores = Cores.getEmpireCores(myEPlayer.getEmpire());
 //		
 //		Core BaseCore = null;
 //		

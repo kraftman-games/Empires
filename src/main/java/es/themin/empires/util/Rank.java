@@ -30,7 +30,7 @@ public class Rank {
 	public void setName(String name){
 		this.name = name;
 	}
-	public ArrayList<String> getPlayers() {
+	public ArrayList<String> loadEPlayers() {
 		return players;
 	}
 	public ArrayList<EmpirePermission> getPermissions() {

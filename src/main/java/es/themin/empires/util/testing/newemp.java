@@ -24,27 +24,22 @@ public class newemp extends SubCommand{
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		try {
-			player.sendMessage("debug 1 ");
-			EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
-			if (!Empires.isValidName(args[1])){
-				player.sendMessage("Empire name is invalid");
-			}
-			player.sendMessage("debug 2");
-			if (myCorePlayer.getEmpireUUID() != null){
-				player.sendMessage("You are already in an empire");
-			}
-			player.sendMessage("debug 3");
-			Empire empire = new Empire(args[1], myCorePlayer.getUUID());
-			Empires.addEmpire(empire);
-			empire.addPlayer(myCorePlayer);
-			myCorePlayer.setEmpireUUID(empire.getUUID());
-			player.sendMessage("debug 4");
-			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
-			Empires.saveEmpire(empire);
-		} catch (Exception e) {
-			
+		
+		EPlayer myEplayer = Players.loadEPlayer(player);
+		
+		
+		if (!Empires.isValidName(args[1])){
+			player.sendMessage("Empire name is invalid");
 		}
+
+		if (myEplayer.getEmpireUUID() != null){
+			player.sendMessage("You are already in an empire");
+		}
+
+		Empire myEmpire = Empires.createEmpire(args[1], myEplayer);
+		
+		player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
+			
 		return false;
 	}
 

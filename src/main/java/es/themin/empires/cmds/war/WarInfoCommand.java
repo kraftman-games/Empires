@@ -32,12 +32,12 @@ public class WarInfoCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
-		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
+		EPlayer myEPlayer = Players.loadEPlayer(player);
+		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
 			player.sendMessage(plprefix + ChatColor.RED +"You are not in an empire therefore cannot be at war");
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
+		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 		if (args.length == 1) {
 			player.sendMessage(plprefix + ChatColor.RED+ "Please specify a war");
 			return false;

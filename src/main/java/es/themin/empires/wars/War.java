@@ -270,7 +270,7 @@ public class War {
 			}
 			str.append("%");
 			for (EPlayer player : empire.getOnlinePlayers().values()) {
-				BarAPI.setMessage(player.getPlayer(), ChatColor.DARK_GREEN + "You        " + str.toString() + ChatColor.DARK_RED + empire2.getName(), fpc);
+				BarAPI.setMessage(player.loadEPlayer(), ChatColor.DARK_GREEN + "You        " + str.toString() + ChatColor.DARK_RED + empire2.getName(), fpc);
 			}
 		}for (Empire empire : getAllEmpiresOnTeam2()) {
 			StringBuilder str = new StringBuilder();
@@ -298,7 +298,7 @@ public class War {
 			}
 			str.append("%");
 			for (EPlayer player : empire.getOnlinePlayers().values()) {
-				BarAPI.setMessage(player.getPlayer(), ChatColor.DARK_GREEN + "You        " + str.toString() +"        "+ ChatColor.DARK_RED + empire1.getName(), fpc);
+				BarAPI.setMessage(player.loadEPlayer(), ChatColor.DARK_GREEN + "You        " + str.toString() +"        "+ ChatColor.DARK_RED + empire1.getName(), fpc);
 			}
 		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Bukkit.getServer().getPluginManager().getPlugin("Empires"), new Runnable() {
@@ -307,7 +307,7 @@ public class War {
 			public void run() {
 				for (Empire empire : getAllEmpires()) {
 					for (EPlayer player : empire.getOnlinePlayers().values()) {
-						BarAPI.removeBar(player.getPlayer());
+						BarAPI.removeBar(player.loadEPlayer());
 					}
 				}
 			}

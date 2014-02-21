@@ -28,13 +28,13 @@ public class AllyListCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		
-		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
+		if (myEPlayer.getEmpireUUID() == null) {
 			player.sendMessage(MsgManager.notinemp); 
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
+		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 		player.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Your Allies", ChatColor.GOLD));
 		if (!empire.hasAllies()) {
 			player.sendMessage(ChatColor.RED + "You do not have any allies :(");

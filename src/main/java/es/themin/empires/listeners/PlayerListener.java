@@ -46,10 +46,10 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent event) {
-		Player player = event.getPlayer();
+		Player player = event.loadEPlayer();
 		
 		if (!Players.playerExists(player.getUniqueId())){
-			Players.loadPlayer(player);
+			Players.loadEPlayer(player);
 		}
 		
 		
@@ -57,7 +57,7 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		Player player = event.getPlayer();
+		Player player = event.loadEPlayer();
 		
 		Players.removePlayer(player);
 		
@@ -75,8 +75,8 @@ public class PlayerListener implements Listener{
 		if (player.getKiller() instanceof Player) {
 			Player killer = (Player) player.getKiller();
 			
-			EPlayer defender = Players.getPlayer(player.getUniqueId());
-			EPlayer attacker = Players.getPlayer(killer.getUniqueId());
+			EPlayer defender = Players.loadEPlayer(player);
+			EPlayer attacker = Players.loadEPlayer(killer);
 			
 			
 			if (defender != null && attacker != null) {
@@ -126,10 +126,10 @@ public class PlayerListener implements Listener{
 		
 		Block myBlock = event.getClickedBlock();
 		
-		Player myPlayer = event.getPlayer();
+		Player myPlayer = event.loadEPlayer();
 		
-		EPlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
-		Empire eventPlayerEmpire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
+		EPlayer myEPlayer = Players.loadEPlayer(myPlayer);
+		Empire eventPlayerEmpire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
 		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		HashMap<UUID, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
@@ -170,7 +170,7 @@ public class PlayerListener implements Listener{
 			}
 		} else {
 			//its an enemy empire, which can either be protected (repairing) at war, or ready for war.
-//			if (selectedCore.getEmpire().canPlayerAttack(myCorePlayer)){
+//			if (selectedCore.getEmpire().canPlayerAttack(myEPlayer)){
 //				//selectedCore.getEmpire().startWar(eventPlayerEmpire);
 //			}
 		}			
@@ -221,11 +221,11 @@ public class PlayerListener implements Listener{
 ////		scheduler.scheduleSyncDelayedTask(thisPlugin, new Runnable() {
 ////			@Override
 ////            public void run() {
-////				Bukkit.getServer().getPlayer("kraftman").teleport(UtilManager.tannerTemp);
-////				Bukkit.getServer().getPlayer("kraftman").setFlying(false);
+////				Bukkit.getServer().loadEPlayer("kraftman").teleport(UtilManager.tannerTemp);
+////				Bukkit.getServer().loadEPlayer("kraftman").setFlying(false);
 ////
-////				Bukkit.getServer().getPlayer("kraftman").setAllowFlight(false);
-////				Bukkit.getServer().getPlayer("kraftman").sendMessage("moving you");
+////				Bukkit.getServer().loadEPlayer("kraftman").setAllowFlight(false);
+////				Bukkit.getServer().loadEPlayer("kraftman").sendMessage("moving you");
 ////            }
 ////        }, 400L);
 //		

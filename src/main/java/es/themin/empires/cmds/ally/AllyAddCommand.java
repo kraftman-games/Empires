@@ -32,7 +32,7 @@ public class AllyAddCommand extends EmpireSubCommand{
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		
-		EPlayer myPlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myPlayer = Players.loadEPlayer(player);
 		
 		if (myPlayer == null) {
 			player.sendMessage(MsgManager.notinemp);

@@ -31,11 +31,11 @@ public class WarDeclareCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		
-		if (myCorePlayer != null && myCorePlayer.getEmpireUUID() != null) {
-			Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
-			if (!(empire.getOwner() == myCorePlayer.getUUID())) {
+		if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
+			Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+			if (!(empire.getOwner() == myEPlayer.getUUID())) {
 				if (empire.playerHasARank(player.getName())) {
 					Rank rank = empire.getRankOfPlayer(player.getName());
 					if (!(rank.hasPermission(EmpirePermission.ATTACK))) player.sendMessage(plprefix + ChatColor.RED +"You do not have permission to do this"); return false;

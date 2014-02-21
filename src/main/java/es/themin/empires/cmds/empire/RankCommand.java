@@ -28,11 +28,11 @@ public class RankCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		
-		if (myCorePlayer != null && myCorePlayer.getEmpireUUID() != null) {
-			Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
-			if (empire.getOwner() == myCorePlayer.getUUID()) {
+		if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
+			Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+			if (empire.getOwner() == myEPlayer.getUUID()) {
 				if (args.length == 1) {
 					info(player); return false;
 				} else {

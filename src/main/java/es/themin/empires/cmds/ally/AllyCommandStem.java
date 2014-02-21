@@ -43,7 +43,7 @@ public class AllyCommandStem implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("ally")) {
 			Player player = (Player) sender;
-			EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+			EPlayer myEPlayer = Players.loadEPlayer(player);
 			
 			if (args.length == 0) {
 				player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
@@ -64,9 +64,9 @@ public class AllyCommandStem implements CommandExecutor{
 					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
 				if (scmd.permission() != null){
-					if (myCorePlayer != null) {
-						Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
-						if (empire.getOwner() != myCorePlayer.getUUID()) {
+					if (myEPlayer != null) {
+						Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+						if (empire.getOwner() != myEPlayer.getUUID()) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());
 								if (!(rank.hasPermission(scmd.permission()))) {

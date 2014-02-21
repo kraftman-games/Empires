@@ -26,28 +26,28 @@ public class addplayer extends SubCommand{
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		
-		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
+		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
 			player.sendMessage(plprefix + ChatColor.RED + "you are not in an empire");
 			return false;
 		}if (args.length == 1) {
 			player.sendMessage(plprefix + "Please specify a player");
 		}
-		Player target = Bukkit.getServer().getPlayer(args[1]);
-		EPlayer myTargetPlayer = Players.getPlayer(target.getUniqueId());
+		Player target = Bukkit.getServer().loadEPlayer(args[1]);
+		EPlayer myTarloadEPlayer = Players.loadEPlayer(target);
 		
 		if (!(target.isOnline())) {
 			player.sendMessage(plprefix + ChatColor.RED + "Player is not online"); 
 			return false;
 		}
-		if (myTargetPlayer != null && myTargetPlayer.getEmpireUUID() != null) {
+		if (myTarloadEPlayer != null && myTarloadEPlayer.getEmpireUUID() != null) {
 			player.sendMessage(plprefix + ChatColor.RED + "Player is already in an empire");
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
-		empire.addPlayer(myTargetPlayer);
-		Players.addPlayer(myTargetPlayer);
+		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+		empire.addPlayer(myTarloadEPlayer);
+		Players.addPlayer(myTarloadEPlayer);
 		player.sendMessage(plprefix + ChatColor.GREEN + "Added " + target.getName() + " To your empire");
 		target.sendMessage(plprefix + ChatColor.GREEN + "You were added to " + empire.getName() + " by " + player.getName());
 		return false;

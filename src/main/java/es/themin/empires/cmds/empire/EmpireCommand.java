@@ -43,7 +43,7 @@ public class EmpireCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("empire") || commandLabel.equalsIgnoreCase("emp") || commandLabel.equalsIgnoreCase("e")) {
 			Player player = (Player) sender;
-			EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+			EPlayer myEPlayer = Players.loadEPlayer(player);
 			
 			
 			if (args.length == 0) {
@@ -65,9 +65,9 @@ public class EmpireCommand implements CommandExecutor{
 					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
 				if (scmd.permission() != null){
-					if (myCorePlayer != null && myCorePlayer.getEmpireUUID() != null) {
-						Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
-						if ((empire.getOwner() != myCorePlayer.getUUID())) {
+					if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
+						Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+						if ((empire.getOwner() != myEPlayer.getUUID())) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());
 								if (!(rank.hasPermission(scmd.permission()))) {

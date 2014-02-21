@@ -31,15 +31,15 @@ public class EmpireTimelineCommand extends EmpireSubCommand{
 	
 	@Override
 	public boolean onCommand(final Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		
-		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
+		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
 		
 		final int i =0;
-		final Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
+		final Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 		final int passes = empire.getTimeLine().size();
 		int dit = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override

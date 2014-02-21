@@ -45,9 +45,9 @@ public class CoreUtils {
 	
 	public Core placeCore(Player myPlayer, CoreType myCoreType){
 		Core myCore = null;
-		EPlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(myPlayer);
 		
-		Empire myEmpire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
+		Empire myEmpire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 		
 		//check they are in an empire
 		if (myEmpire == null){
@@ -79,7 +79,7 @@ public class CoreUtils {
 		}
 		
 		//create the core
-		 myCore = new Core(myCorePlayer, myCoreType);
+		 myCore = new Core(myEPlayer, myCoreType);
 				
 		
 		//check if the core can physically be placed here

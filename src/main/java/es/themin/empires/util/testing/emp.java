@@ -27,7 +27,7 @@ public class emp extends SubCommand{
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		
 		if (args.length == 1) {
 			if (myEPlayer == null) {
@@ -40,7 +40,7 @@ public class emp extends SubCommand{
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;
-				for (EPlayer p : myEmpire.getPlayers().values()) {
+				for (EPlayer p : myEmpire.loadEPlayers().values()) {
 					i++;
 					str.append(ChatColor.GREEN + p.getName() + ", ");
 				}
@@ -59,7 +59,7 @@ public class emp extends SubCommand{
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;
-				for (EPlayer p : empire.getPlayers().values()) {
+				for (EPlayer p : empire.loadEPlayers().values()) {
 					i++;
 					str.append(ChatColor.GREEN + p.getName() + ", ");
 				}

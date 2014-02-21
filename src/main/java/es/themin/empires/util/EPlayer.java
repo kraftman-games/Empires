@@ -83,7 +83,7 @@ public class EPlayer {
             return null;
 	}
 //
-	public Player getPlayer() {
+	public Player loadEPlayer() {
 		for(Player p : Bukkit.getServer().getOnlinePlayers()){
             if(p.getUniqueId().equals(this.getUUID())){
                 return p;
@@ -94,7 +94,7 @@ public class EPlayer {
 	
 	
 //	public boolean canPlayerAttack(Player myPlayer) {
-//		Empire playerEmpire = Players.getPlayer(myPlayer.getUniqueId()).getEmpire();
+//		Empire playerEmpire = Players.loadEPlayer(myPlayer.getUniqueId()).getEmpire();
 //		if (!this.isProtected()){
 //			if (this.isAtWar()){
 //				if (playerEmpire == this.getEnemyEmpire()){

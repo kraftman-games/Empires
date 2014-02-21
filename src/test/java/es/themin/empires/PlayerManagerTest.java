@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.entity.Player;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -44,45 +45,46 @@ public class PlayerManagerTest {
 
 	
 //	@Test 
-//	public void GetPlayerByName() {
-//        EPlayer myCorePlayer = PowerMockito.mock(EPlayer.class);
+//	public void loadEPlayerByName() {
+//        EPlayer myEPlayer = PowerMockito.mock(EPlayer.class);
 //        HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
 //        
-//        Mockito.when(myCorePlayer.getName()).thenReturn("kraftman");
+//        Mockito.when(myEPlayer.getName()).thenReturn("kraftman");
 //        
-//        players.put(myCorePlayer.getUUID(), myCorePlayer);
+//        players.put(myEPlayer.getUUID(), myEPlayer);
 //        EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 //	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 //
-//	    assertTrue(myCorePlayer == myPlayerManager.getPlayer("kraftman"));
+//	    assertTrue(myEPlayer == myPlayerManager.loadEPlayer("kraftman"));
 //	}
 	
 	@Test 
-	public void GetPlayerByUUID() {
-        EPlayer myCorePlayer = PowerMockito.mock(EPlayer.class);
-        Mockito.when(myCorePlayer.getUUID()).thenReturn(UUID.randomUUID());
+	public void loadPlayer() {
+        Player myPlayer = PowerMockito.mock(Player.class);
+        Mockito.when(myPlayer.getUniqueId()).thenReturn(UUID.randomUUID());
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
-        players.put(myCorePlayer.getUUID(), myCorePlayer);
+        
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
+	    myPlayerManager.loadEPlayer(myPlayer);
 
-	    assertTrue(myCorePlayer == myPlayerManager.getPlayer(myCorePlayer.getUUID()));
+	    assertTrue(myPlayer.getUniqueId() == myPlayerManager.loadEPlayer(myPlayer).getUUID());
 	}
 	
 	@Test 
 	public void TestPlayerExistsbyUUID() {
-        EPlayer myCorePlayer = PowerMockito.mock(EPlayer.class);
-        Mockito.when(myCorePlayer.getUUID()).thenReturn(UUID.randomUUID());
+        EPlayer myEPlayer = PowerMockito.mock(EPlayer.class);
+        Mockito.when(myEPlayer.getUUID()).thenReturn(UUID.randomUUID());
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
-        players.put(myCorePlayer.getUUID(), myCorePlayer);
+        players.put(myEPlayer.getUUID(), myEPlayer);
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
-	    assertTrue(myPlayerManager.playerExists(myCorePlayer.getUUID()));
+	    assertTrue(myPlayerManager.playerExists(myEPlayer.getUUID()));
 	    
 	    UUID myUUID = UUID.randomUUID();
 	    assertFalse(myPlayerManager.playerExists(myUUID));
@@ -90,20 +92,20 @@ public class PlayerManagerTest {
 	
 	@Test 
 	public void TestAddPlayer() {
-        EPlayer myCorePlayer = PowerMockito.mock(EPlayer.class);
-        Mockito.when(myCorePlayer.getUUID()).thenReturn(UUID.randomUUID());
+        EPlayer myEPlayer = PowerMockito.mock(EPlayer.class);
+        Mockito.when(myEPlayer.getUUID()).thenReturn(UUID.randomUUID());
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         
         
-        players.put(myCorePlayer.getUUID(), myCorePlayer);
+        players.put(myEPlayer.getUUID(), myEPlayer);
         EmpiresDAL myEmpiresDal = PowerMockito.mock(EmpiresDAL.class);
 	    PlayerManager myPlayerManager = new PlayerManager(myEmpiresDal, players);
 
-	    myPlayerManager.addPlayer(myCorePlayer);
+	    myPlayerManager.addPlayer(myEPlayer);
 	    
 
-	    assertTrue(myPlayerManager.getPlayers().size() == 1);
-	    assertTrue(myPlayerManager.getPlayers().containsKey(myCorePlayer.getUUID()));
+	    assertTrue(myPlayerManager.loadEPlayers().size() == 1);
+	    assertTrue(myPlayerManager.loadEPlayers().containsKey(myEPlayer.getUUID()));
 	}
 }
 

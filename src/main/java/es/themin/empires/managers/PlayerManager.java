@@ -28,7 +28,7 @@ public class PlayerManager implements IManager {
     
     public void load(){
     	for (Player myPlayer : Bukkit.getOnlinePlayers()){
-    		loadPlayer(myPlayer);
+    		loadEPlayer(myPlayer);
     	}
     }
 
@@ -38,26 +38,22 @@ public class PlayerManager implements IManager {
     }
 
 	
-	public EPlayer getPlayer(String playerName){
-		for (EPlayer myCorePlayer : this.players.values()){
-			if (myCorePlayer.getName().toLowerCase() == playerName.toLowerCase()){
-				return myCorePlayer;
+	public EPlayer loadEPlayer(String playerName){
+		for (EPlayer myEPlayer : this.players.values()){
+			if (myEPlayer.getName().toLowerCase() == playerName.toLowerCase()){
+				return myEPlayer;
 			}
 		}
 		return null;
 	}
 	
-	public EPlayer getPlayer(UUID myUUID){
-		return players.get(myUUID);
-	}
-	
-	public void addPlayer(EPlayer myCorePlayer){
-		players.put(myCorePlayer.getUUID(), myCorePlayer);
+	public void addPlayer(EPlayer myEPlayer){
+		players.put(myEPlayer.getUUID(), myEPlayer);
 	}
 	
     
     
-    public HashMap<UUID, EPlayer> getPlayers() {
+    public HashMap<UUID, EPlayer> loadEPlayers() {
 		return players;
 	}
 
@@ -69,18 +65,15 @@ public class PlayerManager implements IManager {
 			return false;
 	}
 
-	public EPlayer loadPlayer(Player myPlayer) {
+	public EPlayer loadEPlayer(Player myPlayer) {
 		
-		//if the player is already loaded just return them
-		if (players.get(myPlayer.getUniqueId()) != null){
-			System.out.println(myPlayer.getName()+ " found in memory");
-			return players.get(myPlayer.getUniqueId());
-		}
+		EPlayer myEPlayer = players.get(myPlayer.getUniqueId());
 
-		//otherwise try and get them from the db
-		EPlayer myEPlayer = EmpiresDAL.loadPlayer(myPlayer.getUniqueId());
+		if ( myEPlayer!= null)
+			return myEPlayer;
 		
-		//or create them if they dont exist
+		myEPlayer = EmpiresDAL.loadPlayer(myPlayer.getUniqueId());
+		
 		if (myEPlayer == null){
 			myEPlayer = new EPlayer(myPlayer);
 			long timeNow = System.currentTimeMillis()/1000;
@@ -102,7 +95,7 @@ public class PlayerManager implements IManager {
 
 	public void removePlayer(Player player) {
 		
-		EPlayer myEPlayer = getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = loadEPlayer(player);
 		players.remove(player.getUniqueId());
 		EmpiresDAL.createOrUpdatePlayer(myEPlayer);
 		
@@ -114,15 +107,15 @@ public class PlayerManager implements IManager {
 
 //for (Player player : Bukkit.getOnlinePlayers()) {
 //	if (!playerExists(player.getUniqueId())){
-//		EPlayer myCorePlayer = new EPlayer(player);
-//		addPlayer(myCorePlayer);
+//		EPlayer myEPlayer = new EPlayer(player);
+//		addPlayer(myEPlayer);
 //	}
 //	
 ////	if (playerdata.get(player.getUniqueId() + ".empire") != null) {
 ////		int empireID = playerdata.getInt(player.getUniqueId() + ".empire");
 ////		if (empire != null){
-////			CorePlayer myCorePlayer = new CorePlayer(player);
-////			addPlayer(myCorePlayer);
+////			CorePlayer myEPlayer = new CorePlayer(player);
+////			addPlayer(myEPlayer);
 ////			player.sendMessage(myPlugin.plprefix + ChatColor.GREEN + "You were found to be in an empire");
 ////		}
 ////	}

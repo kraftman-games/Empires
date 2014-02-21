@@ -3,7 +3,10 @@ package es.themin.empires.managers;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
+
 import es.themin.empires.EmpiresDAL;
+import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 
 public class EmpireManager implements IManager {
@@ -108,6 +111,16 @@ public class EmpireManager implements IManager {
 
 	public Empire getEmpire(UUID empireUUID) {
 		return empires.get(empireUUID);
+	}
+
+	public Empire createEmpire(String empireName, EPlayer owner) {
+		Empire empire = new Empire(empireName,owner.getUUID());
+		empires.put(empire.getUUID(), empire);
+		
+		empire.addPlayer(owner);
+
+		saveEmpire(empire);
+		return empire;
 	}
 
 }

@@ -18,7 +18,7 @@ public class tannertest extends SubCommand{
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		
-		EPlayer test = myPlugin.Players.getPlayer(player.getUniqueId());
+		EPlayer test = myPlugin.Players.loadEPlayer(player);
 		player.sendMessage(String.valueOf(test.getLastSeen()));
 		
 		return true;

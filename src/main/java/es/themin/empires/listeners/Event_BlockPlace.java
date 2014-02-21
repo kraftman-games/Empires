@@ -27,17 +27,17 @@ public class Event_BlockPlace implements Listener{
 	}
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
-		Player player = event.getPlayer();
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		Player player = event.loadEPlayer();
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();
 		if (placed == Material.BEACON) {
 			if (im.getDisplayName().equalsIgnoreCase("base core")) {
-				/*if (myCorePlayer == null) {
+				/*if (myEPlayer == null) {
 					player.sendMessage(MsgManager.notinemp);
 					event.setCancelled(true);
 				}
-				Empire myEmpire = myCorePlayer.getEmpire();
+				Empire myEmpire = myEPlayer.getEmpire();
 				if (myEmpire == null) {
 					player.sendMessage(MsgManager.notinemp);
 					event.setCancelled(true);

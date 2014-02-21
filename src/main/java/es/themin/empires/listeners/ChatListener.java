@@ -33,16 +33,16 @@ public class ChatListener implements Listener{
 	@EventHandler
 	public void onPlayerChat(PlayerChatEvent event) {
 		
-		Player player = event.getPlayer();
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		Player player = event.loadEPlayer();
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		if (ChatCommand.empirechatplayers.contains(player)) {
 			event.setCancelled(true);
-			if (myCorePlayer != null) {
+			if (myEPlayer != null) {
 				
-				Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
+				Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 				String rank;
 				if (!(empire.playerHasARank(player.getName()))) {
-					if (empire.getOwner() == myCorePlayer.getUUID()) {
+					if (empire.getOwner() == myEPlayer.getUUID()) {
 						if (empire.getOwnerPrefix() == null) rank = "king";
 						else rank = empire.getOwnerPrefix();
 					}else {

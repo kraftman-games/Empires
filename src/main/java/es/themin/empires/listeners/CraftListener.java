@@ -33,7 +33,7 @@ public class CraftListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerCraft(CraftItemEvent event) {
-		Player player = (Player) event.getView().getPlayer();
+		Player player = (Player) event.getView().loadEPlayer();
 		ItemStack amp = new ItemStack(Material.BRICK, 1);
 		ItemMeta meta2 = amp.getItemMeta();
 	    meta2.setDisplayName(ChatColor.ITALIC + "Amplifier");
@@ -60,9 +60,9 @@ public class CraftListener implements Listener{
 				myItem.setItemMeta(myMeta);
 				player.sendMessage("Crafted");
 				
-				EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+				EPlayer myEPlayer = Players.loadEPlayer(player);
 				
-//				if (!(event.getInventory().contains(myItem)) || myCorePlayer == null || !(Cores.empireHasCoreOfType(myCorePlayer.getEmpire(),CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), (Cores.empireGetCoreOfType(myCorePlayer.getEmpire(),CoreType.BASE)).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), myCorePlayer.getEmpire().getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
+//				if (!(event.getInventory().contains(myItem)) || myEPlayer == null || !(Cores.empireHasCoreOfType(myEPlayer.getEmpire(),CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), (Cores.empireGetCoreOfType(myEPlayer.getEmpire(),CoreType.BASE)).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), myEPlayer.getEmpire().getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
 //					event.setCancelled(true);
 //					event.setCurrentItem(null);
 //					player.sendMessage(ChatColor.RED + "To craft an amplifier you must place a true shard in your Base core's crafting table");

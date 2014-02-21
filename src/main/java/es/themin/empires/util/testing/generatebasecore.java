@@ -30,13 +30,13 @@ public class generatebasecore extends SubCommand{
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.loadEPlayer(player);
 		
-		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
+		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
 			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
+		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 		ItemStack item = new ItemStack(Material.BEACON, 1);
 		ItemMeta im = item.getItemMeta();
 		im.setDisplayName("base core");

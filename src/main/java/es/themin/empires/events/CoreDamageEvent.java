@@ -46,7 +46,7 @@ public class CoreDamageEvent extends Event implements Cancellable{
     public CoreDamageType getCoreDamager(){
     	return this.damagetype;
     }
-    public Player getPlayer(){
+    public Player loadEPlayer(){
     	return player;
     }
     public boolean isPlayerBreaking(){

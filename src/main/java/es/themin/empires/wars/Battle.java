@@ -450,7 +450,7 @@ public class Battle {
 					if (l2 >= 0) {
 						for (Empire empire : getAllEmpires()) {
 							for (EPlayer player : empire.getOnlinePlayers().values()) {
-								upDateTimer(player.getPlayer());
+								upDateTimer(player.loadEPlayer());
 							}
 						}
 					}else {

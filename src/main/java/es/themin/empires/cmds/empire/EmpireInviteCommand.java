@@ -27,21 +27,21 @@ public class EmpireInviteCommand extends EmpireSubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
-		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
+		EPlayer myEPlayer = Players.loadEPlayer(player);
+		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
+		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs);
 			return false;
 		}
-		if (Bukkit.getServer().getPlayer(args[1]) == null) {
+		if (Bukkit.getServer().loadEPlayer(args[1]) == null) {
 			player.sendMessage(plprefix + ChatColor.RED +"That player is not online.");
 			return false;
 		}
-		Player invited = Bukkit.getServer().getPlayer(args[1]);
+		Player invited = Bukkit.getServer().loadEPlayer(args[1]);
 		if (!invited.isOnline()) {
 			player.sendMessage(plprefix + ChatColor.RED +"That player is not online.");
 			return false;
