@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 public class EPlayer {
 
 	private UUID UUID;
-	private Empire empire;
+	private UUID empireUUID;
 	private String name;
 	//private Player player;
 	private long firstSeen;
@@ -39,20 +39,24 @@ public class EPlayer {
 		UUID = uUID;
 	}
 
-	public Empire getEmpire() {
-		return empire;
-	}
+
 	
+	public UUID getEmpireUUID() {
+		return empireUUID;
+	}
+
+	public void setEmpireUUID(UUID empireUUID) {
+		this.empireUUID = empireUUID;
+	}
+
 	public EPlayer(UUID mUUID, String playerName) {
 		UUID = mUUID;
 		name = playerName;
-		this.empire = null;
 	}
 
 	public EPlayer(Player player) {
 		UUID = player.getUniqueId();
 		name = player.getName();
-		this.empire = null;
 	}
 
 	public String getName() {
@@ -63,14 +67,11 @@ public class EPlayer {
 		this.name = name;
 	}
 
-	public void setEmpire(Empire myEmpire) {
-		empire = myEmpire;
-		
-	}
+	
 
 	public boolean isAtWarWith(EPlayer Enemy){
-		return this.empire.isAtWarWith(Enemy.getEmpire());
-		
+		//return this.empire.isAtWarWith(Enemy.getEmpire());
+		return false;
 	}
 	
 	public Location getLocation(){

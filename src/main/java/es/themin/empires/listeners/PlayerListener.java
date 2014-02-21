@@ -82,42 +82,42 @@ public class PlayerListener implements Listener{
 			if (defender != null && attacker != null) {
 				
 				
-				if (attacker.isAtWarWith(defender)) {
-					War war = attacker.getEmpire().getWarAgainst(defender.getEmpire());
-					if (!(attacker.getEmpire().isInABattle()) && !(defender.getEmpire().isInABattle())) {
-						Empire team1 = null;
-						Empire team2 = null;
-						BattleTeam attackingteam = null;
-						if (war.getAllEmpiresOnTeam1().contains(attacker)) {
-							team1 = attacker.getEmpire();
-							attackingteam = BattleTeam.team1;
-							team2 = defender.getEmpire();
-						}else if (war.getAllEmpiresOnTeam1().contains(defender)){
-							team1= defender.getEmpire();
-							attackingteam = BattleTeam.team2;
-							team2 = attacker.getEmpire();
-						}
-						Battle battle = new Battle(team1, team2, war, BattleType.DEATHMATCH, attackingteam);
-						battle.start();
-						war.addBattle(battle);
-						war.Save();
-						for (Empire empire : war.getAllEmpires()) {
-							if (empire != attacker.getEmpire() && empire != defender.getEmpire()) {
-								empire.broadcastMessage(warprefix + ChatColor.RED + "A Battle has broken out between " + attacker.getEmpire().getName() + " and "  + defender.getEmpire().getName() + ". Both sides fight to the death");
-							}
-						}
-						attacker.getEmpire().broadcastMessage(warprefix + ChatColor.RED + killer.getName() + " Has begun a battle against " + defender.getEmpire().getName() + " slaughter them to to tip the balance of the war in your favour");
-						defender.getEmpire().broadcastMessage(warprefix + ChatColor.RED + player.getName() + " Was killed by a member of " + attacker.getEmpire().getName() + " slaughter them to to tip the balance of the war in your favour");
-						battle.addPointsToTeamWithEmpire(attacker.getEmpire(), 1);
-					}else if (attacker.getEmpire().isInBattleWith(defender.getEmpire())) {
-						Battle battle = war.getOnGoingBattle();
-						if (battle.getType() == BattleType.DEATHMATCH) {
-							//Bukkit.broadcastMessage("kill");
-							battle.addPointsToTeamWithEmpire(attacker.getEmpire(), 1);
-						}
-					}
-					
-				}
+//				if (attacker.isAtWarWith(defender)) {
+//					War war = attacker.getEmpire().getWarAgainst(defender.getEmpire());
+//					if (!(attacker.getEmpire().isInABattle()) && !(defender.getEmpire().isInABattle())) {
+//						Empire team1 = null;
+//						Empire team2 = null;
+//						BattleTeam attackingteam = null;
+//						if (war.getAllEmpiresOnTeam1().contains(attacker)) {
+//							team1 = attacker.getEmpire();
+//							attackingteam = BattleTeam.team1;
+//							team2 = defender.getEmpire();
+//						}else if (war.getAllEmpiresOnTeam1().contains(defender)){
+//							team1= defender.getEmpire();
+//							attackingteam = BattleTeam.team2;
+//							team2 = attacker.getEmpire();
+//						}
+//						Battle battle = new Battle(team1, team2, war, BattleType.DEATHMATCH, attackingteam);
+//						battle.start();
+//						war.addBattle(battle);
+//						war.Save();
+//						for (Empire empire : war.getAllEmpires()) {
+//							if (empire != attacker.getEmpire() && empire != defender.getEmpire()) {
+//								empire.broadcastMessage(warprefix + ChatColor.RED + "A Battle has broken out between " + attacker.getEmpire().getName() + " and "  + defender.getEmpire().getName() + ". Both sides fight to the death");
+//							}
+//						}
+//						attacker.getEmpire().broadcastMessage(warprefix + ChatColor.RED + killer.getName() + " Has begun a battle against " + defender.getEmpire().getName() + " slaughter them to to tip the balance of the war in your favour");
+//						defender.getEmpire().broadcastMessage(warprefix + ChatColor.RED + player.getName() + " Was killed by a member of " + attacker.getEmpire().getName() + " slaughter them to to tip the balance of the war in your favour");
+//						battle.addPointsToTeamWithEmpire(attacker.getEmpire(), 1);
+//					}else if (attacker.getEmpire().isInBattleWith(defender.getEmpire())) {
+//						Battle battle = war.getOnGoingBattle();
+//						if (battle.getType() == BattleType.DEATHMATCH) {
+//							//Bukkit.broadcastMessage("kill");
+//							battle.addPointsToTeamWithEmpire(attacker.getEmpire(), 1);
+//						}
+//					}
+//					
+//				}
 			}
 		}
 		
@@ -129,7 +129,7 @@ public class PlayerListener implements Listener{
 		Player myPlayer = event.getPlayer();
 		
 		EPlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
-		Empire eventPlayerEmpire = myCorePlayer.getEmpire();
+		Empire eventPlayerEmpire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 		UUID myUUID = myBlock.getLocation().getWorld().getUID();
 		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
 		HashMap<UUID, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());

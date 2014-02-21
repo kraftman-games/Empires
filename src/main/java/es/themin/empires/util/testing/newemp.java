@@ -31,14 +31,14 @@ public class newemp extends SubCommand{
 				player.sendMessage("Empire name is invalid");
 			}
 			player.sendMessage("debug 2");
-			if (myCorePlayer.getEmpire() != null){
+			if (myCorePlayer.getEmpireUUID() != null){
 				player.sendMessage("You are already in an empire");
 			}
 			player.sendMessage("debug 3");
 			Empire empire = new Empire(args[1], myCorePlayer.getUUID());
 			Empires.addEmpire(empire);
 			empire.addPlayer(myCorePlayer);
-			myCorePlayer.setEmpire(empire);
+			myCorePlayer.setEmpireUUID(empire.getUUID());
 			player.sendMessage("debug 4");
 			player.sendMessage(plprefix + ChatColor.GREEN + "Created Empire: " + args[1]);
 			Empires.saveEmpire(empire);

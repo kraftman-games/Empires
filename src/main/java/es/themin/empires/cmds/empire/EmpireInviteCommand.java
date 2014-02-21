@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -16,6 +17,7 @@ public class EmpireInviteCommand extends EmpireSubCommand{
 	public String plprefix;
 	private empires myPlugin;
 	private PlayerManager Players;
+	private EmpireManager Empires;
 	
 	public EmpireInviteCommand(empires plugin) {
 		myPlugin = plugin;
@@ -26,11 +28,11 @@ public class EmpireInviteCommand extends EmpireSubCommand{
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
-		if (myCorePlayer == null || myCorePlayer.getEmpire() == null) {
+		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = myCorePlayer.getEmpire();
+		Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs);
 			return false;

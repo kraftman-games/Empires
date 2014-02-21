@@ -11,6 +11,7 @@ import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.enums.PlaceType;
 import es.themin.empires.managers.CoreManager;
+import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.EPlayer;
@@ -25,11 +26,13 @@ public class CoreUtils {
 	private WorldManager Worlds;
 	private CoreManager Cores;
 	private PlayerManager Players;
+	private EmpireManager Empires;
 	
 	public CoreUtils(empires plugin){
 		myPlugin = plugin;	
 		Worlds = plugin.Worlds;
 		Players = plugin.Players;
+		Empires = plugin.Empires;
 	}
 
 	public static CoreType GetCoreType(String coreType){
@@ -44,7 +47,7 @@ public class CoreUtils {
 		Core myCore = null;
 		EPlayer myCorePlayer = Players.getPlayer(myPlayer.getUniqueId());
 		
-		Empire myEmpire = myCorePlayer.getEmpire();
+		Empire myEmpire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 		
 		//check they are in an empire
 		if (myEmpire == null){

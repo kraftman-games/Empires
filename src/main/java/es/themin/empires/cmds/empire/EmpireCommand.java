@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
+import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -21,11 +22,13 @@ public class EmpireCommand implements CommandExecutor{
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	private empires myPlugin;
 	private PlayerManager Players;
+	private EmpireManager Empires;
 	
 	public EmpireCommand(empires plugin){
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
 		Players = plugin.Players;
+		Empires = plugin.Empires;
 		commands.add(new list(plugin));
 		commands.add(new RankCommand(plugin));
 		commands.add(new Stats(plugin));
@@ -62,8 +65,8 @@ public class EmpireCommand implements CommandExecutor{
 					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
 				}
 				if (scmd.permission() != null){
-					if (myCorePlayer != null & myCorePlayer.getEmpire() != null) {
-						Empire empire = myCorePlayer.getEmpire();
+					if (myCorePlayer != null && myCorePlayer.getEmpireUUID() != null) {
+						Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 						if ((empire.getOwner() != myCorePlayer.getUUID())) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());

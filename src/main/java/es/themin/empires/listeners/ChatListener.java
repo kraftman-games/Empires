@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerChatEvent;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.ChatCommand;
+import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -19,11 +20,13 @@ public class ChatListener implements Listener{
 	private empires myPlugin;
 	private String plprefix;
 	private PlayerManager Players;
+	private EmpireManager Empires;
 	
 	public ChatListener(empires plugin) {
 		this.myPlugin = plugin;
 		plprefix = plugin.plprefix;
 		Players = plugin.Players;
+		Empires = plugin.Empires;
 		
 	}
 	
@@ -36,7 +39,7 @@ public class ChatListener implements Listener{
 			event.setCancelled(true);
 			if (myCorePlayer != null) {
 				
-				Empire empire = myCorePlayer.getEmpire();
+				Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 				String rank;
 				if (!(empire.playerHasARank(player.getName()))) {
 					if (empire.getOwner() == myCorePlayer.getUUID()) {

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
+import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -21,11 +22,13 @@ public class AllyCommandStem implements CommandExecutor{
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	private  empires myPlugin;
 	private PlayerManager Players;
+	private EmpireManager Empires;
 	
 	public AllyCommandStem(empires plugin) {
 		myPlugin = plugin;
 		plprefix = plugin.plprefix;
 		Players = plugin.Players;
+		Empires = plugin.Empires;
 		
 	}
 
@@ -62,7 +65,7 @@ public class AllyCommandStem implements CommandExecutor{
 				}
 				if (scmd.permission() != null){
 					if (myCorePlayer != null) {
-						Empire empire = myCorePlayer.getEmpire();
+						Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 						if (empire.getOwner() != myCorePlayer.getUUID()) {
 							if (empire.playerHasARank(player.getName())) {
 								Rank rank = empire.getRankOfPlayer(player.getName());

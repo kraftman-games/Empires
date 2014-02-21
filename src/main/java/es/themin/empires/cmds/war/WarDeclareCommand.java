@@ -33,8 +33,8 @@ public class WarDeclareCommand extends EmpireSubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
-		if (myCorePlayer != null && myCorePlayer.getEmpire() != null) {
-			Empire empire = myCorePlayer.getEmpire();
+		if (myCorePlayer != null && myCorePlayer.getEmpireUUID() != null) {
+			Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 			if (!(empire.getOwner() == myCorePlayer.getUUID())) {
 				if (empire.playerHasARank(player.getName())) {
 					Rank rank = empire.getRankOfPlayer(player.getName());

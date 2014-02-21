@@ -38,7 +38,7 @@ public class AllyAddCommand extends EmpireSubCommand{
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = myPlayer.getEmpire();
+		Empire empire = Empires.getEmpire(myPlayer.getEmpireUUID());
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs + " do '/ally ?' for help");
 			return false;

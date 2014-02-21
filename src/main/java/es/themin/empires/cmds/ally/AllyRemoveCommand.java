@@ -31,11 +31,11 @@ public class AllyRemoveCommand extends EmpireSubCommand{
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
 		
-		if (myCorePlayer == null || myCorePlayer.getEmpire() == null) {
+		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
 			player.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = myCorePlayer.getEmpire();
+		Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 		if (args.length == 1) {
 			player.sendMessage(MsgManager.toofewargs);
 			return false;

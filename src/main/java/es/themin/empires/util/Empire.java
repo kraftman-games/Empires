@@ -116,7 +116,7 @@ public class Empire {
 	}
 	
 	public void addPlayer(EPlayer myCorePlayer){
-		if (myCorePlayer.getEmpire() == null){
+		if (myCorePlayer.getEmpireUUID() == null){
 			players.put(myCorePlayer.getUUID(), myCorePlayer);
 		}
 	}

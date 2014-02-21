@@ -3,9 +3,11 @@ package es.themin.empires.util.testing;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
+import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -14,17 +16,19 @@ public class addplayer extends SubCommand{
 	public String plprefix;
 	private empires myPlugin;
 	private PlayerManager Players;
+	private EmpireManager Empires;
 	
 	public addplayer(empires empires) {
 		myPlugin = empires;
 		plprefix = empires.plprefix;
 		Players = empires.Players;
+		Empires = empires.Empires;
 	}
 
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
-		if (myCorePlayer == null || myCorePlayer.getEmpire() == null) {
+		if (myCorePlayer == null || myCorePlayer.getEmpireUUID() == null) {
 			player.sendMessage(plprefix + ChatColor.RED + "you are not in an empire");
 			return false;
 		}if (args.length == 1) {
@@ -37,11 +41,11 @@ public class addplayer extends SubCommand{
 			player.sendMessage(plprefix + ChatColor.RED + "Player is not online"); 
 			return false;
 		}
-		if (myTargetPlayer != null && myTargetPlayer.getEmpire() != null) {
+		if (myTargetPlayer != null && myTargetPlayer.getEmpireUUID() != null) {
 			player.sendMessage(plprefix + ChatColor.RED + "Player is already in an empire");
 			return false;
 		}
-		Empire empire = myCorePlayer.getEmpire();
+		Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 		empire.addPlayer(myTargetPlayer);
 		Players.addPlayer(myTargetPlayer);
 		player.sendMessage(plprefix + ChatColor.GREEN + "Added " + target.getName() + " To your empire");

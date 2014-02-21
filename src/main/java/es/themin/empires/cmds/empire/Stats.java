@@ -37,8 +37,8 @@ public class Stats extends EmpireSubCommand{
 	public boolean onCommand(final Player player, String[] args) {
 		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
 		
-		if (myCorePlayer != null && myCorePlayer.getEmpire() != null) {
-			Empire empire = myCorePlayer.getEmpire();
+		if (myCorePlayer != null && myCorePlayer.getEmpireUUID() != null) {
+			Empire empire = Empires.getEmpire(myCorePlayer.getEmpireUUID());
 			final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 			Scoreboard sb = sbm.getNewScoreboard();
 			

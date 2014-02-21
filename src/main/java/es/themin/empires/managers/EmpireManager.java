@@ -106,6 +106,10 @@ public class EmpireManager implements IManager {
 		
 	}
 
+	public Empire getEmpire(UUID empireUUID) {
+		return empires.get(empireUUID);
+	}
+
 }
 
 

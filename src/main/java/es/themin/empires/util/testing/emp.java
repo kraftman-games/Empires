@@ -27,20 +27,20 @@ public class emp extends SubCommand{
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myCorePlayer = Players.getPlayer(player.getUniqueId());
+		EPlayer myEPlayer = Players.getPlayer(player.getUniqueId());
 		
 		if (args.length == 1) {
-			if (myCorePlayer == null) {
+			if (myEPlayer == null) {
 				player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
 			}else {
-				Empire empire = myCorePlayer.getEmpire();
-				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + empire.getName() + ChatColor.GOLD + "=====");
-				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + empire.numberOfPlayers());
-				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + Cores.getCoreCount(empire));
+				Empire myEmpire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+				player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + myEmpire.getName() + ChatColor.GOLD + "=====");
+				player.sendMessage(ChatColor.GREEN + "Player #: " + ChatColor.LIGHT_PURPLE + myEmpire.numberOfPlayers());
+				player.sendMessage(ChatColor.GREEN + "Core #: " + ChatColor.LIGHT_PURPLE + Cores.getCoreCount(myEmpire));
 				StringBuilder str = new StringBuilder();
 				str.append(ChatColor.GOLD + "Players: ");
 				int i = 0;
-				for (EPlayer p : empire.getPlayers().values()) {
+				for (EPlayer p : myEmpire.getPlayers().values()) {
 					i++;
 					str.append(ChatColor.GREEN + p.getName() + ", ");
 				}
@@ -48,7 +48,7 @@ public class emp extends SubCommand{
 					str.append(ChatColor.RED + "No players :(");
 				}
 				player.sendMessage(str.toString());
-				player.sendMessage(ChatColor.GREEN + "Owner: " + ChatColor.LIGHT_PURPLE + empire.getOwner());
+				player.sendMessage(ChatColor.GREEN + "Owner: " + ChatColor.LIGHT_PURPLE + myEmpire.getOwner());
 			}		
 		}else {
 			if (Empires.containsEmpireWithName(args[1])) {

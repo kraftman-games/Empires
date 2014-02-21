@@ -88,7 +88,7 @@ public class Core {
 		
 		
 		this.coreSize = 8;
-		this.empireUUID = myCorePlayer.getEmpire().getUUID();
+		this.empireUUID = myCorePlayer.getEmpireUUID();
 		this.coreType = myCoreType;
 		this.location = myCorePlayer.getLocation();
 		this.level = 1;
