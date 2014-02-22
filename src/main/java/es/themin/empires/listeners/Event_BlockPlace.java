@@ -41,6 +41,7 @@ public class Event_BlockPlace implements Listener{
 				myCore.build2();
 				EWorld cw = Worlds.getWorld(uuid);
 				cw.addCore(myCore);*/
+				event.setCancelled(true);
 				Schematic schem = new Schematic_Base_1();
 				//schem.pasteFromCentre(event.getBlock().getLocation());
 				schem.playEffectsFrom(event.getBlock().getLocation());
