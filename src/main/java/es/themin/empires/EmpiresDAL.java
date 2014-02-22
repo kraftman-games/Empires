@@ -17,7 +17,9 @@ import com.jolbox.bonecp.BoneCP;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.EPlayer;
+import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.testing.newemp;
 
 public class EmpiresDAL {
 
@@ -362,7 +364,81 @@ public class EmpiresDAL {
 	public HashMap<String, String> loadSettings() {
 		// TODO Auto-generated method stub
 		return null;
-	}	
+	}
+
+	public HashMap<UUID, EWorld> loadWorlds() {
+		HashMap<UUID,EWorld> myWorlds = new HashMap<UUID,EWorld>();
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection(); 
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Worlds`");
+		        
+				ResultSet results = stmnt.executeQuery();
+				
+				 while (results.next()) {
+					 UUID worldUUID = UUID.fromString(results.getString("WorldUUI"));
+					 EWorld myWorld = new EWorld(worldUUID);
+					 myWorlds.put(myWorld.getUUID(), myWorld);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return myWorlds;
+	}
+
+	public void createOrUpdateWorlds(HashMap<UUID,EWorld> myWorlds){
+		Connection myConnection = null;
+		try {
+			myConnection = connectionPool.getConnection(); // fetch a connection
+			
+			if (myConnection != null){
+				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Worlds` SET `WorldUUID`=?,`Name`=? ON DUPLICATE KEY UPDATE `Name`=? ;");
+			       
+				for (EWorld myWorld : myWorlds.values()){
+					
+					stmnt.setString(1, myWorld.getUUID().toString());
+					stmnt.setString(2, myWorld.getName());
+					stmnt.setString(3, myWorld.getName());
+					
+					stmnt.addBatch();
+					
+				}
+				stmnt.executeBatch();
+				myConnection.commit();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (myConnection != null) {
+				try {
+					myConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
+	
+	
+	public void createOrUpdateWorld(EWorld myWorld){
+		HashMap<UUID,EWorld> myEmpiresHashMap = new HashMap<UUID,EWorld>();
+		myEmpiresHashMap.put(myWorld.getUUID(), myWorld);
+		createOrUpdateWorlds(myEmpiresHashMap);
+	}
 }
 
 //private Boolean executeCoreUpdate(Connection myConnection, Core myCore){

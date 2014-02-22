@@ -10,7 +10,9 @@ import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.util.EPlayer;
+import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.testing.newemp;
 
 public class ManagerFactory {
 
@@ -40,8 +42,10 @@ public class ManagerFactory {
 	}
 
 
-	public WorldManager CreateWorldManager() {
-		return new WorldManager();
+	public static WorldManager CreateWorldManager(EmpiresDAL myEmpiresDAL) {
+		HashMap<UUID,EWorld> worlds = new HashMap<UUID,EWorld>();
+		
+		return new WorldManager(myEmpiresDAL, worlds);
 	}
 
 

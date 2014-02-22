@@ -6,21 +6,42 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 
 import es.themin.empires.cores.Core;
 
 public class EWorld {
 	
+	private UUID myUUID;
+	
 	private HashMap<UUID, Core> Cores;
 	private Map<Point, HashMap<UUID, Core>> CoreGrid;
 	private Integer GridSize = 400;
-	
+	private World world;
+	private String name;
 	
 	//TODO: IMPORTANT. check if the core its overlapping is itself
 
-	public EWorld() {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	public EWorld(UUID uuid) {
 		CoreGrid = new HashMap<Point, HashMap<UUID, Core>>();
 		Cores = new HashMap<UUID, Core>();
+		myUUID = uuid;
 	}
 
 	public Integer getGridSize() {
@@ -265,8 +286,10 @@ public class EWorld {
 	public HashMap<UUID, Core> getFriendlyCoresInGrid(UUID empireUUID,	Location location) {
 		return getFriendlyCoresInGrid(empireUUID, location.getBlockX(), location.getBlockZ());
 	}
-	
 
+	public UUID getUUID() {
+		return myUUID;
+	}
 }
 
 

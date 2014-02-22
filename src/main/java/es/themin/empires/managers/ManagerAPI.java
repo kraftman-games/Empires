@@ -220,6 +220,8 @@ public class ManagerAPI {
 		
 		Empire myEmpire = getEmpire(myEPlayer);
 		
+		
+		
 		switch (myCore.getPlaceType()) {
 		case INSIDE:
 			
