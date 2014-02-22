@@ -27,7 +27,7 @@ public class ManagerAPI {
 		Players = myPlayerManager;
 		Empires = myEmpireManager;
 		
-		Managers = new ArrayList<IManager>()
+		Managers = new ArrayList<IManager>();
 		
 		Managers.add(myEmpireManager);
 		Managers.add(myCoreManager);
