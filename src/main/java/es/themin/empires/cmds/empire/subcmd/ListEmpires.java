@@ -1,15 +1,15 @@
-package es.themin.empires.cmds.empire;
+package es.themin.empires.cmds.empire.subcmd;
 
 import org.bukkit.entity.Player;
 
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
 
-public class list extends EmpireSubCommand{
+public class ListEmpires extends EmpireSubCommand{
 
 	private ManagerAPI myApi;
 	
-	public list(ManagerAPI api) {
+	public ListEmpires(ManagerAPI api) {
 		myApi = api;
 	}
 

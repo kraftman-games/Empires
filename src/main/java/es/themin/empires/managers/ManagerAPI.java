@@ -21,13 +21,14 @@ public class ManagerAPI {
 	private EmpireManager Empires = null;
 	private ArrayList<IManager> Managers;
 	
-	public ManagerAPI(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager){
+	public ManagerAPI(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager ){
 		Cores = myCoreManager;
 		Players = myPlayerManager;
 		Empires = myEmpireManager;
 		Managers.add(myEmpireManager);
 		Managers.add(myCoreManager);
 		Managers.add(myPlayerManager);
+		
 	}
 	
 	
@@ -174,6 +175,26 @@ public class ManagerAPI {
 	public void addCore(Core myCore) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	public void sendChatToEmpire(EPlayer myEPlayer, String chatMessage) {
+
+		Empire empire = getEmpire(myEPlayer.getEmpireUUID());
+		String rank;
+		if (!(empire.playerHasARank(myEPlayer.getName()))) {
+			if (empire.getOwnerUUID() == myEPlayer.getUUID()) {
+				if (empire.getOwnerPrefix() == null) rank = "king";
+				else rank = empire.getOwnerPrefix();
+			}else {
+				if (empire.getDefaultPrefix() == null) rank = "default";
+				else rank = empire.getDefaultPrefix();
+			}
+		}else rank = empire.getRankOfPlayer(myEPlayer.getName()).getPreifx();
+		String rankc = MsgManager.colourUp(rank);
+		String format = ChatColor.WHITE + "[" + rankc + ChatColor.WHITE + "] [" + myEPlayer.getName() + ChatColor.WHITE + "] ";
+		empire.broadcastMessage(format + ChatColor.YELLOW + chatMessage);
 	}
 	
 	

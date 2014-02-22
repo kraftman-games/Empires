@@ -1,4 +1,4 @@
-package es.themin.empires.cmds.empire;
+package es.themin.empires.cmds.empire.subcmd;
 
 import java.util.ArrayList;
 
@@ -9,11 +9,11 @@ import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 
-public class ChatCommand extends EmpireSubCommand{
-	public static ArrayList<Player> empirechatplayers = new ArrayList<Player>();
+public class ToggleChat extends EmpireSubCommand{
+	
 	private ManagerAPI myApi = null;
 	
-	public ChatCommand(ManagerAPI api) {
+	public ToggleChat(ManagerAPI api) {
 		myApi = api;
 	}
 
@@ -21,16 +21,17 @@ public class ChatCommand extends EmpireSubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		if (myEPlayer.isInEmpire()) {
-			if (!(empirechatplayers.contains(player))) {
-				empirechatplayers.add(player);
-				player.sendMessage(ChatColor.GREEN + "Speaking in empire chat do '/g' to talk globally");
-				player.performCommand("local");
-				return false;
-			}else {
-				player.sendMessage( ChatColor.RED + "You are already talking in this channel");
-				return false;
+			
+			if (myEPlayer.isInEmpireChat()){
+				player.sendMessage(ChatColor.GREEN + "Toggled empire chat on, only players in your empire can see you talk");
+			} else {
+				player.sendMessage(ChatColor.GREEN + "Toggled empire chat off, all players can see you talk");
 			}
 			
+			// toggle
+			myEPlayer.setInEmpireChat(!myEPlayer.isInEmpireChat());
+			
+			return true;
 		}else {
 			player.sendMessage(ChatColor.RED + "You are not in an empire");
 		}

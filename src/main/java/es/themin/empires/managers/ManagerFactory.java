@@ -11,6 +11,7 @@ import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
+import es.themin.empires.util.testing.newemp;
 
 public class ManagerFactory {
 
@@ -50,6 +51,7 @@ public class ManagerFactory {
 	public WarManager CreateWarManager(empires empires) {
 		return new WarManager(empires);
 	}
+	
 	
 	public static ManagerAPI createManagerAPI(BoneCP connectionPool){
 		

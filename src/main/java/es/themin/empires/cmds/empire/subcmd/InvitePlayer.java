@@ -1,4 +1,4 @@
-package es.themin.empires.cmds.empire;
+package es.themin.empires.cmds.empire.subcmd;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,11 +10,11 @@ import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 
-public class EmpireInviteCommand extends EmpireSubCommand{
+public class InvitePlayer extends EmpireSubCommand{
 
 	private ManagerAPI myApi = null;
 	
-	public EmpireInviteCommand(ManagerAPI api) {
+	public InvitePlayer(ManagerAPI api) {
 		myApi = api;
 	}
 

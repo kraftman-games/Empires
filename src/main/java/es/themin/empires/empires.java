@@ -133,7 +133,6 @@ public final class empires extends JavaPlugin {
 		getCommand("e").setExecutor(empire_ce);
 		getCommand("emp").setExecutor(empire_ce);
 		getCommand("utiltest").setExecutor(new UtilityTesting(myAPI));
-		getCommand("all").setExecutor(new GlobalCommand(myAPI));
 		getCommand("war").setExecutor(new WarCommand(myAPI));
 		getCommand("base").setExecutor(new HomeCommand(myAPI));
 		

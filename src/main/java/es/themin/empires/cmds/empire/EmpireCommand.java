@@ -8,6 +8,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cmds.empire.subcmd.ToggleChat;
+import es.themin.empires.cmds.empire.subcmd.InvitePlayer;
+import es.themin.empires.cmds.empire.subcmd.EmpireSubCommand;
+import es.themin.empires.cmds.empire.subcmd.RankCommand;
+import es.themin.empires.cmds.empire.subcmd.SettingsCommand;
+import es.themin.empires.cmds.empire.subcmd.Stats;
+import es.themin.empires.cmds.empire.subcmd.ListEmpires;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 
@@ -19,18 +26,17 @@ public class EmpireCommand implements CommandExecutor{
 	
 	public EmpireCommand(ManagerAPI api){
 		myApi = api;
-		commands.add(new list(api));
+		commands.add(new ListEmpires(api));
 		commands.add(new RankCommand(api));
 		commands.add(new Stats(api));
-		commands.add(new ChatCommand(api));
+		commands.add(new ToggleChat(api));
 		commands.add(new SettingsCommand(api));
-		commands.add(new EmpireInviteCommand(api));
+		commands.add(new InvitePlayer(api));
 	}
 	
 	
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		if (commandLabel.equals("empire") || commandLabel.equalsIgnoreCase("emp") || commandLabel.equalsIgnoreCase("e")) {
 			Player player = (Player) sender;
 			EPlayer myEPlayer = myApi.getEPlayer(player);
 			
@@ -41,21 +47,14 @@ public class EmpireCommand implements CommandExecutor{
 			}
 			else {
 				EmpireSubCommand scmd = get(args[0]);
-				if (scmd == null) {
-					player.sendMessage( ChatColor.RED + "Invalid Command"); 
-					return false;
-				} 
 				
-				if (scmd.permission() != null){
-					if (!myApi.playerHasPermission(myEPlayer, scmd.permission())){
-						return false;
-					}
+				//return if they dont have permission
+				if (scmd.permission() != null && !myApi.playerHasPermission(myEPlayer, scmd.permission())){
+					return false;
 				}
 				scmd.onCommand(player, args);
 				return true;
 			}
-		}
-		return false;
 	}
 	
 	private void sendCommandHelp(Player myPlayer){

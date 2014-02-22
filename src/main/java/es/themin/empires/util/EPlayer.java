@@ -14,6 +14,7 @@ public class EPlayer {
 	private Player player;
 	private long firstSeen;
 	private long lastSeen;
+	private Boolean isInEmpireChat = false;
 
 	public long getLastSeen() {
 		return lastSeen;
@@ -110,6 +111,14 @@ public class EPlayer {
 
 	public boolean isOwner(Empire empire) {
 		return empire.getOwnerUUID() == this.getUUID();
+	}
+
+	public boolean isInEmpireChat() {
+		return isInEmpireChat;
+	}
+	
+	public void setInEmpireChat(Boolean isInEmpireChat){
+		this.isInEmpireChat = isInEmpireChat;
 	}
 	
 	
