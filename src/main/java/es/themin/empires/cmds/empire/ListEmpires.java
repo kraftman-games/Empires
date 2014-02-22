@@ -1,7 +1,5 @@
 package es.themin.empires.cmds.empire;
 
-import org.bukkit.entity.Player;
-
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;

@@ -3,7 +3,6 @@ package es.themin.empires.cmds.war;
 import java.sql.Date;
 
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;

@@ -1,7 +1,6 @@
 package es.themin.empires.cmds.empire;
 
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
