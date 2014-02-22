@@ -1,15 +1,12 @@
 package es.themin.empires.listeners;
 
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 
-import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.ChatCommand;
-import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
@@ -17,31 +14,24 @@ import es.themin.empires.util.MsgManager;
 @SuppressWarnings("deprecation")
 public class ChatListener implements Listener{
 	
-	private empires myPlugin;
-	private String plprefix;
-	private PlayerManager Players;
-	private EmpireManager Empires;
+	private ManagerAPI myApi;
 	
-	public ChatListener(empires plugin) {
-		this.myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
-		Empires = plugin.Empires;
+	public ChatListener(ManagerAPI myAPI) {
+		myAPI = myAPI;
 		
 	}
 	
 	@EventHandler
 	public void onPlayerChat(PlayerChatEvent event) {
 		
-		Player player = event.getPlayer();
-		EPlayer myEPlayer = Players.loadEPlayer(player);
-		if (ChatCommand.empirechatplayers.contains(player)) {
+		EPlayer myEPlayer = myApi.getEPlayer(event.getPlayer());
+		if (ChatCommand.empirechatplayers.contains(myEPlayer)) {
 			event.setCancelled(true);
 			if (myEPlayer != null) {
 				
-				Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+				Empire empire = myApi.getEmpire(myEPlayer.getEmpireUUID());
 				String rank;
-				if (!(empire.playerHasARank(player.getName()))) {
+				if (!(empire.playerHasARank(myEPlayer.getName()))) {
 					if (empire.getOwnerUUID() == myEPlayer.getUUID()) {
 						if (empire.getOwnerPrefix() == null) rank = "king";
 						else rank = empire.getOwnerPrefix();
@@ -49,12 +39,12 @@ public class ChatListener implements Listener{
 						if (empire.getDefaultPrefix() == null) rank = "default";
 						else rank = empire.getDefaultPrefix();
 					}
-				}else rank = empire.getRankOfPlayer(player.getName()).getPreifx();
+				}else rank = empire.getRankOfPlayer(myEPlayer.getName()).getPreifx();
 				String rankc = MsgManager.colourUp(rank);
-				String format = ChatColor.WHITE + "[" + rankc + ChatColor.WHITE + "] [" + player.getDisplayName() + ChatColor.WHITE + "] ";
+				String format = ChatColor.WHITE + "[" + rankc + ChatColor.WHITE + "] [" + myEPlayer.getName() + ChatColor.WHITE + "] ";
 				empire.broadcastMessage(format + ChatColor.YELLOW + event.getMessage());
 			}else {
-				player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire anymore so cannot talk in this channel do '/g'");
+				myEPlayer.sendMessage(ChatColor.RED + "You are not in an empire anymore so cannot talk in this channel do '/g'");
 			}
 		}
 	}

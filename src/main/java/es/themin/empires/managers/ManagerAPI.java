@@ -6,8 +6,10 @@ import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cores.Core;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.EPlayer;
+import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
@@ -151,6 +153,27 @@ public class ManagerAPI {
 	public boolean playerCanAddPlayer(Player player, String string) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+
+	public void removePlayer(EPlayer myEPlayer) {
+		Players.removePlayer(myEPlayer);
+		
+	}
+
+
+
+	public EWorld getEWorld(UUID worldUUID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	public void addCore(Core myCore) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

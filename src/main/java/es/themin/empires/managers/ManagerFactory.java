@@ -16,27 +16,26 @@ public class ManagerFactory {
 
 	File playerFile = null;
     File empireFile = null;
-    EmpiresDAL myEmpiresDAL = null;
 	
-	public ManagerFactory(empires plugin,BoneCP connectionPool) {
-         myEmpiresDAL = new EmpiresDAL(playerFile, empireFile, connectionPool);
+	public ManagerFactory(BoneCP connectionPool) {
+         
 	}
 	
 	
-	public PlayerManager CreatePlayerManager(){
+	public static PlayerManager CreatePlayerManager(EmpiresDAL myEmpiresDAL){
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         PlayerManager myPlayerManager = new PlayerManager(myEmpiresDAL, players);
 	    return myPlayerManager;
 	    
 	}
 	
-	public EmpireManager CreateEmpireManager(){
+	public static EmpireManager CreateEmpireManager(EmpiresDAL myEmpiresDAL){
 		HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
         EmpireManager MyEmpireManager = new EmpireManager(myEmpiresDAL, empires);
 		return MyEmpireManager;
 	}
 
-	public CoreManager CreateCoreManager() {
+	public static CoreManager CreateCoreManager(EmpiresDAL myEmpiresDAL) {
 		HashMap<UUID, Core> cores = new HashMap<UUID,Core>();
 		CoreManager myCoreManager = new  CoreManager(myEmpiresDAL, cores);
 		return myCoreManager;
@@ -52,10 +51,13 @@ public class ManagerFactory {
 		return new WarManager(empires);
 	}
 	
-	public ManagerAPI createManagerAPI(){
-		PlayerManager myPlayerManager = CreatePlayerManager();
-		CoreManager myCoreManager = CreateCoreManager();
-		EmpireManager myEmpireManager = CreateEmpireManager();
+	public static ManagerAPI createManagerAPI(BoneCP connectionPool){
+		
+		EmpiresDAL myEmpiresDAL = new EmpiresDAL(connectionPool);
+		
+		PlayerManager myPlayerManager = CreatePlayerManager(myEmpiresDAL);
+		CoreManager myCoreManager = CreateCoreManager(myEmpiresDAL);
+		EmpireManager myEmpireManager = CreateEmpireManager(myEmpiresDAL);
 		
 		return (new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager));
 		

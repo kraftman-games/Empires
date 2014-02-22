@@ -95,10 +95,9 @@ public class PlayerManager implements IManager {
 
 	
 
-	public void removePlayer(Player player) {
+	public void removePlayer(EPlayer myEPlayer) {
 		
-		EPlayer myEPlayer = loadEPlayer(player);
-		players.remove(player.getUniqueId());
+		players.remove(myEPlayer.getUUID());
 		EmpiresDAL.createOrUpdatePlayer(myEPlayer);
 		
 	}

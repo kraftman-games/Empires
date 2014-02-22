@@ -22,7 +22,6 @@ import com.jolbox.bonecp.BoneCPConfig;
 
 import es.themin.empires.cmds.GlobalCommand;
 import es.themin.empires.cmds.HomeCommand;
-import es.themin.empires.cmds.ally.AllyCommandStem;
 import es.themin.empires.cmds.empire.EmpireCommand;
 import es.themin.empires.cmds.war.WarCommand;
 import es.themin.empires.enums.ConfirmType;
@@ -36,8 +35,6 @@ import es.themin.empires.managers.IManager;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.ManagerFactory;
 import es.themin.empires.managers.SettingsManager;
-import es.themin.empires.managers.WarManager;
-import es.themin.empires.managers.WorldManager;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.schematics.base.Schematic_Base_20;
 import es.themin.empires.schematics.mob.Schematic_Mob_1;
@@ -48,37 +45,27 @@ import es.themin.empires.util.testing.UtilityTesting;
  
 public final class empires extends JavaPlugin {
  
-	public String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
-	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
 	
-	public static ArrayList<Material> destroyable = new ArrayList<Material>();
-	private HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
-	
-	
-	public WorldManager Worlds;
-	public WarManager Wars;
+	//stuff we definatly need here
 	private ManagerAPI myAPI = null;
-	public static ArrayList<Schematic> schematics;
+	BoneCP connectionPool = null;
 	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
 	
-	private ManagerFactory ManagerFactory;
+	//stuff that probably shouldnt be here
 	
-	ArrayList<IManager> Managers = new ArrayList<IManager>();
-	
-	BoneCP connectionPool = null;
-	Connection connection = null;
-	BoneCPConfig config = null;
-	
-	
+	public String plprefix = ("[" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.WHITE + "] ");
+	public static String warprefix = (ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "WAR" + ChatColor.GOLD + "] ");
+	public static ArrayList<Material> destroyable = new ArrayList<Material>();
+	private HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
+	public static ArrayList<Schematic> schematics;
+
 	@Override
     public void onEnable(){
         
         loadMySQL();
         
-        ManagerFactory = new ManagerFactory(this, connectionPool);
-        myAPI = ManagerFactory.createManagerAPI();
-        
+        myAPI = ManagerFactory.createManagerAPI(connectionPool);
         
         myAPI.loadManagers();
         
@@ -114,12 +101,12 @@ public final class empires extends JavaPlugin {
     
     public void registerEvents(){
     	PluginManager pm = this.getServer().getPluginManager();
-    	pm.registerEvents(new Event_BlockPlace(this), this);
-    	pm.registerEvents(new PlayerListener(this), this);
-		pm.registerEvents(new BlockListener(this), this);
-		pm.registerEvents(new CraftListener(this), this);
-		pm.registerEvents(new ChatListener(this), this);
-		pm.registerEvents(new WorldListener(this), this);
+    	pm.registerEvents(new Event_BlockPlace(myAPI), this);
+    	pm.registerEvents(new PlayerListener(myAPI), this);
+		pm.registerEvents(new BlockListener(myAPI), this);
+		pm.registerEvents(new CraftListener(myAPI), this);
+		pm.registerEvents(new ChatListener(myAPI), this);
+		pm.registerEvents(new WorldListener(myAPI), this);
     	
     }
     
@@ -131,7 +118,6 @@ public final class empires extends JavaPlugin {
 		config.setMinConnectionsPerPartition(5);
 		config.setMaxConnectionsPerPartition(10);
 		config.setPartitionCount(1);
-		//config.setDefaultAutoCommit(true);
 		
 		try{
 			connectionPool = new BoneCP(config); 
@@ -151,9 +137,9 @@ public final class empires extends JavaPlugin {
 		getCommand("war").setExecutor(new WarCommand(myAPI));
 		getCommand("base").setExecutor(new HomeCommand(myAPI));
 		
-		AllyCommandStem ally_ce = new AllyCommandStem(this);
-		getCommand("ally").setExecutor(ally_ce);
-		ally_ce.setUp();
+//		AllyCommandStem ally_ce = new AllyCommandStem(this);
+//		getCommand("ally").setExecutor(ally_ce);
+//		ally_ce.setUp();
     }
 
   

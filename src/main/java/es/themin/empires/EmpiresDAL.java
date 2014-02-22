@@ -1,6 +1,5 @@
 package es.themin.empires;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,14 +20,11 @@ import es.themin.empires.util.Empire;
 
 public class EmpiresDAL {
 
-	File EmpireFile;
-	File PlayerFile;
+	
 	BoneCP connectionPool = null;
 	
 	
-	public EmpiresDAL(File eFile, File pFile, BoneCP connectionPool){
-		EmpireFile = eFile;
-		PlayerFile = pFile;
+	public EmpiresDAL(BoneCP connectionPool){
 		this.connectionPool = connectionPool;
 	}
 	

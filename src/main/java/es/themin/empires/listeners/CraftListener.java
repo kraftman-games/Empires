@@ -13,22 +13,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import es.themin.empires.empires;
-import es.themin.empires.managers.CoreManager;
-import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.testing.Recipes;
 
 public class CraftListener implements Listener{
 	
-	private empires myPlugin;
-	private PlayerManager Players;
-	private CoreManager Cores;
+	private ManagerAPI myApi = null;
 	
-	public CraftListener(empires plugin) {
-		this.myPlugin = plugin;
-		Players = plugin.Players;
-		Cores = plugin.Cores;
+	public CraftListener(ManagerAPI myAPI) {
+		myApi = myAPI;
 	}
 	
 	@EventHandler
@@ -60,7 +54,7 @@ public class CraftListener implements Listener{
 				myItem.setItemMeta(myMeta);
 				player.sendMessage("Crafted");
 				
-				EPlayer myEPlayer = Players.loadEPlayer(player);
+				EPlayer myEPlayer = myApi.getEPlayer(player);
 				
 //				if (!(event.getInventory().contains(myItem)) || myEPlayer == null || !(Cores.empireHasCoreOfType(myEPlayer.getEmpire(),CoreType.BASE))||getDiffernceBetween(player.getLocation().getBlockX(), (Cores.empireGetCoreOfType(myEPlayer.getEmpire(),CoreType.BASE)).getLocation().getBlockX()) > 2|| getDiffernceBetween(player.getLocation().getBlockZ(), myEPlayer.getEmpire().getCoreOfType(CoreType.BASE).getLocation().getBlockZ()) > 2) {
 //					event.setCancelled(true);

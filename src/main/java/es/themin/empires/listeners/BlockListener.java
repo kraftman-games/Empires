@@ -1,7 +1,6 @@
 package es.themin.empires.listeners;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,15 +10,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 
-import es.themin.empires.empires;
-import es.themin.empires.managers.SettingsManager;
+import es.themin.empires.managers.ManagerAPI;
 
 public class BlockListener implements Listener {
 
+	private ManagerAPI myApi = null;
 	
-	private empires plugin;
-	public BlockListener(empires myPlugin){
-		this.plugin = myPlugin;
+	public BlockListener(ManagerAPI myAPI){
+		myApi = myAPI;
 	}
 	private static HashMap<Block, Material> burnt = new HashMap<Block, Material>();
 	private static HashMap<Block, Byte> burntdata = new HashMap<Block, Byte>();
@@ -35,53 +33,53 @@ public class BlockListener implements Listener {
 	
 	@EventHandler
 	public void onBlockBurn(BlockBurnEvent event) {
-		Random r = new Random();
-		final Block b = event.getBlock();
-		final Material m = b.getType();
-		if(recentlyfixed.containsKey(b)) {
-			event.setCancelled(true);
-		}else if (SettingsManager.getConfig().getString("regeneration.enable").equalsIgnoreCase("true") && SettingsManager.getConfig().getString("regeneration.burn.enable").equalsIgnoreCase("true")) {
-			burnt.put(b,m);
-			burntdata.put(b, b.getData());
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-
-				@Override
-				public void run() {
-					if (b.getType() == Material.AIR || b.getType() == Material.FIRE) {
-						int x1 = b.getX() - 2;
-						int y1 = b.getY() - 2;
-						int z1 = b.getZ() - 2;
-						int x2 = b.getX() + 2;
-						int y2 = b.getY() + 2;
-						int z2 = b.getZ() + 2;
-						for (int xPoint = x1; xPoint < x2 ; xPoint++) {
-							for (int yPoint = y1; yPoint < y2 ; yPoint++) {
-								for (int zPoint = z1 ; zPoint < z2 ; zPoint++) {
-									Block target = b.getWorld().getBlockAt(xPoint, yPoint, zPoint);
-									if (target.getType() == Material.FIRE) b.setType(Material.AIR);
-								}
-							}
-						}
-						b.setType(m);
-						b.setData(burntdata.get(b));
-						recentlyfixed.put(b, m);
-						Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-
-							@Override
-							public void run() {
-								recentlyfixed.remove(b);
-								
-							}
-							
-						}, 800L);
-						burnt.remove(b);
-						burntdata.remove(b);
-					}
-					
-				}
-				
-			}, SettingsManager.getConfig().getInt("regeneration.burn.delay") * 20 + r.nextInt(600));
-		}
+//		Random r = new Random();
+//		final Block b = event.getBlock();
+//		final Material m = b.getType();
+//		if(recentlyfixed.containsKey(b)) {
+//			event.setCancelled(true);
+//		}else if (SettingsManager.getConfig().getString("regeneration.enable").equalsIgnoreCase("true") && SettingsManager.getConfig().getString("regeneration.burn.enable").equalsIgnoreCase("true")) {
+//			burnt.put(b,m);
+//			burntdata.put(b, b.getData());
+//			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+//
+//				@Override
+//				public void run() {
+//					if (b.getType() == Material.AIR || b.getType() == Material.FIRE) {
+//						int x1 = b.getX() - 2;
+//						int y1 = b.getY() - 2;
+//						int z1 = b.getZ() - 2;
+//						int x2 = b.getX() + 2;
+//						int y2 = b.getY() + 2;
+//						int z2 = b.getZ() + 2;
+//						for (int xPoint = x1; xPoint < x2 ; xPoint++) {
+//							for (int yPoint = y1; yPoint < y2 ; yPoint++) {
+//								for (int zPoint = z1 ; zPoint < z2 ; zPoint++) {
+//									Block target = b.getWorld().getBlockAt(xPoint, yPoint, zPoint);
+//									if (target.getType() == Material.FIRE) b.setType(Material.AIR);
+//								}
+//							}
+//						}
+//						b.setType(m);
+//						b.setData(burntdata.get(b));
+//						recentlyfixed.put(b, m);
+//						Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+//
+//							@Override
+//							public void run() {
+//								recentlyfixed.remove(b);
+//								
+//							}
+//							
+//						}, 800L);
+//						burnt.remove(b);
+//						burntdata.remove(b);
+//					}
+//					
+//				}
+//				
+//			}, SettingsManager.getConfig().getInt("regeneration.burn.delay") * 20 + r.nextInt(600));
+//		}
 	}
 	/*@EventHandler
 	public void onBlockExplode(BlockExplodeEvent event) {

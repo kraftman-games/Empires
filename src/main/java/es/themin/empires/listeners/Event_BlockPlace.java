@@ -7,28 +7,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import es.themin.empires.empires;
-import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.managers.WorldManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.schematics.mob.Schematic_Mob_10;
 import es.themin.empires.util.EPlayer;
 
 public class Event_BlockPlace implements Listener{
-	public String plprefix;
-	private empires myPlugin;
-	private WorldManager Worlds;
-	private PlayerManager Players;
+	private ManagerAPI myApi = null;
 	
-	public Event_BlockPlace(empires plugin) {
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
+	public Event_BlockPlace(ManagerAPI myAPI) {
 	}
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+		EPlayer myEPlayer = myApi.getEPlayer(player);
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();
 		if (placed == Material.BEACON) {

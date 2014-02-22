@@ -15,46 +15,34 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
-import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.managers.WorldManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 
 public class PlayerListener implements Listener{
 	
-	private empires myPlugin;
-	private EmpireManager Empires;
-	private WorldManager Worlds;
-	private PlayerManager Players;
+	private ManagerAPI myApi = null;
 	
-	public PlayerListener(empires plugin){
-		this.myPlugin = plugin;
-		Empires = plugin.Empires;
-		Worlds = plugin.Worlds;
-		Players = plugin.Players;
+	public PlayerListener(ManagerAPI myAPI){
+		myApi = myAPI;
 	}
-	public String warprefix= myPlugin.warprefix;
+	
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		
-		if (!Players.playerExists(player.getUniqueId())){
-			Players.loadEPlayer(player);
-		}
+		myApi.getEPlayer(player);
 		
 		
 	}
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		Player player = event.getPlayer();
-		
-		Players.removePlayer(player);
+		EPlayer myEPlayer = myApi.getEPlayer(event.getPlayer());
+		myApi.removePlayer(myEPlayer);
 		
 	}
 		
@@ -70,8 +58,8 @@ public class PlayerListener implements Listener{
 		if (player.getKiller() instanceof Player) {
 			Player killer = (Player) player.getKiller();
 			
-			EPlayer defender = Players.loadEPlayer(player);
-			EPlayer attacker = Players.loadEPlayer(killer);
+			EPlayer defender = myApi.getEPlayer(player);
+			EPlayer attacker = myApi.getEPlayer(killer);
 			
 			
 			if (defender != null && attacker != null) {
@@ -123,10 +111,10 @@ public class PlayerListener implements Listener{
 		
 		Player myPlayer = event.getPlayer();
 		
-		EPlayer myEPlayer = Players.loadEPlayer(myPlayer);
-		Empire eventPlayerEmpire = Empires.getEmpire(myEPlayer.getEmpireUUID());
-		UUID myUUID = myBlock.getLocation().getWorld().getUID();
-		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
+		EPlayer myEPlayer = myApi.getEPlayer(myPlayer);
+		Empire eventPlayerEmpire = myApi.getEmpire(myEPlayer.getEmpireUUID());
+		UUID worldUUID = myBlock.getLocation().getWorld().getUID();
+		EWorld myCoreWorld = myApi.getEWorld(worldUUID);
 		HashMap<UUID, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
 		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
 		
