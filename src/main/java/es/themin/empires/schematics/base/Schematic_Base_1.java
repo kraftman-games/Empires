@@ -7,6 +7,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.FallingBlock;
+import org.bukkit.util.Vector;
 
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.schematics.Schematic;
@@ -106,8 +108,41 @@ public class Schematic_Base_1 extends Schematic{
 
 	@Override
 	public void playEffectsFrom(Location location) {
-		// TODO Auto-generated method stub
-		
+		boolean e01 = false;
+		Location l = location;
+		World w = l.getWorld();
+		int x = l.getBlockX();
+		int y = l.getBlockY();
+		int z = l.getBlockZ();
+		Vector up = new Vector(0,0.5,0);
+		Vector down = new Vector(0,-0.5,0);
+		Vector north = new Vector(0,0,-0.5);
+		Vector south = new Vector(0,0,0.5);
+		Vector west = new Vector(-0.5,0,0);
+		Vector east = new Vector(0.5,0,0);
+		Block e011a = w.getBlockAt(x,y,z-1);
+        FallingBlock e011 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
+        FallingBlock e012 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
+        FallingBlock e013 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
+        FallingBlock e014 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
+        e011.setVelocity(north);
+        e012.setVelocity(east);
+        e013.setVelocity(south);
+        e014.setVelocity(west);
+        while (!(e01)) {
+        	if (blocksAreCloseHorizontally(e011a,e011.getLocation())) {
+        		e01 = true;
+        		e011.remove();
+        		e012.remove();
+        		e013.remove();
+        		e014.remove();
+        		w.getBlockAt(x,y,z+1).setType(Material.OBSIDIAN);
+        		w.getBlockAt(x,y,z-1).setType(Material.OBSIDIAN);
+        		w.getBlockAt(x+1,y,z).setType(Material.OBSIDIAN);
+        		w.getBlockAt(x-1,y,z).setType(Material.OBSIDIAN);
+        	}
+        }
+
 	}
 
 	@Override
@@ -115,5 +150,20 @@ public class Schematic_Base_1 extends Schematic{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public boolean blocksAreCloseHorizontally(Block block1, Location block2) {
+		double x1 = block1.getX();
+		double z1 = block1.getZ();
+		double x2 = block2.getX();
+		double z2 = block2.getZ();
+		double x3 = getPositiveDouble(x1-x2);
+		double z3 = getPositiveDouble(z1-z2);
+		if (x3 <= 0.05 && z3 <= 0.05) return true;
+		return false;
+	}
+	public double getPositiveDouble(Double d) {
+		if (d<0) {
+			return -d;
+		}
+		return d;
+	}
 }
