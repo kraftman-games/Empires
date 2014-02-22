@@ -20,16 +20,11 @@ import es.themin.empires.util.Empire;
 
 public class EmpiresDAL {
 
-	
 	BoneCP connectionPool = null;
-	
 	
 	public EmpiresDAL(BoneCP connectionPool){
 		this.connectionPool = connectionPool;
 	}
-	
-	
-	
 
 	public EPlayer loadPlayer(UUID myUUID) {
 		Connection connection = null;
