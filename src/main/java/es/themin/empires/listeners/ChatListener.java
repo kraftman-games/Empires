@@ -1,15 +1,11 @@
 package es.themin.empires.listeners;
 
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 
-import es.themin.empires.cmds.empire.subcmd.ToggleChat;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.Empire;
-import es.themin.empires.util.MsgManager;
 
 @SuppressWarnings("deprecation")
 public class ChatListener implements Listener{

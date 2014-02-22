@@ -1,7 +1,5 @@
 package es.themin.empires.cmds.empire.subcmd;
 
-import java.util.ArrayList;
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

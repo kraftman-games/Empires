@@ -2,7 +2,6 @@ package es.themin.empires;
 
 
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
-import es.themin.empires.cmds.GlobalCommand;
 import es.themin.empires.cmds.HomeCommand;
 import es.themin.empires.cmds.empire.EmpireCommand;
 import es.themin.empires.cmds.war.WarCommand;
@@ -31,7 +29,6 @@ import es.themin.empires.listeners.CraftListener;
 import es.themin.empires.listeners.Event_BlockPlace;
 import es.themin.empires.listeners.PlayerListener;
 import es.themin.empires.listeners.WorldListener;
-import es.themin.empires.managers.IManager;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.ManagerFactory;
 import es.themin.empires.managers.SettingsManager;

@@ -8,13 +8,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.cmds.empire.subcmd.ToggleChat;
-import es.themin.empires.cmds.empire.subcmd.InvitePlayer;
 import es.themin.empires.cmds.empire.subcmd.EmpireSubCommand;
+import es.themin.empires.cmds.empire.subcmd.InvitePlayer;
+import es.themin.empires.cmds.empire.subcmd.ListEmpires;
 import es.themin.empires.cmds.empire.subcmd.RankCommand;
 import es.themin.empires.cmds.empire.subcmd.SettingsCommand;
 import es.themin.empires.cmds.empire.subcmd.Stats;
-import es.themin.empires.cmds.empire.subcmd.ListEmpires;
+import es.themin.empires.cmds.empire.subcmd.ToggleChat;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 
