@@ -2,6 +2,7 @@ package es.themin.empires.schematics.base;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -129,19 +130,20 @@ public class Schematic_Base_1 extends Schematic{
         e012.setVelocity(east);
         e013.setVelocity(south);
         e014.setVelocity(west);
-        while (!(e01)) {
-        	if (blocksAreCloseHorizontally(e011a,e011.getLocation())) {
-        		e01 = true;
-        		e011.remove();
-        		e012.remove();
-        		e013.remove();
-        		e014.remove();
-        		w.getBlockAt(x,y,z+1).setType(Material.OBSIDIAN);
-        		w.getBlockAt(x,y,z-1).setType(Material.OBSIDIAN);
-        		w.getBlockAt(x+1,y,z).setType(Material.OBSIDIAN);
-        		w.getBlockAt(x-1,y,z).setType(Material.OBSIDIAN);
-        	}
-        }
+        try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			Bukkit.getServer().getLogger().info("Effect error 1");
+		}
+		e01 = true;
+		e011.remove();
+		e012.remove();
+		e013.remove();
+		e014.remove();
+		w.getBlockAt(x,y,z+1).setType(Material.OBSIDIAN);
+		w.getBlockAt(x,y,z-1).setType(Material.OBSIDIAN);
+		w.getBlockAt(x+1,y,z).setType(Material.OBSIDIAN);
+		w.getBlockAt(x-1,y,z).setType(Material.OBSIDIAN);
 
 	}
 
