@@ -31,6 +31,12 @@ public class EmpireManagerTest {
 //	}
 	
 	@Test
+	public void myTest(){
+		
+		assertTrue(true);
+	}
+	
+	@Test
 	public void GetEmpiresTest(){
 		
         EmpiresDAL myempiresDAL = PowerMockito.mock(EmpiresDAL.class);
