@@ -13,8 +13,7 @@ public class ChatListener implements Listener{
 	private ManagerAPI myApi;
 	
 	public ChatListener(ManagerAPI myAPI) {
-		myAPI = myAPI;
-		
+		myApi = myAPI;
 	}
 	
 	@EventHandler
