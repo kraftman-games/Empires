@@ -1,8 +1,9 @@
-package es.themin.empires.cmds.empire.subcmd;
+package es.themin.empires.cmds.empire;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
@@ -16,14 +17,13 @@ public class ToggleChat extends EmpireSubCommand{
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = myApi.getEPlayer(player);
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
 		if (myEPlayer.isInEmpire()) {
 			
 			if (myEPlayer.isInEmpireChat()){
-				player.sendMessage(ChatColor.GREEN + "Toggled empire chat on, only players in your empire can see you talk");
+				myEPlayer.sendMessage(ChatColor.GREEN + "Toggled empire chat on, only players in your empire can see you talk");
 			} else {
-				player.sendMessage(ChatColor.GREEN + "Toggled empire chat off, all players can see you talk");
+				myEPlayer.sendMessage(ChatColor.GREEN + "Toggled empire chat off, all players can see you talk");
 			}
 			
 			// toggle
@@ -31,7 +31,7 @@ public class ToggleChat extends EmpireSubCommand{
 			
 			return true;
 		}else {
-			player.sendMessage(ChatColor.RED + "You are not in an empire");
+			myEPlayer.sendMessage(ChatColor.RED + "You are not in an empire");
 		}
 		return false;
 	}

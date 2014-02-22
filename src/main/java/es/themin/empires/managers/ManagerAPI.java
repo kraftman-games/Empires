@@ -77,15 +77,15 @@ public class ManagerAPI {
 
 
 
-	public void listEmpires(Player player) {
-		player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.GOLD + "=====");
+	public void listEmpires(EPlayer myEPlayer) {
+		myEPlayer.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.GOLD + "=====");
 		int i = 0;
 		for (Empire empire : Empires.getEmpires().values()) {
 			i++;
-			player.sendMessage(ChatColor.GREEN + empire.getName());
+			myEPlayer.sendMessage(ChatColor.GREEN + empire.getName());
 		}
 		if (i == 0) {
-			player.sendMessage(ChatColor.RED + "No empires :(");
+			myEPlayer.sendMessage(ChatColor.RED + "No empires :(");
 		}
 	}
 

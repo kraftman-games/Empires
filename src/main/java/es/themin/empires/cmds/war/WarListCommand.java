@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
-import es.themin.empires.cmds.empire.subcmd.EmpireSubCommand;
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
@@ -20,14 +20,13 @@ public class WarListCommand extends EmpireSubCommand{
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = myApi.getEPlayer(player);
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
 		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
-			player.sendMessage( ChatColor.RED + "You are not in an empire");
+			myEPlayer.sendMessage( ChatColor.RED + "You are not in an empire");
 			return false;
 		}
 		Empire empire = myApi.getEmpire(myEPlayer.getEmpireUUID());
-		player.sendMessage(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + " Wars " + ChatColor.GOLD + " ====");
+		myEPlayer.sendMessage(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + " Wars " + ChatColor.GOLD + " ====");
 		int i = 0;
 		for (War war : empire.getWars()) {
 			i++;
@@ -57,7 +56,7 @@ public class WarListCommand extends EmpireSubCommand{
 					//str.append("%");
 				}
 				str.append("%");
-				player.sendMessage(str.toString());
+				myEPlayer.sendMessage(str.toString());
 			}if (war.getAllEmpiresOnTeam2().contains(empire)) {
 				//String pc = null;
 				StringBuilder str = new StringBuilder();
@@ -83,10 +82,10 @@ public class WarListCommand extends EmpireSubCommand{
 					str.append(fpc);
 					//str.append("%");
 				}
-				player.sendMessage(ChatColor.AQUA + "- " + ChatColor.DARK_RED + war.getEmpire1().getName() + ChatColor.AQUA + " - " + str.toString());
+				myEPlayer.sendMessage(ChatColor.AQUA + "- " + ChatColor.DARK_RED + war.getEmpire1().getName() + ChatColor.AQUA + " - " + str.toString());
 			}
 		}
-		if (i == 0) player.sendMessage( ChatColor.RED + "You are not at war");
+		if (i == 0) myEPlayer.sendMessage( ChatColor.RED + "You are not at war");
 		return false;
 	}
 

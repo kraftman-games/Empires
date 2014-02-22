@@ -8,13 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.cmds.empire.subcmd.EmpireSubCommand;
-import es.themin.empires.cmds.empire.subcmd.InvitePlayer;
-import es.themin.empires.cmds.empire.subcmd.ListEmpires;
-import es.themin.empires.cmds.empire.subcmd.RankCommand;
-import es.themin.empires.cmds.empire.subcmd.SettingsCommand;
-import es.themin.empires.cmds.empire.subcmd.Stats;
-import es.themin.empires.cmds.empire.subcmd.ToggleChat;
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 
@@ -37,12 +31,11 @@ public class EmpireCommand implements CommandExecutor{
 	
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-			Player player = (Player) sender;
-			EPlayer myEPlayer = myApi.getEPlayer(player);
+			EPlayer myEPlayer = myApi.getEPlayer((Player) sender);
 			
 			
 			if (args.length == 0) {
-				sendCommandHelp(player);
+				sendCommandHelp(myEPlayer);
 				return false;
 			}
 			else {
@@ -52,12 +45,12 @@ public class EmpireCommand implements CommandExecutor{
 				if (scmd.permission() != null && !myApi.playerHasPermission(myEPlayer, scmd.permission())){
 					return false;
 				}
-				scmd.onCommand(player, args);
+				scmd.onCommand(myEPlayer, args);
 				return true;
 			}
 	}
 	
-	private void sendCommandHelp(Player myPlayer){
+	private void sendCommandHelp(EPlayer myPlayer){
 		myPlayer.sendMessage(ChatColor.RED + "Too few arguments");
 
 		for (EmpireSubCommand scmd : commands) {

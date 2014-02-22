@@ -1,11 +1,10 @@
-package es.themin.empires.cmds.empire.subcmd;
-
-import org.bukkit.entity.Player;
+package es.themin.empires.cmds;
 
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.util.EPlayer;
 
 public abstract class EmpireSubCommand {
-	public abstract boolean onCommand(Player player, String[] args);
+	public abstract boolean onCommand(EPlayer player, String[] args);
 	
 	public abstract String name();
 	

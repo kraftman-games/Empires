@@ -1,9 +1,11 @@
-package es.themin.empires.cmds.empire.subcmd;
+package es.themin.empires.cmds.empire;
 
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.util.EPlayer;
 
 public class ListEmpires extends EmpireSubCommand{
 
@@ -14,8 +16,8 @@ public class ListEmpires extends EmpireSubCommand{
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
-		myApi.listEmpires(player);
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
+		myApi.listEmpires(myEPlayer);
 		return true;
 	}
 

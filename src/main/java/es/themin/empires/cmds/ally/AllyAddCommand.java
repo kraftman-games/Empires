@@ -4,8 +4,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
-import es.themin.empires.cmds.empire.EmpireSubCommand;
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -13,36 +14,32 @@ import es.themin.empires.util.MsgManager;
 
 public class AllyAddCommand extends EmpireSubCommand{
 
-	
-	public String plprefix;
 	private Long time = SettingsManager.getConfig().getLong("time_between_re_ally");
-	private  empires myPlugin;
 	
-	public AllyAddCommand(empires plugin) {
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
+	private ManagerAPI myApi = null;
+	
+	public AllyAddCommand(ManagerAPI myAPI) {
+		myApi = myAPI;
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
 		
-		EPlayer myPlayer = Players.loadEPlayer(player);
-		
-		if (myPlayer == null) {
-			player.sendMessage(MsgManager.notinemp);
+		if (!myEPlayer.isInEmpire()) {
+			myEPlayer.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myPlayer.getEmpireUUID());
+		Empire empire = myApi.getEmpire(myEPlayer);
 		if (args.length == 1) {
-			player.sendMessage(MsgManager.toofewargs + " do '/ally ?' for help");
+			myEPlayer.sendMessage(MsgManager.toofewargs + " do '/ally ?' for help");
 			return false;
-		}if (!Empires.containsEmpireWithName(args[1])) {
-			player.sendMessage(MsgManager.empirenotfound);
+		}if (myApi.getEmpire(args[1]) == null) {
+			myEPlayer.sendMessage(MsgManager.empirenotfound);
 			return false;
 		}
-		Empire ally = Empires.getEmpireWithName(args[1]);
+		Empire ally = myApi.getEmpire(args[1]);
 		if (empire.isAtWarWith(ally)) {
-			player.sendMessage(plprefix + ChatColor.RED  +"You cannot ally with empires you are at war with");
+			myEPlayer.sendMessage( ChatColor.RED  +"You cannot ally with empires you are at war with");
 			return false;
 		}/*if (empire.exEnemiesContains(ally)) {
 			Long lastenemy = empire.getLastEnemyWith(ally);
@@ -51,8 +48,8 @@ public class AllyAddCommand extends EmpireSubCommand{
 		if (empire.hasAllyRequestFrom(ally)) {
 			empire.addAlly(ally);
 			ally.addAlly(empire);
-			empire.broadcastMessage(plprefix + ChatColor.GREEN + "You are now allies with " + ally.getName());
-			ally.broadcastMessage(plprefix + ChatColor.GREEN + "You are now allies with " + empire.getName());
+			empire.broadcastMessage( ChatColor.GREEN + "You are now allies with " + ally.getName());
+			ally.broadcastMessage( ChatColor.GREEN + "You are now allies with " + empire.getName());
 			if (empire.exAlliesContains(ally)) {
 				empire.removeExAlly(ally);
 			}
@@ -70,17 +67,17 @@ public class AllyAddCommand extends EmpireSubCommand{
 		if (empire.exAlliesContains(ally)) {
 			Long lastalliance = empire.getLastAllianceWith(ally);
 			if (System.currentTimeMillis() < lastalliance + time) {
-				player.sendMessage(plprefix + ChatColor.RED + "You cannot re-ally this empire yet");
+				myEPlayer.sendMessage(ChatColor.RED + "You cannot re-ally this empire yet");
 				return false;
 			}
 		}
 		if (ally.hasAllyRequestFrom(empire)) {
-			player.sendMessage(plprefix + ChatColor.RED + "Your empire has already sent this empire an alliance request"); 
+			myEPlayer.sendMessage(ChatColor.RED + "Your empire has already sent this empire an alliance request"); 
 			return false;
 		}
 		ally.addAllyRequest(empire);
-		ally.broadcastMessage(plprefix + ChatColor.GREEN + empire.getName() + " Has sent your empire an alliance request, do '/ally add " + empire.getName()+"' to accept it");
-		empire.broadcastMessage(plprefix + ChatColor.GREEN + player.getName() + " has sent an alliance request to " + ally.getName());
+		ally.broadcastMessage( ChatColor.GREEN + empire.getName() + " Has sent your empire an alliance request, do '/ally add " + empire.getName()+"' to accept it");
+		empire.broadcastMessage( ChatColor.GREEN + myEPlayer.getName() + " has sent an alliance request to " + ally.getName());
 		return false;
 	}
 

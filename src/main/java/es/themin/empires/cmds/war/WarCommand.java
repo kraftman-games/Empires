@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.cmds.empire.subcmd.EmpireSubCommand;
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 
@@ -44,7 +44,7 @@ public class WarCommand implements CommandExecutor{
 				EmpireSubCommand scmd = get(args[0]);
 				if (scmd == null) myEPlayer.sendMessage( ChatColor.RED + "Invalid Command");
 				else {
-					scmd.onCommand((Player) sender, args);
+					scmd.onCommand(myEPlayer, args);
 				}
 			}
 		}

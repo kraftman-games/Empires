@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.cmds.empire.subcmd.EmpireSubCommand;
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
@@ -23,35 +23,34 @@ public class WarInfoCommand extends EmpireSubCommand{
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = myApi.getEPlayer(player);
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
 		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
-			player.sendMessage( ChatColor.RED +"You are not in an empire therefore cannot be at war");
+			myEPlayer.sendMessage( ChatColor.RED +"You are not in an empire therefore cannot be at war");
 			return false;
 		}
 		Empire empire = myApi.getEmpire(myEPlayer.getEmpireUUID());
 		if (args.length == 1) {
-			player.sendMessage(ChatColor.RED+ "Please specify a war");
+			myEPlayer.sendMessage(ChatColor.RED+ "Please specify a war");
 			return false;
 		}
 		if (myApi.getEmpire(args[1]) == null) {
-			player.sendMessage( ChatColor.RED + "That is not an empire");
+			myEPlayer.sendMessage( ChatColor.RED + "That is not an empire");
 			return false;
 		}
 		Empire enemy = myApi.getEmpire(args[1]);
 		if (!empire.isAtWarWith(enemy)) {
-			player.sendMessage( ChatColor.RED +"You are not an war with this empire");
+			myEPlayer.sendMessage( ChatColor.RED +"You are not an war with this empire");
 			return false;
 		}
 		War war = empire.getWarAgainst(enemy);
-		player.sendMessage(MsgManager.createTitle(ChatColor.GOLD + " [" + ChatColor.LIGHT_PURPLE + "War Against " + enemy.getName() + ChatColor.GOLD + "] ",ChatColor.GOLD));
+		myEPlayer.sendMessage(MsgManager.createTitle(ChatColor.GOLD + " [" + ChatColor.LIGHT_PURPLE + "War Against " + enemy.getName() + ChatColor.GOLD + "] ",ChatColor.GOLD));
 		Date date = new Date(war.getStart());
 		
 		if (war.getAllEmpiresOnTeam1().contains(empire)) {
-			if (war.getEmpire1Allies().contains(empire)) player.sendMessage(ChatColor.AQUA + "You are asisting " + war.getEmpire1().getName() + " in their war against " + war.getEmpire2().getName());
-			player.sendMessage(ChatColor.GREEN + "Start " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + date.toString());
-			player.sendMessage(ChatColor.GREEN + "Allied Wins " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire1Wins());
-			player.sendMessage(ChatColor.GREEN + "Enemy Wins " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire2Wins());
+			if (war.getEmpire1Allies().contains(empire)) myEPlayer.sendMessage(ChatColor.AQUA + "You are asisting " + war.getEmpire1().getName() + " in their war against " + war.getEmpire2().getName());
+			myEPlayer.sendMessage(ChatColor.GREEN + "Start " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + date.toString());
+			myEPlayer.sendMessage(ChatColor.GREEN + "Allied Wins " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire1Wins());
+			myEPlayer.sendMessage(ChatColor.GREEN + "Enemy Wins " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire2Wins());
 			StringBuilder str = new StringBuilder();
 			String tits = ChatColor.GREEN + "Allied Empires " + ChatColor.DARK_PURPLE + "[" + war.getNumberOfEmpire1Allies() + "]" + ChatColor.GREEN + " : " + ChatColor.WHITE;
 			str.append(tits);
@@ -65,7 +64,7 @@ public class WarInfoCommand extends EmpireSubCommand{
 				str.append(ally.getName());
 				if (run != war.getNumberOfEmpire1Allies()) str.append(", ");
 			}
-			player.sendMessage(str.toString());
+			myEPlayer.sendMessage(str.toString());
 			
 			StringBuilder str2 = new StringBuilder();
 			String tits2 = ChatColor.GREEN + "Enemy Empires " + ChatColor.DARK_PURPLE + "[" + war.getNumberOfEmpire2Allies() + "]" + ChatColor.GREEN + " : " + ChatColor.WHITE;
@@ -80,13 +79,13 @@ public class WarInfoCommand extends EmpireSubCommand{
 				str2.append(ally.getName());
 				if (run2 != war.getNumberOfEmpire2Allies()) str2.append(", ");
 			}
-			player.sendMessage(str2.toString());
-			player.sendMessage(ChatColor.GREEN + "Do '" + ChatColor.GOLD + "/war timeline " + war.getEmpire1().getName() + ChatColor.GREEN + "' for a timeline of this war");
+			myEPlayer.sendMessage(str2.toString());
+			myEPlayer.sendMessage(ChatColor.GREEN + "Do '" + ChatColor.GOLD + "/war timeline " + war.getEmpire1().getName() + ChatColor.GREEN + "' for a timeline of this war");
 		}if (war.getAllEmpiresOnTeam2().contains(empire)) {
-			if (war.getEmpire2Allies().contains(empire)) player.sendMessage(ChatColor.AQUA + "You are asisting " + war.getEmpire2().getName() + " in their war against " + war.getEmpire1().getName());
-			player.sendMessage(ChatColor.GREEN + "Start " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + date.toString());
-			player.sendMessage(ChatColor.GREEN + "Allied Wins " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire2Wins());
-			player.sendMessage(ChatColor.GREEN + "Enemy Wins " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire1Wins());
+			if (war.getEmpire2Allies().contains(empire)) myEPlayer.sendMessage(ChatColor.AQUA + "You are asisting " + war.getEmpire2().getName() + " in their war against " + war.getEmpire1().getName());
+			myEPlayer.sendMessage(ChatColor.GREEN + "Start " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + date.toString());
+			myEPlayer.sendMessage(ChatColor.GREEN + "Allied Wins " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire2Wins());
+			myEPlayer.sendMessage(ChatColor.GREEN + "Enemy Wins " + ChatColor.AQUA + "- " + ChatColor.LIGHT_PURPLE + war.getEmpire1Wins());
 			StringBuilder str = new StringBuilder();
 			
 			StringBuilder str2 = new StringBuilder();
@@ -102,7 +101,7 @@ public class WarInfoCommand extends EmpireSubCommand{
 				str2.append(ally.getName());
 				if (run2 != war.getNumberOfEmpire2Allies()) str2.append(", ");
 			}
-			player.sendMessage(str2.toString());
+			myEPlayer.sendMessage(str2.toString());
 			
 			String tits = ChatColor.GREEN + "Enemy Empires " + ChatColor.DARK_PURPLE + "[" + war.getNumberOfEmpire1Allies() + "]" + ChatColor.GREEN + " : " + ChatColor.WHITE;
 			str.append(tits);
@@ -116,8 +115,8 @@ public class WarInfoCommand extends EmpireSubCommand{
 				str.append(ally.getName());
 				if (run != war.getNumberOfEmpire1Allies()) str.append(", ");
 			}
-			player.sendMessage(str.toString());
-			player.sendMessage(ChatColor.GREEN + "Do '" + ChatColor.GOLD + "/war timeline " + war.getEmpire1().getName() + ChatColor.GREEN + "' for a timeline of this war");
+			myEPlayer.sendMessage(str.toString());
+			myEPlayer.sendMessage(ChatColor.GREEN + "Do '" + ChatColor.GOLD + "/war timeline " + war.getEmpire1().getName() + ChatColor.GREEN + "' for a timeline of this war");
 			
 		}
 		return false;

@@ -4,9 +4,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
-import es.themin.empires.cmds.empire.EmpireSubCommand;
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -14,32 +15,27 @@ import es.themin.empires.util.MsgManager;
 
 public class AllyRequestsCommand extends EmpireSubCommand{
 
-	private empires myPlugin;
-	private PlayerManager Players;
-	private EmpireManager Empires;
+	private ManagerAPI myApi;
 	
-	public AllyRequestsCommand(empires plugin) {
-		myPlugin = plugin;
-		Players = plugin.Players;
-		Empires = plugin.Empires;
+	public AllyRequestsCommand(ManagerAPI myAPI) {
+		myApi = myAPI;
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
 		
-		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
-			player.sendMessage(MsgManager.notinemp);
+		if (!myEPlayer.isInEmpire()) {
+			myEPlayer.sendMessage(MsgManager.notinemp);
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
-		player.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Alliance Requests", ChatColor.GOLD));
+		Empire empire = myApi.getEmpire(myEPlayer);
+		myEPlayer.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Alliance Requests", ChatColor.GOLD));
 		int i =0;
 		for (Empire ally : empire.getAllianceRequests().keySet()) {
 			i++;
-			player.sendMessage("- " + ChatColor.GREEN + ally.getName() + ChatColor.WHITE + " - " + ChatColor.GOLD + MsgManager.createSmartTimeStamp(empire.getAllianceRequests().get(ally)));
+			myEPlayer.sendMessage( ChatColor.GREEN + ally.getName() + ChatColor.WHITE + " - " + ChatColor.GOLD + MsgManager.createSmartTimeStamp(empire.getAllianceRequests().get(ally)));
 		}
-		if (i==0) player.sendMessage(ChatColor.RED + "You have not alliance requests :(");
+		if (i==0) myEPlayer.sendMessage(ChatColor.RED + "You have not alliance requests :(");
 		return false;
 	}
 

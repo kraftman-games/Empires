@@ -20,6 +20,7 @@ import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
 import es.themin.empires.cmds.HomeCommand;
+import es.themin.empires.cmds.ally.AllyCommandStem;
 import es.themin.empires.cmds.empire.EmpireCommand;
 import es.themin.empires.cmds.war.WarCommand;
 import es.themin.empires.enums.ConfirmType;
@@ -133,9 +134,7 @@ public final class empires extends JavaPlugin {
 		getCommand("war").setExecutor(new WarCommand(myAPI));
 		getCommand("base").setExecutor(new HomeCommand(myAPI));
 		
-//		AllyCommandStem ally_ce = new AllyCommandStem(this);
-//		getCommand("ally").setExecutor(ally_ce);
-//		ally_ce.setUp();
+		getCommand("ally").setExecutor(new AllyCommandStem(myAPI));
     }
 
   

@@ -1,4 +1,4 @@
-package es.themin.empires.cmds.empire.subcmd;
+package es.themin.empires.cmds.empire;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,6 +9,9 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
+import com.google.common.base.FinalizablePhantomReference;
+
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
@@ -23,8 +26,7 @@ public class Stats extends EmpireSubCommand{
 	}
 
 	@Override
-	public boolean onCommand(final Player player, String[] args) {
-		EPlayer myEPlayer = myApi.getEPlayer(player);
+	public boolean onCommand(final EPlayer myEPlayer, String[] args) {
 		
 		if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
 			Empire empire = myApi.getEmpire(myEPlayer);
@@ -44,17 +46,17 @@ public class Stats extends EmpireSubCommand{
 			players.setScore(empire.numberOfPlayers());
 			
 			
-			player.setScoreboard(sb);
+			myEPlayer.setScoreboard(sb);
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Bukkit.getPluginManager().getPlugin("Empires"), new Runnable() {
 
 				@Override
 				public void run() {
-					player.setScoreboard(sbm.getNewScoreboard());
+					myEPlayer.setScoreboard(sbm.getNewScoreboard());
 				}
 				
 			}, 400L);
 		}else {
-			player.sendMessage( ChatColor.RED + "You are not in an empire");
+			myEPlayer.sendMessage( ChatColor.RED + "You are not in an empire");
 		}
 		return false;
 	}

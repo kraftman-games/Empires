@@ -1,9 +1,10 @@
-package es.themin.empires.cmds.empire.subcmd;
+package es.themin.empires.cmds.empire;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
@@ -19,8 +20,8 @@ public class InvitePlayer extends EmpireSubCommand{
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = myApi.getEPlayer(player);
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
+		
 		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
 			myEPlayer.sendMessage(MsgManager.notinemp);
 			return false;

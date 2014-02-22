@@ -9,8 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
-import es.themin.empires.cmds.empire.EmpireSubCommand;
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -18,73 +19,55 @@ import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
 
 public class AllyCommandStem implements CommandExecutor{
-	public String plprefix;
-	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
-	private  empires myPlugin;
-	private PlayerManager Players;
-	private EmpireManager Empires;
 	
-	public AllyCommandStem(empires plugin) {
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
-		Empires = plugin.Empires;
+	
+	private  ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
+	private ManagerAPI myApi = null;
+	
+	public AllyCommandStem(ManagerAPI myAPI) {
+		myApi = myAPI;
 		
+		commands.add(new AllyAddCommand(myAPI));
+		commands.add(new AllyListCommand(myAPI));
+		commands.add(new AllyRequestsCommand(myAPI));
+		commands.add(new AllyRemoveCommand(myAPI));
 	}
 
-	public void setUp(){
-		commands.add(new AllyAddCommand(myPlugin));
-		commands.add(new AllyListCommand(myPlugin));
-		commands.add(new AllyRequestsCommand(myPlugin));
-		commands.add(new AllyRemoveCommand(myPlugin));
-		
-	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("ally")) {
-			Player player = (Player) sender;
-			EPlayer myEPlayer = Players.loadEPlayer(player);
+			
+			EPlayer myEPlayer = myApi.getEPlayer( (Player) sender);
 			
 			if (args.length == 0) {
-				player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
-
-				for (EmpireSubCommand scmd : commands) {
-					StringBuilder str = new StringBuilder();
-					if (scmd.variables() != null) {
-						for (String variable : scmd.variables()) {
-							str.append("(" + variable + ") ");
-						}
-					}
-					player.sendMessage(ChatColor.GOLD + "/ally " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
-				}
+				sendHelp(myEPlayer);
 			}
 			else {
 				EmpireSubCommand scmd = get(args[0]);
 				if (scmd == null) {
-					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
+					myEPlayer.sendMessage(ChatColor.RED + "Invalid Command");
+					sendHelp(myEPlayer);
+					return false;
 				}
-				if (scmd.permission() != null){
-					if (myEPlayer != null) {
-						Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
-						if (empire.getOwnerUUID() != myEPlayer.getUUID()) {
-							if (empire.playerHasARank(player.getName())) {
-								Rank rank = empire.getRankOfPlayer(player.getName());
-								if (!(rank.hasPermission(scmd.permission()))) {
-									player.sendMessage(MsgManager.noempperm);
-									return false;
-									
-								}
-							}else {
-								player.sendMessage(MsgManager.noempperm);
-								return false;
-							}
-						}
-					}
+				if (scmd.permission() != null && myApi.playerHasPermission(myEPlayer, scmd.permission())){
+					return false;
 				}
-				scmd.onCommand(player, args);
+				scmd.onCommand(myEPlayer, args);
 			}
 		}
 		return false;
+	}
+	
+	private void sendHelp(EPlayer myEPlayer){
+		for (EmpireSubCommand scmd : commands) {
+			StringBuilder str = new StringBuilder();
+			if (scmd.variables() != null) {
+				for (String variable : scmd.variables()) {
+					str.append("(" + variable + ") ");
+				}
+			}
+			myEPlayer.sendMessage(ChatColor.GOLD + "/ally " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
+		}
 	}
 	
 	private EmpireSubCommand get(String name) {

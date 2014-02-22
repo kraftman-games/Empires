@@ -4,9 +4,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
-import es.themin.empires.cmds.empire.EmpireSubCommand;
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -14,35 +15,28 @@ import es.themin.empires.util.MsgManager;
 
 public class AllyListCommand extends EmpireSubCommand{
 
-	private empires myPlugin;
-	private PlayerManager Players;
-	private EmpireManager Empires;
+	private ManagerAPI myApi;
 	
-	public String plprefix;
-	
-	public AllyListCommand(empires plugin) {
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
+	public AllyListCommand(ManagerAPI myAPI) {
+		myApi = myAPI;
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
 		
 		if (myEPlayer.getEmpireUUID() == null) {
-			player.sendMessage(MsgManager.notinemp); 
+			myEPlayer.sendMessage(MsgManager.notinemp); 
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
-		player.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Your Allies", ChatColor.GOLD));
+		Empire empire = myApi.getEmpire(myEPlayer);
+		myEPlayer.sendMessage(MsgManager.createTitle(ChatColor.LIGHT_PURPLE + "Your Allies", ChatColor.GOLD));
 		if (!empire.hasAllies()) {
-			player.sendMessage(ChatColor.RED + "You do not have any allies :(");
+			myEPlayer.sendMessage(ChatColor.RED + "You do not have any allies :(");
 			return false;
 		}
 		
 		for (Empire allyEmpire : empire.getAllies()) {
-			player.sendMessage(ChatColor.WHITE + "- " + ChatColor.GREEN +allyEmpire.getName()+ ChatColor.WHITE + " - " + allyEmpire.getXP());
+			myEPlayer.sendMessage(ChatColor.WHITE + "- " + ChatColor.GREEN +allyEmpire.getName()+ ChatColor.WHITE + " - " + allyEmpire.getXP());
 		}
 		return false;
 	}

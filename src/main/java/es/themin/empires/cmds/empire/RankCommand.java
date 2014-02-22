@@ -1,10 +1,12 @@
-package es.themin.empires.cmds.empire.subcmd;
+package es.themin.empires.cmds.empire;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.util.EPlayer;
 
 public class RankCommand extends EmpireSubCommand{
 	
@@ -18,7 +20,7 @@ public class RankCommand extends EmpireSubCommand{
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
+	public boolean onCommand(EPlayer player, String[] args) {
 //		EPlayer myEPlayer = myApi.getEPlayer(player);
 //		
 //		if (args.length == 1) {

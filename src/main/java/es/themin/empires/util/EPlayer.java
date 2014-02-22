@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
 
 public class EPlayer {
 
@@ -119,6 +120,14 @@ public class EPlayer {
 	
 	public void setInEmpireChat(Boolean isInEmpireChat){
 		this.isInEmpireChat = isInEmpireChat;
+	}
+
+	public void setScoreboard(Scoreboard sb) {
+		player.setScoreboard(sb);
+	}
+
+	public String getDisplayName() {
+		return player.getDisplayName();
 	}
 	
 	

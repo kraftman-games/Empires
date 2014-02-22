@@ -1,8 +1,9 @@
-package es.themin.empires.cmds.empire.subcmd;
+package es.themin.empires.cmds.empire;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
@@ -18,15 +19,14 @@ public class SettingsCommand extends EmpireSubCommand{
 	}
 
 	@Override
-	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = myApi.getEPlayer(player);
+	public boolean onCommand(EPlayer myEPlayer, String[] args) {
 		
 		
 		if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
 			Empire empire = myApi.getEmpire(myEPlayer);
 			if (myEPlayer.isOwner(empire)) {
 				if (args.length == 1) {
-					info(player);
+					info(myEPlayer);
 				}else {
 					if (args[1].equalsIgnoreCase("ownerprefix")) {
 						if (args.length < 3) {
@@ -51,10 +51,10 @@ public class SettingsCommand extends EmpireSubCommand{
 					}
 				}
 			}else {
-				player.sendMessage( ChatColor.RED + "Only the owner of am empire can modify the settings");
+				myEPlayer.sendMessage( ChatColor.RED + "Only the owner of am empire can modify the settings");
 			}
 		}else {
-			player.sendMessage( ChatColor.RED + "You are no in an empire");
+			myEPlayer.sendMessage( ChatColor.RED + "You are no in an empire");
 			return false;
 		}
 		return false;
@@ -84,9 +84,9 @@ public class SettingsCommand extends EmpireSubCommand{
 	public EmpirePermission permission() {
 		return null;
 	}
-	private void info(Player player) {
-		player.sendMessage(ChatColor.GOLD + "/empire settings ownerprefix"  + ChatColor.LIGHT_PURPLE  + "(prefix)" + ChatColor.WHITE + " - " + ChatColor.AQUA + "Changes your prefix in town chat");
-		player.sendMessage(ChatColor.GOLD + "/empire settings defaultprefix"  + ChatColor.LIGHT_PURPLE  + "(prefix)" + ChatColor.WHITE + " - " + ChatColor.AQUA + "Changes the default prefix in town chat");
+	private void info(EPlayer myEPlayer) {
+		myEPlayer.sendMessage(ChatColor.GOLD + "/empire settings ownerprefix"  + ChatColor.LIGHT_PURPLE  + "(prefix)" + ChatColor.WHITE + " - " + ChatColor.AQUA + "Changes your prefix in town chat");
+		myEPlayer.sendMessage(ChatColor.GOLD + "/empire settings defaultprefix"  + ChatColor.LIGHT_PURPLE  + "(prefix)" + ChatColor.WHITE + " - " + ChatColor.AQUA + "Changes the default prefix in town chat");
 	}
 
 }
