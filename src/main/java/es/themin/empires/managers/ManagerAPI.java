@@ -5,4 +5,6 @@ public class ManagerAPI {
 	private CoreManager Cores = null;
 	
 	
+	
+	
 }
