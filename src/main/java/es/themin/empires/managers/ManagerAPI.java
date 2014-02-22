@@ -6,8 +6,6 @@ import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.jolbox.bonecp.BoneCP;
-
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;

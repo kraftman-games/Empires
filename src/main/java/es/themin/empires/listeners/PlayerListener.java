@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,16 +17,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
-import es.themin.empires.enums.BattleType;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
-import es.themin.empires.wars.Battle;
-import es.themin.empires.wars.Battle.BattleTeam;
-import es.themin.empires.wars.War;
 
 public class PlayerListener implements Listener{
 	

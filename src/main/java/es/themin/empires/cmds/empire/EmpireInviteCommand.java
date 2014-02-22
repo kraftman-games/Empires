@@ -4,11 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.ManagerAPI;
-import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;

@@ -1,20 +1,16 @@
 package es.themin.empires.managers;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.testing.newemp;
 
 public class ManagerFactory {
 

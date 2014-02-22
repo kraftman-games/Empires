@@ -6,12 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
-import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.ManagerAPI;
-import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 

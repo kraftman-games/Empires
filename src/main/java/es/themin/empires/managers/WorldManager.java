@@ -7,7 +7,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
-import es.themin.empires.empires;
 import es.themin.empires.util.EWorld;
 
 public class WorldManager {

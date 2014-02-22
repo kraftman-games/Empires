@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;

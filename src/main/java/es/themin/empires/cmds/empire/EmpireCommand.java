@@ -8,14 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.empires;
-import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.ManagerAPI;
-import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.Empire;
-import es.themin.empires.util.MsgManager;
-import es.themin.empires.util.Rank;
 
 
 public class EmpireCommand implements CommandExecutor{

@@ -1,20 +1,11 @@
 package es.themin.empires.managers;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import es.themin.empires.empires;
-import es.themin.empires.enums.BattleType;
-import es.themin.empires.util.Empire;
-import es.themin.empires.wars.Battle;
-import es.themin.empires.wars.Battle.BattleTeam;
 import es.themin.empires.wars.War;
 
 public class WarManager implements IManager {

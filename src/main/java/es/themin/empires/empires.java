@@ -2,11 +2,8 @@ package es.themin.empires;
 
 
 
-import java.io.File;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,12 +32,9 @@ import es.themin.empires.listeners.CraftListener;
 import es.themin.empires.listeners.Event_BlockPlace;
 import es.themin.empires.listeners.PlayerListener;
 import es.themin.empires.listeners.WorldListener;
-import es.themin.empires.managers.CoreManager;
-import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.IManager;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.ManagerFactory;
-import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.managers.WarManager;
 import es.themin.empires.managers.WorldManager;
