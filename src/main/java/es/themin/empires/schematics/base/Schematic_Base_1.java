@@ -128,14 +128,18 @@ public class Schematic_Base_1 extends Schematic{
 				Bukkit.getServer().getLogger().info("Effect error 1");
 			}
 		Block e011a = w.getBlockAt(x,y,z-1);
-        FallingBlock e011 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
-        FallingBlock e012 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
-        FallingBlock e013 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
-        FallingBlock e014 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
-        e011.setVelocity(north);
+        FallingBlock e011 = w.spawnFallingBlock(new Location(w,x+1,y,z), Material.OBSIDIAN, (byte) 0);
+        FallingBlock e012 = w.spawnFallingBlock(new Location(w,x-1,y,z), Material.OBSIDIAN, (byte) 0);
+        FallingBlock e013 = w.spawnFallingBlock(new Location(w,x,y,z+1), Material.OBSIDIAN, (byte) 0);
+        FallingBlock e014 = w.spawnFallingBlock(new Location(w,x,y,z-1), Material.OBSIDIAN, (byte) 0);
+        /*e011.setVelocity(north);
         e012.setVelocity(east);
         e013.setVelocity(south);
-        e014.setVelocity(west);
+        e014.setVelocity(west);*/
+        e011.setVelocity(up);
+        e012.setVelocity(up);
+        e013.setVelocity(up);
+        e014.setVelocity(up);
         try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
