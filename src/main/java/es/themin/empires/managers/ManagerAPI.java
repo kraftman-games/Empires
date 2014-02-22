@@ -13,7 +13,6 @@ import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
-import es.themin.empires.util.testing.newemp;
 
 public class ManagerAPI {
 

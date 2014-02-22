@@ -1,11 +1,8 @@
 package es.themin.empires.managers;
 
-import java.io.Console;
 import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
-
-import org.bukkit.Bukkit;
 
 import com.jolbox.bonecp.BoneCP;
 

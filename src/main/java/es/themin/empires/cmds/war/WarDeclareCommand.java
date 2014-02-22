@@ -6,7 +6,6 @@ import es.themin.empires.empires;
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.ManagerAPI;
-import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.Rank;

@@ -32,7 +32,6 @@ import es.themin.empires.listeners.PlayerListener;
 import es.themin.empires.listeners.WorldListener;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.ManagerFactory;
-import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.schematics.base.Schematic_Base_20;
 import es.themin.empires.schematics.mob.Schematic_Mob_1;

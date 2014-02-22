@@ -10,7 +10,6 @@ import org.bukkit.ChatColor;
 
 import es.themin.empires.empires;
 import es.themin.empires.managers.ManagerAPI;
-import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.managers.WarManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
