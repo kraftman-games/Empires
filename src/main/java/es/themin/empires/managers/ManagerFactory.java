@@ -20,9 +20,6 @@ public class ManagerFactory {
 	File playerFile = null;
     File empireFile = null;
 	
-	public ManagerFactory(BoneCP connectionPool) {
-         
-	}
 	
 	
 	public static PlayerManager CreatePlayerManager(EmpiresDAL myEmpiresDAL){
