@@ -60,7 +60,7 @@ public class ManagerFactory {
 		CoreManager myCoreManager = CreateCoreManager(myEmpiresDAL);
 		EmpireManager myEmpireManager = CreateEmpireManager(myEmpiresDAL);
 		
-		return (new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager));
+		return new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager);
 		
 	}
 }
