@@ -163,11 +163,11 @@ public class EmpiresDAL {
 				for (Empire myEmpire : myEmpires.values()){
 					
 					stmnt.setString(1, myEmpire.getUUID().toString());
-			        stmnt.setString(2, myEmpire.getOwner().toString());
+			        stmnt.setString(2, myEmpire.getOwnerUUID().toString());
 			        stmnt.setString(3, myEmpire.getName());
 			        stmnt.setLong(4, System.currentTimeMillis()/1000);
 			        
-			        stmnt.setString(5, myEmpire.getOwner().toString());
+			        stmnt.setString(5, myEmpire.getOwnerUUID().toString());
 			        stmnt.setString(6, myEmpire.getName());
 					stmnt.addBatch();
 					

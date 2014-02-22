@@ -7,13 +7,14 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.ChatCommand;
+import es.themin.empires.managers.ManagerAPI;
 
 public class GlobalCommand implements CommandExecutor{
 	
 	private final GlobalCommand gc = this;
-	private empires plugin;
-	public GlobalCommand(empires empires) {
-		this.plugin = empires;
+	private ManagerAPI myAPI = null;
+	public GlobalCommand(ManagerAPI api) {
+		myAPI = api;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		final Player player = (Player) sender;

@@ -7,35 +7,34 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.util.EPlayer;
 
 public class ChatCommand extends EmpireSubCommand{
 	public static ArrayList<Player> empirechatplayers = new ArrayList<Player>();
-	public String plprefix;
-	private empires myPlugin;
-	private PlayerManager Players;
+	private ManagerAPI myApi = null;
 	
-	public ChatCommand(empires plugin) {
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
+	public ChatCommand(ManagerAPI api) {
+		myApi = api;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if (Players.playerExists(player.getUniqueId())) {
+		EPlayer myEPlayer = myApi.getEPlayer(player);
+		if (myEPlayer.isInEmpire()) {
 			if (!(empirechatplayers.contains(player))) {
 				empirechatplayers.add(player);
-				player.sendMessage(plprefix + ChatColor.GREEN + "Speaking in empire chat do '/g' to talk globally");
+				player.sendMessage(ChatColor.GREEN + "Speaking in empire chat do '/g' to talk globally");
 				player.performCommand("local");
 				return false;
 			}else {
-				player.sendMessage(plprefix + ChatColor.RED + "You are already talking in this channel");
+				player.sendMessage( ChatColor.RED + "You are already talking in this channel");
 				return false;
 			}
 			
 		}else {
-			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
+			player.sendMessage(ChatColor.RED + "You are not in an empire");
 		}
 		return false;
 	}

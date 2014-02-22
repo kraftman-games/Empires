@@ -12,24 +12,20 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
+import es.themin.empires.managers.ManagerAPI;
 
 public class UtilityTesting implements CommandExecutor{
 	
-	public String plprefix;
 	private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 	private empires myPlugin;
+	ManagerAPI myApi = null;
 	
-	public UtilityTesting(empires plugin){
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
+	public UtilityTesting(ManagerAPI api){
+		myApi = api;
 		
-		commands.add(new newemp(plugin));
-		commands.add(new emp(plugin));
-		commands.add(new emps(plugin));
-		commands.add(new addplayer(plugin));
-		commands.add(new tannertest(plugin));
-		commands.add(new generatebasecore(plugin));
-		commands.add(new RicTest(plugin));
+		commands.add(new newemp(api));
+		commands.add(new emp(api));
+		commands.add(new generatebasecore(api));
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -37,11 +33,11 @@ public class UtilityTesting implements CommandExecutor{
 			Player player = (Player) sender;
 			if (commandLabel.equalsIgnoreCase("utiltest")) {
 				if (player.isOp()){
-					if (args.length == 0) {player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");}
+					if (args.length == 0) {player.sendMessage( ChatColor.RED + "Too few arguments");}
 					
 					else {
 						SubCommand scmd = get(args[0]);
-						if (scmd == null) player.sendMessage(plprefix + ChatColor.RED + "Invalid Command");
+						if (scmd == null) player.sendMessage( ChatColor.RED + "Invalid Command");
 						else {
 							scmd.onCommand(player, args);
 						}

@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.WorldManager;
 import es.themin.empires.util.EPlayer;
@@ -16,27 +17,20 @@ import es.themin.empires.util.Empire;
 
 public class generatebasecore extends SubCommand{
 
-	public String plprefix;
-	private empires myPlugin;
-	private WorldManager Worlds;
-	private PlayerManager Players;
-	private EmpireManager Empires;
+	private ManagerAPI myApi = null;
 	
-	public generatebasecore(empires plugin) {
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
-		Empires = plugin.Empires;
+	public generatebasecore(ManagerAPI api) {
+		myApi = api;
 	}
 
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
 		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
-			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
+			myEPlayer.sendMessage( ChatColor.RED + "You are not in an empire");
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+		Empire empire = myApi.getEmpire(myEPlayer.getEmpireUUID());
 		ItemStack item = new ItemStack(Material.BEACON, 1);
 		ItemMeta im = item.getItemMeta();
 		im.setDisplayName("base core");

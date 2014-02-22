@@ -42,7 +42,7 @@ public class ChatListener implements Listener{
 				Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
 				String rank;
 				if (!(empire.playerHasARank(player.getName()))) {
-					if (empire.getOwner() == myEPlayer.getUUID()) {
+					if (empire.getOwnerUUID() == myEPlayer.getUUID()) {
 						if (empire.getOwnerPrefix() == null) rank = "king";
 						else rank = empire.getOwnerPrefix();
 					}else {

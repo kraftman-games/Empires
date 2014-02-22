@@ -7,25 +7,22 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.managers.CoreManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 
 public class HomeCommand implements CommandExecutor{
 	
 	
-	private empires plugin;
-	private PlayerManager Players;
-	private CoreManager Cores;
+	private ManagerAPI myApi = null;
 	
-	public HomeCommand(empires plugin) {
-		this.plugin = plugin;
-		Players = plugin.Players;
-		this.Cores = plugin.Cores;
+	public HomeCommand(ManagerAPI myAPI) {
+		myApi = myAPI;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player) sender;
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
 		
 		//i think we need to store a home location per player or empire rather than using the base core

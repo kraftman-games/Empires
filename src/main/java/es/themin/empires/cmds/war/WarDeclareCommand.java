@@ -7,6 +7,7 @@ import es.themin.empires.empires;
 import es.themin.empires.cmds.empire.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.util.EPlayer;
@@ -16,60 +17,55 @@ import es.themin.empires.wars.War;
 
 public class WarDeclareCommand extends EmpireSubCommand{
 	
-	public String plprefix;
-	public String warprefix = empires.warprefix;
-	private empires myPlugin;
-	private EmpireManager Empires;
-	private PlayerManager Players;
 	
-	public WarDeclareCommand(empires plugin) {
-		myPlugin = plugin;
-		Empires = plugin.Empires;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
+	public String warprefix = empires.warprefix;
+	private ManagerAPI myApi = null;
+	
+	public WarDeclareCommand(ManagerAPI myAPI) {
+		myApi = myAPI;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
 		if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
-			Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
-			if (!(empire.getOwner() == myEPlayer.getUUID())) {
+			Empire empire = myApi.getEmpire(myEPlayer.getEmpireUUID());
+			if (!(empire.getOwnerUUID() == myEPlayer.getUUID())) {
 				if (empire.playerHasARank(player.getName())) {
 					Rank rank = empire.getRankOfPlayer(player.getName());
-					if (!(rank.hasPermission(EmpirePermission.ATTACK))) player.sendMessage(plprefix + ChatColor.RED +"You do not have permission to do this"); return false;
+					if (!(rank.hasPermission(EmpirePermission.ATTACK))) player.sendMessage( ChatColor.RED +"You do not have permission to do this"); return false;
 				}else {
 					return false;
 				}
 			}
 			if (args.length == 1) {
-				player.sendMessage(plprefix + ChatColor.RED + "Please define an empire");
+				player.sendMessage( ChatColor.RED + "Please define an empire");
 				return false;
 			}
-			if (!(Empires.containsEmpireWithName(args[1]))) {
-				player.sendMessage(plprefix + ChatColor.RED + "That is not an empire");
+			if ((myApi.getEmpire(args[1]) == null)) {
+				player.sendMessage( ChatColor.RED + "That is not an empire");
 				return false;
 			}
-			Empire attacked = Empires.getEmpireWithName(args[1]);
+			Empire attacked = myApi.getEmpire(args[1]);
 			if (empire.getXP() - attacked.getXP() < -50) {
-				player.sendMessage(plprefix + ChatColor.RED + "You are too strong to attack this empire");
+				player.sendMessage( ChatColor.RED + "You are too strong to attack this empire");
 				return false;
 			}
 			if (empire.exAlliesContains(attacked)) {
 				if (empire.getLastAllianceWith(attacked) + SettingsManager.getConfig().getLong("ex_ally_timer") * 60 * 1000 > System.currentTimeMillis()) {
-					player.sendMessage(plprefix + ChatColor.RED + "You cannot abandon an Ally then attack them this quickly, try again later");
+					player.sendMessage( ChatColor.RED + "You cannot abandon an Ally then attack them this quickly, try again later");
 					return false;
 				}
 			}
-			War war = new War(myPlugin, empire, attacked);
+			War war = new War(empire, attacked);
 			war.start();
 			//war.upDateEmpires();
 			empire.broadcastMessage(warprefix + ChatColor.RED + player.getDisplayName() + " declared war on " + attacked.getName());
 			attacked.broadcastMessage(warprefix + ChatColor.RED + empire.getName() + " decalred war on you");
 			war.Save();
 		}else {
-			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
+			player.sendMessage( ChatColor.RED + "You are not in an empire");
 		}
 		return false;
 	}

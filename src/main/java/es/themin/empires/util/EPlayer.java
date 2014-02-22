@@ -100,6 +100,17 @@ public class EPlayer {
 	public void sendMessage(String myMessage){
 		player.sendMessage(myMessage);
 	}
+
+	public boolean isInEmpire() {
+		if (this.empireUUID == null)
+			return false;
+		
+		return true;
+	}
+
+	public boolean isOwner(Empire empire) {
+		return empire.getOwnerUUID() == this.getUUID();
+	}
 	
 	
 //	public boolean canPlayerAttack(Player myPlayer) {

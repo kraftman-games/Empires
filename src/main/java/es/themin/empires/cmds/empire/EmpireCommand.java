@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -18,24 +19,18 @@ import es.themin.empires.util.Rank;
 
 
 public class EmpireCommand implements CommandExecutor{
-	public String plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
-	private empires myPlugin;
-	private PlayerManager Players;
-	private EmpireManager Empires;
 	
-	public EmpireCommand(empires plugin){
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
-		Empires = plugin.Empires;
-		commands.add(new list(plugin));
-		commands.add(new RankCommand(plugin));
-		commands.add(new Stats(plugin));
-		commands.add(new ChatCommand(plugin));
-		commands.add(new SettingsCommand(plugin));
-		commands.add(new GridLocationCommand(plugin));
-		commands.add(new EmpireInviteCommand(plugin));
+	private ManagerAPI myApi = null;
+	
+	public EmpireCommand(ManagerAPI api){
+		myApi = api;
+		commands.add(new list(api));
+		commands.add(new RankCommand(api));
+		commands.add(new Stats(api));
+		commands.add(new ChatCommand(api));
+		commands.add(new SettingsCommand(api));
+		commands.add(new EmpireInviteCommand(api));
 	}
 	
 	
@@ -43,50 +38,46 @@ public class EmpireCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("empire") || commandLabel.equalsIgnoreCase("emp") || commandLabel.equalsIgnoreCase("e")) {
 			Player player = (Player) sender;
-			EPlayer myEPlayer = Players.loadEPlayer(player);
+			EPlayer myEPlayer = myApi.getEPlayer(player);
 			
 			
 			if (args.length == 0) {
-				player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
-
-				for (EmpireSubCommand scmd : commands) {
-					StringBuilder str = new StringBuilder();
-					if (scmd.variables() != null) {
-						for (String variable : scmd.variables()) {
-							str.append("(" + variable + ") ");
-						}
-					}
-					player.sendMessage(ChatColor.GOLD + "/empire " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
-				}
+				sendCommandHelp(player);
+				return false;
 			}
 			else {
 				EmpireSubCommand scmd = get(args[0]);
 				if (scmd == null) {
-					player.sendMessage(plprefix + ChatColor.RED + "Invalid Command"); return false;
-				}
+					player.sendMessage( ChatColor.RED + "Invalid Command"); 
+					return false;
+				} 
+				
 				if (scmd.permission() != null){
-					if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
-						Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
-						if ((empire.getOwner() != myEPlayer.getUUID())) {
-							if (empire.playerHasARank(player.getName())) {
-								Rank rank = empire.getRankOfPlayer(player.getName());
-								if (!(rank.hasPermission(scmd.permission()))) {
-									player.sendMessage(MsgManager.noempperm);
-									return false;
-									
-								}
-							}else {
-								player.sendMessage(MsgManager.noempperm);
-								return false;
-							}
-						}
+					if (!myApi.playerHasPermission(myEPlayer, scmd.permission())){
+						return false;
 					}
 				}
 				scmd.onCommand(player, args);
+				return true;
 			}
 		}
 		return false;
 	}
+	
+	private void sendCommandHelp(Player myPlayer){
+		myPlayer.sendMessage(ChatColor.RED + "Too few arguments");
+
+		for (EmpireSubCommand scmd : commands) {
+			StringBuilder str = new StringBuilder();
+			if (scmd.variables() != null) {
+				for (String variable : scmd.variables()) {
+					str.append("(" + variable + ") ");
+				}
+			}
+			myPlayer.sendMessage(ChatColor.GOLD + "/empire " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
+		}
+	}
+	
 	
 	private EmpireSubCommand get(String name) {
 		for (EmpireSubCommand cmd : commands) {
@@ -96,3 +87,12 @@ public class EmpireCommand implements CommandExecutor{
 		return null;
 	}
 }
+
+
+
+
+
+
+
+
+

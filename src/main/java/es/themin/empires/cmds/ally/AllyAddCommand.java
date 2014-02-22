@@ -19,14 +19,10 @@ public class AllyAddCommand extends EmpireSubCommand{
 	public String plprefix;
 	private Long time = SettingsManager.getConfig().getLong("time_between_re_ally");
 	private  empires myPlugin;
-	private  EmpireManager Empires;
-	private PlayerManager Players;
 	
 	public AllyAddCommand(empires plugin) {
 		myPlugin = plugin;
-		Empires = plugin.Empires;
 		plprefix = plugin.plprefix;
-		Players = plugin.Players;
 	}
 
 	@Override

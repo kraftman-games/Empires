@@ -6,16 +6,14 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.WorldManager;
 
 public class GridLocationCommand extends EmpireSubCommand{
 
-	private empires myPlugin;
-	private WorldManager Worlds;
-	
-	public GridLocationCommand(empires plugin) {
-		myPlugin = plugin;
-		Worlds = plugin.Worlds;
+	private ManagerAPI myApi = null;
+	public GridLocationCommand(ManagerAPI api) {
+		myApi = api;
 	}
 
 	@Override

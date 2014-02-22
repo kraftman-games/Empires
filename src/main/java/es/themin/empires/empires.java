@@ -24,7 +24,6 @@ import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
 import es.themin.empires.cmds.GlobalCommand;
-import es.themin.empires.cmds.GridCommand;
 import es.themin.empires.cmds.HomeCommand;
 import es.themin.empires.cmds.ally.AllyCommandStem;
 import es.themin.empires.cmds.empire.EmpireCommand;
@@ -39,6 +38,7 @@ import es.themin.empires.listeners.WorldListener;
 import es.themin.empires.managers.CoreManager;
 import es.themin.empires.managers.EmpireManager;
 import es.themin.empires.managers.IManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.ManagerFactory;
 import es.themin.empires.managers.PlayerManager;
 import es.themin.empires.managers.SettingsManager;
@@ -60,11 +60,10 @@ public final class empires extends JavaPlugin {
 	public static ArrayList<Material> destroyable = new ArrayList<Material>();
 	private HashMap<Player, ConfirmType> confirms = new HashMap<Player, ConfirmType>();
 	
-	public EmpireManager Empires;
-	public CoreManager Cores;
+	
 	public WorldManager Worlds;
 	public WarManager Wars;
-	public PlayerManager Players;
+	private ManagerAPI myAPI = null;
 	public static ArrayList<Schematic> schematics;
 	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
@@ -84,8 +83,10 @@ public final class empires extends JavaPlugin {
         loadMySQL();
         
         ManagerFactory = new ManagerFactory(this, connectionPool);
-        createManagers();
-    	ManagerFactory.loadManagers();
+        myAPI = ManagerFactory.createManagerAPI();
+        
+        
+        myAPI.loadManagers();
         
         settings = new SettingsManager(this);
         utils = new UtilManager(this);
@@ -95,7 +96,7 @@ public final class empires extends JavaPlugin {
 		
 		MsgManager.setPrefix(plprefix);
 		
-		loadCommands();
+		loadCommands(myAPI);
 		
 		registerEvents();
 		loadSchematics();
@@ -105,8 +106,7 @@ public final class empires extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        
-    	ManagerFactory.saveManagers();
+    	myAPI.saveManagers();
 		SettingsManager.saveAll();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
@@ -116,14 +116,6 @@ public final class empires extends JavaPlugin {
 			BarAPI.removeBar(player);
 		}
 		connectionPool.shutdown();
-    }
-    
-    private void createManagers(){
-    	Empires = ManagerFactory.CreateEmpireManager();
-	   	 Cores = ManagerFactory.CreateCoreManager(); 
-	   	 Worlds = ManagerFactory.CreateWorldManager();
-	   	 Wars = ManagerFactory.CreateWarManager(this);
-	   	 Players = ManagerFactory.CreatePlayerManager();
     }
     
     public void registerEvents(){
@@ -154,17 +146,16 @@ public final class empires extends JavaPlugin {
 		}
     }
     
-    public void loadCommands() {
+    public void loadCommands(ManagerAPI myAPI) {
 		
-		EmpireCommand empire_ce = new EmpireCommand(this);
+		EmpireCommand empire_ce = new EmpireCommand(myAPI);
 		getCommand("empire").setExecutor(empire_ce);
 		getCommand("e").setExecutor(empire_ce);
 		getCommand("emp").setExecutor(empire_ce);
-		getCommand("utiltest").setExecutor(new UtilityTesting(this));
-		getCommand("all").setExecutor(new GlobalCommand(this));
-		getCommand("grid").setExecutor(new GridCommand(this));
-		getCommand("war").setExecutor(new WarCommand(this));
-		getCommand("base").setExecutor(new HomeCommand(this));
+		getCommand("utiltest").setExecutor(new UtilityTesting(myAPI));
+		getCommand("all").setExecutor(new GlobalCommand(myAPI));
+		getCommand("war").setExecutor(new WarCommand(myAPI));
+		getCommand("base").setExecutor(new HomeCommand(myAPI));
 		
 		AllyCommandStem ally_ce = new AllyCommandStem(this);
 		getCommand("ally").setExecutor(ally_ce);

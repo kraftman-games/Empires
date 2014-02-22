@@ -6,30 +6,21 @@ import org.bukkit.entity.Player;
 import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.managers.EmpireManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.Empire;
 
 public class list extends EmpireSubCommand{
 
-	private empires myPlugin;
-	private EmpireManager Empires;
+	private ManagerAPI myApi;
 	
-	public list(empires empires) {
-		myPlugin = empires;
-		Empires = empires.Empires;
+	public list(ManagerAPI api) {
+		myApi = api;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		player.sendMessage(ChatColor.GOLD + "=====" + ChatColor.LIGHT_PURPLE + "Empires" + ChatColor.GOLD + "=====");
-		int i = 0;
-		for (Empire empire : Empires.getEmpires().values()) {
-			i++;
-			player.sendMessage(ChatColor.GREEN + empire.getName());
-		}
-		if (i == 0) {
-			player.sendMessage(ChatColor.RED + "No empires :(");
-		}
-		return false;
+		myApi.listEmpires(player);
+		return true;
 	}
 
 	@Override
