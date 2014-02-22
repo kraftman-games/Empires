@@ -83,10 +83,10 @@ public class Empire {
 	public String getName(){
 		return name;
 	}
-	public UUID getOwner(){
+	public UUID getOwnerUUID(){
 		return owner;
 	}
-	public void setOwner(UUID owner){
+	public void setOwnerUUID(UUID owner){
 		this.owner = owner;
 	}
 	public HashMap<UUID,EPlayer> loadEPlayers(){

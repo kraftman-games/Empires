@@ -1,13 +1,10 @@
 package es.themin.empires.managers;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
@@ -17,82 +14,30 @@ import es.themin.empires.util.Empire;
 
 public class ManagerFactory {
 
-	
-	private empires myPlugin;
-	private ArrayList<IManager> Managers;
 	File playerFile = null;
     File empireFile = null;
-    EmpiresDAL myEmpiresDAL = null;
 	
-	public ManagerFactory(empires plugin,BoneCP connectionPool) {
-		myPlugin = plugin;
-		Managers = new ArrayList<IManager>();
-		
-		 playerFile = createFile("Players.yml");
-         empireFile = createFile("Empires.yml");
-         myEmpiresDAL = new EmpiresDAL(playerFile, empireFile, connectionPool);
-	}
-
-
-	private  File createFile(String fileName){
-		
-		File myFile = new File(myPlugin.getDataFolder() + File.separator + fileName);
-		
-		if (!myFile.exists()) {
-		        try {
-		        	myFile.createNewFile();
-						//myPlugin.getLogger().info("[Empires] "+fileName+" not found, making you one");
-		        }
-		        catch (IOException e) {
-		                //Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create "+fileName);
-		        }
-		}
-		
-		return myFile;
-		
+	public ManagerFactory(BoneCP connectionPool) {
+         
 	}
 	
 	
-	public PlayerManager CreatePlayerManager(){
-        
+	public static PlayerManager CreatePlayerManager(EmpiresDAL myEmpiresDAL){
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
-        
         PlayerManager myPlayerManager = new PlayerManager(myEmpiresDAL, players);
-        Managers.add(myPlayerManager);
-        
 	    return myPlayerManager;
 	    
 	}
 	
-	public EmpireManager CreateEmpireManager(){
-		        
+	public static EmpireManager CreateEmpireManager(EmpiresDAL myEmpiresDAL){
 		HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
-		
         EmpireManager MyEmpireManager = new EmpireManager(myEmpiresDAL, empires);
-        Managers.add(MyEmpireManager);
 		return MyEmpireManager;
 	}
-	
-	public void loadManagers(){
-		for (IManager m : Managers){
-			m.load();
-		}
-	}
-	
-	public void saveManagers(){
-		for (IManager m : Managers){
-			m.save();
-		}
-	}
-	
 
-
-	public CoreManager CreateCoreManager() {
-		
+	public static CoreManager CreateCoreManager(EmpiresDAL myEmpiresDAL) {
 		HashMap<UUID, Core> cores = new HashMap<UUID,Core>();
-		
 		CoreManager myCoreManager = new  CoreManager(myEmpiresDAL, cores);
-		Managers.add(myCoreManager);
 		return myCoreManager;
 	}
 
@@ -104,6 +49,19 @@ public class ManagerFactory {
 
 	public WarManager CreateWarManager(empires empires) {
 		return new WarManager(empires);
+	}
+	
+	
+	public static ManagerAPI createManagerAPI(BoneCP connectionPool){
+		
+		EmpiresDAL myEmpiresDAL = new EmpiresDAL(connectionPool);
+		
+		PlayerManager myPlayerManager = CreatePlayerManager(myEmpiresDAL);
+		CoreManager myCoreManager = CreateCoreManager(myEmpiresDAL);
+		EmpireManager myEmpireManager = CreateEmpireManager(myEmpiresDAL);
+		
+		return (new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager));
+		
 	}
 }
 

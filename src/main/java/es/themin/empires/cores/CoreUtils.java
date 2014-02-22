@@ -6,14 +6,10 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.enums.PlaceType;
-import es.themin.empires.managers.CoreManager;
-import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.PlayerManager;
-import es.themin.empires.managers.WorldManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
@@ -22,17 +18,10 @@ import es.themin.empires.util.PlayerUtils;
 
 public class CoreUtils {
 	
-	private  empires myPlugin;
-	private WorldManager Worlds;
-	private CoreManager Cores;
-	private PlayerManager Players;
-	private EmpireManager Empires;
+	private ManagerAPI myApi = null;
 	
-	public CoreUtils(empires plugin){
-		myPlugin = plugin;	
-		Worlds = plugin.Worlds;
-		Players = plugin.Players;
-		Empires = plugin.Empires;
+	public CoreUtils(ManagerAPI api){
+		myApi = api;	
 	}
 
 	public static CoreType GetCoreType(String coreType){
@@ -45,9 +34,9 @@ public class CoreUtils {
 	
 	public Core placeCore(Player myPlayer, CoreType myCoreType){
 		Core myCore = null;
-		EPlayer myEPlayer = Players.loadEPlayer(myPlayer);
+		EPlayer myEPlayer = myApi.getEPlayer(myPlayer);
 		
-		Empire myEmpire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+		Empire myEmpire = myApi.getEmpire(myEPlayer.getEmpireUUID());
 		
 		//check they are in an empire
 		if (myEmpire == null){
@@ -89,10 +78,10 @@ public class CoreUtils {
 		
 		//we're good to go. Give the core an id and add it to the empire
 		myCore.setEmpireUUID(myEmpire.getUUID());
-		Cores.addCore(myCore);
+		myApi.addCore(myCore);
 		
-		UUID myUUID = myCore.getLocation().getWorld().getUID();
-		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
+		UUID worldUUID = myCore.getLocation().getWorld().getUID();
+		EWorld myCoreWorld = myApi.getEWorld(worldUUID);
 		myCoreWorld.addCore(myCore);
 		
 		return myCore;
@@ -102,8 +91,8 @@ public class CoreUtils {
 		//needs a complete re write for new system.
 		ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
 		
-		UUID myUUID = myCore.getLocation().getWorld().getUID();
-		EWorld myCoreWorld = Worlds.getWorlds().get(myUUID);
+		UUID worldUUID = myCore.getLocation().getWorld().getUID();
+		EWorld myCoreWorld = myApi.getEWorld(worldUUID);
 		
 		// check if its too close to another empire
 		if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){

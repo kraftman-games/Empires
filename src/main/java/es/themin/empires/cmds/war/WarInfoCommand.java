@@ -5,11 +5,9 @@ import java.sql.Date;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.empires;
-import es.themin.empires.cmds.empire.EmpireSubCommand;
+import es.themin.empires.cmds.empire.subcmd.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
@@ -18,37 +16,31 @@ import es.themin.empires.wars.War;
 public class WarInfoCommand extends EmpireSubCommand{
 
 	
-	public String plprefix;
-	private empires myPlugin;
-	private EmpireManager Empires;
-	private PlayerManager Players;
+	private ManagerAPI myApi = null;
 	
-	public WarInfoCommand(empires plugin) {
-		myPlugin = plugin;
-		Empires = plugin.Empires;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
+	public WarInfoCommand(ManagerAPI myAPI) {
+		myApi = myAPI;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+		EPlayer myEPlayer = myApi.getEPlayer(player);
 		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
-			player.sendMessage(plprefix + ChatColor.RED +"You are not in an empire therefore cannot be at war");
+			player.sendMessage( ChatColor.RED +"You are not in an empire therefore cannot be at war");
 			return false;
 		}
-		Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+		Empire empire = myApi.getEmpire(myEPlayer.getEmpireUUID());
 		if (args.length == 1) {
-			player.sendMessage(plprefix + ChatColor.RED+ "Please specify a war");
+			player.sendMessage(ChatColor.RED+ "Please specify a war");
 			return false;
 		}
-		if (!Empires.containsEmpireWithName(args[1])) {
-			player.sendMessage(plprefix + ChatColor.RED + "That is not an empire");
+		if (myApi.getEmpire(args[1]) == null) {
+			player.sendMessage( ChatColor.RED + "That is not an empire");
 			return false;
 		}
-		Empire enemy = Empires.getEmpireWithName(args[1]);
+		Empire enemy = myApi.getEmpire(args[1]);
 		if (!empire.isAtWarWith(enemy)) {
-			player.sendMessage(plprefix + ChatColor.RED +"You are not an war with this empire");
+			player.sendMessage( ChatColor.RED +"You are not an war with this empire");
 			return false;
 		}
 		War war = empire.getWarAgainst(enemy);

@@ -1,67 +1,60 @@
-package es.themin.empires.cmds.empire;
+package es.themin.empires.cmds.empire.subcmd;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 
 public class SettingsCommand extends EmpireSubCommand{
 
-	private empires myPlugin;
-	public String plprefix;
-	private PlayerManager Players;
-	private EmpireManager Empires;
+	private ManagerAPI myApi = null;
 	
-	public SettingsCommand(empires plugin) {
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
+	public SettingsCommand(ManagerAPI api) {
+		myApi = api;
 	}
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
 		
 		if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
-			Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
-			if (empire.getOwner() == myEPlayer.getUUID()) {
+			Empire empire = myApi.getEmpire(myEPlayer);
+			if (myEPlayer.isOwner(empire)) {
 				if (args.length == 1) {
 					info(player);
 				}else {
 					if (args[1].equalsIgnoreCase("ownerprefix")) {
 						if (args.length < 3) {
-							player.sendMessage(plprefix + ChatColor.RED + "Specify a prefix");
+							myEPlayer.sendMessage( ChatColor.RED + "Specify a prefix");
 							return false;
 						}else {
 							empire.setOwnerPrefix(args[2]);
 							String cprefix = MsgManager.colourUp(args[2]);
-							player.sendMessage(plprefix + ChatColor.GREEN + "Your prefix in town chat is now '" + cprefix + ChatColor.GREEN + "'");
+							myEPlayer.sendMessage( ChatColor.GREEN + "Your prefix in town chat is now '" + cprefix + ChatColor.GREEN + "'");
 							return false;
 						}
 					}else if (args[1].equalsIgnoreCase("defaultprefix")) {
 						if (args.length < 3) {
-							player.sendMessage(plprefix + ChatColor.RED + "Specify a prefix");
+							myEPlayer.sendMessage( ChatColor.RED + "Specify a prefix");
 							return false;
 						}else {
 							empire.setDefaultPrefix(args[2]);
 							String cprefix = MsgManager.colourUp(args[2]);
-							player.sendMessage(plprefix + ChatColor.GREEN + "The default prefix in town chat is now '" + cprefix + ChatColor.GREEN + "'");
+							myEPlayer.sendMessage( ChatColor.GREEN + "The default prefix in town chat is now '" + cprefix + ChatColor.GREEN + "'");
 							return false;
 						}
 					}
 				}
 			}else {
-				player.sendMessage(plprefix + ChatColor.RED + "Only the owner of am empire can modify the settings");
+				player.sendMessage( ChatColor.RED + "Only the owner of am empire can modify the settings");
 			}
 		}else {
-			player.sendMessage(plprefix + ChatColor.RED + "You are no in an empire");
+			player.sendMessage( ChatColor.RED + "You are no in an empire");
 			return false;
 		}
 		return false;

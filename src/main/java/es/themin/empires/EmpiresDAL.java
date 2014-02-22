@@ -1,6 +1,5 @@
 package es.themin.empires;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,14 +20,11 @@ import es.themin.empires.util.Empire;
 
 public class EmpiresDAL {
 
-	File EmpireFile;
-	File PlayerFile;
+	
 	BoneCP connectionPool = null;
 	
 	
-	public EmpiresDAL(File eFile, File pFile, BoneCP connectionPool){
-		EmpireFile = eFile;
-		PlayerFile = pFile;
+	public EmpiresDAL(BoneCP connectionPool){
 		this.connectionPool = connectionPool;
 	}
 	
@@ -163,11 +159,11 @@ public class EmpiresDAL {
 				for (Empire myEmpire : myEmpires.values()){
 					
 					stmnt.setString(1, myEmpire.getUUID().toString());
-			        stmnt.setString(2, myEmpire.getOwner().toString());
+			        stmnt.setString(2, myEmpire.getOwnerUUID().toString());
 			        stmnt.setString(3, myEmpire.getName());
 			        stmnt.setLong(4, System.currentTimeMillis()/1000);
 			        
-			        stmnt.setString(5, myEmpire.getOwner().toString());
+			        stmnt.setString(5, myEmpire.getOwnerUUID().toString());
 			        stmnt.setString(6, myEmpire.getName());
 					stmnt.addBatch();
 					

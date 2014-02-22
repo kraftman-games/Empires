@@ -1,4 +1,4 @@
-package es.themin.empires.cmds.empire;
+package es.themin.empires.cmds.empire.subcmd;
 
 import org.bukkit.entity.Player;
 

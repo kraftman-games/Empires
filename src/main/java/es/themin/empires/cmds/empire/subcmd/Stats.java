@@ -1,4 +1,4 @@
-package es.themin.empires.cmds.empire;
+package es.themin.empires.cmds.empire.subcmd;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,48 +9,37 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
-import es.themin.empires.empires;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.CoreManager;
-import es.themin.empires.managers.EmpireManager;
-import es.themin.empires.managers.PlayerManager;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 
 public class Stats extends EmpireSubCommand{
 
-	private empires myPlugin;
-	private EmpireManager Empires;
-	public String plprefix;
-	private  PlayerManager Players;
-	private CoreManager Cores;
+	private ManagerAPI myApi = null;
 	
-	public Stats(empires plugin) {
-		myPlugin = plugin;
-		Empires = plugin.Empires;
-		plprefix = plugin.plprefix;
-		Players = plugin.Players;
-		Cores = plugin.Cores;
+	public Stats(ManagerAPI api) {
+		myApi = api;
 	}
 
 	@Override
 	public boolean onCommand(final Player player, String[] args) {
-		EPlayer myEPlayer = Players.loadEPlayer(player);
+		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
 		if (myEPlayer != null && myEPlayer.getEmpireUUID() != null) {
-			Empire empire = Empires.getEmpire(myEPlayer.getEmpireUUID());
+			Empire empire = myApi.getEmpire(myEPlayer);
 			final ScoreboardManager sbm = Bukkit.getScoreboardManager();
 			Scoreboard sb = sbm.getNewScoreboard();
 			
-			Objective obj = sb.registerNewObjective(plprefix, "stats");
+			Objective obj = sb.registerNewObjective("Empires", "stats");
 			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 			obj.setDisplayName(ChatColor.GOLD + "====" + ChatColor.LIGHT_PURPLE + "Empire Stats" + ChatColor.GOLD + "====");
 			Score Exp = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Exp: "));
 			Exp.setScore(empire.getXP());
-			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + Empires.getEmpires().size() +" : "));
-			ranking.setScore(Empires.getRank(empire));
+			Score ranking = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Ranking /" + myApi.getEmpireCount() +" : "));
+			ranking.setScore(myApi.getRank(empire));
 			Score cores = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Cores: "));
-			cores.setScore(Cores.getCoreCount(empire));
+			cores.setScore(myApi.getCoreCount(empire));
 			Score players = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GREEN + "Players: "));
 			players.setScore(empire.numberOfPlayers());
 			
@@ -65,7 +54,7 @@ public class Stats extends EmpireSubCommand{
 				
 			}, 400L);
 		}else {
-			player.sendMessage(plprefix + ChatColor.RED + "You are not in an empire");
+			player.sendMessage( ChatColor.RED + "You are not in an empire");
 		}
 		return false;
 	}

@@ -4,14 +4,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkPopulateEvent;
 
-import es.themin.empires.empires;
+import es.themin.empires.managers.ManagerAPI;
 
 public class WorldListener implements Listener{
 
-	
-	private empires plugin;
-	public WorldListener(empires myPlugin){
-		this.plugin = myPlugin;
+	private ManagerAPI myApi = null;
+	public WorldListener(ManagerAPI myAPI){
+		myApi = myAPI;
 	}
 	
 	@EventHandler

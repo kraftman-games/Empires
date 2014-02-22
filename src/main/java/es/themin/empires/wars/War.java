@@ -39,12 +39,10 @@ public class War {
 	private HashMap<Empire, Long> empire2alliesloss;
 	private HashMap<Empire, Float> empire1alliespercentage;
 	private HashMap<Empire, Float> empire2alliespercentage;
-	private empires myPlugin;
+	//private empires myPlugin;
 	private WarManager Wars;
 	
-	public War(empires plugin, Empire team1, Empire team2) {
-		myPlugin = plugin;
-		Wars = myPlugin.Wars;
+	public War(Empire team1, Empire team2) {
 		this.empire1 = team1;
 		this.empire2 = team2;
 		this.empire1allies = new ArrayList<Empire>();

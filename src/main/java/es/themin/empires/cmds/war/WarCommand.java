@@ -8,27 +8,27 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.empires;
-import es.themin.empires.cmds.empire.EmpireSubCommand;
+import es.themin.empires.cmds.empire.subcmd.EmpireSubCommand;
+import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.util.EPlayer;
 
 public class WarCommand implements CommandExecutor{
-	public String plprefix;
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
-	private empires myPlugin;
 	
-	public WarCommand(empires plugin){
-		myPlugin = plugin;
-		plprefix = plugin.plprefix;
-		commands.add(new WarDeclareCommand(myPlugin));
-		commands.add(new WarListCommand(myPlugin));
-		commands.add(new WarInfoCommand(myPlugin));
+	ManagerAPI myApi = null;
+	
+	public WarCommand(ManagerAPI myAPI){
+		myApi = myAPI;
+		commands.add(new WarDeclareCommand(myAPI));
+		commands.add(new WarListCommand(myAPI));
+		commands.add(new WarInfoCommand(myAPI));
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (commandLabel.equals("war")) {
-			Player player = (Player) sender;
+			EPlayer myEPlayer = myApi.getEPlayer((Player)sender); 
 			if (args.length == 0) {
-				player.sendMessage(plprefix + ChatColor.RED + "Too few arguments");
+				myEPlayer.sendMessage( ChatColor.RED + "Too few arguments");
 
 				for (EmpireSubCommand scmd : commands) {
 					StringBuilder str = new StringBuilder();
@@ -37,14 +37,14 @@ public class WarCommand implements CommandExecutor{
 							str.append("(" + variable + ") ");
 						}
 					}
-					player.sendMessage(ChatColor.GOLD + "/war " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
+					myEPlayer.sendMessage(ChatColor.GOLD + "/war " + scmd.name() + ChatColor.LIGHT_PURPLE + " " + str.toString() + ChatColor.WHITE + "- " + ChatColor.AQUA + " " + scmd.info());
 				}
 			}
 			else {
 				EmpireSubCommand scmd = get(args[0]);
-				if (scmd == null) player.sendMessage(plprefix + ChatColor.RED + "Invalid Command");
+				if (scmd == null) myEPlayer.sendMessage( ChatColor.RED + "Invalid Command");
 				else {
-					scmd.onCommand(player, args);
+					scmd.onCommand((Player) sender, args);
 				}
 			}
 		}
