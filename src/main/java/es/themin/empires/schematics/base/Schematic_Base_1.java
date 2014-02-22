@@ -122,6 +122,11 @@ public class Schematic_Base_1 extends Schematic{
 		Vector west = new Vector(-0.5,0,0);
 		Vector east = new Vector(0.5,0,0);
 		w.getBlockAt(l).setType(Material.AIR);
+		 try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				Bukkit.getServer().getLogger().info("Effect error 1");
+			}
 		Block e011a = w.getBlockAt(x,y,z-1);
         FallingBlock e011 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
         FallingBlock e012 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
