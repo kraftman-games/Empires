@@ -115,7 +115,7 @@ public class Schematic_Base_1 extends Schematic{
 		int x = l.getBlockX();
 		int y = l.getBlockY();
 		int z = l.getBlockZ();
-		Vector up = new Vector(0,0.5,0);
+		Vector up = new Vector(0,4,0);
 		Vector down = new Vector(0,-0.5,0);
 		Vector north = new Vector(0,0,-0.5);
 		Vector south = new Vector(0,0,0.5);
