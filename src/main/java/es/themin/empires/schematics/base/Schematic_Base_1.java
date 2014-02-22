@@ -121,6 +121,7 @@ public class Schematic_Base_1 extends Schematic{
 		Vector south = new Vector(0,0,0.5);
 		Vector west = new Vector(-0.5,0,0);
 		Vector east = new Vector(0.5,0,0);
+		w.getBlockAt(l).setType(Material.AIR);
 		Block e011a = w.getBlockAt(x,y,z-1);
         FallingBlock e011 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
         FallingBlock e012 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
