@@ -140,7 +140,7 @@ public class Schematic_Base_1 extends Schematic{
         e012.setVelocity(up);
         e013.setVelocity(up);
         e014.setVelocity(up);
-        try {
+        /*try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			Bukkit.getServer().getLogger().info("Effect error 1");
@@ -153,7 +153,7 @@ public class Schematic_Base_1 extends Schematic{
 		w.getBlockAt(x,y,z+1).setType(Material.OBSIDIAN);
 		w.getBlockAt(x,y,z-1).setType(Material.OBSIDIAN);
 		w.getBlockAt(x+1,y,z).setType(Material.OBSIDIAN);
-		w.getBlockAt(x-1,y,z).setType(Material.OBSIDIAN);
+		w.getBlockAt(x-1,y,z).setType(Material.OBSIDIAN);*/
 
 	}
 
