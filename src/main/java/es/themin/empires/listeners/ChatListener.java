@@ -18,14 +18,10 @@ public class ChatListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerChat(PlayerChatEvent event) {
-		
 		EPlayer myEPlayer = myApi.getEPlayer(event.getPlayer());
-		
 		if (myEPlayer.isInEmpire() && myEPlayer.isInEmpireChat()){
 			event.setCancelled(true);
 			myApi.sendChatToEmpire(myEPlayer, event.getMessage());
-		} else {
-			
-		}
+		} 
 	}
 }

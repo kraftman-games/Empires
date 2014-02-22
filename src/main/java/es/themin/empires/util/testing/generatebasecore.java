@@ -7,6 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import es.themin.empires.cmds.SubCommand;
+import es.themin.empires.cores.Core;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -22,16 +24,18 @@ public class generatebasecore extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
-		if (myEPlayer == null || myEPlayer.getEmpireUUID() == null) {
-			myEPlayer.sendMessage( ChatColor.RED + "You are not in an empire");
-			return false;
-		}
-		Empire empire = myApi.getEmpire(myEPlayer.getEmpireUUID());
-		ItemStack item = new ItemStack(Material.BEACON, 1);
-		ItemMeta im = item.getItemMeta();
-		im.setDisplayName("base core");
-		item.setItemMeta(im);
-		player.getInventory().addItem(item);
+		Core myCore = new Core(myEPlayer, CoreType.BASE);
+		
+		myApi.generateCore(myEPlayer, myCore);
+		
+		
+		
+		
+//		ItemStack item = new ItemStack(Material.BEACON, 1);
+//		ItemMeta im = item.getItemMeta();
+//		im.setDisplayName("base core");
+//		item.setItemMeta(im);
+//		player.getInventory().addItem(item);
 		/*if (empire.hasCoreOfType(CoreType.BASE)) {
 			player.sendMessage(plprefix + ChatColor.RED + "You already have a core of this type");
 			return false;

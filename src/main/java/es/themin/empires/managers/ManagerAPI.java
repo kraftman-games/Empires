@@ -1,13 +1,16 @@
 package es.themin.empires.managers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.cores.Core;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.enums.PlaceType;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
@@ -205,6 +208,49 @@ public class ManagerAPI {
 
 	public String getSetting(String myKey) {
 		return Settings.getSetting(myKey);
+	}
+
+
+
+	public void generateCore(EPlayer myEPlayer, Core myCore) {
+		
+		//so really by here we need a core object so that we can pull its paramters liek coretype, schem, etc
+		// without having to pass them in one by one
+		
+		
+		Empire myEmpire = getEmpire(myEPlayer);
+		
+		switch (myCore.getPlaceType()) {
+		case INSIDE:
+			
+			break;
+		case OUTSIDE:
+			
+			break;
+		case EDGE:
+			break;
+		case ENEMY:
+			
+			break;
+		default:
+			break;
+		}
+		
+		HashMap<UUID, Core> myCores = Cores.getEmpireCores(myEmpire.getUUID());
+		
+		
+		
+		//check they can afford it
+		
+		//check they have permission to place it
+		
+		//check its not near where it shouldnt be
+		
+		//place it
+		
+		//charge the player
+		
+		//add it to empire
 	}
 	
 	
