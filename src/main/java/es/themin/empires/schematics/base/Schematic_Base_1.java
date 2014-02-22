@@ -115,7 +115,7 @@ public class Schematic_Base_1 extends Schematic{
 		int x = l.getBlockX();
 		int y = l.getBlockY();
 		int z = l.getBlockZ();
-		Vector up = new Vector(0,0.5,0);
+		Vector up = new Vector(0,10,0);
 		Vector down = new Vector(0,-0.5,0);
 		Vector north = new Vector(0,0,-0.5);
 		Vector south = new Vector(0,0,0.5);
@@ -141,7 +141,7 @@ public class Schematic_Base_1 extends Schematic{
         e013.setVelocity(up);
         e014.setVelocity(up);
         try {
-			Thread.sleep(1000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			Bukkit.getServer().getLogger().info("Effect error 1");
 		}
