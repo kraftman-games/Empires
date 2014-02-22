@@ -2,6 +2,7 @@ package es.themin.empires.managers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,225 +10,31 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 
+import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
+import es.themin.empires.util.testing.newemp;
 
-public class SettingsManager {
-	    
-    private static empires myPlugin;
-   
-    static FileConfiguration config;
-    static File cfile;
-   
-    static YamlConfiguration data;
-    static File dfile;
-    
-//    YamlConfiguration coredata;
-//    File corefile;
-    
-    static YamlConfiguration worlddata;
-    static File wfile;
-    
-    static YamlConfiguration messagedata;
-    static File mfile;
-    
+public class SettingsManager implements IManager {
 
-    
-    public SettingsManager(empires plugin) {
-    	myPlugin = plugin;
-    }
-    
-    public static File createFile(String fileName){
-    	
-    	File myFile = new File(myPlugin.getDataFolder(), fileName);
-        
-        if (!myFile.exists()) {
-                try {
-                	myFile.createNewFile();
-        				myPlugin.getLogger().info("[Empires] "+fileName+" not found, making you one");
-                }
-                catch (IOException e) {
-                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create "+fileName);
-                }
-        }
-        
-        return myFile;
-    	
-    }
-    
-
-   
-    public  void loadSettings() {
-    	
-    	
-    	config = myPlugin.getConfig();
-		
-		cfile = createFile("config.yml");
-		
-		getConfig().options().copyDefaults();
-		config.options().copyDefaults(true);
-		
-		config.options().copyHeader();
-		saveConfig();
-        //random data file bellow :/
-		
-		
-        
-		dfile = createFile("data.yml");
-       
-        data = YamlConfiguration.loadConfiguration(dfile);
-        
-        mfile = createFile("messages.yml");
-        
-       	
-        wfile = new File(myPlugin.getDataFolder(), "worldconfig.yml");
-        
-        
-        
-        if (!wfile.exists()) {
-                try {
-                        wfile.createNewFile();
-                        worlddata = YamlConfiguration.loadConfiguration(wfile);
-                        worlddata.addDefault("worlds.world.allowcoreplace", true);
-                        worlddata.addDefault("worlds.world.allowcommanduse", true);
-                        worlddata.addDefault("worlds.world.allowplaceofcore.BASE", true);
-                        worlddata.addDefault("worlds.world.allowplaceofcore.MOB", true);
-                        worlddata.addDefault("worlds.world.allowplaceofcore.FARM", true);
-                        worlddata.addDefault("worlds.world.allowplaceofcore.MONSTER", true);
-                        worlddata.addDefault("worlds.world.allowplaceofcore.FORTIFICATION", true);
-                        worlddata.addDefault("worlds.world.allowplaceofcore.GRIEF", true);
-                        worlddata.addDefault("worlds.world.allowplaceofcore.OUTPOST", true);
-                        worlddata.options().copyDefaults();
-//                       	saveWorldData();
-        				myPlugin.getLogger().info("[Empires] worldconfig.yml not found, making you one");
-                }
-                catch (IOException e) {
-                        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create worlddata.yml!");
-                }
-        }
-       
-        worlddata = YamlConfiguration.loadConfiguration(wfile);
-        
-        //
-    }
-public static YamlConfiguration getMessagedata() {
-		return messagedata;
+	HashMap<String, String> settings =null;
+	EmpiresDAL myEmpiresDAL = null;
+	
+	public SettingsManager(EmpiresDAL myDAL, HashMap<String, String> mySettings){
+		myEmpiresDAL = myDAL;
+		settings = mySettings;
+	}
+	
+	@Override
+	public void save() {
+		myEmpiresDAL.createOrUpdateSettings(settings);
 	}
 
-	public static void setMessagedata(YamlConfiguration messagedata) {
-		SettingsManager.messagedata = messagedata;
+	@Override
+	public void load() {
+		settings = myEmpiresDAL.loadSettings();
 	}
-
-	//###############################   
-    public static FileConfiguration getData() {
-            return data;
-    }
-    
-   
-    public static void saveData() {
-            try {
-                    data.save(dfile);
-            }
-            catch (IOException e) {
-                    Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save data.yml!");
-            }
-    }
-   
-    public static void reloadData() {
-            data = YamlConfiguration.loadConfiguration(dfile);
-    }
- 
-   
-    public static FileConfiguration getConfig() {
-            return config;
-    }
-   
-    public static void saveConfig() {
-            try {
-                    config.save(cfile);
-            }
-            catch (IOException e) {
-                    Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save config.yml!");
-            }
-    }
-    public static  void saveConfigToFile(File f) {
-        try {
-                config.save(f);
-        }
-        catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save config.yml!");
-        }
+	
+	public String getSetting(String Key){
+		return settings.get(Key);
+	}
 }
-   
-    public static void reloadConfig() {
-            config = YamlConfiguration.loadConfiguration(cfile);
-    }
-//###############################   
-    public static PluginDescriptionFile getDesc() {
-            return myPlugin.getDescription();
-    }
-    public static void saveAll(){
-    	//saveConfig();
-    	//saveEmpireData();
-//    	saveWorldData();
-    	saveData();
-    	//saveWarData();
-    }
-    public boolean bool(int i) {
-    	if (i == 1) {
-    		return true;
-    	}
-    	return false;
-    }
-}
-
-
-//############################CORE DAT
-/*    public FileConfiguration getCoreData() {
-      return coredata;
-  }
-
-  public void saveCoreData() {
-      try {
-              coredata.save(corefile);
-      }
-      catch (IOException e) {
-              Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save coredata.yml!");
-      }
-  }
-
-  public void reloadCoreData() {
-      coredata = YamlConfiguration.loadConfiguration(corefile);
-  }*/
-
-//######################EMPIRE DAT
-  
-//#############################   
-  
-  //######################world DAT
-//  public static FileConfiguration getWorldData() {
-//      return worlddata;
-//  }
-//
-//  public static void saveWorldData() {
-//      try {
-//              worlddata.save(wfile);
-//      }
-//      catch (IOException e) {
-//              Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
-//      }
-//  }
-//  public static void saveWorldDataToFile(File file) {
-//      try {
-//              worlddata.save(file);
-//      }
-//      catch (IOException e) {
-//              Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlddata.yml!");
-//      }
-//  }
-//
-//  public static void reloadWorldData() {
-//      worlddata = YamlConfiguration.loadConfiguration(wfile);
-//  }
-//######### WAR DATA 
-
-//#############################  

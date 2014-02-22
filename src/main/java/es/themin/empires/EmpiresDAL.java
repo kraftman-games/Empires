@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -322,6 +323,45 @@ public class EmpiresDAL {
 				}
 			}
 		}
+	}
+
+	public void createOrUpdateSettings(HashMap<String, String> mySettings) {
+		Connection myConnection = null;
+		try {
+			myConnection = connectionPool.getConnection(); // fetch a connection
+			
+			if (myConnection != null){
+				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Settings` SET `Key` = ?,`Value` =? ON DUPLICATE KEY UPDATE `Value` =? ");
+			       
+				for (Map.Entry<String, String> entry : mySettings.entrySet()) {
+				    
+					stmnt.setString(1,entry.getKey());
+			        stmnt.setString(2, entry.getValue());
+			        
+			        stmnt.setString(3, entry.getValue());
+			        stmnt.setString(2, entry.getValue());
+				}
+				
+				stmnt.executeBatch();
+				myConnection.commit();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (myConnection != null) {
+				try {
+					myConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+	}
+
+	public HashMap<String, String> loadSettings() {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }
 

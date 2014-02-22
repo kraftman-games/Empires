@@ -47,7 +47,6 @@ public final class empires extends JavaPlugin {
 	//stuff we definatly need here
 	private ManagerAPI myAPI = null;
 	BoneCP connectionPool = null;
-	public SettingsManager settings = new SettingsManager(this);
 	public UtilManager utils;
 	
 	//stuff that probably shouldnt be here
@@ -64,18 +63,13 @@ public final class empires extends JavaPlugin {
         loadMySQL();
         
         myAPI = ManagerFactory.createManagerAPI(connectionPool);
-        
         myAPI.loadManagers();
+        loadCommands(myAPI);
         
-        settings = new SettingsManager(this);
         utils = new UtilManager(this);
-        settings.loadSettings();
 		
 		Recipes.setupamplifierRecipe();
-		
 		MsgManager.setPrefix(plprefix);
-		
-		loadCommands(myAPI);
 		
 		registerEvents();
 		loadSchematics();
@@ -86,7 +80,6 @@ public final class empires extends JavaPlugin {
     @Override
     public void onDisable() {
     	myAPI.saveManagers();
-		SettingsManager.saveAll();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
 		final ScoreboardManager sbm = Bukkit.getScoreboardManager();

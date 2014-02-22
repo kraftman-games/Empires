@@ -20,13 +20,14 @@ public class ManagerAPI {
 	private CoreManager Cores = null;
 	private PlayerManager Players = null;
 	private EmpireManager Empires = null;
+	private SettingsManager Settings = null;
 	private ArrayList<IManager> Managers = null;
 	
-	public ManagerAPI(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager ){
+	public ManagerAPI(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager, SettingsManager mySettingsManager ){
 		Cores = myCoreManager;
 		Players = myPlayerManager;
 		Empires = myEmpireManager;
-		
+		Settings = mySettingsManager;
 		Managers = new ArrayList<IManager>();
 		
 		Managers.add(myEmpireManager);
@@ -199,6 +200,12 @@ public class ManagerAPI {
 		String rankc = MsgManager.colourUp(rank);
 		String format = ChatColor.WHITE + "[" + rankc + ChatColor.WHITE + "] [" + myEPlayer.getName() + ChatColor.WHITE + "] ";
 		empire.broadcastMessage(format + ChatColor.YELLOW + chatMessage);
+	}
+
+
+
+	public String getSetting(String myKey) {
+		return Settings.getSetting(myKey);
 	}
 	
 	

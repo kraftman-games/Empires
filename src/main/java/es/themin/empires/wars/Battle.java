@@ -15,8 +15,10 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 //import org.bukkit.scoreboard.Team;
 
+
 import es.themin.empires.empires;
 import es.themin.empires.enums.BattleType;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
@@ -42,8 +44,11 @@ public class Battle {
 	private int damageforwin;
 	private BattleTeam attacker;
 	public enum BattleTeam {team1, team2};
-	private long time = SettingsManager.getConfig().getLong("wars.battles.length") * 60 * 1000;
-	public Battle(Empire empire1, Empire empire2, War war, BattleType type, BattleTeam Attacker) {
+	private long time;
+	private ManagerAPI myApi;
+	
+	
+	public Battle(Empire empire1, Empire empire2, War war, BattleType type, BattleTeam Attacker, ManagerAPI myAPI) {
 		this.empire1 = empire1;
 		this.empire2 = empire2;
 		this.empire1allies = new ArrayList<Empire>();
@@ -57,14 +62,15 @@ public class Battle {
 		this.start = 0;
 		this.end = 0;
 		this.endsinatie =false;
+		myApi = myAPI;
 	}
 	public void start() {
 		this.onGoing = true;
 		this.start = System.currentTimeMillis();
 		if (type == BattleType.DEATHMATCH) {
 
-			if (SettingsManager.getConfig().getString("wars.battles.deathmatch.use_multiplier").equalsIgnoreCase("true")) {
-				int multiplier = SettingsManager.getConfig().getInt("wars.battles.deathmatch.kills_for_win_mulitplier");
+			if (myApi.getSetting("WarUseMultiplier").equalsIgnoreCase("true")) {
+				int multiplier = Integer.parseInt(myApi.getSetting("WarMultiplier"));
 				int team1 = 0;
 				int team2 = 0;
 				for (Empire empire : getAllEmpiresOnTeam1()) {
@@ -76,7 +82,7 @@ public class Battle {
 				int average = (int) added / 2;
 				this.killsforwin = (int) multiplier * average;
 			}else {
-				this.killsforwin = SettingsManager.getConfig().getInt("wars.battles.deathmatch.kills_for_win");
+				this.killsforwin = Integer.parseInt(myApi.getSetting("BattleKillsForWin"));
 			}
 		}else if (type == BattleType.OBLITERATION) {
 			//TODO
@@ -86,20 +92,20 @@ public class Battle {
 		//Bukkit.broadcastMessage("Time: " + time);
 	}
 	public void end() {
-		Bukkit.getServer().broadcastMessage("Percentage: " + SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
+		Bukkit.getServer().broadcastMessage("Percentage: " + myApi.getSetting("BattleGainPerWin"));
 		if (type == BattleType.DEATHMATCH) {
 			this.onGoing = false;
 			if (team1points > team2points)  {
 				this.victor = empire1; 
 				this.endsinatie = false;
 				war.addWinsToTeam1(1);
-				war.addTeam1Percent(SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
+				war.addTeam1Percent(Long.parseLong(myApi.getSetting("BattleGainPerWin")));
 			}
 			if (team2points > team1points){
 				this.victor = empire2; 
 				this.endsinatie = false;
 				war.addWinsToTeam2(1);
-				war.addTeam1Percent(-SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
+				war.addTeam1Percent(-Long.parseLong(myApi.getSetting("BattleGainPerWin")));
 			}
 			if (team1points == team2points) this.victor = null; this.endsinatie = true;
 			this.end = System.currentTimeMillis();
@@ -133,12 +139,12 @@ public class Battle {
 		}
 		war.displayStatistic();
 		if (!endedInATie()) {
-			war.setPercentageOfEmpire(getLooser(), war.getPercentageOfEmpire(getLooser()) - (float) SettingsManager.getConfig().getLong("wars.battles.percentage_change_for_allied_on_battle_end"));
+			war.setPercentageOfEmpire(getLooser(), war.getPercentageOfEmpire(getLooser()) - (float) Long.parseLong(myApi.getSetting("BattlePercentageAlly")));
 			if (war.getPercentageOfEmpire(victor) != 100) {
-				if (war.getPercentageOfEmpire(victor) >= 100 - (float) SettingsManager.getConfig().getLong("wars.battles.percentage_change_for_allied_on_battle_end")) {
+				if (war.getPercentageOfEmpire(victor) >= 100 - (float) Long.parseLong(myApi.getSetting("BattlePercentageAlly"))) {
 					war.setPercentageOfEmpire(victor, (float)100);
 				}else {
-					war.setPercentageOfEmpire(victor, war.getPercentageOfEmpire(victor) + SettingsManager.getConfig().getLong("wars.battles.percentage_change_for_allied_on_battle_end"));					
+					war.setPercentageOfEmpire(victor, war.getPercentageOfEmpire(victor) + Long.parseLong(myApi.getSetting("BattlePercentageAlly")));					
 				}
 			}
 		}
@@ -153,7 +159,7 @@ public class Battle {
 			war.addWinsToTeam1(1);
 			this.victor = empire1;
 			this.endsinatie = false;
-			war.addTeam1Percent(SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
+			//war.addTeam1Percent(SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
 			for (Empire empire : getAllEmpiresOnTeam1()) {
 				empire.addBattleWins(1); 
 				empire.broadcastMessage(warprefix + ChatColor.GREEN + "You have won this battle, victory get's closer");
@@ -166,7 +172,7 @@ public class Battle {
 			}
 			this.end = System.currentTimeMillis();		
 		}else if (team == BattleTeam.team2) {
-			war.addTeam1Percent(-SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
+			//war.addTeam1Percent(-SettingsManager.getConfig().getLong("wars.battles.percentage_gain_per_win"));
 			this.onGoing = false;
 			war.addWinsToTeam2(1);
 			this.victor = empire2;

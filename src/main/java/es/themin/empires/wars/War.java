@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import es.themin.empires.empires;
+import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.managers.SettingsManager;
 import es.themin.empires.managers.WarManager;
 import es.themin.empires.util.EPlayer;
@@ -41,8 +42,10 @@ public class War {
 	private HashMap<Empire, Float> empire2alliespercentage;
 	//private empires myPlugin;
 	private WarManager Wars;
+	private ManagerAPI myApi;
 	
-	public War(Empire team1, Empire team2) {
+	public War(Empire team1, Empire team2, ManagerAPI myAPI) {
+		myApi = myAPI;
 		this.empire1 = team1;
 		this.empire2 = team2;
 		this.empire1allies = new ArrayList<Empire>();
@@ -392,7 +395,7 @@ public class War {
 				empire.addWarLosses(1);
 				removeEmpireFromTeam1(empire);
 				this.empire1alliesloss.put(empire, System.currentTimeMillis());
-				addTeam1Percent(SettingsManager.getConfig().getLong("wars.percentage_gain_per_knockout"));
+				addTeam1Percent(Long.parseLong(myApi.getSetting("WarPercentageKnockout")));
 				empire.broadcastMessage(warprefix + ChatColor.RED + "You have been weekend to the point where you cannot keep up the war against " + empire2.getName());
 				empire.addWarLosses(1);
 				for (Empire empire22 : getAllEmpiresOnTeam1()) {
@@ -408,7 +411,7 @@ public class War {
 				empire.addWarLosses(1);
 				removeEmpireFromTeam1(empire);
 				this.empire2alliesloss.put(empire, System.currentTimeMillis());
-				addTeam1Percent(-SettingsManager.getConfig().getLong("wars.percentage_gain_per_knockout"));
+				addTeam1Percent(-Long.parseLong(myApi.getSetting("WarPercentageKnockout")));
 				empire.broadcastMessage(warprefix + ChatColor.RED + "You have been weekend to the point where you cannot keep up the war against " + empire1.getName());
 				empire.addWarLosses(1);
 				for (Empire empire22 : getAllEmpiresOnTeam1()) {

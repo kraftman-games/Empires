@@ -49,12 +49,12 @@ public class WarDeclareCommand extends EmpireSubCommand{
 				return false;
 			}
 			if (empire.exAlliesContains(attacked)) {
-				if (empire.getLastAllianceWith(attacked) + SettingsManager.getConfig().getLong("ex_ally_timer") * 60 * 1000 > System.currentTimeMillis()) {
+				if (empire.getLastAllianceWith(attacked) + Long.parseLong(myApi.getSetting("AllyExTimer")) * 60 * 1000 > System.currentTimeMillis()) {
 					myEPlayer.sendMessage( ChatColor.RED + "You cannot abandon an Ally then attack them this quickly, try again later");
 					return false;
 				}
 			}
-			War war = new War(empire, attacked);
+			War war = new War(empire, attacked, myApi);
 			war.start();
 			//war.upDateEmpires();
 			empire.broadcastMessage(warprefix + ChatColor.RED + myEPlayer.getDisplayName() + " declared war on " + attacked.getName());

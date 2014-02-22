@@ -52,6 +52,12 @@ public class ManagerFactory {
 		return new WarManager(empires);
 	}
 	
+	public static SettingsManager CreateSettingsManager(EmpiresDAL myEmpiresDAL){
+		HashMap<String, String> settings = new HashMap<String,String>();
+		SettingsManager mySettingsManager = new  SettingsManager(myEmpiresDAL, settings);
+		return mySettingsManager;
+	}
+	
 	
 	public static ManagerAPI createManagerAPI(BoneCP connectionPool){
 		
@@ -60,9 +66,10 @@ public class ManagerFactory {
 		PlayerManager myPlayerManager = CreatePlayerManager(myEmpiresDAL);
 		CoreManager myCoreManager = CreateCoreManager(myEmpiresDAL);
 		EmpireManager myEmpireManager = CreateEmpireManager(myEmpiresDAL);
+		SettingsManager mySettingsManager = CreateSettingsManager(myEmpiresDAL);
 		
 		
-		return new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager);
+		return new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager, mySettingsManager);
 		
 	}
 }

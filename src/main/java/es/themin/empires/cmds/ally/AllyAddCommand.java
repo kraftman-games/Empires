@@ -1,6 +1,7 @@
 package es.themin.empires.cmds.ally;
 
 import org.bukkit.ChatColor;
+import org.mockito.cglib.core.Converter;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
@@ -11,8 +12,6 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 
 public class AllyAddCommand extends EmpireSubCommand{
-
-	private Long time = SettingsManager.getConfig().getLong("time_between_re_ally");
 	
 	private ManagerAPI myApi = null;
 	
@@ -64,7 +63,7 @@ public class AllyAddCommand extends EmpireSubCommand{
 		}
 		if (empire.exAlliesContains(ally)) {
 			Long lastalliance = empire.getLastAllianceWith(ally);
-			if (System.currentTimeMillis() < lastalliance + time) {
+			if (System.currentTimeMillis() < lastalliance + Long.parseLong(myApi.getSetting("AllyReAddTime"))) {
 				myEPlayer.sendMessage(ChatColor.RED + "You cannot re-ally this empire yet");
 				return false;
 			}
