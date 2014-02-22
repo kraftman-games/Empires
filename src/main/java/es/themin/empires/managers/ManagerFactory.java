@@ -1,8 +1,11 @@
 package es.themin.empires.managers;
 
+import java.io.Console;
 import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
+
+import org.bukkit.Bukkit;
 
 import com.jolbox.bonecp.BoneCP;
 
@@ -59,6 +62,17 @@ public class ManagerFactory {
 		PlayerManager myPlayerManager = CreatePlayerManager(myEmpiresDAL);
 		CoreManager myCoreManager = CreateCoreManager(myEmpiresDAL);
 		EmpireManager myEmpireManager = CreateEmpireManager(myEmpiresDAL);
+		
+		if (myPlayerManager == null){
+			Bukkit.getServer().getLogger().info("playermanager is null");
+		}
+		if (myCoreManager == null){
+			Bukkit.getServer().getLogger().info("coremanager is null");
+				}
+		if (myEmpireManager == null){
+			Bukkit.getServer().getLogger().info("empiremanager is null");
+		}	
+		
 		
 		return new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager);
 		

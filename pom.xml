@@ -7,7 +7,6 @@
   <description>Empires</description>
   
     <build>
-    <defaultGoal>clean package</defaultGoal>
     <finalName>Empires</finalName>
     <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
@@ -70,10 +69,10 @@
                   <scope>test</scope>
 	          </dependency>
 	          <dependency>
-	                  <groupId>org.powermock</groupId>
-	                  <artifactId>powermock-api-mockito</artifactId>
-	                  <version>1.4.9</version>
-	                  <scope>test</scope>
+                  <groupId>org.powermock</groupId>
+                  <artifactId>powermock-api-mockito</artifactId>
+                  <version>1.4.9</version>
+                  <scope>test</scope>
 	          </dependency>
 	          <dependency>
 				<groupId>me.confuser</groupId>
