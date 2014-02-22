@@ -13,18 +13,22 @@ import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
+import es.themin.empires.util.testing.newemp;
 
 public class ManagerAPI {
 
 	private CoreManager Cores = null;
 	private PlayerManager Players = null;
 	private EmpireManager Empires = null;
-	private ArrayList<IManager> Managers;
+	private ArrayList<IManager> Managers = null;
 	
 	public ManagerAPI(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager ){
 		Cores = myCoreManager;
 		Players = myPlayerManager;
 		Empires = myEmpireManager;
+		
+		Managers = new ArrayList<IManager>()
+		
 		Managers.add(myEmpireManager);
 		Managers.add(myCoreManager);
 		Managers.add(myPlayerManager);

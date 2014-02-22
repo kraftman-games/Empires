@@ -40,7 +40,6 @@ import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.UtilManager;
 import es.themin.empires.util.testing.Recipes;
 import es.themin.empires.util.testing.UtilityTesting;
-import es.themin.empires.util.testing.newemp;
  
 public final class empires extends JavaPlugin {
  
@@ -64,8 +63,7 @@ public final class empires extends JavaPlugin {
         
         loadMySQL();
         
-        ManagerFactory myFactory = new ManagerFactory();
-        myAPI = myFactory.createManagerAPI(connectionPool);
+        myAPI = ManagerFactory.createManagerAPI(connectionPool);
         
         myAPI.loadManagers();
         

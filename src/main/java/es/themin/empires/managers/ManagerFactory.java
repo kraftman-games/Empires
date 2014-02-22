@@ -22,20 +22,21 @@ public class ManagerFactory {
 	
 	
 	
-	public  PlayerManager CreatePlayerManager(EmpiresDAL myEmpiresDAL){
+	
+	public static PlayerManager CreatePlayerManager(EmpiresDAL myEmpiresDAL){
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         PlayerManager myPlayerManager = new PlayerManager(myEmpiresDAL, players);
 	    return myPlayerManager;
 	    
 	}
 	
-	public  EmpireManager CreateEmpireManager(EmpiresDAL myEmpiresDAL){
+	public static EmpireManager CreateEmpireManager(EmpiresDAL myEmpiresDAL){
 		HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
         EmpireManager MyEmpireManager = new EmpireManager(myEmpiresDAL, empires);
 		return MyEmpireManager;
 	}
 
-	public  CoreManager CreateCoreManager(EmpiresDAL myEmpiresDAL) {
+	public static CoreManager CreateCoreManager(EmpiresDAL myEmpiresDAL) {
 		HashMap<UUID, Core> cores = new HashMap<UUID,Core>();
 		CoreManager myCoreManager = new  CoreManager(myEmpiresDAL, cores);
 		return myCoreManager;
@@ -52,23 +53,13 @@ public class ManagerFactory {
 	}
 	
 	
-	public ManagerAPI createManagerAPI(BoneCP connectionPool){
+	public static ManagerAPI createManagerAPI(BoneCP connectionPool){
 		
 		EmpiresDAL myEmpiresDAL = new EmpiresDAL(connectionPool);
 		
 		PlayerManager myPlayerManager = CreatePlayerManager(myEmpiresDAL);
 		CoreManager myCoreManager = CreateCoreManager(myEmpiresDAL);
 		EmpireManager myEmpireManager = CreateEmpireManager(myEmpiresDAL);
-		
-		if (myPlayerManager == null){
-			Bukkit.getServer().getLogger().info("playermanager is null");
-		}
-		if (myCoreManager == null){
-			Bukkit.getServer().getLogger().info("coremanager is null");
-				}
-		if (myEmpireManager == null){
-			Bukkit.getServer().getLogger().info("empiremanager is null");
-		}	
 		
 		
 		return new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager);
