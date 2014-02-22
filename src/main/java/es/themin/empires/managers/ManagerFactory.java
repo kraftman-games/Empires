@@ -22,20 +22,20 @@ public class ManagerFactory {
 	
 	
 	
-	public static PlayerManager CreatePlayerManager(EmpiresDAL myEmpiresDAL){
+	public  PlayerManager CreatePlayerManager(EmpiresDAL myEmpiresDAL){
         HashMap<UUID, EPlayer> players = new HashMap<UUID, EPlayer>();
         PlayerManager myPlayerManager = new PlayerManager(myEmpiresDAL, players);
 	    return myPlayerManager;
 	    
 	}
 	
-	public static EmpireManager CreateEmpireManager(EmpiresDAL myEmpiresDAL){
+	public  EmpireManager CreateEmpireManager(EmpiresDAL myEmpiresDAL){
 		HashMap<UUID,Empire> empires = new HashMap<UUID,Empire>();
         EmpireManager MyEmpireManager = new EmpireManager(myEmpiresDAL, empires);
 		return MyEmpireManager;
 	}
 
-	public static CoreManager CreateCoreManager(EmpiresDAL myEmpiresDAL) {
+	public  CoreManager CreateCoreManager(EmpiresDAL myEmpiresDAL) {
 		HashMap<UUID, Core> cores = new HashMap<UUID,Core>();
 		CoreManager myCoreManager = new  CoreManager(myEmpiresDAL, cores);
 		return myCoreManager;
@@ -52,7 +52,7 @@ public class ManagerFactory {
 	}
 	
 	
-	public static ManagerAPI createManagerAPI(BoneCP connectionPool){
+	public ManagerAPI createManagerAPI(BoneCP connectionPool){
 		
 		EmpiresDAL myEmpiresDAL = new EmpiresDAL(connectionPool);
 		
