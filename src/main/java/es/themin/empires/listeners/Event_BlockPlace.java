@@ -20,7 +20,7 @@ public class Event_BlockPlace implements Listener{
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		EPlayer myEPlayer = myApi.getEPlayer(player);
+		//EPlayer myEPlayer = myApi.getEPlayer(player);
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();
 		if (placed == Material.BEACON) {
