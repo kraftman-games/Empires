@@ -1,6 +1,7 @@
 package es.themin.empires.util;
 
 import java.awt.Point;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +79,7 @@ public class EWorld {
 		int z = myCore.getLocation().getBlockZ();
 		
 		int areaSize = myCore.getAreaSize();
+		Debug.Console("Area size: "+areaSize);
 		
 		for (int i = x-areaSize;i < x + areaSize; i +=areaSize){
 			for (int j = z-areaSize;j < z + areaSize; j += areaSize){
