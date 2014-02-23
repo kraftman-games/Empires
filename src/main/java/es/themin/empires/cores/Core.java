@@ -126,11 +126,6 @@ public class Core {
 	}
 
 	
-	
-	public UUID getId(){
-		
-		return myUUID;
-	}
 	public CoreType getType(){
 		return coreType;
 	}

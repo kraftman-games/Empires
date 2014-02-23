@@ -60,7 +60,7 @@ public class EWorld {
 
 	public void addCore(Core myCore){
 		if (Cores.get(myCore.getUUID()) == null){
-			this.Cores.put(myCore.getId(), myCore);
+			this.Cores.put(myCore.getUUID(), myCore);
 			this.addCoreToGrid(myCore);
 		}
 	}
@@ -68,7 +68,7 @@ public class EWorld {
 
 
 	public void removeCore(Core myCore){
-		this.Cores.remove(myCore.getId());
+		this.Cores.remove(myCore.getUUID());
 		this.removeCoreFromGrid(myCore);
 	}
 
@@ -86,7 +86,7 @@ public class EWorld {
 					CoreGrid.put(gridPoint, new HashMap<UUID,Core>());
 				}
 				
-				if (!CoreGrid.get(gridPoint).containsKey((myCore.getId()))){
+				if (!CoreGrid.get(gridPoint).containsKey((myCore.getUUID()))){
 					CoreGrid.get(gridPoint).put(myCore.getUUID(), myCore);
 				}
 			}
@@ -104,8 +104,8 @@ public class EWorld {
 			for (int j = z-coreSize;j <= z + coreSize; z += coreSize){
 				Point gridPoint = new Point((int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
 				//remove the core if it exists
-				if (CoreGrid.get(gridPoint).containsKey(myCore.getId())){
-					CoreGrid.get(gridPoint).remove(myCore.getId());
+				if (CoreGrid.get(gridPoint).containsKey(myCore.getUUID())){
+					CoreGrid.get(gridPoint).remove(myCore.getUUID());
 				}
 			}
 		}
@@ -156,7 +156,7 @@ public class EWorld {
 		}
 		
 		for (Core myCore : allCores.values()){
-			if (myCore.getEmpireUUID() == myEmpireUUID){
+			if (myCore.getEmpireUUID().equals(myEmpireUUID)){
 				friendlyCores.put(myCore.getUUID(), myCore);
 			}
 		}
@@ -199,7 +199,7 @@ public class EWorld {
 				}
 				
 				for (Core c : coreList.values()){
-					if (!(c == myCore)){
+					if (!(c.equals(myCore))){
 						int c2areaSize = c.getAreaSize();
 						int c2x1 = c.getLocation().getBlockX()-c2areaSize;
 						int c2x2 = c.getLocation().getBlockX()+c2areaSize;
