@@ -311,6 +311,7 @@ public class ManagerAPI {
 		boolean isCoreBlock = false;
 		
 		if (myCores != null){
+			Debug.Console(myCores.size()+" cores found in grid");
 			for(Core myCore : myCores.values()){
 				if (myCore.isAreaBlock(myBlock)){
 					if (myCore.isCoreBlock(myBlock)){
