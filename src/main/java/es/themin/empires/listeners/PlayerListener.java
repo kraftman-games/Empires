@@ -49,7 +49,7 @@ public class PlayerListener implements Listener{
 	@EventHandler
 	  public void onPlayerInteractEvent(PlayerInteractEvent event){
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK){
-			handleBlockClick(event);
+			myApi.handleBlockClick(event);
 		}
 	}
 	@EventHandler
@@ -104,73 +104,6 @@ public class PlayerListener implements Listener{
 			}
 		}
 		
-	}
-	private void handleBlockClick(PlayerInteractEvent event){
-		
-		Block myBlock = event.getClickedBlock();
-		
-		Player myPlayer = event.getPlayer();
-		
-		EPlayer myEPlayer = myApi.getEPlayer(myPlayer);
-		Empire eventPlayerEmpire = myApi.getEmpire(myEPlayer.getEmpireUUID());
-		UUID worldUUID = myBlock.getLocation().getWorld().getUID();
-		EWorld myCoreWorld = myApi.getEWorld(worldUUID);
-		HashMap<UUID, Core> myCores = myCoreWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
-		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
-		
-		Core selectedCore = null;
-		
-		boolean isCoreBlock = false;
-		if (myCores != null){
-			for(Core myCore : myCores.values()){
-				//faster than global core list since there are less
-				
-				if (myCore.isAreaBlock(myBlock)){
-					if (myCore.isCoreBlock(myBlock)){
-						isCoreBlock = true;
-					} else {
-						myMatchingCores.add(myCore);
-					}
-				}
-			}
-		}
-		
-		if (myMatchingCores == null || myMatchingCores.size() < 1){
-			return;
-		}
-		
-		selectedCore = chooseCore(myMatchingCores);
-		
-		//get block metadata to see if its special.
-		
-		// if its the players own empire
-		if (selectedCore.getEmpireUUID().equals(eventPlayerEmpire.getUUID())){
-			if (isCoreBlock){
-				myPlayer.sendMessage("You cannot destroy your own core!");
-				return;
-			} else {
-				//check its not some special block we havnt incented yet
-			}
-		} else {
-			//its an enemy empire, which can either be protected (repairing) at war, or ready for war.
-//			if (selectedCore.getEmpire().canPlayerAttack(myEPlayer)){
-//				//selectedCore.getEmpire().startWar(eventPlayerEmpire);
-//			}
-		}			
-	}
-	
-	private Core chooseCore(ArrayList<Core> myCores){
-		//we need to choose which overlapping core is the one we want
-		//eventually it might need to be a bit more complex
-		//for now just choose the first.
-		Core myCore = null;
-		if (myCores.size() > 1){
-			
-			myCore = myCores.get(0); //maybe a different selection in future
-		} else {
-			myCore = myCores.get(0);
-		}
-		return myCore;
 	}
 	
 }

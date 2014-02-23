@@ -6,7 +6,9 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.permissions.PermissionDefault;
 
@@ -298,7 +300,65 @@ public class ManagerAPI {
 	private EWorld getWorld(EPlayer myEPlayer) {
 		return Worlds.getWorld(myEPlayer.getWorld().getUID());
 	}
-	
-	
-	
+
+
+
+	public void handleBlockClick(PlayerInteractEvent event) {
+		
+		Block myBlock = event.getClickedBlock();
+		EPlayer myEPlayer = getEPlayer(event.getPlayer());
+		Empire myEmpire = getEmpire(myEPlayer);
+		Player myPlayer = event.getPlayer();
+		EWorld myEWorld = getEWorld(myBlock.getLocation().getWorld().getUID());
+		
+		HashMap<UUID, Core> myCores = myEWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
+		
+		
+		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
+		
+		Core selectedCore = null;
+		
+		boolean isCoreBlock = false;
+		
+		if (myCores != null){
+			for(Core myCore : myCores.values()){
+				if (myCore.isAreaBlock(myBlock)){
+					if (myCore.isCoreBlock(myBlock)){
+						isCoreBlock = true;
+					} 
+					myMatchingCores.add(myCore);
+				}
+			}
+		}
+
+		if (myMatchingCores == null || myMatchingCores.isEmpty()){
+			return;
+		}
+		
+		selectedCore = chooseCore(myMatchingCores);
+		
+		//get block metadata to see if its special.
+		
+		// if its the players own empire
+		if (selectedCore.getEmpireUUID().equals(myEmpire.getUUID())){
+			if (isCoreBlock){
+				myPlayer.sendMessage("You cannot destroy your own core!");
+				return;
+			} else {
+				//check its not some special block we havnt invented yet
+			}
+		} else {
+			//its an enemy empire, which can either be protected (repairing) at war, or ready for war.
+//			if (selectedCore.getEmpire().canPlayerAttack(myEPlayer)){
+//				//selectedCore.getEmpire().startWar(eventPlayerEmpire);
+//			}
+		}			
+	}
+
+
+
+	private Core chooseCore(ArrayList<Core> myMatchingCores) {
+		//later we might want to choose how we sort overlappign cores
+		return myMatchingCores.get(0);
+	}
 }
