@@ -169,7 +169,7 @@ public class Empire {
 	
 	public void addOnlinePlayer(EPlayer myEPlayer){
 		if (myEPlayer.getEmpireUUID().equals(ID)){
-			if (onlinePlayers.get(myEPlayer).getUUID() == null){
+			if (onlinePlayers.get(myEPlayer) == null){
 				onlinePlayers.put(myEPlayer.getUUID(), myEPlayer);
 			}
 		}
