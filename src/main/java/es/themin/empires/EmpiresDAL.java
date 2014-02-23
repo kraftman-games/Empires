@@ -369,7 +369,7 @@ public class EmpiresDAL {
 			
 			if (connection != null){
 			
-		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Worlds`");
+		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Settings`");
 		        
 				ResultSet results = stmnt.executeQuery();
 				
