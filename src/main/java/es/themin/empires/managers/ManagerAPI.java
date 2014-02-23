@@ -218,27 +218,11 @@ public class ManagerAPI {
 	public void sendChatToEmpire(EPlayer myEPlayer, String chatMessage) {
 
 		Empire empire = getEmpire(myEPlayer);
-		String rank;
-		if (!empire.playerHasARank(myEPlayer.getName())) {
-			if (empire.getOwnerUUID().equals(myEPlayer.getUUID())) {
-				if (empire.getOwnerPrefix() == null) {
-					rank = "king";
-				}
-				else {
-					rank = empire.getOwnerPrefix();
-				}
-			}else {
-				if (empire.getDefaultPrefix() == null){
-					 rank = "default";
-				} else {
-					rank = empire.getDefaultPrefix();
-				}
-			}
-		}else {
-			rank = empire.getRankOfPlayer(myEPlayer.getName()).getPreifx();
-		}
+		String rank = empire.getRankPrefix(myEPlayer);
+		
+		
 		String rankc = MsgManager.colourUp(rank);
-		String format = ChatColor.WHITE + "[" + rankc + ChatColor.WHITE + "] [" + myEPlayer.getName() + ChatColor.WHITE + "] ";
+		String format = ChatColor.WHITE + "[" + rankc +rank+ ChatColor.WHITE + "] [" + myEPlayer.getName() + ChatColor.WHITE + "] ";
 		empire.broadcastMessage(format + ChatColor.YELLOW + chatMessage);
 	}
 

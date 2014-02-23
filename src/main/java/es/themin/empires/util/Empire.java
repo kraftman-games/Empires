@@ -552,6 +552,27 @@ public class Empire {
 		return true;
 	}
 
+	public String getRankPrefix(EPlayer myEPlayer) {
+		if (!playerHasARank(myEPlayer.getName())) {
+			if (getOwnerUUID().equals(myEPlayer.getUUID())) {
+				if (getOwnerPrefix() == null) {
+					return "king";
+				}
+				else {
+					return getOwnerPrefix();
+				}
+			}else {
+				if (getDefaultPrefix() == null){
+					 return "default";
+				} else {
+					 return getDefaultPrefix();
+				}
+			}
+		}else {
+			return getRankOfPlayer(myEPlayer.getName()).getPrefix();
+		}
+	}
+
 	
 }
 

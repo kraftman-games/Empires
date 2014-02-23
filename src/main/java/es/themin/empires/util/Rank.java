@@ -65,7 +65,7 @@ public class Rank {
 		if (permissions.contains(ep)) return true;
 		return false;
 	}
-	public String getPreifx() {
+	public String getPrefix() {
 		return prefix;
 	}
 	public void setPrefix(String prefix){
