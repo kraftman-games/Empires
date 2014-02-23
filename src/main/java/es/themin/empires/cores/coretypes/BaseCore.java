@@ -1,7 +1,9 @@
 package es.themin.empires.cores.coretypes;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 
 import es.themin.empires.cores.Core;
@@ -12,13 +14,13 @@ import es.themin.empires.util.EPlayer;
 
 public class BaseCore  extends Core implements ICore {
 
-	public BaseCore(EPlayer myEPlayer) {
-		super(myEPlayer);
+	public BaseCore(UUID empireUUID, Location myLocation) {
+		super( empireUUID, myLocation);
 
 
 		coreType = CoreType.BASE;
-		coreSize = 8;
-		areaSize = 16;
+		coreSize = 1;
+		areaSize = 32;
 		
 
 	    coreBlocks = new ArrayList<CoreBlock>();

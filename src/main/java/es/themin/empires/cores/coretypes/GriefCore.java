@@ -1,14 +1,30 @@
 package es.themin.empires.cores.coretypes;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
+import org.bukkit.Location;
+import org.bukkit.Material;
+
 import es.themin.empires.cores.Core;
+import es.themin.empires.cores.CoreBlock;
 import es.themin.empires.cores.ICore;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.EPlayer;
 
 public class GriefCore extends Core implements ICore{
 
-	public GriefCore(EPlayer myEPlayer) {
-		super(myEPlayer);
-		// TODO Auto-generated constructor stub
+	public GriefCore(UUID empireUUID, Location myLocation) {
+		super(empireUUID, myLocation);
+
+
+		coreType = CoreType.GRIEF;
+		coreSize = 0;
+		areaSize = 16;
+		
+	    coreBlocks = new ArrayList<CoreBlock>();
+	    coreBlocks.add(new CoreBlock(0,-1,0,Material.OBSIDIAN));
+	    
 	}
 
 }

@@ -15,6 +15,7 @@ import org.bukkit.World;
 import com.jolbox.bonecp.BoneCP;
 
 import es.themin.empires.cores.Core;
+import es.themin.empires.cores.CoreFactory;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
@@ -127,7 +128,8 @@ public class EmpiresDAL {
 					 
 					 Location myLocation = new Location(myWorld,X,Y,Z);
 					 UUID myEmpireUUID = UUID.fromString(results.getString("EmpireUUID"));
-					Core myCore = new Core(myCoreUuid, myCoreType, myLocation, myEmpireUUID);
+					 Core myCore = CoreFactory.CreateCore(myEmpireUUID, myLocation, myCoreType);
+					 
 					myCores.put(myCore.getUUID(), myCore);
 				}
 			}
