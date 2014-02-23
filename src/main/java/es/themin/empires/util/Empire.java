@@ -78,6 +78,7 @@ public class Empire {
 		this.allyrequests = new HashMap<Empire,Long>();
 		this.timeline = new HashMap<Long,String>();
 		
+		coreLimits =  new HashMap<CoreType, Integer>();
 		coreLimits.put(CoreType.BASE, 1);
 		coreLimits.put(CoreType.GRIEF, 10);
 		coreLimits.put(CoreType.FARM, 0);
