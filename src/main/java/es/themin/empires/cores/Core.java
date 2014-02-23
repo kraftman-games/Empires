@@ -273,9 +273,13 @@ public class Core {
 		Integer z = this.getLocation().getBlockZ();
 		Integer y = this.getLocation().getBlockY();
 		
-		if (x - this.getCoreSize() < myBlock.getX() && x + this.getCoreSize() > myBlock.getX()){
-			if (z - this.getCoreSize() < myBlock.getZ() && z + this.getCoreSize() > myBlock.getZ()){
-				if (y - this.getCoreSize() < myBlock.getY() && y + this.getCoreSize() > myBlock.getY()){
+		Integer blockX = myBlock.getX();
+		Integer blockY = myBlock.getY();
+		Integer blockZ = myBlock.getZ();
+		
+		if (x - coreSize < blockX && x + coreSize > blockX){
+			if (z - coreSize < blockZ && z + coreSize > blockZ){
+				if (y - coreSize < blockY && y + coreSize > blockY){
 					return true;
 				}
 			}
