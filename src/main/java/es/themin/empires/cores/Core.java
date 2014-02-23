@@ -24,7 +24,7 @@ public class Core {
 	* 
 	*/
 	
-	protected UUID ID;
+	protected UUID myUUID;
 	protected CoreType coreType;
 	private Location location;
 	private int level;
@@ -47,7 +47,7 @@ public class Core {
 	public Core(UUID CoreUUID, CoreType type, Location location, UUID empireID) {
 		
 		this.coreSize = 8;
-		this.ID = CoreUUID;
+		this.myUUID = CoreUUID;
 		this.empireUUID = empireID;
 		this.coreType = type;
 		this.location = location;
@@ -95,6 +95,9 @@ public class Core {
 		this.empireUUID = myEPlayer.getEmpireUUID();
 		this.location = myEPlayer.getLocation();
 		this.level = 1;
+		myUUID = UUID.randomUUID();
+		//this.UUID = UUID.randomUUID()
+		
 //		this.setSchematic(CoreSchematic.getSchematic(myCoreType));
 //		this.setDestroyCost(CoreSchematic.getDestroyCost(myCoreType));
 //		this.setPlaceType(CoreSchematic.getPlaceType(myCoreType));
@@ -111,7 +114,7 @@ public class Core {
 	
 
 	public void setId(UUID id) {
-		ID = id;
+		myUUID = id;
 	}
 
 	public ArrayList<CoreBlock> getSchematic() {
@@ -126,7 +129,7 @@ public class Core {
 	
 	public UUID getId(){
 		
-		return ID;
+		return myUUID;
 	}
 	public CoreType getType(){
 		return coreType;
@@ -305,7 +308,11 @@ public class Core {
 	}
 
 	public UUID getUUID() {
-		return this.ID;
+		return this.myUUID;
+	}
+	
+	public UUID setUUID() {
+		return this.myUUID;
 	}
 }
 
