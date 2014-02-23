@@ -61,11 +61,6 @@ public class ManagerAPI {
 		addCoresToWorlds();
 		
 	}
-	
-
-
-
-
 
 	private void addCoresToWorlds() {
 		for(Core myCore : Cores.getCores().values()){

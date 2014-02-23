@@ -195,16 +195,13 @@ public class Core {
 	
 	public void build() {
 		Location myLocation = this.getLocation();
-		
-		if (this.schematic != null){
-			for (CoreBlock myBlock : coreBlocks){
-				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
-													myLocation.getY() + myBlock.getOffsetY(),
-													myLocation.getZ() + myBlock.getOffsetZ());
-				Block b = newLocation.getBlock();
-				if (myBlock.getMaterial() != null){
-					b.setType(myBlock.getMaterial());
-				}
+		for (CoreBlock myBlock : coreBlocks){
+			Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
+												myLocation.getY() + myBlock.getOffsetY(),
+												myLocation.getZ() + myBlock.getOffsetZ());
+			Block b = newLocation.getBlock();
+			if (myBlock.getMaterial() != null){
+				b.setType(myBlock.getMaterial());
 			}
 		}
 	}
