@@ -19,7 +19,7 @@ public class BaseCore  extends Core implements ICore {
 
 
 		coreType = CoreType.BASE;
-		coreSize = 1;
+		coreSize = 2;
 		areaSize = 32;
 		
 

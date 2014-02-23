@@ -266,7 +266,7 @@ public class ManagerAPI {
 						myCore.setEmpireUUID(myEmpire.getUUID());
 						myWorld.addCore(myCore);
 						Cores.addCore(myCore);
-						myEPlayer.sendMessage("BaseCore successfully created");
+						myEPlayer.sendMessage(myCore.getType().toString() + " Core successfully created");
 						myCore.build();
 						//core.StartBuild
 						//charge the player

@@ -19,7 +19,7 @@ public class GriefCore extends Core implements ICore{
 
 
 		coreType = CoreType.GRIEF;
-		coreSize = 0;
+		coreSize = 2;
 		areaSize = 16;
 		
 	    coreBlocks = new ArrayList<CoreBlock>();
