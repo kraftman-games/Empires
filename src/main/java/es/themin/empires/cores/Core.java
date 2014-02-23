@@ -65,9 +65,7 @@ public class Core {
 	}
 
 	public Integer getAreaSize() {
-		//return areaSize;
-		//what is this
-		return 1;
+		return areaSize;
 	}
 
 	public EmpirePermission getPlacePermission() {
