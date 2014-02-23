@@ -26,7 +26,7 @@ public class generateGriefCore extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
-		Core myCore = CoreFactory.CreateCore(myEPlayer.getEmpireUUID(), myEPlayer.getLocation(), CoreType.BASE);
+		Core myCore = CoreFactory.CreateCore(myEPlayer.getEmpireUUID(), myEPlayer.getLocation(), CoreType.GRIEF);
 		
 		Bukkit.getServer().getLogger().info(myEPlayer.getEmpireUUID().toString());
 		myApi.generateCore(myEPlayer, myCore);
