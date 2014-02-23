@@ -32,6 +32,8 @@ public class CoreUtils {
 		
 	}
 	
+	
+	//this needs moving
 	public Core placeCore(Player myPlayer, CoreType myCoreType){
 		Core myCore = null;
 		EPlayer myEPlayer = myApi.getEPlayer(myPlayer);
@@ -68,7 +70,7 @@ public class CoreUtils {
 		}
 		
 		//create the core
-		 myCore = new Core(myEPlayer, myCoreType);
+		 myCore = CoreFactory.CreateCore(myEPlayer, myCoreType);
 				
 		
 		//check if the core can physically be placed here

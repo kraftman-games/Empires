@@ -1,5 +1,7 @@
 package es.themin.empires.cores;
 
+import java.util.ArrayList;
+
 import org.bukkit.Material;
 
 import es.themin.empires.enums.ProtectionType;
@@ -9,24 +11,16 @@ public class CoreBlock {
 	private int offsetY;
 	private int offsetZ;
 	private Material material;	
-	private ProtectionType protection;
 	
 	
-	
-	public ProtectionType getProtection() {
-		return protection;
-	}
 
-	public void setProtection(ProtectionType protection) {
-		this.protection = protection;
-	}
-
-	public CoreBlock(int x, int y, int z, Material material, ProtectionType protection){
+	public CoreBlock(int x, int y, int z, Material material){
 		this.offsetX = x;
 		this.offsetY = y;
 	    this.offsetZ = z;
 	    this.material = material;
-	    this.protection = protection;
+	    
+	    
 	}
 
 	public int getOffsetX() {

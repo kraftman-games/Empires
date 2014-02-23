@@ -30,6 +30,7 @@ public class Core {
 	private int level;
 	private UUID empireUUID;
 	private Schematic schem;
+	protected ArrayList<CoreBlock> coreBlocks;
 	
 	// a tonne of this stuff isnt specific to the cores and needs to be moved to another object
 	// ive started moving them to below for now
@@ -69,9 +70,6 @@ public class Core {
 		this.empireUUID = empireID;
 		this.coreType = type;
 		this.location = location;
-		this.setSchematic(CoreSchematic.getSchematic(type));
-		this.setDestroyCost(CoreSchematic.getDestroyCost(type));
-		this.setPlaceType(CoreSchematic.getPlaceType(type));
 		
 	}
 	
