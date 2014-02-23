@@ -173,8 +173,11 @@ public class EWorld {
 	public boolean isNearEnemyCore(Core myCore){
 		int range = getGridSize();
 		
-		for (int i = -range;i <= range; i+=(range/4)){
-			for (int j = -range;j <= range; j+=(range/4)){
+		Integer X = myCore.getLocation().getBlockX();
+		Integer Z = myCore.getLocation().getBlockZ();
+		
+		for (int i = X-range;i <= X +range; i+=(range/2)){
+			for (int j = Z-range;j <= Z+range; j+=(range/2)){
 				HashMap<UUID, Core> myCores = this.getEnemyCoresInGrid(myCore.getEmpireUUID(),i, j);
 				if (myCores != null ){
 					return true;
