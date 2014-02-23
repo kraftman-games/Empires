@@ -106,7 +106,7 @@ public class ManagerAPI {
 
 
 	public Empire getEmpire(EPlayer myEPlayer) {
-		return getEmpire(myEPlayer.getUUID());
+		return getEmpire(myEPlayer.getEmpireUUID());
 	}
 
 
