@@ -270,7 +270,8 @@ public class ManagerAPI {
 						myCore.setEmpireUUID(myEmpire.getUUID());
 						myWorld.addCore(myCore);
 						Cores.addCore(myCore);
-						
+						myEPlayer.sendMessage("BaseCore successfully created");
+						myCore.build();
 						//core.StartBuild
 						//charge the player
 					}
