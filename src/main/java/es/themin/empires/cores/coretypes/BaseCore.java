@@ -27,14 +27,14 @@ public class BaseCore  extends Core implements ICore {
 
 	    coreBlocks = new ArrayList<CoreBlock>();
 	    coreBlocks.add(new CoreBlock(0,-1,0,Material.IRON_BLOCK));
-	    coreBlocks.add(new CoreBlock(0,-1,1,Material.DIRT));
-	    coreBlocks.add(new CoreBlock(0,-1,-1,Material.DIRT));
-	    coreBlocks.add(new CoreBlock(1,-1,0,Material.DIRT));
-	    coreBlocks.add(new CoreBlock(1,-1,-1,Material.DIRT));
-	    coreBlocks.add(new CoreBlock(1,-1,1,Material.DIRT));
-	    coreBlocks.add(new CoreBlock(-1,-1,0,Material.DIRT));
-	    coreBlocks.add(new CoreBlock(-1,-1,1,Material.DIRT));
-	    coreBlocks.add(new CoreBlock(-1,-1,-1,Material.DIRT));
+	    coreBlocks.add(new CoreBlock(0,-1,1,Material.BRICK));
+	    coreBlocks.add(new CoreBlock(0,-1,-1,Material.BRICK));
+	    coreBlocks.add(new CoreBlock(1,-1,0,Material.BRICK));
+	    coreBlocks.add(new CoreBlock(1,-1,-1,Material.BRICK));
+	    coreBlocks.add(new CoreBlock(1,-1,1,Material.BRICK));
+	    coreBlocks.add(new CoreBlock(-1,-1,0,Material.BRICK));
+	    coreBlocks.add(new CoreBlock(-1,-1,1,Material.BRICK));
+	    coreBlocks.add(new CoreBlock(-1,-1,-1,Material.BRICK));
 	    
 	}
 
