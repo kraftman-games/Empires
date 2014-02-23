@@ -340,13 +340,13 @@ public class ManagerAPI {
 		
 		selectedCore = chooseCore(myMatchingCores);
 		
-		if (myEmpire == null){
+		if (myEPlayer.getEmpireUUID() == null){
 			myEPlayer.sendMessage("You cannot attack other empires until you are in one!");
 		}
 		
 		
 		// if its the players own empire
-		if (selectedCore.getEmpireUUID().equals(myEmpire.getUUID())){
+		if (selectedCore.getEmpireUUID().equals(myEPlayer.getEmpireUUID())){
 			if (isCoreBlock){
 				myPlayer.sendMessage("You cannot destroy your own core!");
 				event.setCancelled(true);
