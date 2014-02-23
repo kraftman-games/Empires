@@ -164,7 +164,7 @@ public class EWorld {
 				friendlyCores.put(myCore.getUUID(), myCore);
 			}
 		}
-		return CoreGrid.get(gridPoint);
+		return friendlyCores;
 	}
 	
 	public HashMap<UUID, Core> getFriendlyCoresInGrid(UUID myEmpireUUID, Point myPoint){
