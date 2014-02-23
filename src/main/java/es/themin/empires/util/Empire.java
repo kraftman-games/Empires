@@ -579,7 +579,7 @@ public class Empire {
 	}
 
 	public void removeOnlinePlayer(EPlayer myEPlayer) {
-		if (onlinePlayers.get(myEPlayer).getUUID() != null){
+		if (onlinePlayers.get(myEPlayer) != null){
 		onlinePlayers.remove(myEPlayer);
 		}
 		
