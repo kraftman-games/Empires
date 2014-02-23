@@ -26,6 +26,8 @@ public class UtilityTesting implements CommandExecutor{
 		commands.add(new newemp(api));
 		commands.add(new emp(api));
 		commands.add(new generatebasecore(api));
+		commands.add(new generateGriefCore(api));
+		
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
