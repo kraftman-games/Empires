@@ -244,7 +244,7 @@ public class EmpiresDAL {
 			myConnection = connectionPool.getConnection(); // fetch a connection
 			
 			if (myConnection != null){
-				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Players` SET `CoreUUID`=?,`EmpireUUID`=?,`CoreType`=?,`WorldUUID`=?,`X`=?,`Y`=?,`Z`=?"+
+				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Cores` SET `CoreUUID`=?,`EmpireUUID`=?,`CoreType`=?,`WorldUUID`=?,`X`=?,`Y`=?,`Z`=?"+
 																			" ON DUPLICATE KEY UPDATE `CoreUUID`=?,`EmpireUUID`=?,`CoreType`=?,`WorldUUID`=?,`X`=?,`Y`=?,`Z`=?;");
 			       
 				for (Core myCore : myCores.values()){
