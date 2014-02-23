@@ -41,7 +41,7 @@ public class WorldManager implements IManager{
 	}
 	
 	public void save(){
-		
+		Bukkit.getServer().getLogger().info("saving world");
 	}
 
 	

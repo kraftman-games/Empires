@@ -23,6 +23,7 @@ public class PlayerManager implements IManager {
 	}
 	
     public void save(){
+    	Bukkit.getServer().getLogger().info("saving players");
     	EmpiresDAL.createOrUpdatePlayers(players);
     }
 
