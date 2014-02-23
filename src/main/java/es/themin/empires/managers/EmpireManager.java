@@ -116,7 +116,7 @@ public class EmpireManager implements IManager {
 		}
 		
 		if (empireName.isEmpty()){
-			owner.sendMessage("Your nation needs a name!");
+			owner.sendMessage("Your empire needs a name!");
 			return null;
 		}else if(getEmpireWithName(empireName) != null){
 			owner.sendMessage("An empire with that name already exists!");
