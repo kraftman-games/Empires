@@ -312,6 +312,7 @@ public class ManagerAPI {
 		Player myPlayer = event.getPlayer();
 		EWorld myEWorld = getEWorld(myBlock.getLocation().getWorld().getUID());
 		
+		Debug.Console("locading cores in grid from "+myEWorld.getCores().size()+" total");
 		HashMap<UUID, Core> myCores = myEWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
 		
 		
