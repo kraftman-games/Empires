@@ -45,7 +45,7 @@ public class CoreManager implements IManager{
 		HashMap<UUID,Core> empireCores = new HashMap<UUID,Core>();
 		
 		for (Core myCore : cores.values()){
-			if (myCore.getEmpireUUID() == empireUUID){
+			if (myCore.getEmpireUUID().equals(empireUUID)){
 				empireCores.put(myCore.getUUID(), myCore);
 			}
 		}

@@ -20,6 +20,7 @@ public class newemp extends SubCommand{
 			myApi.createEmpire(args[1], myEplayer);
 		} else {
 			player.sendMessage("you must provide an empire name");
+			return false;
 		}
 					
 		return false;
