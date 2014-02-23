@@ -68,9 +68,10 @@ public class ManagerFactory {
 		CoreManager myCoreManager = CreateCoreManager(myEmpiresDAL);
 		EmpireManager myEmpireManager = CreateEmpireManager(myEmpiresDAL);
 		SettingsManager mySettingsManager = CreateSettingsManager(myEmpiresDAL);
+		WorldManager myWorldManager = CreateWorldManager(myEmpiresDAL);
 		
 		
-		return new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager, mySettingsManager);
+		return new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager, mySettingsManager, myWorldManager);
 		
 	}
 }

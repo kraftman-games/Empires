@@ -290,6 +290,27 @@ public class EWorld {
 	public UUID getUUID() {
 		return myUUID;
 	}
+
+	public boolean playerCanPlaceCore(EPlayer myEPlayer, Core myCore) {
+		// TODO Auto-generated method stub
+		switch (myCore.getPlaceType()) {
+		case INSIDE:
+			
+			break;
+		case OUTSIDE:
+			
+			break;
+		case EDGE:
+			break;
+		case ENEMY:
+			
+			break;
+		default:
+			break;
+		}
+		
+		return false;
+	}
 }
 
 

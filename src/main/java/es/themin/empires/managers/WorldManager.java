@@ -58,4 +58,8 @@ public class WorldManager implements IManager{
 		worlds.put(ew.getUUID(), ew);
 		return ew;
 	}
+
+	public EWorld getWorld(UUID uid) {
+		return worlds.get(uid);
+	}
 }

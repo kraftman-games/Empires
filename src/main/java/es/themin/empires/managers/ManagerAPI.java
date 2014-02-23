@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.world.WorldSaveEvent;
+import org.bukkit.permissions.PermissionDefault;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
@@ -23,18 +25,23 @@ public class ManagerAPI {
 	private PlayerManager Players = null;
 	private EmpireManager Empires = null;
 	private SettingsManager Settings = null;
+	private WorldManager Worlds = null;
 	private ArrayList<IManager> Managers = null;
 	
-	public ManagerAPI(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager, SettingsManager mySettingsManager ){
+	public ManagerAPI(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager, SettingsManager mySettingsManager, WorldManager myWorldManager ){
 		Cores = myCoreManager;
 		Players = myPlayerManager;
 		Empires = myEmpireManager;
 		Settings = mySettingsManager;
+		Worlds = myWorldManager;
+		
 		Managers = new ArrayList<IManager>();
 		
 		Managers.add(myEmpireManager);
 		Managers.add(myCoreManager);
 		Managers.add(myPlayerManager);
+		Managers.add(mySettingsManager);
+		Managers.add(myWorldManager);
 		
 	}
 	
@@ -219,30 +226,26 @@ public class ManagerAPI {
 		
 		
 		Empire myEmpire = getEmpire(myEPlayer);
+		EWorld myWorld = getWorld(myEPlayer);
 		
-		
-		
-		switch (myCore.getPlaceType()) {
-		case INSIDE:
-			
-			break;
-		case OUTSIDE:
-			
-			break;
-		case EDGE:
-			break;
-		case ENEMY:
-			
-			break;
-		default:
-			break;
+		if (!myWorld.playerCanPlaceCore(myEPlayer, myCore)){
+			return;
 		}
+		
+		if (!playerCanAffordCore(myEPlayer, myCore)){
+			return;
+		}
+		
+//		if (!playerHasPermission(myEPlayer, myCore.placePermission)){
+//			return;
+//		}
+		
+		
 		
 		HashMap<UUID, Core> myCores = Cores.getEmpireCores(myEmpire.getUUID());
 		
 		
 		
-		//check they can afford it
 		
 		//check they have permission to place it
 		
@@ -253,6 +256,26 @@ public class ManagerAPI {
 		//charge the player
 		
 		//add it to empire
+	}
+
+
+
+	private boolean playerCanAffordCore(EPlayer myEPlayer, Core myCore) {
+	/* so this will depend on how we charge players,
+	 * does it come out of their empire account
+	 * out of their inventory
+	 * or out of their personal saved value
+	 * 
+	 */
+		
+		
+		return true;
+	}
+
+
+
+	private EWorld getWorld(EPlayer myEPlayer) {
+		return Worlds.getWorld(myEPlayer.getWorld().getUID());
 	}
 	
 	
