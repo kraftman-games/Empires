@@ -59,8 +59,10 @@ public class EWorld {
 	}
 
 	public void addCore(Core myCore){
-		this.Cores.put(myCore.getId(), myCore);
-		this.addCoreToGrid(myCore);
+		if (Cores.get(myCore.getUUID()) == null){
+			this.Cores.put(myCore.getId(), myCore);
+			this.addCoreToGrid(myCore);
+		}
 	}
 
 

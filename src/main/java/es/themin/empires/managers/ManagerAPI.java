@@ -57,11 +57,21 @@ public class ManagerAPI {
 		}
 		
 		addPlayersToEmpires();
+		addCoresToWorlds();
 		
 	}
 	
 
 
+
+
+
+	private void addCoresToWorlds() {
+		for(Core myCore : Cores.getCores().values()){
+			EWorld myWorld = Worlds.getWorld(myCore.getLocation().getWorld().getUID());
+			myWorld.addCore(myCore);
+		}
+	}
 
 
 
