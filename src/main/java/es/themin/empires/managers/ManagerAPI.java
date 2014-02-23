@@ -1,5 +1,6 @@
 package es.themin.empires.managers;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -312,8 +313,13 @@ public class ManagerAPI {
 		Player myPlayer = event.getPlayer();
 		EWorld myEWorld = getEWorld(myBlock.getLocation().getWorld().getUID());
 		
-		Debug.Console("locading cores in grid from "+myEWorld.getCores().size()+" total");
-		HashMap<UUID, Core> myCores = myEWorld.getCoresInGrid(myBlock.getX(), myBlock.getY());
+		Debug.Console("listing world grid points:");
+		
+		myEWorld.listPoints();
+		
+		
+		Debug.Console("loading cores in grid from "+myEWorld.getCores().size()+" total");
+		HashMap<UUID, Core> myCores = myEWorld.getCoresInGrid(myBlock.getX(), myBlock.getZ());
 		
 		
 		ArrayList<Core> myMatchingCores = new ArrayList<Core>();

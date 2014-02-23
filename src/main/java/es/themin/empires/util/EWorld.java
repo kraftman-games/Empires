@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.PlaceType;
 
@@ -113,6 +114,7 @@ public class EWorld {
 
 	public HashMap<UUID, Core> getCoresInGrid(int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));	
+		Debug.Console("X: "+gridPoint.getX()+" Z: "+gridPoint.getY());
 		return CoreGrid.get(gridPoint);
 	}
 	
@@ -360,6 +362,12 @@ public class EWorld {
 			}
 		}
 		return false;
+	}
+
+	public void listPoints() {
+		for(Point myPoint : CoreGrid.keySet()){
+			Debug.Console("X: "+myPoint.getX()+" Z: "+myPoint.getY());
+		}
 	}
 }
 
