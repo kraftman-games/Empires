@@ -350,6 +350,7 @@ public class ManagerAPI {
 		if (selectedCore.getEmpireUUID().equals(myEmpire.getUUID())){
 			if (isCoreBlock){
 				myPlayer.sendMessage("You cannot destroy your own core!");
+				event.setCancelled(true);
 				return;
 			} else {
 				//check its not some special block we havnt invented yet
