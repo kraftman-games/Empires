@@ -33,7 +33,7 @@ public class Empire {
 	private boolean atWar;
 	private Empire enemyEmpire;
 	private boolean vunerable;
-	private EmpireState empireState;
+	private EmpireState empireState = EmpireState.BATTLEREADY;
 	private int warwins;
 	private int warlosses;
 	private int battlewins;
