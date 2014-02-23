@@ -314,9 +314,7 @@ public class ManagerAPI {
 			Debug.Console(myCores.size()+" cores found in grid");
 			for(Core myCore : myCores.values()){
 				if (myCore.isAreaBlock(myBlock)){
-					if (myCore.isCoreBlock(myBlock)){
-						isCoreBlock = true;
-					} 
+					isCoreBlock = myCore.isCoreBlock(myBlock);
 					myMatchingCores.add(myCore);
 				}
 			}
