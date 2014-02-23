@@ -275,7 +275,7 @@ public class Core {
 		
 		if (x - this.getCoreSize() < myBlock.getX() && x + this.getCoreSize() > myBlock.getX()){
 			if (z - this.getCoreSize() < myBlock.getZ() && z + this.getCoreSize() > myBlock.getZ()){
-				if (y - this.getCoreSize() < myBlock.getY() && z + this.getCoreSize() > myBlock.getY()){
+				if (y - this.getCoreSize() < myBlock.getY() && y + this.getCoreSize() > myBlock.getY()){
 					return true;
 				}
 			}
