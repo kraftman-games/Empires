@@ -308,6 +308,8 @@ public class ManagerAPI {
 		Player myPlayer = event.getPlayer();
 		EWorld myEWorld = getEWorld(myBlock.getLocation().getWorld().getUID());
 		
+		
+		
 		Debug.Console("listing world grid points:");
 		
 		myEWorld.listPoints();
@@ -338,7 +340,10 @@ public class ManagerAPI {
 		
 		selectedCore = chooseCore(myMatchingCores);
 		
-		//get block metadata to see if its special.
+		if (myEmpire == null){
+			myEPlayer.sendMessage("You cannot attack other empires until you are in one!");
+		}
+		
 		
 		// if its the players own empire
 		if (selectedCore.getEmpireUUID().equals(myEmpire.getUUID())){
