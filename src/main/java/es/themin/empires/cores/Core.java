@@ -308,8 +308,8 @@ public class Core {
 		return this.myUUID;
 	}
 	
-	public UUID setUUID() {
-		return this.myUUID;
+	public void setUUID(UUID myUUID) {
+		this.myUUID = myUUID;
 	}
 }
 
