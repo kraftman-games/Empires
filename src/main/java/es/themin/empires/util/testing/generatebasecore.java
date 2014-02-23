@@ -1,5 +1,6 @@
 package es.themin.empires.util.testing;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -27,6 +28,7 @@ public class generatebasecore extends SubCommand{
 		
 		Core myCore = CoreFactory.CreateCore(myEPlayer, CoreType.BASE);
 		
+		Bukkit.getServer().getLogger().info(myEPlayer.getEmpireUUID().toString());
 		myApi.generateCore(myEPlayer, myCore);
 		
 		return false;
