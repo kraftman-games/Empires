@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
+import es.themin.empires.Debug;
 import es.themin.empires.empires;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
@@ -276,6 +277,8 @@ public class Core {
 		Integer blockX = myBlock.getX();
 		Integer blockY = myBlock.getY();
 		Integer blockZ = myBlock.getZ();
+		
+		Debug.Console("Xmin: "+(x - coreSize)+" Zmin: "+ (z - coreSize)+ " BlockX: " + blockX + " BlockY: " + blockY );
 		
 		if (x - coreSize < blockX && x + coreSize > blockX){
 			if (z - coreSize < blockZ && z + coreSize > blockZ){
