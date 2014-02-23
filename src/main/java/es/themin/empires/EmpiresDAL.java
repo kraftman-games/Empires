@@ -47,6 +47,8 @@ public class EmpiresDAL {
 					 myEPlayer.setLastSeen(results.getLong("LastSeen"));
 					 
 					 String empireUUID = results.getString("EmpireUUID");
+					 
+					 Bukkit.getServer().getLogger().info(results.getString("Name") + " " + results.getLong("FirstSeen") + " " + results.getString("EmpireUUID"));
 					 if (empireUUID != null && empireUUID.isEmpty() == false){
 						 myEPlayer.setEmpireUUID(UUID.fromString(empireUUID));
 					 }
@@ -201,7 +203,13 @@ public class EmpiresDAL {
 			       
 				for (EPlayer myPlayer : myPlayers.values()){
 					
-					String EmpireUUID = myPlayer.getEmpireUUID() != null ? myPlayer.getEmpireUUID().toString() : "";
+					String EmpireUUID;
+					
+					if (myPlayer.getEmpireUUID() == null){
+						EmpireUUID = "";
+					} else {
+						EmpireUUID = myPlayer.getEmpireUUID().toString();
+					}
 					
 			        stmnt.setString(1, myPlayer.getUUID().toString());
 			        stmnt.setLong(2, myPlayer.getFirstSeen());
