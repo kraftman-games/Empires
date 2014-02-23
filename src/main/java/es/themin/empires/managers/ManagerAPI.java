@@ -85,6 +85,14 @@ public class ManagerAPI {
 	public EPlayer getEPlayer(Player player) {
 		return Players.loadEPlayer(player);
 	}
+	
+	public void loadPlayer(Player player){
+		EPlayer myEPlayer = getEPlayer(player);
+		if (myEPlayer.getEmpireUUID() != null){
+			Empire myEmpire = getEmpire(myEPlayer);
+			myEmpire.addOnlinePlayer(myEPlayer);
+		}
+	}
 
 
 

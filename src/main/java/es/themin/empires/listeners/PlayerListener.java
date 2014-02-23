@@ -34,7 +34,7 @@ public class PlayerListener implements Listener{
 	public void onPlayerJoin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		
-		myApi.getEPlayer(player);
+		myApi.loadPlayer(player);
 		
 		
 	}
