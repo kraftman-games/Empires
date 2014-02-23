@@ -2,6 +2,7 @@ package es.themin.empires.schematics.base;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -114,34 +115,45 @@ public class Schematic_Base_1 extends Schematic{
 		int x = l.getBlockX();
 		int y = l.getBlockY();
 		int z = l.getBlockZ();
-		Vector up = new Vector(0,0.5,0);
+		Vector up = new Vector(0,4,0);
 		Vector down = new Vector(0,-0.5,0);
 		Vector north = new Vector(0,0,-0.5);
 		Vector south = new Vector(0,0,0.5);
 		Vector west = new Vector(-0.5,0,0);
 		Vector east = new Vector(0.5,0,0);
+		w.getBlockAt(l).setType(Material.AIR);
+		 try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				Bukkit.getServer().getLogger().info("Effect error 1");
+			}
 		Block e011a = w.getBlockAt(x,y,z-1);
-        FallingBlock e011 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
-        FallingBlock e012 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
-        FallingBlock e013 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
-        FallingBlock e014 = w.spawnFallingBlock(l, Material.OBSIDIAN, (byte) 0);
-        e011.setVelocity(north);
+        FallingBlock e011 = w.spawnFallingBlock(new Location(w,x+1,y,z), Material.OBSIDIAN, (byte) 0);
+        FallingBlock e012 = w.spawnFallingBlock(new Location(w,x-1,y,z), Material.OBSIDIAN, (byte) 0);
+        FallingBlock e013 = w.spawnFallingBlock(new Location(w,x,y,z+1), Material.OBSIDIAN, (byte) 0);
+        FallingBlock e014 = w.spawnFallingBlock(new Location(w,x,y,z-1), Material.OBSIDIAN, (byte) 0);
+        /*e011.setVelocity(north);
         e012.setVelocity(east);
         e013.setVelocity(south);
-        e014.setVelocity(west);
-        while (!(e01)) {
-        	if (blocksAreCloseHorizontally(e011a,e011.getLocation())) {
-        		e01 = true;
-        		e011.remove();
-        		e012.remove();
-        		e013.remove();
-        		e014.remove();
-        		w.getBlockAt(x,y,z+1).setType(Material.OBSIDIAN);
-        		w.getBlockAt(x,y,z-1).setType(Material.OBSIDIAN);
-        		w.getBlockAt(x+1,y,z).setType(Material.OBSIDIAN);
-        		w.getBlockAt(x-1,y,z).setType(Material.OBSIDIAN);
-        	}
-        }
+        e014.setVelocity(west);*/
+        e011.setVelocity(up);
+        e012.setVelocity(up);
+        e013.setVelocity(up);
+        e014.setVelocity(up);
+        /*try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			Bukkit.getServer().getLogger().info("Effect error 1");
+		}
+		e01 = true;
+		e011.remove();
+		e012.remove();
+		e013.remove();
+		e014.remove();
+		w.getBlockAt(x,y,z+1).setType(Material.OBSIDIAN);
+		w.getBlockAt(x,y,z-1).setType(Material.OBSIDIAN);
+		w.getBlockAt(x+1,y,z).setType(Material.OBSIDIAN);
+		w.getBlockAt(x-1,y,z).setType(Material.OBSIDIAN);*/
 
 	}
 

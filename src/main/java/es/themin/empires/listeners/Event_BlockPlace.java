@@ -20,7 +20,7 @@ public class Event_BlockPlace implements Listener{
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		EPlayer myEPlayer = myApi.getEPlayer(player);
+		//EPlayer myEPlayer = myApi.getEPlayer(player);
 		ItemMeta im = event.getItemInHand().getItemMeta();
 		Material placed = event.getBlockPlaced().getType();
 		if (placed == Material.BEACON) {
@@ -41,6 +41,7 @@ public class Event_BlockPlace implements Listener{
 				myCore.build2();
 				EWorld cw = Worlds.getWorld(uuid);
 				cw.addCore(myCore);*/
+				event.setCancelled(true);
 				Schematic schem = new Schematic_Base_1();
 				//schem.pasteFromCentre(event.getBlock().getLocation());
 				schem.playEffectsFrom(event.getBlock().getLocation());
