@@ -273,7 +273,7 @@ public class Core {
 		Integer blockY = myBlock.getY();
 		Integer blockZ = myBlock.getZ();
 		
-		Debug.Console("Xmin: "+(x - coreSize)+" Zmin: "+ (z - coreSize)+ " BlockX: " + blockX + " BlockY: " + blockY );
+		Debug.Console("Xmin: "+(x - coreSize)+" Zmin: "+ (z - coreSize)+ " BlockX: " + blockX + " BlockZ: " + blockZ );
 		
 		if (x - coreSize < blockX && x + coreSize > blockX){
 			if (z - coreSize < blockZ && z + coreSize > blockZ){
