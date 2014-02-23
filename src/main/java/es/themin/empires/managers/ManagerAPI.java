@@ -214,21 +214,11 @@ public class ManagerAPI {
 		
 	}
 
-
-
 	public EWorld getEWorld(UUID worldUUID) {
-		// TODO Auto-generated method stub
-		return null;
+		return Worlds.getWorld(worldUUID);
 	}
 
-
-
-	public void addCore(Core myCore) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
+	
 
 	public void sendChatToEmpire(EPlayer myEPlayer, String chatMessage) {
 
