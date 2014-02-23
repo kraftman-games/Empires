@@ -10,6 +10,7 @@ import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreBlock;
 import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.enums.PlaceType;
 import es.themin.empires.util.EPlayer;
 
 public class BaseCore  extends Core implements ICore {
@@ -21,6 +22,7 @@ public class BaseCore  extends Core implements ICore {
 		coreType = CoreType.BASE;
 		coreSize = 2;
 		areaSize = 32;
+		placeType = PlaceType.OUTSIDE;
 		
 
 	    coreBlocks = new ArrayList<CoreBlock>();

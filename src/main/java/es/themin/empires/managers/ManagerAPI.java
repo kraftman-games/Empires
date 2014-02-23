@@ -313,7 +313,6 @@ public class ManagerAPI {
 		myEWorld.listPoints();
 		
 		
-		Debug.Console("loading cores in grid from "+myEWorld.getCores().size()+" total");
 		HashMap<UUID, Core> myCores = myEWorld.getCoresInGrid(myBlock.getX(), myBlock.getZ());
 		
 		
