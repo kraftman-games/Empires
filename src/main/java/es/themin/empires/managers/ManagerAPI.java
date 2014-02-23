@@ -67,7 +67,7 @@ public class ManagerAPI {
 		for(EPlayer myPlayer : Players.getPlayers().values()){
 			if (myPlayer.getEmpireUUID() != null){
 				Empire myEmpire = Empires.getEmpire(myPlayer.getEmpireUUID());
-				myEmpire.addPlayer(myPlayer);
+				myEmpire.addOnlinePlayer((myPlayer));
 			}
 		}
 	}
@@ -196,6 +196,11 @@ public class ManagerAPI {
 
 	public void removePlayer(EPlayer myEPlayer) {
 		Players.removePlayer(myEPlayer);
+		
+		Empire myEmpire = getEmpire(myEPlayer);
+		if (myEmpire != null){
+			myEmpire.removeOnlinePlayer(myEPlayer);
+		}
 		
 	}
 
