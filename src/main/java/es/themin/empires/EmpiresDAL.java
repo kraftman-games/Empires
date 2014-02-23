@@ -84,7 +84,7 @@ public class EmpiresDAL {
 				ResultSet results = stmnt.executeQuery();
 				
 				 while (results.next()) {
-					 Empire myEmpire = new Empire(results.getString("Name"), UUID.fromString(results.getString("OwnerUUID")));
+					 Empire myEmpire = new Empire(results.getString("Name"),UUID.fromString(results.getString("EmpireUUID")), UUID.fromString(results.getString("OwnerUUID")));
 					 myEmpires.put(myEmpire.getUUID(), myEmpire);
 				}
 			}

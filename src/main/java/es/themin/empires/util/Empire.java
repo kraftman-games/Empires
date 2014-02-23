@@ -56,11 +56,40 @@ public class Empire {
 		this.enemyEmpire = enemyEmpire;
 	}
 
-	
-
 	public Empire(String empireName, UUID myUUID){
 		
-		this.ID = myUUID;
+		this.ID = UUID.randomUUID();
+		this.name = empireName;
+		this.owner = myUUID;
+		this.atWar = false;
+		this.warwins = 0;
+		this.warlosses = 0;
+		this.battlelosses = 0;
+		this.battlewins = 0;
+		this.wars = new ArrayList<War>();
+		this.setProtected(true);
+		this.allies = new ArrayList<Empire>();
+		this.exallies = new HashMap<Empire, Long>();
+		this.exenemies = new HashMap<Empire, Long>();
+		this.lastbattleloss = (long) 0;
+		this.lastbattlewin = (long) 0;
+		this.allyrequests = new HashMap<Empire,Long>();
+		this.timeline = new HashMap<Long,String>();
+		
+		coreLimits =  new HashMap<CoreType, Integer>();
+		coreLimits.put(CoreType.BASE, 1);
+		coreLimits.put(CoreType.GRIEF, 10);
+		coreLimits.put(CoreType.FARM, 0);
+		coreLimits.put(CoreType.FORTIFICATION, 0);
+		coreLimits.put(CoreType.MOB, 0);
+		coreLimits.put(CoreType.MONSTER, 0);
+		coreLimits.put(CoreType.OUTPOST, 0);
+	}
+	
+
+	public Empire(String empireName,UUID empireUUID,UUID myUUID){
+		
+		this.ID = empireUUID;
 		this.name = empireName;
 		this.owner = myUUID;
 		this.atWar = false;
