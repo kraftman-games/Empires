@@ -328,7 +328,14 @@ public class ManagerAPI {
 			Debug.Console(myCores.size()+" cores found in grid");
 			for(Core myCore : myCores.values()){
 				if (myCore.isAreaBlock(myBlock)){
-					isCoreBlock = myCore.isCoreBlock(myBlock);
+					
+					//if its a core block then this is the only core we care about
+					if (myCore.isCoreBlock(myBlock)){
+						isCoreBlock = true;
+						myMatchingCores = new ArrayList<Core>();
+						myMatchingCores.add(myCore);
+						break;
+					}
 					myMatchingCores.add(myCore);
 				}
 			}
@@ -342,6 +349,8 @@ public class ManagerAPI {
 		
 		if (myEPlayer.getEmpireUUID() == null){
 			myEPlayer.sendMessage("You cannot attack other empires until you are in one!");
+			event.setCancelled(true);
+			return;
 		}
 		
 		
