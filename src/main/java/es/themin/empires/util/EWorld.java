@@ -139,11 +139,11 @@ public class EWorld {
 		}
 		
 		for (Core myCore : allCores.values()){
-			if (myCore.getEmpireUUID() != myEmpireUUID){
+			if (!myCore.getEmpireUUID().equals(myEmpireUUID)){
 				enemyCores.put(myCore.getUUID(), myCore);
 			}
 		}
-		if (enemyCores.values().size() == 0){
+		if (enemyCores.values().isEmpty()){
 			return null;
 		}
 		
