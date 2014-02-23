@@ -362,8 +362,36 @@ public class EmpiresDAL {
 	}
 
 	public HashMap<String, String> loadSettings() {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<String,String> mySettings = new HashMap<String,String>();
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection(); 
+			
+			if (connection != null){
+			
+		        PreparedStatement stmnt = connection.prepareStatement("SELECT * FROM `Worlds`");
+		        
+				ResultSet results = stmnt.executeQuery();
+				
+				 while (results.next()) {
+					 String myKey = results.getString("Key");
+					 String myValue = results.getString("Value");
+					 mySettings.put(myKey, myValue);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return mySettings;
 	}
 
 	public HashMap<UUID, EWorld> loadWorlds() {
