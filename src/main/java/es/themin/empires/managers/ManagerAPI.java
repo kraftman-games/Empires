@@ -268,7 +268,7 @@ public class ManagerAPI {
 						Cores.addCore(myCore);
 						myEPlayer.sendMessage(myCore.getType().toString() + " Core successfully created");
 						myCore.build();
-						//core.StartBuild
+						
 						//charge the player
 					}
 				}

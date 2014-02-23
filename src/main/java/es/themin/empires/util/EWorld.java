@@ -139,11 +139,11 @@ public class EWorld {
 		}
 		
 		for (Core myCore : allCores.values()){
-			if (!myCore.getEmpireUUID().equals(myEmpireUUID)){
+			if (myCore.getEmpireUUID().equals(myEmpireUUID) == false){
 				enemyCores.put(myCore.getUUID(), myCore);
 			}
 		}
-		if (enemyCores.values().isEmpty()){
+		if (enemyCores.isEmpty()){
 			return null;
 		}
 		
@@ -173,10 +173,10 @@ public class EWorld {
 	
 	
 	public boolean isNearEnemyCore(Core myCore){
-		int range = this.getGridSize();
+		int range = getGridSize();
 		
-		for (int i = -range;i <= range; i+=(range/2)){
-			for (int j = -range;j <= range; j+=(range/2)){
+		for (int i = -range;i <= range; i+=(range/4)){
+			for (int j = -range;j <= range; j+=(range/4)){
 				HashMap<UUID, Core> myCores = this.getEnemyCoresInGrid(myCore.getEmpireUUID(),i, j);
 				if (myCores != null ){
 					return true;
@@ -300,10 +300,6 @@ public class EWorld {
 	}
 
 	public boolean coreLocationIsValid(EPlayer myEPlayer, Core myCore) {
-				
-		
-		ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
-		
 		
 		// check if its too close to another empire
 		if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){
@@ -332,8 +328,7 @@ public class EWorld {
 		if (coresOverlap(myCore )){
 			myEPlayer.sendMessage("Cores cannot overlap!");
 			return false;
-		}
-				
+		}	
 		
 		return true;
 	}
