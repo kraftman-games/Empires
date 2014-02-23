@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.permissions.PermissionDefault;
 
+import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
@@ -74,7 +76,8 @@ public class ManagerAPI {
 	public boolean playerHasPermission(EPlayer myEPlayer, EmpirePermission permission) {
 		if (myEPlayer.getEmpireUUID() != null) {
 			Empire empire = getEmpire(myEPlayer.getEmpireUUID());
-			if ((empire.getOwnerUUID() == myEPlayer.getUUID())) {
+			Debug.Console(empire.getOwnerUUID().toString() + " <- empire | player -> "+ myEPlayer.getUUID());
+			if ((empire.getOwnerUUID().equals(myEPlayer.getUUID()))) {
 				return true;
 			} else {
 				if (empire.playerHasARank(myEPlayer.getName())) {
