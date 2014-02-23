@@ -60,7 +60,7 @@ public class Empire {
 
 	public Empire(String empireName, UUID myUUID){
 		
-		this.ID = UUID.randomUUID();
+		this.ID = myUUID;
 		this.name = empireName;
 		this.owner = myUUID;
 		this.atWar = false;

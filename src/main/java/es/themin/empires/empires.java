@@ -102,7 +102,7 @@ public final class empires extends JavaPlugin {
     
     private void loadMySQL(){
     	BoneCPConfig config = new BoneCPConfig();
-		config.setJdbcUrl("jdbc:mysql://192.168.5.60/empirestest"); // jdbc url specific to your database, eg jdbc:mysql://127.0.0.1/yourdb
+		config.setJdbcUrl("jdbc:mysql://192.168.5.60/empires"); // jdbc url specific to your database, eg jdbc:mysql://127.0.0.1/yourdb
 		config.setUsername("empires"); 
 		config.setPassword("senimeth345");
 		config.setMinConnectionsPerPartition(5);
