@@ -332,7 +332,7 @@ public class EmpiresDAL {
 		try {
 			myConnection = connectionPool.getConnection(); // fetch a connection
 			
-			if (myConnection != null){
+			if (myConnection != null && mySettings.size() > 0){
 				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Settings` SET `Key` = ?,`Value` =? ON DUPLICATE KEY UPDATE `Value` =? ");
 			       
 				for (Map.Entry<String, String> entry : mySettings.entrySet()) {
