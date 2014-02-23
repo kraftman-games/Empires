@@ -198,7 +198,7 @@ public class Core {
 		Location myLocation = this.getLocation();
 		
 		if (this.schematic != null){
-			for (CoreBlock myBlock : this.schematic){
+			for (CoreBlock myBlock : coreBlocks){
 				Location newLocation = new Location(myLocation.getWorld(), myLocation.getX() + myBlock.getOffsetX(),
 													myLocation.getY() + myBlock.getOffsetY(),
 													myLocation.getZ() + myBlock.getOffsetZ());
