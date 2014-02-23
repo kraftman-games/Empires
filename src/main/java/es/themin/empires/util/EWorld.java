@@ -294,58 +294,42 @@ public class EWorld {
 	}
 
 	public boolean coreLocationIsValid(EPlayer myEPlayer, Core myCore) {
-		// TODO Auto-generated method stub
-		switch (myCore.getPlaceType()) {
-		case INSIDE:
-			
-			break;
-		case OUTSIDE:
-			
-			break;
-		case EDGE:
-			break;
-		case ENEMY:
-			
-			break;
-		default:
-			break;
+				
+		
+		ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
+		
+		
+		// check if its too close to another empire
+		if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){
+			if (isNearEnemyCore(myCore)){
+				myEPlayer.sendMessage("You cannot expand this near to an enemy empire");
+				return false;
+			}
 		}
 		
-		//needs a complete re write for new system.
-				ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
-				
-				UUID worldUUID = myCore.getLocation().getWorld().getUID();
-				
-				// check if its too close to another empire
-				if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){
-					if (isNearEnemyCore(myCore)){
-						myEPlayer.sendMessage("You cannot expand this near to an enemy empire");
-						return false;
-					}
-				}
-				
-				if (myCore.getPlaceType() == PlaceType.EDGE){
-					if (!isEdgeOfEmpire(myCore)){
-						myEPlayer.sendMessage("Amps must be placed on the edge of your empire");
-						return false;
-					}
-				}
-				
-				
-				if (myCore.getPlaceType() == PlaceType.INSIDE){
-					if (!isInsideEmpire(myCore)){
-						myEPlayer.sendMessage("Cannot place outside of empire");
-						return false;
-					}
-				}
-				
-				//we need to check that the cores themselves dont overlap
-				if (coresOverlap(myCore )){
-					myEPlayer.sendMessage("Cores cannot overlap!");
-				}
+		if (myCore.getPlaceType() == PlaceType.EDGE){
+			if (!isEdgeOfEmpire(myCore)){
+				myEPlayer.sendMessage("Amps must be placed on the edge of your empire");
+				return false;
+			}
+		}
+		
+		
+		if (myCore.getPlaceType() == PlaceType.INSIDE){
+			if (!isInsideEmpire(myCore)){
+				myEPlayer.sendMessage("Cannot place outside of empire");
+				return false;
+			}
+		}
+		
+		//we need to check that the cores themselves dont overlap
+		if (coresOverlap(myCore )){
+			myEPlayer.sendMessage("Cores cannot overlap!");
+			return false;
+		}
 				
 		
-		return false;
+		return true;
 	}
 	
 	public boolean coresOverlap( Core myCore){

@@ -29,25 +29,6 @@ public class generatebasecore extends SubCommand{
 		
 		myApi.generateCore(myEPlayer, myCore);
 		
-		
-		
-		
-//		ItemStack item = new ItemStack(Material.BEACON, 1);
-//		ItemMeta im = item.getItemMeta();
-//		im.setDisplayName("base core");
-//		item.setItemMeta(im);
-//		player.getInventory().addItem(item);
-		/*if (empire.hasCoreOfType(CoreType.BASE)) {
-			player.sendMessage(plprefix + ChatColor.RED + "You already have a core of this type");
-			return false;
-		}
-		Core myCore = new Core(myPlugin, myPlugin.Cores.nextUnusedCoreId(), CoreType.BASE, player.getLocation(), 1, empire);
-		empire.addCore(myCore);
-		World world = player.getWorld();
-		UUID uuid = world.getUID();
-		CoreWorld cw = Worlds.getWorlds().get(uuid);
-		cw.addCore(myCore);
-		*/
 		return false;
 		
 	}
