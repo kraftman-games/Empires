@@ -195,7 +195,7 @@ public class EWorld {
 		
 		for (int i = c1x1;i <= c1x2; i +=areaSize){
 			for (int j = c1z1;j <= c1z2; j += areaSize){
-				HashMap<UUID, Core> coreList = getFriendlyCoresInGrid(myCore.getEmpireUUID(),(int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
+				HashMap<UUID, Core> coreList = getFriendlyCoresInGrid(myCore.getEmpireUUID(),i,j);
 				if (coreList == null){
 					return false;
 				}
