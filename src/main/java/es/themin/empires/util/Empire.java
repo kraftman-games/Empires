@@ -263,13 +263,11 @@ public class Empire {
 
 
 	public void broadcastMessage(String message) {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			EPlayer myEPlayer = onlinePlayers.get(player.getUniqueId());
-			if (myEPlayer != null){
-				player.sendMessage(message);
-			}
+		for (EPlayer myEPlayer : onlinePlayers.values()){
+			myEPlayer.sendMessage(message);
 		}
 	}
+	
 	public String getOwnerPrefix() {
 		return ownerprefix;
 	}
