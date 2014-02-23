@@ -379,7 +379,7 @@ public class EmpiresDAL {
 				ResultSet results = stmnt.executeQuery();
 				
 				 while (results.next()) {
-					 UUID worldUUID = UUID.fromString(results.getString("WorldUUI"));
+					 UUID worldUUID = UUID.fromString(results.getString("WorldUUID"));
 					 EWorld myWorld = new EWorld(worldUUID);
 					 myWorlds.put(myWorld.getUUID(), myWorld);
 				}
