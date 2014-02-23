@@ -9,26 +9,28 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
+import es.themin.empires.util.Empire;
 
 public class PlayerManager implements IManager {
 
 	private HashMap<UUID, EPlayer> players;
 	
-    private EmpiresDAL EmpiresDAL;
+    private EmpiresDAL myEmpiresDAL;
     //private Database sql = null;
 	
 	public PlayerManager( EmpiresDAL myEmpiresDAL, HashMap<UUID, EPlayer> players) {
 	    this.players = players;
-	    this.EmpiresDAL = myEmpiresDAL;
+	    this.myEmpiresDAL = myEmpiresDAL;
 	}
 	
     public void save(){
     	Bukkit.getServer().getLogger().info("saving players");
-    	EmpiresDAL.createOrUpdatePlayers(players);
+    	myEmpiresDAL.createOrUpdatePlayers(players);
     }
 
     
     public void load(){
+    	
     	for (Player myPlayer : Bukkit.getOnlinePlayers()){
     		loadEPlayer(myPlayer);
     	}
@@ -71,14 +73,13 @@ public class PlayerManager implements IManager {
 		
 		EPlayer myEPlayer = players.get(myPlayer.getUniqueId());
 		
-
 		if ( myEPlayer!= null){
 			Bukkit.getServer().getLogger().info("player loaded from memory");
 			return myEPlayer;
 		}
 		
 		long timeNow = System.currentTimeMillis()/1000;		
-		myEPlayer = EmpiresDAL.loadPlayer(myPlayer.getUniqueId());
+		myEPlayer = myEmpiresDAL.loadPlayer(myPlayer.getUniqueId());
 		
 		if (myEPlayer == null){
 			myEPlayer = new EPlayer(myPlayer);
@@ -89,7 +90,7 @@ public class PlayerManager implements IManager {
 		}
 
 		myEPlayer.setLastSeen(timeNow);
-		EmpiresDAL.createOrUpdatePlayer(myEPlayer);
+		myEmpiresDAL.createOrUpdatePlayer(myEPlayer);
 		players.put(myEPlayer.getUUID(), myEPlayer);
 		myEPlayer.setPlayer(myPlayer);
 		
@@ -102,7 +103,7 @@ public class PlayerManager implements IManager {
 	public void removePlayer(EPlayer myEPlayer) {
 		
 		players.remove(myEPlayer.getUUID());
-		EmpiresDAL.createOrUpdatePlayer(myEPlayer);
+		myEmpiresDAL.createOrUpdatePlayer(myEPlayer);
 		
 	}
 
@@ -127,6 +128,12 @@ public class PlayerManager implements IManager {
 			}
 		}
 	}
+
+	public HashMap<UUID, EPlayer> getPlayers() {
+		return players;
+	}
+
+	
 
 	
 }

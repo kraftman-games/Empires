@@ -160,10 +160,13 @@ public class Empire {
 	
 	public void addPlayer(EPlayer myEPlayer){
 		if (myEPlayer.getEmpireUUID() == null){
-
 			myEPlayer.setEmpireUUID(this.getUUID());
 			players.put(myEPlayer.getUUID(), myEPlayer);
 			myEPlayer.sendMessage(ChatColor.GREEN + "You were added to " + this.getName());
+		} else if (myEPlayer.getEmpireUUID().equals(ID)){
+			if (players.get(myEPlayer).getUUID() == null){
+				players.put(myEPlayer.getUUID(), myEPlayer);
+			}
 		}
 	}
 	public void removePlayer(String p) {

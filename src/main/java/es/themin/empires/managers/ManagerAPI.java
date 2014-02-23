@@ -53,8 +53,27 @@ public class ManagerAPI {
 		for (IManager m : Managers){
 			m.load();
 		}
+		
+		addPlayersToEmpires();
+		
 	}
 	
+
+
+
+
+
+	private void addPlayersToEmpires() {
+		for(EPlayer myPlayer : Players.getPlayers().values()){
+			if (myPlayer.getEmpireUUID() != null){
+				Empire myEmpire = Empires.getEmpire(myPlayer.getEmpireUUID());
+				myEmpire.addPlayer(myPlayer);
+			}
+		}
+	}
+
+
+
 	public void saveManagers(){
 		for (IManager m : Managers){
 			m.save();
@@ -198,17 +217,26 @@ public class ManagerAPI {
 
 	public void sendChatToEmpire(EPlayer myEPlayer, String chatMessage) {
 
-		Empire empire = getEmpire(myEPlayer.getEmpireUUID());
+		Empire empire = getEmpire(myEPlayer);
 		String rank;
-		if (!(empire.playerHasARank(myEPlayer.getName()))) {
-			if (empire.getOwnerUUID() == myEPlayer.getUUID()) {
-				if (empire.getOwnerPrefix() == null) rank = "king";
-				else rank = empire.getOwnerPrefix();
+		if (!empire.playerHasARank(myEPlayer.getName())) {
+			if (empire.getOwnerUUID().equals(myEPlayer.getUUID())) {
+				if (empire.getOwnerPrefix() == null) {
+					rank = "king";
+				}
+				else {
+					rank = empire.getOwnerPrefix();
+				}
 			}else {
-				if (empire.getDefaultPrefix() == null) rank = "default";
-				else rank = empire.getDefaultPrefix();
+				if (empire.getDefaultPrefix() == null){
+					 rank = "default";
+				} else {
+					rank = empire.getDefaultPrefix();
+				}
 			}
-		}else rank = empire.getRankOfPlayer(myEPlayer.getName()).getPreifx();
+		}else {
+			rank = empire.getRankOfPlayer(myEPlayer.getName()).getPreifx();
+		}
 		String rankc = MsgManager.colourUp(rank);
 		String format = ChatColor.WHITE + "[" + rankc + ChatColor.WHITE + "] [" + myEPlayer.getName() + ChatColor.WHITE + "] ";
 		empire.broadcastMessage(format + ChatColor.YELLOW + chatMessage);
@@ -251,6 +279,8 @@ public class ManagerAPI {
 			}
 		}
 	}
+	
+	
 
 
 

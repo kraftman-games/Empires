@@ -34,7 +34,7 @@ public abstract class Schematic {
 	}
 	public abstract void pasteFromCentre(Location location);
 	public void destroyFromCentre(Location location) {
-		for (Block b:getBlocks(location)) {
+		for (Block b : getBlocks(location)) {
 			b.setType(Material.AIR);
 		}
 	}

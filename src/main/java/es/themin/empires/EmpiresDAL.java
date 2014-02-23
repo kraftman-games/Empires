@@ -71,7 +71,7 @@ public class EmpiresDAL {
 		return null;
 	}
 
-
+	
 
 	public HashMap<UUID,Empire> loadEmpires() {
 		HashMap<UUID,Empire> myEmpires = new HashMap<UUID,Empire>();
