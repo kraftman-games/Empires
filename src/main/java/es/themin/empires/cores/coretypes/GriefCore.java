@@ -11,7 +11,6 @@ import es.themin.empires.cores.CoreBlock;
 import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
-import es.themin.empires.util.EPlayer;
 
 public class GriefCore extends Core implements ICore{
 

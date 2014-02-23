@@ -6,7 +6,6 @@ import org.bukkit.Location;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.ICore;
-import es.themin.empires.util.EPlayer;
 
 public class MobCore extends Core implements ICore{
 

@@ -10,7 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.schematics.base.Schematic_Base_1;
-import es.themin.empires.util.EPlayer;
 
 public class Event_BlockPlace implements Listener{
 	private ManagerAPI myApi = null;

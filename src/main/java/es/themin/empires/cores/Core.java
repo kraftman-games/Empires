@@ -2,7 +2,6 @@
 package es.themin.empires.cores;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Location;
@@ -15,7 +14,6 @@ import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.PlaceType;
 import es.themin.empires.schematics.Schematic;
-import es.themin.empires.util.EPlayer;
 
 public class Core {
 	

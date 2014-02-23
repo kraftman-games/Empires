@@ -1,6 +1,5 @@
 package es.themin.empires.listeners;
 
-import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkPopulateEvent;

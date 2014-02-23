@@ -1,23 +1,17 @@
 package es.themin.empires.managers;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.world.WorldSaveEvent;
-import org.bukkit.permissions.PermissionDefault;
 
 import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
-import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.enums.PlaceType;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;

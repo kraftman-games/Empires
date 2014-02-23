@@ -1,10 +1,6 @@
 package es.themin.empires.cores;
 
-import java.util.ArrayList;
-
 import org.bukkit.Material;
-
-import es.themin.empires.enums.ProtectionType;
 
 public class CoreBlock {
 	private int offsetX;

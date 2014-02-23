@@ -8,7 +8,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerShearEntityEvent;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;

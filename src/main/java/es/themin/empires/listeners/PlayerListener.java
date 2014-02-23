@@ -1,11 +1,6 @@
 package es.themin.empires.listeners;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
-
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,11 +10,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import es.themin.empires.cores.Core;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.EWorld;
-import es.themin.empires.util.Empire;
 
 public class PlayerListener implements Listener{
 	

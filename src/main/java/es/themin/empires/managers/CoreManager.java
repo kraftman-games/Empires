@@ -3,8 +3,6 @@ package es.themin.empires.managers;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.ChatColor;
-
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;

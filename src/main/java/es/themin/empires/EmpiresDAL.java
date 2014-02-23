@@ -20,7 +20,6 @@ import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
-import es.themin.empires.util.testing.newemp;
 
 public class EmpiresDAL {
 

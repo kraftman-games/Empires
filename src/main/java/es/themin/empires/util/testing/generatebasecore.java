@@ -1,11 +1,7 @@
 package es.themin.empires.util.testing;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
@@ -13,7 +9,6 @@ import es.themin.empires.cores.CoreFactory;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.Empire;
 
 public class generatebasecore extends SubCommand{
 

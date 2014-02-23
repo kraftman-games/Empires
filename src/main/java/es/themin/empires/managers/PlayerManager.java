@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.Empire;
 
 public class PlayerManager implements IManager {
 

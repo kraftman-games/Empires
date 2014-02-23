@@ -6,13 +6,9 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.command.defaults.SaveCommand;
-
-import com.mysql.jdbc.jmx.LoadBalanceConnectionGroupManager;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.util.EWorld;
-import es.themin.empires.util.testing.newemp;
 
 public class WorldManager implements IManager{
 
