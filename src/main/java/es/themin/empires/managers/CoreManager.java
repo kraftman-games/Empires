@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.cores.Core;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Empire;
 
 public class CoreManager implements IManager{
@@ -66,6 +67,17 @@ public class CoreManager implements IManager{
 		cores = empiresDAL.loadCores();		
 	}
 
+	public HashMap<UUID, Core> getEmpireCores(UUID uuid, CoreType type) {
+
+		HashMap<UUID, Core> myCores = getEmpireCores(uuid);
+		HashMap<UUID, Core> filteredCores = new HashMap<UUID, Core>();
+		for (Core myCore : myCores.values()){
+			if (myCore.getType() == type){
+				filteredCores.put(myCore.getUUID(), myCore);
+			}
+		}		
+		return filteredCores;
+	}
 }
 
 

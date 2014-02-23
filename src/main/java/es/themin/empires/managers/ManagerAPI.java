@@ -221,41 +221,32 @@ public class ManagerAPI {
 
 	public void generateCore(EPlayer myEPlayer, Core myCore) {
 		
-		//so really by here we need a core object so that we can pull its paramters liek coretype, schem, etc
-		// without having to pass them in one by one
-		
-		
 		Empire myEmpire = getEmpire(myEPlayer);
 		EWorld myWorld = getWorld(myEPlayer);
 		
-		if (!myWorld.playerCanPlaceCore(myEPlayer, myCore)){
+		if (!myEmpire.canExpand(myEPlayer, myCore)){
 			return;
 		}
 		
-		if (!playerCanAffordCore(myEPlayer, myCore)){
-			return;
+		
+		if (myWorld.coreLocationIsValid(myEPlayer, myCore)){
+			if (playerCanAffordCore(myEPlayer, myCore)){
+				if (playerHasPermission(myEPlayer, myCore.getPlacePermission())){
+					HashMap<UUID, Core> myCores = Cores.getEmpireCores(myEmpire.getUUID(), myCore.getType());
+					
+					if (myCores.size() >= myEmpire.getCoreLimit(myCore.getType())){
+						myEPlayer.sendMessage("You cannot create any more of those cores yet!");
+					} else {
+						myCore.setEmpireUUID(myEmpire.getUUID());
+						myWorld.addCore(myCore);
+						Cores.addCore(myCore);
+						
+						//core.StartBuild
+						//charge the player
+					}
+				}
+			}
 		}
-		
-//		if (!playerHasPermission(myEPlayer, myCore.placePermission)){
-//			return;
-//		}
-		
-		
-		
-		HashMap<UUID, Core> myCores = Cores.getEmpireCores(myEmpire.getUUID());
-		
-		
-		
-		
-		//check they have permission to place it
-		
-		//check its not near where it shouldnt be
-		
-		//place it
-		
-		//charge the player
-		
-		//add it to empire
 	}
 
 

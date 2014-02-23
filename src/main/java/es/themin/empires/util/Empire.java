@@ -9,6 +9,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.cores.Core;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.wars.Battle;
 import es.themin.empires.wars.War;
@@ -44,6 +46,8 @@ public class Empire {
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
 	
+	private HashMap<CoreType, Integer> coreLimits;
+	
 	public Empire getEnemyEmpire() {
 		return enemyEmpire;
 	}
@@ -73,6 +77,14 @@ public class Empire {
 		this.lastbattlewin = (long) 0;
 		this.allyrequests = new HashMap<Empire,Long>();
 		this.timeline = new HashMap<Long,String>();
+		
+		coreLimits.put(CoreType.BASE, 1);
+		coreLimits.put(CoreType.GRIEF, 10);
+		coreLimits.put(CoreType.FARM, 0);
+		coreLimits.put(CoreType.FORTIFICATION, 0);
+		coreLimits.put(CoreType.MOB, 0);
+		coreLimits.put(CoreType.MONSTER, 0);
+		coreLimits.put(CoreType.OUTPOST, 0);
 	}
 	
 	
@@ -487,6 +499,24 @@ public class Empire {
 	public Integer getXP() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int getCoreLimit(CoreType type) {
+		return coreLimits.get(type);
+	}
+
+	public boolean canExpand(EPlayer myEPlayer, Core myCore) {
+		//check the empire is in a state where it can expand
+		if (getEmpireState() != EmpireState.BATTLEREADY){
+			if (getEmpireState() == EmpireState.ATWAR){
+				myEPlayer.sendMessage("You cannot expand your empire while you are at war!");
+				return false;
+			} else if (getEmpireState() == EmpireState.REBUILDING){
+				myEPlayer.sendMessage("You cannot expand your empire until it has rebuilt!");
+				return false;
+			} 
+		}
+		return true;
 	}
 
 	

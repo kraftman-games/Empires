@@ -1,6 +1,7 @@
 package es.themin.empires.util;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import es.themin.empires.cores.Core;
+import es.themin.empires.enums.PlaceType;
 
 public class EWorld {
 	
@@ -291,7 +293,7 @@ public class EWorld {
 		return myUUID;
 	}
 
-	public boolean playerCanPlaceCore(EPlayer myEPlayer, Core myCore) {
+	public boolean coreLocationIsValid(EPlayer myEPlayer, Core myCore) {
 		// TODO Auto-generated method stub
 		switch (myCore.getPlaceType()) {
 		case INSIDE:
@@ -309,6 +311,68 @@ public class EWorld {
 			break;
 		}
 		
+		//needs a complete re write for new system.
+				ArrayList<Integer> nearbyCores = new ArrayList<Integer>();
+				
+				UUID worldUUID = myCore.getLocation().getWorld().getUID();
+				
+				// check if its too close to another empire
+				if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){
+					if (isNearEnemyCore(myCore)){
+						myEPlayer.sendMessage("You cannot expand this near to an enemy empire");
+						return false;
+					}
+				}
+				
+				if (myCore.getPlaceType() == PlaceType.EDGE){
+					if (!isEdgeOfEmpire(myCore)){
+						myEPlayer.sendMessage("Amps must be placed on the edge of your empire");
+						return false;
+					}
+				}
+				
+				
+				if (myCore.getPlaceType() == PlaceType.INSIDE){
+					if (!isInsideEmpire(myCore)){
+						myEPlayer.sendMessage("Cannot place outside of empire");
+						return false;
+					}
+				}
+				
+				//we need to check that the cores themselves dont overlap
+				if (coresOverlap(myCore )){
+					myEPlayer.sendMessage("Cores cannot overlap!");
+				}
+				
+		
+		return false;
+	}
+	
+	public boolean coresOverlap( Core myCore){
+		HashMap<UUID, Core> myCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), myCore.getLocation());
+		
+		if (myCores == null){
+			return false;
+		}
+		
+		int coreSize = myCore.getCoreSize();
+		int c1x1 = myCore.getLocation().getBlockX()-coreSize;
+		int c1x2 = myCore.getLocation().getBlockX()+coreSize;
+		int c1z1 = myCore.getLocation().getBlockZ()-coreSize;
+		int c1z2 = myCore.getLocation().getBlockZ()+coreSize;
+		
+		for(Core friendlyCore : myCores.values()){
+			
+			int coreSize2 = friendlyCore.getCoreSize();
+			int c2x1 = friendlyCore.getLocation().getBlockX()-coreSize2;
+			int c2x2 = friendlyCore.getLocation().getBlockX()+coreSize2;
+			int c2z1 = friendlyCore.getLocation().getBlockZ()-coreSize2;
+			int c2z2 = friendlyCore.getLocation().getBlockZ()+coreSize2;
+			
+			if(!(c1x2 < c2x1 || c1x1 > c2x2 || c1z2 < c2z1 || c1z1 > c2z2)){
+				return true;
+			}
+		}
 		return false;
 	}
 }
