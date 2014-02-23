@@ -72,8 +72,10 @@ public class PlayerManager implements IManager {
 		EPlayer myEPlayer = players.get(myPlayer.getUniqueId());
 		
 
-		if ( myEPlayer!= null)
+		if ( myEPlayer!= null){
+			Bukkit.getServer().getLogger().info("player loaded from memory");
 			return myEPlayer;
+		}
 		
 		long timeNow = System.currentTimeMillis()/1000;		
 		myEPlayer = EmpiresDAL.loadPlayer(myPlayer.getUniqueId());
@@ -81,8 +83,9 @@ public class PlayerManager implements IManager {
 		if (myEPlayer == null){
 			myEPlayer = new EPlayer(myPlayer);
 			myEPlayer.setFirstSeen(timeNow);
+			Bukkit.getServer().getLogger().info("new player created");
 		} else {
-			
+			Bukkit.getServer().getLogger().info("player loaded from DB");
 		}
 
 		myEPlayer.setLastSeen(timeNow);
