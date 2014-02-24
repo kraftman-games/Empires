@@ -326,6 +326,8 @@ public class ManagerAPI {
 		
 		if (!myEnemyCores.isEmpty()){
 			//deal with them attacking an enemy
+			myPlayer.sendMessage("You can't attack enemies right now!");
+			event.setCancelled(true);
 		}
 		
 		HashMap<UUID, Core> myFriendlyCores = filterFriendlyCores(myCores, myEmpire.getUUID());
@@ -412,6 +414,7 @@ public class ManagerAPI {
 		
 		if (!myEnemyCores.isEmpty()){
 			//deal with them attacking an enemy
+			event.setCancelled(true);
 		}
 		
 		HashMap<UUID, Core> myFriendlyCores = filterFriendlyCores(myCores, myEmpire.getUUID());
