@@ -17,6 +17,7 @@ import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
+import es.themin.empires.util.testing.newemp;
 
 public class ManagerAPI {
 
@@ -304,65 +305,63 @@ public class ManagerAPI {
 		
 		
 		
-		Debug.Console("listing world grid points:");
-		
-		myEWorld.listPoints();
-		
-		
-		HashMap<UUID, Core> myCores = myEWorld.getCoresInGrid(myBlock.getX(), myBlock.getZ());
-		
-		
-		ArrayList<Core> myMatchingCores = new ArrayList<Core>();
-		
-		Core selectedCore = null;
-		
-		boolean isCoreBlock = false;
-		
-		if (myCores != null){
-			Debug.Console(myCores.size()+" cores found in grid");
-			for(Core myCore : myCores.values()){
-				if (myCore.isAreaBlock(myBlock)){
-					
-					//if its a core block then this is the only core we care about
-					if (myCore.isCoreBlock(myBlock)){
-						isCoreBlock = true;
-						myMatchingCores = new ArrayList<Core>();
-						myMatchingCores.add(myCore);
-						break;
-					}
-					myMatchingCores.add(myCore);
-				}
-			}
-		}
-
-		if (myMatchingCores == null || myMatchingCores.isEmpty()){
-			return;
-		}
-		
-		selectedCore = chooseCore(myMatchingCores);
-		
 		if (myEPlayer.getEmpireUUID() == null){
 			myEPlayer.sendMessage("You cannot attack other empires until you are in one!");
 			event.setCancelled(true);
 			return;
 		}
 		
+		HashMap<UUID, Core> myCores = myEWorld.getCores(myBlock.getX(), myBlock.getZ());
 		
-		// if its the players own empire
-		if (selectedCore.getEmpireUUID().equals(myEPlayer.getEmpireUUID())){
-			if (isCoreBlock){
+		if (myCores == null || myCores.isEmpty()){
+			//the block isnt in an empire, we dont care
+			return;
+		}
+		
+		HashMap<UUID, Core> myEnemyCores = filterFriendlyCores(myEmpire.getUUID());
+		
+		if (!myEnemyCores.isEmpty()){
+			//deal with them attacking an enemy
+		}
+		
+		HashMap<UUID, Core> myFriendlyCore = filterFriendlyCores(myEmpire.getUUID());
+		
+		if (!myFriendlyCore.isEmpty()){
+			myFriendlyCore = filterByCenterOverlap(myFriendlyCore, myBlock.getX(), myBlock.getY(), myBlock.getZ());
+			if (!myFriendlyCore.isEmpty()){
 				myPlayer.sendMessage("You cannot destroy your own core!");
-				event.setCancelled(true);
-				return;
-			} else {
-				//check its not some special block we havnt invented yet
 			}
-		} else {
-			//its an enemy empire, which can either be protected (repairing) at war, or ready for war.
-//			if (selectedCore.getEmpire().canPlayerAttack(myEPlayer)){
-//				//selectedCore.getEmpire().startWar(eventPlayerEmpire);
-//			}
-		}			
+		}
+			
+	}
+
+
+
+
+	private HashMap<UUID, Core> filterByCenterOverlap(HashMap<UUID, Core> myFriendlyCore, int x, int y, int z) {
+		HashMap<UUID, Core> myCores = new HashMap<UUID, Core>();
+		for(Core myCore : myCores.values()){
+			if (myCore.isInCore(x, y, z));
+		}
+		return myCores;
+	}
+
+
+
+	private HashMap<UUID, Core> filterFriendlyCores(UUID uuid) {
+		HashMap<UUID, Core> friendlyCores = new HashMap<UUID, Core>();
+		for(Core myCore : friendlyCores.values()){
+			if (myCore.getUUID().equals(uuid));
+		}
+		return friendlyCores;
+	}
+	
+	private HashMap<UUID, Core> filterEnemyCores(UUID uuid) {
+		HashMap<UUID, Core> enemyCores = new HashMap<UUID, Core>();
+		for(Core myCore : enemyCores.values()){
+			if (myCore.getUUID().equals(uuid));
+		}
+		return enemyCores;
 	}
 
 

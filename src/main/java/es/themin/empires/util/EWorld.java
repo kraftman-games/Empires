@@ -12,6 +12,7 @@ import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
+import es.themin.empires.util.testing.newemp;
 
 public class EWorld {
 	
@@ -361,39 +362,40 @@ public class EWorld {
 		return false;
 	}
 
-	public void listPoints() {
-		for(Point myPoint : CoreGrid.keySet()){
-			Debug.Console("X: "+myPoint.getX()+" Z: "+myPoint.getY());
-		}
-	}
-
 	public UUID getEmpireUUID(Location newLocation) {
+		int x = (int) newLocation.getX();
+		int z = (int) newLocation.getZ();
 		
-			
-			int x = (int) newLocation.getX();
-			int z = (int) newLocation.getZ();
-			
-			HashMap<UUID, Core> myCores = getCoresInGrid(x, z);
-			if (myCores == null ){
-				return null;
-			}
-			
-			
-			for (Core myFriendlyCore : myCores.values()){
-				int areaSize = myFriendlyCore.getAreaSize();
-				int x1 = myFriendlyCore.getLocation().getBlockX()-areaSize;
-				int x2 = myFriendlyCore.getLocation().getBlockX()+areaSize;
-				int z1 = myFriendlyCore.getLocation().getBlockZ()-areaSize;
-				int z2 = myFriendlyCore.getLocation().getBlockZ()+areaSize;
-				
-				if ((x > x1 && x < x2 && z > z1 && z < z2) && myFriendlyCore.getPlaceType() != PlaceType.ENEMY){
-					return myFriendlyCore.getEmpireUUID();
-				}
-		}
-			
+		HashMap<UUID, Core> myCores = getCoresInGrid(x, z);
+		if (myCores == null ){
 			return null;
+		}
 		
+		for (Core myCore : myCores.values()){				
+			if (myCore.isInArea(x,  z)){
+				return myCore.getEmpireUUID();
+			}
+		}
+		return null;
 	}
+	
+	public HashMap<UUID, Core> getCores(Integer locX, Integer locZ){
+		HashMap<UUID, Core> myCores = getCoresInGrid(locX, locZ);
+		if (myCores == null ){
+			return null;
+		}
+		
+		HashMap<UUID, Core> myOverlappingCores = new HashMap<UUID, Core>();
+		
+		for (Core myCore : myCores.values()){				
+			if (myCore.isInArea(locX,  locZ)){
+				myOverlappingCores.put(myCore.getUUID(), myCore);
+			}
+		}
+		return myOverlappingCores;
+	}
+	
+	
 }
 
 

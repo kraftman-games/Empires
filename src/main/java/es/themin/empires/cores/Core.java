@@ -262,20 +262,16 @@ public class Core {
 		this.destroyCost = destroyCost;
 	}
 	
-	public boolean isCoreBlock(Block myBlock){
+	public boolean isInCore(Integer locX, Integer locY, Integer locZ){
 		Integer x = this.getLocation().getBlockX();
 		Integer z = this.getLocation().getBlockZ();
 		Integer y = this.getLocation().getBlockY();
 		
-		Integer blockX = myBlock.getX();
-		Integer blockY = myBlock.getY();
-		Integer blockZ = myBlock.getZ();
+		Debug.Console("Xmin: "+(x - coreSize)+" Zmin: "+ (z - coreSize)+ " BlockX: " + locX + " BlockZ: " + locZ );
 		
-		Debug.Console("Xmin: "+(x - coreSize)+" Zmin: "+ (z - coreSize)+ " BlockX: " + blockX + " BlockZ: " + blockZ );
-		
-		if (x - coreSize < blockX && x + coreSize > blockX){
-			if (z - coreSize < blockZ && z + coreSize > blockZ){
-				if (y - coreSize < blockY && y + coreSize > blockY){
+		if (x - coreSize < locX && x + coreSize > locX){
+			if (z - coreSize < locZ && z + coreSize > locZ){
+				if (y - coreSize < locY && y + coreSize > locY){
 					return true;
 				}
 			}
@@ -283,13 +279,20 @@ public class Core {
 		return false;
 	}
 	
-	public boolean isAreaBlock(Block myBlock){
+	public Boolean isInArea(Block myBlock){
+		return isInArea(myBlock.getX(), myBlock.getZ());
+	}
+	
+	public Boolean isInCore(Block myBlock){
+		return isInCore(myBlock.getX(), myBlock.getY(), myBlock.getZ());
+	}
+	
+	public boolean isInArea(Integer locX, Integer locZ){
 		Integer x = this.getLocation().getBlockX();
 		Integer z = this.getLocation().getBlockZ();
-		Integer y = this.getLocation().getBlockY();
 		
-		if (x - this.getAreaSize() < myBlock.getX() && x + this.getAreaSize() > myBlock.getX()){
-			if (z - this.getAreaSize() < myBlock.getZ() && z + this.getAreaSize() > myBlock.getZ()){
+		if (x - this.getAreaSize() < locX && x + this.getAreaSize() > locX){
+			if (z - this.getAreaSize() < locZ && z + this.getAreaSize() > locZ){
 				return true;
 			}
 		}
