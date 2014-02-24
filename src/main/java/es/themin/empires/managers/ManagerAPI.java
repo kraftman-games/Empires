@@ -394,6 +394,11 @@ public class ManagerAPI {
 	public void handleBlockRightClick(PlayerInteractEvent event) {
 
 		Block myBlock = event.getClickedBlock();
+		
+		if (myBlock == null){
+			return;
+		}
+		
 		EPlayer myEPlayer = getEPlayer(event.getPlayer());
 		Empire myEmpire = getEmpire(myEPlayer);
 		Player myPlayer = event.getPlayer();
