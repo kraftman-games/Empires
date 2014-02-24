@@ -351,7 +351,9 @@ public class ManagerAPI {
 	private HashMap<UUID, Core> filterByCenterOverlap(HashMap<UUID, Core> myFriendlyCore, int x, int y, int z) {
 		HashMap<UUID, Core> myCores = new HashMap<UUID, Core>();
 		for(Core myCore : myFriendlyCore.values()){
-			if (myCore.isInCore(x, y, z));
+			if (myCore.isInCore(x, y, z)){
+				myCores.put(myCore.getUUID(), myCore);
+			}
 		}
 		return myCores;
 	}
