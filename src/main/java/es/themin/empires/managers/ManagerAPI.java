@@ -362,16 +362,22 @@ public class ManagerAPI {
 
 
 
-	private HashMap<UUID, Core> filterFriendlyCores(HashMap<UUID, Core> friendlyCores, UUID uuid) {
-		for(Core myCore : friendlyCores.values()){
-			if (myCore.getEmpireUUID().equals(uuid));
+	private HashMap<UUID, Core> filterFriendlyCores(HashMap<UUID, Core> myCores, UUID uuid) {
+		HashMap<UUID, Core> friendlyCores = new HashMap<UUID, Core>();
+		for(Core myCore : myCores.values()){
+			if (myCore.getEmpireUUID().equals(uuid)){
+				friendlyCores.put(myCore.getUUID(), myCore);
+			}
 		}
 		return friendlyCores;
 	}
 	
-	private HashMap<UUID, Core> filterEnemyCores(HashMap<UUID, Core> enemyCores, UUID uuid) {
-		for(Core myCore : enemyCores.values()){
-			if (!myCore.getEmpireUUID().equals(uuid));
+	private HashMap<UUID, Core> filterEnemyCores(HashMap<UUID, Core> myCores, UUID uuid) {
+		HashMap<UUID, Core> enemyCores = new HashMap<UUID, Core>();
+		for(Core myCore : myCores.values()){
+			if (!myCore.getEmpireUUID().equals(uuid)){
+				enemyCores.put(myCore.getUUID(), myCore);
+			}
 		}
 		return enemyCores;
 	}
