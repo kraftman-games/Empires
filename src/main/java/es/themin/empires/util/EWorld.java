@@ -10,6 +10,7 @@ import org.bukkit.World;
 
 import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
 
 public class EWorld {
@@ -251,10 +252,8 @@ public class EWorld {
 				if (!isInEmpire(myCore, myPoint)){
 					return false;
 				}
-				
 			}
 		}
-		
 		return true;
 	}
 	
@@ -366,6 +365,34 @@ public class EWorld {
 		for(Point myPoint : CoreGrid.keySet()){
 			Debug.Console("X: "+myPoint.getX()+" Z: "+myPoint.getY());
 		}
+	}
+
+	public UUID getEmpire(Location newLocation) {
+		
+			
+			int x = (int) newLocation.getX();
+			int z = (int) newLocation.getY();
+			
+			HashMap<UUID, Core> myCores = getCoresInGrid(x, z);
+			if (myCores == null ){
+				return null;
+			}
+			
+			
+			for (Core myFriendlyCore : myCores.values()){
+				int areaSize = myFriendlyCore.getAreaSize();
+				int x1 = myFriendlyCore.getLocation().getBlockX()-areaSize;
+				int x2 = myFriendlyCore.getLocation().getBlockX()+areaSize;
+				int z1 = myFriendlyCore.getLocation().getBlockZ()-areaSize;
+				int z2 = myFriendlyCore.getLocation().getBlockZ()+areaSize;
+				
+				if ((x > x1 && x < x2 && z > z1 && z < z2) && myFriendlyCore.getPlaceType() != PlaceType.ENEMY){
+					return myFriendlyCore.getEmpireUUID();
+				}
+		}
+			
+			return null;
+		
 	}
 }
 

@@ -19,7 +19,8 @@ public class EPlayer {
 	private Boolean isInEmpireChat = false;
 	private long lastLocationCheck = 0;
 	
-	private Boolean insideEmpire = true;
+	private Location lastLocation;
+	private String lastLocationName;
 	
 	
 	public long getLastLocationCheck() {
@@ -38,7 +39,6 @@ public class EPlayer {
 		this.lastLocation = myLocation;
 	}
 
-	private Location lastLocation;
 
 	public long getLastSeen() {
 		return lastSeen;
@@ -58,6 +58,14 @@ public class EPlayer {
 
 	public UUID getUUID() {
 		return UUID;
+	}
+
+	public String getLastLocationName() {
+		return lastLocationName;
+	}
+
+	public void setLastLocationName(String lastLocationName) {
+		this.lastLocationName = lastLocationName;
 	}
 
 	public void setUUID(UUID uUID) {
@@ -82,6 +90,7 @@ public class EPlayer {
 	public EPlayer(Player player) {
 		UUID = player.getUniqueId();
 		name = player.getName();
+		lastLocation = player.getLocation();
 	}
 
 	public String getName() {
@@ -100,13 +109,9 @@ public class EPlayer {
 	}
 	
 	public Location getLocation(){
-		for(Player p : Bukkit.getServer().getOnlinePlayers()){
-            if(p.getUniqueId().equals(this.getUUID())){
-                return p.getLocation();
-            }
-        }
-            return null;
+		return player.getLocation();
 	}
+	
 //
 	public Player loadEPlayer() {
 		for(Player p : Bukkit.getServer().getOnlinePlayers()){

@@ -1,6 +1,9 @@
 package es.themin.empires.listeners;
 
 
+import java.util.UUID;
+
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +16,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
+import es.themin.empires.util.EWorld;
+import es.themin.empires.util.Empire;
 
 public class PlayerListener implements Listener{
 	
@@ -51,7 +56,31 @@ public class PlayerListener implements Listener{
 		long time = System.currentTimeMillis() % 1000;
 		EPlayer myEPlayer = myApi.getEPlayer(event.getPlayer());
 		
-		event.getPlayer().getLocation().getBlock();
+		Location newLocation = event.getPlayer().getLocation().getBlock().getLocation();
+		EWorld myEWorld = myApi.getEWorld(myEPlayer.getWorld().getUID());
+		
+		if (myEPlayer.getLastLocationCheck() < time - 1000){
+			if (newLocation.equals(myEPlayer.getLastLocation())){
+				//they havent moved
+			} else {
+				UUID empireUuid = myEWorld.getEmpire(newLocation);
+				String locationName = "Wilderness";
+				if (empireUuid != null){
+					Empire myEmpire = myApi.getEmpire(empireUuid);
+					locationName = myEmpire.getName();
+				}
+				if (myEPlayer.getLastLocationName() != locationName){
+					myEPlayer.sendMessage("~"+locationName);
+					myEPlayer.setLastLocationName(locationName);
+				}
+				
+				
+				myEPlayer.setLastLocation(newLocation);
+			}
+			
+			
+			myEPlayer.setLastLocationCheck(time);
+		}
 		
 		//check every x ms
 		//round their location down to the nearest block
