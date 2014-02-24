@@ -76,7 +76,7 @@ public class PlayerManager implements IManager {
 			return myEPlayer;
 		}
 		
-		long timeNow = System.currentTimeMillis();		
+		long timeNow = System.currentTimeMillis()/1000;		
 		myEPlayer = myEmpiresDAL.loadPlayer(myPlayer.getUniqueId());
 		
 		if (myEPlayer == null){

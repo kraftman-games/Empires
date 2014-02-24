@@ -367,11 +367,11 @@ public class EWorld {
 		}
 	}
 
-	public UUID getEmpire(Location newLocation) {
+	public UUID getEmpireUUID(Location newLocation) {
 		
 			
 			int x = (int) newLocation.getX();
-			int z = (int) newLocation.getY();
+			int z = (int) newLocation.getZ();
 			
 			HashMap<UUID, Core> myCores = getCoresInGrid(x, z);
 			if (myCores == null ){
