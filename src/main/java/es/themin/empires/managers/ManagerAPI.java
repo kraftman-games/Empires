@@ -361,7 +361,7 @@ public class ManagerAPI {
 	private HashMap<UUID, Core> filterFriendlyCores(UUID uuid) {
 		HashMap<UUID, Core> friendlyCores = new HashMap<UUID, Core>();
 		for(Core myCore : friendlyCores.values()){
-			if (myCore.getUUID().equals(uuid));
+			if (myCore.getEmpireUUID().equals(uuid));
 		}
 		return friendlyCores;
 	}
@@ -369,7 +369,7 @@ public class ManagerAPI {
 	private HashMap<UUID, Core> filterEnemyCores(UUID uuid) {
 		HashMap<UUID, Core> enemyCores = new HashMap<UUID, Core>();
 		for(Core myCore : enemyCores.values()){
-			if (!myCore.getUUID().equals(uuid));
+			if (!myCore.getEmpireUUID().equals(uuid));
 		}
 		return enemyCores;
 	}
