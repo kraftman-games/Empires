@@ -404,16 +404,18 @@ public class ManagerAPI {
 		Player myPlayer = event.getPlayer();
 		EWorld myEWorld = getEWorld(myBlock.getLocation().getWorld().getUID());
 		
-		if (myEPlayer.getEmpireUUID() == null){
-			//myEPlayer.sendMessage("You cannot attack other empires until you are in one!");
-			//event.setCancelled(true);
-			return;
-		}
+		
 		
 		HashMap<UUID, Core> myCores = myEWorld.getCores(myBlock.getX(), myBlock.getZ());
 		
 		if (myCores == null || myCores.isEmpty()){
 			//the block isnt in an empire, we dont care
+			return;
+		}
+		
+		if (myEPlayer.getEmpireUUID() == null){
+			//myEPlayer.sendMessage("You cannot attack other empires until you are in one!");
+			event.setCancelled(true);
 			return;
 		}
 		
