@@ -48,8 +48,9 @@ public class PlayerListener implements Listener{
 	@EventHandler
 	  public void onPlayerInteractEvent(PlayerInteractEvent event){
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK){
-			myApi.handleBlockClick(event);
-		} else if (event.getAction() == Action.RIGHT_CLICK_AIR){
+			myApi.handleBlockLeftClick(event);
+		} else if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK){
+			myApi.handleBlockRightClick(event);
 			
 		}
 	}

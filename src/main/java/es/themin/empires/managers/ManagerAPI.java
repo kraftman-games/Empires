@@ -295,7 +295,7 @@ public class ManagerAPI {
 
 
 
-	public void handleBlockClick(PlayerInteractEvent event) {
+	public void handleBlockLeftClick(PlayerInteractEvent event) {
 		
 		Block myBlock = event.getClickedBlock();
 		EPlayer myEPlayer = getEPlayer(event.getPlayer());
@@ -379,5 +379,55 @@ public class ManagerAPI {
 	private Core chooseCore(ArrayList<Core> myMatchingCores) {
 		//later we might want to choose how we sort overlappign cores
 		return myMatchingCores.get(0);
+	}
+
+
+
+	public void handleBlockRightClick(PlayerInteractEvent event) {
+
+		Block myBlock = event.getClickedBlock();
+		EPlayer myEPlayer = getEPlayer(event.getPlayer());
+		Empire myEmpire = getEmpire(myEPlayer);
+		Player myPlayer = event.getPlayer();
+		EWorld myEWorld = getEWorld(myBlock.getLocation().getWorld().getUID());
+		
+		if (myEPlayer.getEmpireUUID() == null){
+			//myEPlayer.sendMessage("You cannot attack other empires until you are in one!");
+			//event.setCancelled(true);
+			return;
+		}
+		
+		HashMap<UUID, Core> myCores = myEWorld.getCores(myBlock.getX(), myBlock.getZ());
+		
+		if (myCores == null || myCores.isEmpty()){
+			//the block isnt in an empire, we dont care
+			return;
+		}
+		
+		Debug.Console(myCores.size()+" cores found");
+		
+		HashMap<UUID, Core> myEnemyCores = filterEnemyCores(myCores, myEmpire.getUUID());
+		
+		Debug.Console(myEnemyCores.size()+" enemy cores found");
+		
+		if (!myEnemyCores.isEmpty()){
+			//deal with them attacking an enemy
+		}
+		
+		HashMap<UUID, Core> myFriendlyCores = filterFriendlyCores(myCores, myEmpire.getUUID());
+		
+		Debug.Console(myFriendlyCores.size()+" friendly cores found");
+		
+		if (!myFriendlyCores.isEmpty()){
+			myFriendlyCores = filterByCenterOverlap(myFriendlyCores, myBlock.getX(), myBlock.getY(), myBlock.getZ());
+			
+			Debug.Console(myFriendlyCores.size()+" center cores found");
+			
+			if (!myFriendlyCores.isEmpty()){
+				myPlayer.sendMessage("You cannot build on your own core!");
+				event.setCancelled(true);
+			}
+		}
+		
 	}
 }
