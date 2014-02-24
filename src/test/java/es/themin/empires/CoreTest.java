@@ -17,6 +17,8 @@ public class CoreTest {
 	private Location myEnemyLocation;
 	
 	
+	
+	
 //	@Before
 //	public void setupEnvironment(){
 //		UtilManager.empires = new ArrayList<Empire>();

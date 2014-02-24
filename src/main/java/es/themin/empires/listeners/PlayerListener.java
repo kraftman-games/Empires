@@ -59,7 +59,7 @@ public class PlayerListener implements Listener{
 		Location newLocation = event.getPlayer().getLocation().getBlock().getLocation();
 		EWorld myEWorld = myApi.getEWorld(myEPlayer.getWorld().getUID());
 		
-		if (myEPlayer.getLastLocationCheck() < time - 1000){
+		if (myEPlayer.getLastLocationCheck() < (time - 1000)){
 			if (newLocation.equals(myEPlayer.getLastLocation())){
 				//they havent moved
 			} else {

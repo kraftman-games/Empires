@@ -73,11 +73,10 @@ public class PlayerManager implements IManager {
 		EPlayer myEPlayer = players.get(myPlayer.getUniqueId());
 		
 		if ( myEPlayer!= null){
-			Bukkit.getServer().getLogger().info("player loaded from memory");
 			return myEPlayer;
 		}
 		
-		long timeNow = System.currentTimeMillis()/1000;		
+		long timeNow = System.currentTimeMillis();		
 		myEPlayer = myEmpiresDAL.loadPlayer(myPlayer.getUniqueId());
 		
 		if (myEPlayer == null){
