@@ -320,17 +320,24 @@ public class ManagerAPI {
 		
 		Debug.Console(myCores.size()+" cores found");
 		
-		HashMap<UUID, Core> myEnemyCores = filterFriendlyCores(myEmpire.getUUID());
+		HashMap<UUID, Core> myEnemyCores = filterEnemyCores(myEmpire.getUUID());
+		
+		Debug.Console(myEnemyCores.size()+" enemy cores found");
 		
 		if (!myEnemyCores.isEmpty()){
 			//deal with them attacking an enemy
 		}
 		
-		HashMap<UUID, Core> myFriendlyCore = filterFriendlyCores(myEmpire.getUUID());
+		HashMap<UUID, Core> myFriendlyCores = filterFriendlyCores(myEmpire.getUUID());
 		
-		if (!myFriendlyCore.isEmpty()){
-			myFriendlyCore = filterByCenterOverlap(myFriendlyCore, myBlock.getX(), myBlock.getY(), myBlock.getZ());
-			if (!myFriendlyCore.isEmpty()){
+		Debug.Console(myFriendlyCores.size()+" friendly cores found");
+		
+		if (!myFriendlyCores.isEmpty()){
+			myFriendlyCores = filterByCenterOverlap(myFriendlyCores, myBlock.getX(), myBlock.getY(), myBlock.getZ());
+			
+			Debug.Console(myFriendlyCores.size()+" center cores found");
+			
+			if (!myFriendlyCores.isEmpty()){
 				myPlayer.sendMessage("You cannot destroy your own core!");
 				event.setCancelled(true);
 			}
@@ -362,7 +369,7 @@ public class ManagerAPI {
 	private HashMap<UUID, Core> filterEnemyCores(UUID uuid) {
 		HashMap<UUID, Core> enemyCores = new HashMap<UUID, Core>();
 		for(Core myCore : enemyCores.values()){
-			if (myCore.getUUID().equals(uuid));
+			if (!myCore.getUUID().equals(uuid));
 		}
 		return enemyCores;
 	}
