@@ -8,6 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import es.themin.empires.managers.ManagerAPI;
@@ -44,6 +45,22 @@ public class PlayerListener implements Listener{
 			myApi.handleBlockClick(event);
 		}
 	}
+	
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event){
+		long time = System.currentTimeMillis() % 1000;
+		EPlayer myEPlayer = myApi.getEPlayer(event.getPlayer());
+		
+		event.getPlayer().getLocation().getBlock();
+		
+		//check every x ms
+		//round their location down to the nearest block
+		//see if that block has changed
+		//check if their empire location has changed
+		//update them and reset the time etc if it has
+
+	}
+	
 	@EventHandler
 	public void onPlayerDeathEvent(PlayerDeathEvent event) {
 		Player player = event.getEntity();

@@ -17,6 +17,28 @@ public class EPlayer {
 	private long firstSeen;
 	private long lastSeen;
 	private Boolean isInEmpireChat = false;
+	private long lastLocationCheck = 0;
+	
+	private Boolean insideEmpire = true;
+	
+	
+	public long getLastLocationCheck() {
+		return lastLocationCheck;
+	}
+
+	public void setLastLocationCheck(long lastLocationCheck) {
+		this.lastLocationCheck = lastLocationCheck;
+	}
+
+	public Location getLastLocation() {
+		return lastLocation;
+	}
+
+	public void setLastLocation(Location myLocation) {
+		this.lastLocation = myLocation;
+	}
+
+	private Location lastLocation;
 
 	public long getLastSeen() {
 		return lastSeen;
