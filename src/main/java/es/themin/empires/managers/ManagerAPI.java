@@ -318,6 +318,8 @@ public class ManagerAPI {
 			return;
 		}
 		
+		Debug.Console(myCores.size()+" cores found");
+		
 		HashMap<UUID, Core> myEnemyCores = filterFriendlyCores(myEmpire.getUUID());
 		
 		if (!myEnemyCores.isEmpty()){
@@ -330,6 +332,7 @@ public class ManagerAPI {
 			myFriendlyCore = filterByCenterOverlap(myFriendlyCore, myBlock.getX(), myBlock.getY(), myBlock.getZ());
 			if (!myFriendlyCore.isEmpty()){
 				myPlayer.sendMessage("You cannot destroy your own core!");
+				event.setCancelled(true);
 			}
 		}
 			
