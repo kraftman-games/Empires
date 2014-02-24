@@ -320,7 +320,7 @@ public class ManagerAPI {
 		
 		Debug.Console(myCores.size()+" cores found");
 		
-		HashMap<UUID, Core> myEnemyCores = filterEnemyCores(myEmpire.getUUID());
+		HashMap<UUID, Core> myEnemyCores = filterEnemyCores(myCores, myEmpire.getUUID());
 		
 		Debug.Console(myEnemyCores.size()+" enemy cores found");
 		
@@ -328,7 +328,7 @@ public class ManagerAPI {
 			//deal with them attacking an enemy
 		}
 		
-		HashMap<UUID, Core> myFriendlyCores = filterFriendlyCores(myEmpire.getUUID());
+		HashMap<UUID, Core> myFriendlyCores = filterFriendlyCores(myCores, myEmpire.getUUID());
 		
 		Debug.Console(myFriendlyCores.size()+" friendly cores found");
 		
@@ -358,16 +358,14 @@ public class ManagerAPI {
 
 
 
-	private HashMap<UUID, Core> filterFriendlyCores(UUID uuid) {
-		HashMap<UUID, Core> friendlyCores = new HashMap<UUID, Core>();
+	private HashMap<UUID, Core> filterFriendlyCores(HashMap<UUID, Core> friendlyCores, UUID uuid) {
 		for(Core myCore : friendlyCores.values()){
 			if (myCore.getEmpireUUID().equals(uuid));
 		}
 		return friendlyCores;
 	}
 	
-	private HashMap<UUID, Core> filterEnemyCores(UUID uuid) {
-		HashMap<UUID, Core> enemyCores = new HashMap<UUID, Core>();
+	private HashMap<UUID, Core> filterEnemyCores(HashMap<UUID, Core> enemyCores, UUID uuid) {
 		for(Core myCore : enemyCores.values()){
 			if (!myCore.getEmpireUUID().equals(uuid));
 		}
