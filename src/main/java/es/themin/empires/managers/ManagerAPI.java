@@ -265,7 +265,9 @@ public class ManagerAPI {
 						myWorld.addCore(myCore);
 						Cores.addCore(myCore);
 						myEPlayer.sendMessage(myCore.getType().toString() + " Core successfully created");
-						myCore.build();
+						if (myCore.getType() != CoreType.CELL){
+							myCore.build();
+						}
 						
 						//charge the player
 					}
