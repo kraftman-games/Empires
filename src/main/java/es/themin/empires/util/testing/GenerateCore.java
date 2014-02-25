@@ -24,7 +24,7 @@ public class GenerateCore extends SubCommand{
 		
 		Core myCore = null;
 		Debug.Console(args[0]);
-		CoreType myType = CoreType.valueOf(args[0]);
+		CoreType myType = CoreType.valueOf(args[0].toUpperCase());
 		
 		if (myType != null){
 		
