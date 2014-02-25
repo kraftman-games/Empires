@@ -319,9 +319,14 @@ public class Core {
 
 		Debug.Console("showing edges inside core");
 		Integer locY = location.getBlockY();
-		for (int x = -areaSize; x <=areaSize; x++){
-			for (int z = -areaSize; z <=areaSize; z++){
-				if (x == -areaSize || x == areaSize || z == -areaSize || z == areaSize){
+		Integer minX = location.getBlockX() - areaSize;
+		Integer minZ = location.getBlockZ() + areaSize;
+		Integer maxX = location.getBlockX() - areaSize;
+		Integer maxZ = location.getBlockZ() + areaSize;
+		
+		for (int x = minX; x <=maxX; x++){
+			for (int z = minZ; z <=maxZ; z++){
+				if (x == minX || x == maxX || z == minZ || z == minZ){
 					Debug.Console("X: "+x+" Z: "+z);
 					Location newLocation = new Location(location.getWorld(), x, locY, z);
 					Block myBlock = newLocation.getBlock();
