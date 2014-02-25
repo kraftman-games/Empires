@@ -325,7 +325,7 @@ public class Core {
 		
 		for (int x = minX; x <=maxX; x++){
 			for (int z = minZ; z <=maxZ; z++){
-				if (x == minX || x == maxX || z == minZ || z == minZ){
+				if (x == minX || x == maxX && z == minZ || z == minZ){
 					Location newLocation = new Location(location.getWorld(), x, locY, z);
 					Block myBlock = newLocation.getBlock();
 					if ((myBlock.isEmpty() || myBlock.getType() == Material.AIR) && showEdges){
