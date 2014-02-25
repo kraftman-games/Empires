@@ -24,7 +24,16 @@ public class GriefCore extends Core implements ICore{
 		placeType = PlaceType.EDGE;
 		
 	    coreBlocks = new ArrayList<CoreBlock>();
-	    coreBlocks.add(new CoreBlock(0,-1,0,Material.OBSIDIAN));
+	    coreBlocks.add(new CoreBlock(0,-1,0,Material.IRON_BLOCK));
+	    coreBlocks.add(new CoreBlock(0,-1,1,Material.OBSIDIAN));
+	    coreBlocks.add(new CoreBlock(0,-1,-1,Material.OBSIDIAN));
+	    coreBlocks.add(new CoreBlock(1,-1,0,Material.OBSIDIAN));
+	    coreBlocks.add(new CoreBlock(1,-1,-1,Material.OBSIDIAN));
+	    coreBlocks.add(new CoreBlock(1,-1,1,Material.OBSIDIAN));
+	    coreBlocks.add(new CoreBlock(-1,-1,0,Material.OBSIDIAN));
+	    coreBlocks.add(new CoreBlock(-1,-1,1,Material.OBSIDIAN));
+	    coreBlocks.add(new CoreBlock(-1,-1,-1,Material.OBSIDIAN));
+	    
 	    
 	}
 
