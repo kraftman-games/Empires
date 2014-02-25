@@ -23,8 +23,8 @@ public class GenerateCore extends SubCommand{
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
 		Core myCore = null;
-		Debug.Console(args[1]);
-		CoreType myType = CoreType.valueOf(args[1]);
+		Debug.Console(args[0]);
+		CoreType myType = CoreType.valueOf(args[0]);
 		
 		if (myType != null){
 		
