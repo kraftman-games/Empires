@@ -328,7 +328,6 @@ public class Core {
 				if (x == minX || x == maxX || z == minZ || z == minZ){
 					Location newLocation = new Location(location.getWorld(), x, locY, z);
 					Block myBlock = newLocation.getBlock();
-					Debug.Console(myBlock.getType().toString());
 					if ((myBlock.isEmpty() || myBlock.getType() == Material.AIR) && showEdges){
 						Debug.Console("setting glowstone");
 						myBlock.setType(Material.GLOWSTONE);
