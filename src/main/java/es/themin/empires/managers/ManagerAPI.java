@@ -439,9 +439,11 @@ public class ManagerAPI {
 		HashMap<UUID, Core> myCores = Cores.getEmpireCores(empireUUID);
 		
 		if (myCores != null && !myCores.isEmpty()){
+			Debug.Console("found cores duirng showedges");
 			Empire myEmpire = getEmpire(empireUUID);
 			Boolean showEdges = true;
 			if (myEmpire.getEmpireState() != EmpireState.ATWAR){
+				Debug.Console("empires not at war duirng showedges");
 				if (myEmpire.getEmpireState() == EmpireState.DISPLAYEDGES){
 					showEdges = false;
 				}

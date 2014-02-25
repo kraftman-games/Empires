@@ -22,8 +22,9 @@ private ManagerAPI myApi = null;
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
-		if (myEPlayer.getEmpireUUID() != null)
-		myApi.showEdges(myEPlayer.getEmpireUUID());
+		if (myEPlayer.getEmpireUUID() != null){
+			myApi.showEdges(myEPlayer.getEmpireUUID());
+		}
 		
 		return false;
 		

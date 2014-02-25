@@ -316,6 +316,8 @@ public class Core {
 
 
 	public void showEdges(Boolean showEdges) {
+
+		Debug.Console("showing edges inside core");
 		Integer locY = location.getBlockY();
 		for (int x = -areaSize; x <=areaSize; x++){
 			for (int z = -areaSize; z <=areaSize; z++){
