@@ -27,7 +27,6 @@ import es.themin.empires.enums.ConfirmType;
 import es.themin.empires.listeners.BlockListener;
 import es.themin.empires.listeners.ChatListener;
 import es.themin.empires.listeners.CraftListener;
-import es.themin.empires.listeners.Event_BlockPlace;
 import es.themin.empires.listeners.PlayerListener;
 import es.themin.empires.listeners.WorldListener;
 import es.themin.empires.managers.ManagerAPI;
@@ -91,7 +90,6 @@ public final class empires extends JavaPlugin {
     
     public void registerEvents(){
     	PluginManager pm = this.getServer().getPluginManager();
-    	pm.registerEvents(new Event_BlockPlace(myAPI), this);
     	pm.registerEvents(new PlayerListener(myAPI), this);
 		pm.registerEvents(new BlockListener(myAPI), this);
 		pm.registerEvents(new CraftListener(myAPI), this);

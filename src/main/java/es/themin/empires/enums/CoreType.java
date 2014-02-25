@@ -7,5 +7,6 @@ public enum CoreType {
 	MONSTER,
 	GRIEF,
 	FORTIFICATION,
-	OUTPOST
+	OUTPOST,
+	CELL
 }

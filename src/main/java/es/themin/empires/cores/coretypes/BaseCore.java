@@ -22,6 +22,7 @@ public class BaseCore  extends Core implements ICore {
 		coreSize = 2;
 		areaSize = 32;
 		placeType = PlaceType.OUTSIDE;
+		placeCost = 10;
 		
 
 	    coreBlocks = new ArrayList<CoreBlock>();

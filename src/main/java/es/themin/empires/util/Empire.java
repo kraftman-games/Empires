@@ -79,6 +79,8 @@ public class Empire {
 		coreLimits.put(CoreType.MOB, 0);
 		coreLimits.put(CoreType.MONSTER, 0);
 		coreLimits.put(CoreType.OUTPOST, 0);
+
+		coreLimits.put(CoreType.CELL, 5);
 	}
 	
 
@@ -100,6 +102,7 @@ public class Empire {
 		this.allyrequests = new HashMap<Empire,Long>();
 		this.timeline = new HashMap<Long,String>();
 		
+		//temp
 		coreLimits =  new HashMap<CoreType, Integer>();
 		coreLimits.put(CoreType.BASE, 1);
 		coreLimits.put(CoreType.GRIEF, 10);
@@ -108,6 +111,7 @@ public class Empire {
 		coreLimits.put(CoreType.MOB, 0);
 		coreLimits.put(CoreType.MONSTER, 0);
 		coreLimits.put(CoreType.OUTPOST, 0);
+		coreLimits.put(CoreType.CELL, 5);
 	}
 	
 	
@@ -178,8 +182,7 @@ public class Empire {
 	
 
 	public int numberOfPlayers(){
-		int i = onlinePlayers.size();
-		return i;
+		return onlinePlayers.size();
 	}
 	
 	public ArrayList<Rank> getRanks(){
@@ -245,6 +248,7 @@ public class Empire {
 		}
 		return null;
 	}
+	
 	public void removePlayerFromRank(String p, Rank r) {
 		for (Rank rank : ranks) {
 			if (rank.getName() == r.getName()) {

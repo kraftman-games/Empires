@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
+import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.util.EPlayer;
@@ -18,7 +21,6 @@ import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
-import es.themin.empires.util.testing.newemp;
 
 public class ManagerAPI {
 
@@ -452,6 +454,56 @@ public class ManagerAPI {
 				myEmpire.setEdgesShown(!myEmpire.getEdgesShown());
 			}	
 		}		
+	}
+
+
+
+	public void updatePlayerLocation(PlayerMoveEvent event, EPlayer myEPlayer) {
+		long time = System.currentTimeMillis();
+		Location newLocation = event.getPlayer().getLocation().getBlock().getLocation();
+		EWorld myEWorld = getEWorld(myEPlayer.getWorld().getUID());
+		
+		if (myEPlayer.getLastLocationCheck() < (time - 1000)){
+			Debug.Console("Checking "+myEPlayer.getName()+"'s location");
+			if (newLocation.equals(myEPlayer.getLastLocation())){
+				//they havent moved
+			} else {
+				//Debug.Console(myEPlayer.getName()+" has moved to new block: X: "+newLocation.getBlockX()+" Z: "+newLocation.getBlockZ());
+				UUID empireUuid = myEWorld.getEmpireUUID(newLocation);
+				String locationName = "Wilderness";
+				if (empireUuid != null){
+					Empire myEmpire = getEmpire(empireUuid);
+					locationName = myEmpire.getName();
+					
+					if (myEPlayer.getEmpireUUID() != null && !empireUuid.equals(myEPlayer.getEmpireUUID())){
+						
+						//loop through special cores to see if they do anything
+						HashMap<UUID, Core> myCores = myEWorld.getCores(newLocation);
+						if (myCores != null && !myCores.isEmpty()){
+							for (Core myCore : myCores.values()){
+								if (myCore.getType() == CoreType.CELL){
+									myCore.build();
+								}
+							}
+						}
+						
+					}
+				}
+				if (myEPlayer.getLastLocationName() != locationName){
+					myEPlayer.sendMessage("~"+locationName);
+					myEPlayer.setLastLocationName(locationName);
+				}
+				
+			
+				
+				
+				myEPlayer.setLastLocation(newLocation);
+			}
+			
+			
+			myEPlayer.setLastLocationCheck(time);
+		}
+		
 	}
 }
 

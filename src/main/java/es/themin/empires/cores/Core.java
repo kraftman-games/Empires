@@ -14,7 +14,6 @@ import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.PlaceType;
 import es.themin.empires.schematics.Schematic;
-import es.themin.empires.util.testing.newemp;
 
 public class Core {
 	
@@ -31,14 +30,12 @@ public class Core {
 	private UUID empireUUID;
 	private Schematic schem;
 	protected ArrayList<CoreBlock> coreBlocks;
-	
-	// a tonne of this stuff isnt specific to the cores and needs to be moved to another object
-	// ive started moving them to below for now
 	protected Integer coreSize;
 	protected Integer areaSize;
 	protected ArrayList<CoreBlock> schematic;
 	protected PlaceType placeType;
-	protected int destroyCost;
+	protected int destroyCost = 0;
+	protected int placeCost = 0;
 	
 	
 	private EmpirePermission placePermission;
