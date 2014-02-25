@@ -325,6 +325,7 @@ public class Core {
 					Debug.Console("X: "+x+" Z: "+z);
 					Location newLocation = new Location(location.getWorld(), x, locY, z);
 					Block myBlock = newLocation.getBlock();
+					Debug.Console(myBlock.getType().toString());
 					if (myBlock.getType() == Material.AIR && showEdges){
 						Debug.Console("setting glowstone");
 						myBlock.setType(Material.GLOWSTONE);
