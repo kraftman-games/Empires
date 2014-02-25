@@ -23,13 +23,22 @@ public class GenerateCore extends SubCommand{
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
 		Core myCore = null;
-		Debug.Console(args[0]);
-		CoreType myType = CoreType.valueOf(args[0].toUpperCase());
+		Debug.Console(args[1]);
+		CoreType myType = null;
 		
-		if (myType != null){
+		for (CoreType c : CoreType.values()) {
+	        if (c.name().equals(args[1].toUpperCase())) {
+	        	myType = CoreType.valueOf(args[1].toUpperCase());
+	        }
+	    }
+		
+		if (myType == null ){
+			return false;
+		}
+		
 		
 		 myCore = CoreFactory.CreateCore(myEPlayer.getEmpireUUID(), myEPlayer.getLocation(), myType);
-		}
+		
 		
 		Bukkit.getServer().getLogger().info(myEPlayer.getEmpireUUID().toString());
 		myApi.generateCore(myEPlayer, myCore);
