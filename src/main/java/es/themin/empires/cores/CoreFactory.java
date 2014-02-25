@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.bukkit.Location;
 
 import es.themin.empires.cores.coretypes.BaseCore;
+import es.themin.empires.cores.coretypes.CellCore;
 import es.themin.empires.cores.coretypes.GriefCore;
 import es.themin.empires.enums.CoreType;
 
@@ -25,6 +26,8 @@ public class CoreFactory {
 			return new BaseCore( empireUUID,  myLocation2);
 		case GRIEF:
 			return new GriefCore( empireUUID,  myLocation2);
+		case CELL:
+			return new CellCore( empireUUID,  myLocation2);
 		default:
 			return null;
 		}
