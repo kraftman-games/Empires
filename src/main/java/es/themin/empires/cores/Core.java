@@ -326,8 +326,10 @@ public class Core {
 					Location newLocation = new Location(location.getWorld(), x, locY, z);
 					Block myBlock = newLocation.getBlock();
 					if (myBlock.getType() == Material.AIR && showEdges){
+						Debug.Console("setting glowstone");
 						myBlock.setType(Material.GLOWSTONE);
 					} else if (myBlock.getType() == Material.GLOWSTONE && showEdges == false){
+						Debug.Console("setting air");
 						myBlock.setType(Material.AIR);
 					}
 				}
