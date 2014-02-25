@@ -23,17 +23,17 @@ public class BaseCore  extends Core implements ICore {
 		areaSize = 32;
 		placeType = PlaceType.OUTSIDE;
 		
-
+		byte d = 0x0;
 	    coreBlocks = new ArrayList<CoreBlock>();
-	    coreBlocks.add(new CoreBlock(0,-1,0,Material.IRON_BLOCK));
-	    coreBlocks.add(new CoreBlock(0,-1,1,Material.BRICK));
-	    coreBlocks.add(new CoreBlock(0,-1,-1,Material.BRICK));
-	    coreBlocks.add(new CoreBlock(1,-1,0,Material.BRICK));
-	    coreBlocks.add(new CoreBlock(1,-1,-1,Material.BRICK));
-	    coreBlocks.add(new CoreBlock(1,-1,1,Material.BRICK));
-	    coreBlocks.add(new CoreBlock(-1,-1,0,Material.BRICK));
-	    coreBlocks.add(new CoreBlock(-1,-1,1,Material.BRICK));
-	    coreBlocks.add(new CoreBlock(-1,-1,-1,Material.BRICK));
+	    coreBlocks.add(new CoreBlock(0,-1,0,Material.IRON_BLOCK,d));
+	    coreBlocks.add(new CoreBlock(0,-1,1,Material.BRICK,d));
+	    coreBlocks.add(new CoreBlock(0,-1,-1,Material.BRICK,d));
+	    coreBlocks.add(new CoreBlock(1,-1,0,Material.BRICK,d));
+	    coreBlocks.add(new CoreBlock(1,-1,-1,Material.BRICK,d));
+	    coreBlocks.add(new CoreBlock(1,-1,1,Material.BRICK,d));
+	    coreBlocks.add(new CoreBlock(-1,-1,0,Material.BRICK,d));
+	    coreBlocks.add(new CoreBlock(-1,-1,1,Material.BRICK,d));
+	    coreBlocks.add(new CoreBlock(-1,-1,-1,Material.BRICK,d));
 	    
 	}
 

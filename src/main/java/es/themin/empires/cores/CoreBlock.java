@@ -6,16 +6,17 @@ public class CoreBlock {
 	private int offsetX;
 	private int offsetY;
 	private int offsetZ;
-	private Material material;	
+	private Material material;
+	private byte data;
 	
 	
 
-	public CoreBlock(int x, int y, int z, Material material){
+	public CoreBlock(int x, int y, int z, Material material, byte data){
 		this.offsetX = x;
 		this.offsetY = y;
 	    this.offsetZ = z;
 	    this.material = material;
-	    
+	    this.data = data;
 	    
 	}
 
@@ -49,6 +50,9 @@ public class CoreBlock {
 
 	public void setOffsetZ(int offsetZ) {
 		this.offsetZ = offsetZ;
+	}
+	public byte getData() {
+		return data;
 	}
 	
 }
