@@ -27,6 +27,7 @@ public class UtilityTesting implements CommandExecutor{
 		commands.add(new emp(api));
 		commands.add(new generatebasecore(api));
 		commands.add(new generateGriefCore(api));
+		commands.add(new showedges(api));
 		
 	}
 	
