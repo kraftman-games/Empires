@@ -45,7 +45,7 @@ public class Empire {
 	private Long lastbattlewin;
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
-	private Boolean edgesShown;
+	private Boolean edgesShown = false;
 	
 	public Boolean getEdgesShown() {
 		return edgesShown;
