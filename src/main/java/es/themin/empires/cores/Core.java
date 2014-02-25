@@ -321,15 +321,14 @@ public class Core {
 		Integer locY = location.getBlockY();
 		for (int x = -areaSize; x <=areaSize; x++){
 			for (int z = -areaSize; z <=areaSize; z++){
-				if (x == -areaSize || x == areaSize){
-					if (z == -areaSize || z == areaSize){
-						Location newLocation = new Location(location.getWorld(), x, locY, z);
-						Block myBlock = newLocation.getBlock();
-						if (myBlock.getType() == Material.AIR && showEdges){
-							myBlock.setType(Material.GLOWSTONE);
-						} else if (myBlock.getType() == Material.GLOWSTONE && showEdges == false){
-							myBlock.setType(Material.AIR);
-						}
+				if (x == -areaSize || x == areaSize || z == -areaSize || z == areaSize){
+					Debug.Console("X: "+x+" Z: "+z);
+					Location newLocation = new Location(location.getWorld(), x, locY, z);
+					Block myBlock = newLocation.getBlock();
+					if (myBlock.getType() == Material.AIR && showEdges){
+						myBlock.setType(Material.GLOWSTONE);
+					} else if (myBlock.getType() == Material.GLOWSTONE && showEdges == false){
+						myBlock.setType(Material.AIR);
 					}
 				}
 			}
