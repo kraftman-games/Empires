@@ -21,6 +21,7 @@ public class CoreFactory {
 		Location myLocation2 = new Location(myLocation.getWorld(), xInteger, yInteger, zInteger);
 		
 		
+		
 		switch (myCoreType) {
 		case BASE:
 			return new BaseCore( empireUUID,  myLocation2);
