@@ -320,8 +320,8 @@ public class Core {
 		Debug.Console("showing edges inside core");
 		Integer locY = location.getBlockY();
 		Integer minX = location.getBlockX() - areaSize;
-		Integer minZ = location.getBlockZ() + areaSize;
-		Integer maxX = location.getBlockX() - areaSize;
+		Integer minZ = location.getBlockZ() - areaSize;
+		Integer maxX = location.getBlockX() + areaSize;
 		Integer maxZ = location.getBlockZ() + areaSize;
 		
 		for (int x = minX; x <=maxX; x++){
