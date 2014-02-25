@@ -317,7 +317,6 @@ public class Core {
 
 	public void showEdges(Boolean showEdges) {
 
-		Debug.Console("showing edges inside core");
 		Integer locY = location.getBlockY();
 		Integer minX = location.getBlockX() - areaSize;
 		Integer minZ = location.getBlockZ() - areaSize;
@@ -327,11 +326,10 @@ public class Core {
 		for (int x = minX; x <=maxX; x++){
 			for (int z = minZ; z <=maxZ; z++){
 				if (x == minX || x == maxX || z == minZ || z == minZ){
-					Debug.Console("X: "+x+" Z: "+z);
 					Location newLocation = new Location(location.getWorld(), x, locY, z);
 					Block myBlock = newLocation.getBlock();
 					Debug.Console(myBlock.getType().toString());
-					if (myBlock.isEmpty() && showEdges){
+					if ((myBlock.isEmpty() || myBlock.getType() == Material.AIR) && showEdges){
 						Debug.Console("setting glowstone");
 						myBlock.setType(Material.GLOWSTONE);
 					} else if (myBlock.getType() == Material.GLOWSTONE && showEdges == false){
