@@ -444,13 +444,12 @@ public class ManagerAPI {
 			Boolean showEdges = true;
 			if (myEmpire.getEmpireState() != EmpireState.ATWAR){
 				Debug.Console("empires not at war duirng showedges");
-				if (myEmpire.getEmpireState() == EmpireState.DISPLAYEDGES){
-					showEdges = false;
-				}
+								
 				
 				for(Core myCore : myCores.values()){
-					myCore.showEdges(showEdges);
+					myCore.showEdges(myEmpire.getEdgesShown());
 				}
+				myEmpire.setEdgesShown(!myEmpire.getEdgesShown());
 			}	
 		}		
 	}

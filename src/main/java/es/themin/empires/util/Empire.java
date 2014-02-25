@@ -45,7 +45,16 @@ public class Empire {
 	private Long lastbattlewin;
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
+	private Boolean edgesShown;
 	
+	public Boolean getEdgesShown() {
+		return edgesShown;
+	}
+
+	public void setEdgesShown(Boolean edgesShown) {
+		this.edgesShown = edgesShown;
+	}
+
 	private HashMap<CoreType, Integer> coreLimits;
 	
 	public Empire getEnemyEmpire() {
