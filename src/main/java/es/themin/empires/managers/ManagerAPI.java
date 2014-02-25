@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
 import es.themin.empires.enums.EmpirePermission;
+import es.themin.empires.enums.EmpireState;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
@@ -431,4 +432,35 @@ public class ManagerAPI {
 		}
 		
 	}
+
+
+
+	public void showEdges(UUID empireUUID) {
+		HashMap<UUID, Core> myCores = Cores.getEmpireCores(empireUUID);
+		
+		if (myCores != null && !myCores.isEmpty()){
+			Empire myEmpire = getEmpire(empireUUID);
+			Boolean showEdges = true;
+			if (myEmpire.getEmpireState() != EmpireState.ATWAR){
+				if (myEmpire.getEmpireState() == EmpireState.DISPLAYEDGES){
+					showEdges = false;
+				}
+				
+				for(Core myCore : myCores.values()){
+					myCore.showEdges(showEdges);
+				}
+			}	
+		}		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
