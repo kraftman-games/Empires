@@ -14,7 +14,6 @@ import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.PlaceType;
 import es.themin.empires.schematics.Schematic;
-import es.themin.empires.util.testing.newemp;
 
 public class Core {
 	
@@ -31,14 +30,12 @@ public class Core {
 	private UUID empireUUID;
 	private Schematic schem;
 	protected ArrayList<CoreBlock> coreBlocks;
-	
-	// a tonne of this stuff isnt specific to the cores and needs to be moved to another object
-	// ive started moving them to below for now
 	protected Integer coreSize;
 	protected Integer areaSize;
 	protected ArrayList<CoreBlock> schematic;
 	protected PlaceType placeType;
-	protected int destroyCost;
+	protected int destroyCost = 0;
+	protected int placeCost = 0;
 	
 	
 	private EmpirePermission placePermission;
@@ -317,15 +314,18 @@ public class Core {
 
 	public void showEdges(Boolean showEdges) {
 
-		Debug.Console("showing edges inside core");
 		Integer locY = location.getBlockY();
-		for (int x = -areaSize; x <=areaSize; x++){
-			for (int z = -areaSize; z <=areaSize; z++){
-				if (x == -areaSize || x == areaSize || z == -areaSize || z == areaSize){
-					Debug.Console("X: "+x+" Z: "+z);
+		Integer minX = location.getBlockX() - areaSize;
+		Integer minZ = location.getBlockZ() - areaSize;
+		Integer maxX = location.getBlockX() + areaSize;
+		Integer maxZ = location.getBlockZ() + areaSize;
+		
+		for (int x = minX; x <=maxX; x++){
+			for (int z = minZ; z <=maxZ; z++){
+				if (x == minX || x == maxX && z == minZ || z == minZ){
 					Location newLocation = new Location(location.getWorld(), x, locY, z);
 					Block myBlock = newLocation.getBlock();
-					if (myBlock.getType() == Material.AIR && showEdges){
+					if ((myBlock.isEmpty() || myBlock.getType() == Material.AIR) && showEdges){
 						Debug.Console("setting glowstone");
 						myBlock.setType(Material.GLOWSTONE);
 					} else if (myBlock.getType() == Material.GLOWSTONE && showEdges == false){

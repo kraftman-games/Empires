@@ -1,9 +1,6 @@
 package es.themin.empires.listeners;
 
 
-import java.util.UUID;
-
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,11 +11,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import es.themin.empires.Debug;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
-import es.themin.empires.util.EWorld;
-import es.themin.empires.util.Empire;
 
 public class PlayerListener implements Listener{
 	
@@ -57,42 +51,10 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event){
-		long time = System.currentTimeMillis();
+		
 		EPlayer myEPlayer = myApi.getEPlayer(event.getPlayer());
 		
-		Location newLocation = event.getPlayer().getLocation().getBlock().getLocation();
-		EWorld myEWorld = myApi.getEWorld(myEPlayer.getWorld().getUID());
-		
-		if (myEPlayer.getLastLocationCheck() < (time - 1000)){
-			Debug.Console("Checking "+myEPlayer.getName()+"'s location");
-			if (newLocation.equals(myEPlayer.getLastLocation())){
-				//they havent moved
-			} else {
-				Debug.Console(myEPlayer.getName()+" has moved to new block: X: "+newLocation.getBlockX()+" Z: "+newLocation.getBlockZ());
-				UUID empireUuid = myEWorld.getEmpireUUID(newLocation);
-				String locationName = "Wilderness";
-				if (empireUuid != null){
-					Empire myEmpire = myApi.getEmpire(empireUuid);
-					locationName = myEmpire.getName();
-				}
-				if (myEPlayer.getLastLocationName() != locationName){
-					myEPlayer.sendMessage("~"+locationName);
-					myEPlayer.setLastLocationName(locationName);
-				}
-				
-				
-				myEPlayer.setLastLocation(newLocation);
-			}
-			
-			
-			myEPlayer.setLastLocationCheck(time);
-		}
-		
-		//check every x ms
-		//round their location down to the nearest block
-		//see if that block has changed
-		//check if their empire location has changed
-		//update them and reset the time etc if it has
+		myApi.updatePlayerLocation(event, myEPlayer);
 
 	}
 	

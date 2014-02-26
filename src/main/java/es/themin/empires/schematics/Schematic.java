@@ -42,6 +42,7 @@ public abstract class Schematic {
 	public abstract ArrayList<Block> getBlocks(Location location);
 	
 	public boolean isSafeToBuildAround(Location location) {
+		//if this is for checking its not a player placed block, we shoudl use prism.
 		for (Block b:getBlocks(location)) {
 			Material m = b.getType();
 			if (!empires.destroyable.contains(m)) {

@@ -24,14 +24,9 @@ public class Empire {
 	private String name;
 	private UUID owner;
 	private HashMap<UUID,EPlayer> onlinePlayers = new HashMap<UUID,EPlayer>();
-	//private ArrayList<Core> cores = new ArrayList<Core>();
 	private ArrayList<Rank> ranks = new ArrayList<Rank>();
-	private boolean isProtected;
 	private String ownerprefix;
 	private String defaultprefix;
-	private boolean atWar;
-	private Empire enemyEmpire;
-	private boolean vunerable;
 	private EmpireState empireState = EmpireState.BATTLEREADY;
 	private int warwins;
 	private int warlosses;
@@ -45,29 +40,29 @@ public class Empire {
 	private Long lastbattlewin;
 	private HashMap<Empire, Long> allyrequests;
 	private HashMap<Long,String> timeline;
+	private Boolean edgesShown = false;
 	
-	private HashMap<CoreType, Integer> coreLimits;
-	
-	public Empire getEnemyEmpire() {
-		return enemyEmpire;
+	public Boolean getEdgesShown() {
+		return edgesShown;
 	}
 
-	public void setEnemyEmpire(Empire enemyEmpire) {
-		this.enemyEmpire = enemyEmpire;
+	public void setEdgesShown(Boolean edgesShown) {
+		this.edgesShown = edgesShown;
 	}
+
+	private HashMap<CoreType, Integer> coreLimits;
+	
 
 	public Empire(String empireName, UUID myUUID){
 		
 		this.ID = UUID.randomUUID();
 		this.name = empireName;
 		this.owner = myUUID;
-		this.atWar = false;
 		this.warwins = 0;
 		this.warlosses = 0;
 		this.battlelosses = 0;
 		this.battlewins = 0;
 		this.wars = new ArrayList<War>();
-		this.setProtected(true);
 		this.allies = new ArrayList<Empire>();
 		this.exallies = new HashMap<Empire, Long>();
 		this.exenemies = new HashMap<Empire, Long>();
@@ -84,6 +79,8 @@ public class Empire {
 		coreLimits.put(CoreType.MOB, 0);
 		coreLimits.put(CoreType.MONSTER, 0);
 		coreLimits.put(CoreType.OUTPOST, 0);
+
+		coreLimits.put(CoreType.CELL, 5);
 	}
 	
 
@@ -92,13 +89,11 @@ public class Empire {
 		this.ID = empireUUID;
 		this.name = empireName;
 		this.owner = myUUID;
-		this.atWar = false;
 		this.warwins = 0;
 		this.warlosses = 0;
 		this.battlelosses = 0;
 		this.battlewins = 0;
 		this.wars = new ArrayList<War>();
-		this.setProtected(true);
 		this.allies = new ArrayList<Empire>();
 		this.exallies = new HashMap<Empire, Long>();
 		this.exenemies = new HashMap<Empire, Long>();
@@ -107,6 +102,7 @@ public class Empire {
 		this.allyrequests = new HashMap<Empire,Long>();
 		this.timeline = new HashMap<Long,String>();
 		
+		//temp
 		coreLimits =  new HashMap<CoreType, Integer>();
 		coreLimits.put(CoreType.BASE, 1);
 		coreLimits.put(CoreType.GRIEF, 10);
@@ -115,6 +111,7 @@ public class Empire {
 		coreLimits.put(CoreType.MOB, 0);
 		coreLimits.put(CoreType.MONSTER, 0);
 		coreLimits.put(CoreType.OUTPOST, 0);
+		coreLimits.put(CoreType.CELL, 5);
 	}
 	
 	
@@ -185,8 +182,7 @@ public class Empire {
 	
 
 	public int numberOfPlayers(){
-		int i = onlinePlayers.size();
-		return i;
+		return onlinePlayers.size();
 	}
 	
 	public ArrayList<Rank> getRanks(){
@@ -252,6 +248,7 @@ public class Empire {
 		}
 		return null;
 	}
+	
 	public void removePlayerFromRank(String p, Rank r) {
 		for (Rank rank : ranks) {
 			if (rank.getName() == r.getName()) {
@@ -280,28 +277,28 @@ public class Empire {
 		this.defaultprefix = s;
 	}
 
-	public boolean canPlayerAttack(Empire playerEmpire) {
-		//Empire playerEmpire = Players.loadEPlayer(myPlayer.getUniqueId()).getEmpire();
-		if (!this.isProtected()){
-			if (this.isAtWar()){
-				if (playerEmpire == this.getEnemyEmpire()){
-					return true;
-				}
-				else {
-					//myPlayer.sendMessage("This war is not yours to fight!");
-					return false;
-				}
-				
-			} else if (playerEmpire.isProtected){
-				//myPlayer.sendMessage("You cannot attack an empire until yours is rebuilt!");
-				return false;
-			}
-		} else {
-			//myPlayer.sendMessage("There is no honor in attack this fallen empire");
-			return false;
-		}
-		return false;
-	}
+//	public boolean canPlayerAttack(Empire playerEmpire) {
+//		//Empire playerEmpire = Players.loadEPlayer(myPlayer.getUniqueId()).getEmpire();
+//		if (!this.isProtected()){
+//			if (this.isAtWar()){
+//				if (playerEmpire == this.getEnemyEmpire()){
+//					return true;
+//				}
+//				else {
+//					//myPlayer.sendMessage("This war is not yours to fight!");
+//					return false;
+//				}
+//				
+//			} else if (playerEmpire.isProtected){
+//				//myPlayer.sendMessage("You cannot attack an empire until yours is rebuilt!");
+//				return false;
+//			}
+//		} else {
+//			//myPlayer.sendMessage("There is no honor in attack this fallen empire");
+//			return false;
+//		}
+//		return false;
+//	}
 	
 	/**
 	 * sets up a war between two empires
@@ -337,13 +334,7 @@ public class Empire {
 	public void setEmpireState(EmpireState empireState) {
 		this.empireState = empireState;
 	}
-	public boolean isProtected() {
-		return isProtected;
-	}
-
-	public void setProtected(boolean isProtected) {
-		this.isProtected = isProtected;
-	}
+	
 	public boolean isAtWar() {
 		if (wars.isEmpty()) return false;
 		return true;
@@ -355,13 +346,13 @@ public class Empire {
 		return wars;
 	}
 	public void addWar(War war) {
-		this.atWar = true;
 		this.wars.add(war);
 	}
 	public void removeWar(War war) {
 		this.wars.remove(war);
-		if (wars.isEmpty()) this.atWar = false;
 	}
+	
+	
 	public boolean isInABattle() {
 		if (isAtWar()) {
 			for (War war : this.wars) {

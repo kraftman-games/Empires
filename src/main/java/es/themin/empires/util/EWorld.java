@@ -10,9 +10,7 @@ import org.bukkit.World;
 
 import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
-import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
-import es.themin.empires.util.testing.newemp;
 
 public class EWorld {
 	
@@ -393,6 +391,10 @@ public class EWorld {
 			}
 		}
 		return myOverlappingCores;
+	}
+
+	public HashMap<UUID, Core> getCores(Location newLocation) {
+		return getCores(newLocation.getBlockX(), newLocation.getBlockZ());
 	}
 	
 	
