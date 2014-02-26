@@ -508,6 +508,12 @@ public class ManagerAPI {
 		}
 		
 	}
+	public void regenAllBlocks() {
+		for (EWorld world : Worlds.getWorlds().values()) {
+			world.regenAllBlocks();
+		}
+	}
+
 }
 
 

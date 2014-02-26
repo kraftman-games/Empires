@@ -27,6 +27,7 @@ import es.themin.empires.enums.ConfirmType;
 import es.themin.empires.listeners.BlockListener;
 import es.themin.empires.listeners.ChatListener;
 import es.themin.empires.listeners.CraftListener;
+import es.themin.empires.listeners.Event_EntityExplode;
 import es.themin.empires.listeners.PlayerListener;
 import es.themin.empires.listeners.WorldListener;
 import es.themin.empires.managers.ManagerAPI;
@@ -78,6 +79,7 @@ public final class empires extends JavaPlugin {
     @Override
     public void onDisable() {
     	myAPI.saveManagers();
+    	myAPI.regenAllBlocks();
 		Bukkit.getServer().clearRecipes();
 		BlockListener.fixBurns();
 		final ScoreboardManager sbm = Bukkit.getScoreboardManager();
@@ -95,6 +97,7 @@ public final class empires extends JavaPlugin {
 		pm.registerEvents(new CraftListener(myAPI), this);
 		pm.registerEvents(new ChatListener(myAPI), this);
 		pm.registerEvents(new WorldListener(myAPI), this);
+		pm.registerEvents(new Event_EntityExplode(myAPI), this);
     	
     }
     
