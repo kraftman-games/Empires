@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
+import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.EmpireState;
@@ -61,7 +62,7 @@ public class ManagerAPI {
 	}
 
 	private void addCoresToWorlds() {
-		for(Core myCore : Cores.getCores().values()){
+		for(ICore myCore : Cores.getCores().values()){
 			EWorld myWorld = Worlds.getWorld(myCore.getLocation().getWorld().getUID());
 			myWorld.addCore(myCore);
 		}
@@ -256,7 +257,7 @@ public class ManagerAPI {
 		if (myWorld.coreLocationIsValid(myEPlayer, myCore)){
 			if (playerCanAffordCore(myEPlayer, myCore)){
 				if (playerHasPermission(myEPlayer, myCore.getPlacePermission())){
-					HashMap<UUID, Core> myCores = Cores.getEmpireCores(myEmpire.getUUID(), myCore.getType());
+					HashMap<UUID, ICore> myCores = Cores.getEmpireCores(myEmpire.getUUID(), myCore.getType());
 					
 					if (myCores.size() >= myEmpire.getCoreLimit(myCore.getType())){
 						myEPlayer.sendMessage("You cannot create any more of those cores yet!");
@@ -319,14 +320,14 @@ public class ManagerAPI {
 			return;
 		}
 		
-		HashMap<UUID, Core> myCores = myEWorld.getCores(myBlock.getX(), myBlock.getZ());
+		HashMap<UUID, ICore> myCores = myEWorld.getCores(myBlock.getX(), myBlock.getZ());
 		
 		if (myCores == null || myCores.isEmpty()){
 			//the block isnt in an empire, we dont care
 			return;
 		}
 		
-		HashMap<UUID, Core> myEnemyCores = filterEnemyCores(myCores, myEmpire.getUUID());
+		HashMap<UUID, ICore> myEnemyCores = filterEnemyCores(myCores, myEmpire.getUUID());
 		
 		if (!myEnemyCores.isEmpty()){
 			//deal with them attacking an enemy
@@ -334,7 +335,7 @@ public class ManagerAPI {
 			event.setCancelled(true);
 		}
 		
-		HashMap<UUID, Core> myFriendlyCores = filterFriendlyCores(myCores, myEmpire.getUUID());
+		HashMap<UUID, ICore> myFriendlyCores = filterFriendlyCores(myCores, myEmpire.getUUID());
 		
 		if (!myFriendlyCores.isEmpty()){
 			myFriendlyCores = filterByCenterOverlap(myFriendlyCores, myBlock.getX(), myBlock.getY(), myBlock.getZ());
@@ -351,9 +352,9 @@ public class ManagerAPI {
 
 
 
-	private HashMap<UUID, Core> filterByCenterOverlap(HashMap<UUID, Core> myFriendlyCore, int x, int y, int z) {
-		HashMap<UUID, Core> myCores = new HashMap<UUID, Core>();
-		for(Core myCore : myFriendlyCore.values()){
+	private HashMap<UUID, ICore> filterByCenterOverlap(HashMap<UUID, ICore> myFriendlyCore, int x, int y, int z) {
+		HashMap<UUID, ICore> myCores = new HashMap<UUID, ICore>();
+		for(ICore myCore : myFriendlyCore.values()){
 			if (myCore.isInCore(x, y, z)){
 				myCores.put(myCore.getUUID(), myCore);
 			}
@@ -363,9 +364,9 @@ public class ManagerAPI {
 
 
 
-	private HashMap<UUID, Core> filterFriendlyCores(HashMap<UUID, Core> myCores, UUID uuid) {
-		HashMap<UUID, Core> friendlyCores = new HashMap<UUID, Core>();
-		for(Core myCore : myCores.values()){
+	private HashMap<UUID, ICore> filterFriendlyCores(HashMap<UUID, ICore> myCores, UUID uuid) {
+		HashMap<UUID, ICore> friendlyCores = new HashMap<UUID, ICore>();
+		for(ICore myCore : myCores.values()){
 			if (myCore.getEmpireUUID().equals(uuid)){
 				friendlyCores.put(myCore.getUUID(), myCore);
 			}
@@ -373,9 +374,9 @@ public class ManagerAPI {
 		return friendlyCores;
 	}
 	
-	private HashMap<UUID, Core> filterEnemyCores(HashMap<UUID, Core> myCores, UUID uuid) {
-		HashMap<UUID, Core> enemyCores = new HashMap<UUID, Core>();
-		for(Core myCore : myCores.values()){
+	private HashMap<UUID, ICore> filterEnemyCores(HashMap<UUID, ICore> myCores, UUID uuid) {
+		HashMap<UUID, ICore> enemyCores = new HashMap<UUID, ICore>();
+		for(ICore myCore : myCores.values()){
 			if (!myCore.getEmpireUUID().equals(uuid)){
 				enemyCores.put(myCore.getUUID(), myCore);
 			}
@@ -385,7 +386,7 @@ public class ManagerAPI {
 
 
 
-	private Core chooseCore(ArrayList<Core> myMatchingCores) {
+	private ICore chooseCore(ArrayList<ICore> myMatchingCores) {
 		//later we might want to choose how we sort overlappign cores
 		return myMatchingCores.get(0);
 	}
@@ -405,7 +406,7 @@ public class ManagerAPI {
 		Player myPlayer = event.getPlayer();
 		EWorld myEWorld = getEWorld(myBlock.getLocation().getWorld().getUID());
 		
-		HashMap<UUID, Core> myCores = myEWorld.getCores(myBlock.getX(), myBlock.getZ());
+		HashMap<UUID, ICore> myCores = myEWorld.getCores(myBlock.getX(), myBlock.getZ());
 		
 		if (myCores == null || myCores.isEmpty()){
 			//the block isnt in an empire, we dont care
@@ -418,14 +419,14 @@ public class ManagerAPI {
 			return;
 		}
 		
-		HashMap<UUID, Core> myEnemyCores = filterEnemyCores(myCores, myEmpire.getUUID());
+		HashMap<UUID, ICore> myEnemyCores = filterEnemyCores(myCores, myEmpire.getUUID());
 		
 		if (!myEnemyCores.isEmpty()){
 			//deal with them attacking an enemy
 			event.setCancelled(true);
 		}
 		
-		HashMap<UUID, Core> myFriendlyCores = filterFriendlyCores(myCores, myEmpire.getUUID());
+		HashMap<UUID, ICore> myFriendlyCores = filterFriendlyCores(myCores, myEmpire.getUUID());
 		
 		if (!myFriendlyCores.isEmpty()){
 			myFriendlyCores = filterByCenterOverlap(myFriendlyCores, myBlock.getX(), myBlock.getY(), myBlock.getZ());
@@ -441,7 +442,7 @@ public class ManagerAPI {
 
 
 	public void showEdges(UUID empireUUID) {
-		HashMap<UUID, Core> myCores = Cores.getEmpireCores(empireUUID);
+		HashMap<UUID, ICore> myCores = Cores.getEmpireCores(empireUUID);
 		
 		if (myCores != null && !myCores.isEmpty()){
 			Debug.Console("found cores duirng showedges");
@@ -451,7 +452,7 @@ public class ManagerAPI {
 				Debug.Console("empires not at war duirng showedges");
 								
 				
-				for(Core myCore : myCores.values()){
+				for(ICore myCore : myCores.values()){
 					myCore.showEdges(myEmpire.getEdgesShown());
 				}
 				myEmpire.setEdgesShown(!myEmpire.getEdgesShown());
@@ -481,9 +482,9 @@ public class ManagerAPI {
 					if (myEPlayer.getEmpireUUID() != null && !empireUuid.equals(myEPlayer.getEmpireUUID())){
 						
 						//loop through special cores to see if they do anything
-						HashMap<UUID, Core> myCores = myEWorld.getCores(newLocation);
+						HashMap<UUID, ICore> myCores = myEWorld.getCores(newLocation);
 						if (myCores != null && !myCores.isEmpty()){
-							for (Core myCore : myCores.values()){
+							for (ICore myCore : myCores.values()){
 								if (myCore.getType() == CoreType.CELL){
 									myCore.build();
 								}

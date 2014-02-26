@@ -18,8 +18,8 @@ public class EWorld {
 	
 	private UUID myUUID;
 	
-	private HashMap<UUID, Core> Cores;
-	private Map<Point, HashMap<UUID, Core>> CoreGrid;
+	private HashMap<UUID, ICore> Cores;
+	private Map<Point, HashMap<UUID, ICore>> CoreGrid;
 	private Integer GridSize = 400;
 	private World world;
 	private String name;
@@ -44,8 +44,8 @@ public class EWorld {
 	}
 
 	public EWorld(UUID uuid) {
-		CoreGrid = new HashMap<Point, HashMap<UUID, Core>>();
-		Cores = new HashMap<UUID, Core>();
+		CoreGrid = new HashMap<Point, HashMap<UUID, ICore>>();
+		Cores = new HashMap<UUID, ICore>();
 		myUUID = uuid;
 		this.regenblocks = new ArrayList<RegenBlock>();
 	}
@@ -54,15 +54,15 @@ public class EWorld {
 		return GridSize;
 	}
 
-	public HashMap<UUID, Core> getCores() {
+	public HashMap<UUID, ICore> getCores() {
 		return Cores;
 	}
 
-	public Core getCoreByID(Integer coreID){
+	public ICore getCoreByID(Integer coreID){
 		return Cores.get(coreID);
 	}
 
-	public void addCore(Core myCore){
+	public void addCore(ICore myCore){
 		if (Cores.get(myCore.getUUID()) == null){
 			this.Cores.put(myCore.getUUID(), myCore);
 			this.addCoreToGrid(myCore);
@@ -71,12 +71,12 @@ public class EWorld {
 
 
 
-	public void removeCore(Core myCore){
+	public void removeCore(ICore myCore){
 		this.Cores.remove(myCore.getUUID());
 		this.removeCoreFromGrid(myCore);
 	}
 
-	private void addCoreToGrid(Core myCore) {
+	private void addCoreToGrid(ICore myCore) {
 		int x = myCore.getLocation().getBlockX();
 		int z = myCore.getLocation().getBlockZ();
 		
@@ -88,7 +88,7 @@ public class EWorld {
 				Point gridPoint = new Point((int)Math.floor(i/GridSize),(int)Math.floor(j/GridSize));
 				//only add the core if its not listed already
 				if (CoreGrid.get(gridPoint) == null) {
-					CoreGrid.put(gridPoint, new HashMap<UUID,Core>());
+					CoreGrid.put(gridPoint, new HashMap<UUID,ICore>());
 				}
 				
 				if (!CoreGrid.get(gridPoint).containsKey((myCore.getUUID()))){
@@ -98,7 +98,7 @@ public class EWorld {
 		}
 	}
 	
-	private void removeCoreFromGrid(Core myCore) {
+	private void removeCoreFromGrid(ICore myCore) {
 
 		int x = myCore.getLocation().getBlockX();
 		int z = myCore.getLocation().getBlockZ();
@@ -116,7 +116,7 @@ public class EWorld {
 		}
 	}
 
-	public HashMap<UUID, Core> getCoresInGrid(int x, int z){
+	public HashMap<UUID, ICore> getCoresInGrid(int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));	
 		Debug.Console("X: "+gridPoint.getX()+" Z: "+gridPoint.getY());
 		return CoreGrid.get(gridPoint);
@@ -131,16 +131,16 @@ public class EWorld {
 	}
 
 	
-	public HashMap<UUID, Core> getEnemyCoresInGrid(UUID myEmpireUUID, int x, int z){
+	public HashMap<UUID, ICore> getEnemyCoresInGrid(UUID myEmpireUUID, int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		HashMap<UUID, Core> allCores = CoreGrid.get(gridPoint);
-		HashMap<UUID, Core> enemyCores = new HashMap<UUID, Core>();
+		HashMap<UUID, ICore> allCores = CoreGrid.get(gridPoint);
+		HashMap<UUID, ICore> enemyCores = new HashMap<UUID, ICore>();
 		
 		if (allCores == null){
 			return null;
 		}
 		
-		for (Core myCore : allCores.values()){
+		for (ICore myCore : allCores.values()){
 			if (myCore.getEmpireUUID().equals(myEmpireUUID) == false){
 				enemyCores.put(myCore.getUUID(), myCore);
 			}
@@ -152,16 +152,16 @@ public class EWorld {
 		return enemyCores;
 	}
 	
-	public HashMap<UUID, Core> getFriendlyCoresInGrid(UUID myEmpireUUID, int x, int z){
+	public HashMap<UUID, ICore> getFriendlyCoresInGrid(UUID myEmpireUUID, int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
-		HashMap<UUID, Core> allCores = CoreGrid.get(gridPoint);
-		HashMap<UUID, Core> friendlyCores = new HashMap<UUID, Core>();
+		HashMap<UUID, ICore> allCores = CoreGrid.get(gridPoint);
+		HashMap<UUID, ICore> friendlyCores = new HashMap<UUID, ICore>();
 		
 		if (allCores == null){
 			return null;
 		}
 		
-		for (Core myCore : allCores.values()){
+		for (ICore myCore : allCores.values()){
 			if (myCore.getEmpireUUID().equals(myEmpireUUID)){
 				friendlyCores.put(myCore.getUUID(), myCore);
 			}
@@ -169,7 +169,7 @@ public class EWorld {
 		return friendlyCores;
 	}
 	
-	public HashMap<UUID, Core> getFriendlyCoresInGrid(UUID myEmpireUUID, Point myPoint){
+	public HashMap<UUID, ICore> getFriendlyCoresInGrid(UUID myEmpireUUID, Point myPoint){
 		return getFriendlyCoresInGrid(myEmpireUUID, myPoint.x, myPoint.y);
 	}
 	
@@ -182,7 +182,7 @@ public class EWorld {
 		
 		for (int i = X-range;i <= X +range; i+=(range/2)){
 			for (int j = Z-range;j <= Z+range; j+=(range/2)){
-				HashMap<UUID, Core> myCores = this.getEnemyCoresInGrid(myCore.getEmpireUUID(),i, j);
+				HashMap<UUID, ICore> myCores = this.getEnemyCoresInGrid(myCore.getEmpireUUID(),i, j);
 				if (myCores != null ){
 					return true;
 				}
@@ -202,12 +202,12 @@ public class EWorld {
 		
 		for (int i = c1x1;i <= c1x2; i +=areaSize){
 			for (int j = c1z1;j <= c1z2; j += areaSize){
-				HashMap<UUID, Core> coreList = getFriendlyCoresInGrid(myCore.getEmpireUUID(),i,j);
+				HashMap<UUID, ICore> coreList = getFriendlyCoresInGrid(myCore.getEmpireUUID(),i,j);
 				if (coreList == null){
 					return false;
 				}
 				
-				for (Core c : coreList.values()){
+				for (ICore c : coreList.values()){
 					if (!(c.equals(myCore))){
 						int c2areaSize = c.getAreaSize();
 						int c2x1 = c.getLocation().getBlockX()-c2areaSize;
@@ -272,7 +272,7 @@ public class EWorld {
 		int x = (int) myPoint.getX();
 		int z = (int) myPoint.getY();
 		
-		HashMap<UUID, Core> myEmpireCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), x, z);
+		HashMap<UUID, ICore> myEmpireCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), x, z);
 		if (myEmpireCores == null ){
 			return false;
 		}
@@ -294,7 +294,7 @@ public class EWorld {
 		return false;
 	}
 
-	public HashMap<UUID, Core> getFriendlyCoresInGrid(UUID empireUUID,	Location location) {
+	public HashMap<UUID, ICore> getFriendlyCoresInGrid(UUID empireUUID,	Location location) {
 		return getFriendlyCoresInGrid(empireUUID, location.getBlockX(), location.getBlockZ());
 	}
 
@@ -337,7 +337,7 @@ public class EWorld {
 	}
 	
 	public boolean coresOverlap( ICore myCore){
-		HashMap<UUID, Core> myCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), myCore.getLocation());
+		HashMap<UUID, ICore> myCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), myCore.getLocation());
 		
 		if (myCores == null){
 			return false;
@@ -349,7 +349,7 @@ public class EWorld {
 		int c1z1 = myCore.getLocation().getBlockZ()-coreSize;
 		int c1z2 = myCore.getLocation().getBlockZ()+coreSize;
 		
-		for(Core friendlyCore : myCores.values()){
+		for(ICore friendlyCore : myCores.values()){
 			
 			int coreSize2 = friendlyCore.getCoreSize();
 			int c2x1 = friendlyCore.getLocation().getBlockX()-coreSize2;
@@ -368,12 +368,12 @@ public class EWorld {
 		int x = (int) newLocation.getX();
 		int z = (int) newLocation.getZ();
 		
-		HashMap<UUID, Core> myCores = getCoresInGrid(x, z);
+		HashMap<UUID, ICore> myCores = getCoresInGrid(x, z);
 		if (myCores == null ){
 			return null;
 		}
 		
-		for (Core myCore : myCores.values()){				
+		for (ICore myCore : myCores.values()){				
 			if (myCore.isInArea(x,  z)){
 				return myCore.getEmpireUUID();
 			}
@@ -381,15 +381,15 @@ public class EWorld {
 		return null;
 	}
 	
-	public HashMap<UUID, Core> getCores(Integer locX, Integer locZ){
-		HashMap<UUID, Core> myCores = getCoresInGrid(locX, locZ);
+	public HashMap<UUID, ICore> getCores(Integer locX, Integer locZ){
+		HashMap<UUID, ICore> myCores = getCoresInGrid(locX, locZ);
 		if (myCores == null ){
 			return null;
 		}
 		
-		HashMap<UUID, Core> myOverlappingCores = new HashMap<UUID, Core>();
+		HashMap<UUID, ICore> myOverlappingCores = new HashMap<UUID, ICore>();
 		
-		for (Core myCore : myCores.values()){				
+		for (ICore myCore : myCores.values()){				
 			if (myCore.isInArea(locX,  locZ)){
 				myOverlappingCores.put(myCore.getUUID(), myCore);
 			}
@@ -397,7 +397,7 @@ public class EWorld {
 		return myOverlappingCores;
 	}
 
-	public HashMap<UUID, Core> getCores(Location newLocation) {
+	public HashMap<UUID, ICore> getCores(Location newLocation) {
 		return getCores(newLocation.getBlockX(), newLocation.getBlockZ());
 	}
 	public void regenAllBlocks() {

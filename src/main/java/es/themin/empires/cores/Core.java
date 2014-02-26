@@ -260,7 +260,7 @@ public class Core implements ICore{
 		this.destroyCost = destroyCost;
 	}
 	
-	public boolean isInCore(Integer locX, Integer locY, Integer locZ){
+	public boolean isInCore(int locX, int locY, int locZ){
 		Integer x = this.getLocation().getBlockX();
 		Integer z = this.getLocation().getBlockZ();
 		Integer y = this.getLocation().getBlockY();

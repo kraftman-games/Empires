@@ -5,26 +5,27 @@ import java.util.UUID;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.cores.Core;
+import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Empire;
 
 public class CoreManager implements IManager{
 
-	private HashMap<UUID,Core> cores = new HashMap<UUID,Core>();
+	private HashMap<UUID,ICore> cores = new HashMap<UUID,ICore>();
 	private EmpiresDAL empiresDAL = null;
 	
 	
-	public CoreManager(EmpiresDAL myEmpiresDAL, HashMap<UUID, Core> myCores) {
+	public CoreManager(EmpiresDAL myEmpiresDAL, HashMap<UUID, ICore> myCores) {
 		empiresDAL = myEmpiresDAL;
 		cores = myCores;
 	}
 	
-	public void addCore(Core myCore) {
+	public void addCore(ICore myCore) {
 		this.cores.put(myCore.getUUID(), myCore);
 		empiresDAL.createOrUpdateCore(myCore);
 	}
 	
-	public void removeCore(Core c){
+	public void removeCore(ICore c){
 		cores.remove(c);
 		empiresDAL.deleteCore(c);
 	}
@@ -35,16 +36,16 @@ public class CoreManager implements IManager{
 	
 	public int getExp(UUID empireUUID) {
 		int xp = 0;
-		for (Core core : cores.values()) {
+		for (ICore core : cores.values()) {
 			xp = xp + core.getLevel() * 2;
 		}
 		return xp;
 	}	
 	
-	public HashMap<UUID,Core> getEmpireCores(UUID empireUUID) {
-		HashMap<UUID,Core> empireCores = new HashMap<UUID,Core>();
+	public HashMap<UUID,ICore> getEmpireCores(UUID empireUUID) {
+		HashMap<UUID,ICore> empireCores = new HashMap<UUID,ICore>();
 		
-		for (Core myCore : cores.values()){
+		for (ICore myCore : cores.values()){
 			if (myCore.getEmpireUUID().equals(empireUUID)){
 				empireCores.put(myCore.getUUID(), myCore);
 			}
@@ -67,11 +68,11 @@ public class CoreManager implements IManager{
 		cores = empiresDAL.loadCores();		
 	}
 
-	public HashMap<UUID, Core> getEmpireCores(UUID uuid, CoreType type) {
+	public HashMap<UUID, ICore> getEmpireCores(UUID uuid, CoreType type) {
 
-		HashMap<UUID, Core> myCores = getEmpireCores(uuid);
-		HashMap<UUID, Core> filteredCores = new HashMap<UUID, Core>();
-		for (Core myCore : myCores.values()){
+		HashMap<UUID, ICore> myCores = getEmpireCores(uuid);
+		HashMap<UUID, ICore> filteredCores = new HashMap<UUID, ICore>();
+		for (ICore myCore : myCores.values()){
 			if (myCore.getType() == type){
 				filteredCores.put(myCore.getUUID(), myCore);
 			}
@@ -79,7 +80,7 @@ public class CoreManager implements IManager{
 		return filteredCores;
 	}
 
-	public HashMap<UUID, Core> getCores() {
+	public HashMap<UUID, ICore> getCores() {
 		return cores;
 	}
 }

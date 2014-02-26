@@ -17,4 +17,10 @@ public interface ICore {
 	public UUID getEmpireUUID();
 	public Integer getAreaSize();
 	public Integer getCoreSize();
+	public int getLevel();
+	public CoreType getType();
+	public void showEdges(Boolean edgesShown);
+	public boolean isInArea(Integer locX, Integer locZ);
+	public boolean isInCore(int x, int y, int z);
+	public void build();
 }

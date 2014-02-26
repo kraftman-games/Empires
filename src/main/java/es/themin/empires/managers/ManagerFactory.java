@@ -9,6 +9,7 @@ import com.jolbox.bonecp.BoneCP;
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.empires;
 import es.themin.empires.cores.Core;
+import es.themin.empires.cores.ICore;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
 import es.themin.empires.util.Empire;
@@ -35,7 +36,7 @@ public class ManagerFactory {
 	}
 
 	public static CoreManager CreateCoreManager(EmpiresDAL myEmpiresDAL) {
-		HashMap<UUID, Core> cores = new HashMap<UUID,Core>();
+		HashMap<UUID, ICore> cores = new HashMap<UUID,ICore>();
 		CoreManager myCoreManager = new  CoreManager(myEmpiresDAL, cores);
 		return myCoreManager;
 	}

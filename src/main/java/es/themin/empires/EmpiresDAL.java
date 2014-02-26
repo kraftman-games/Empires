@@ -16,6 +16,7 @@ import com.jolbox.bonecp.BoneCP;
 
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreFactory;
+import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
@@ -105,8 +106,8 @@ public class EmpiresDAL {
 		return myEmpires;
 	}
 
-	public HashMap<UUID,Core> loadCores() {
-		HashMap<UUID,Core> myCores = new HashMap<UUID,Core>();
+	public HashMap<UUID,ICore> loadCores() {
+		HashMap<UUID,ICore> myCores = new HashMap<UUID,ICore>();
 		Connection connection = null;
 		try {
 			connection = connectionPool.getConnection(); 
@@ -248,7 +249,7 @@ public class EmpiresDAL {
 		createOrUpdatePlayers(myPlayers);
 	}
 	
-	public void createOrUpdateCores(HashMap<UUID,Core> myCores){
+	public void createOrUpdateCores(HashMap<UUID,ICore> myCores){
 		Connection myConnection = null;
 		try {
 			myConnection = connectionPool.getConnection(); // fetch a connection
@@ -257,7 +258,7 @@ public class EmpiresDAL {
 				PreparedStatement stmnt = myConnection.prepareStatement("INSERT INTO `Cores` SET `CoreUUID`=?,`EmpireUUID`=?,`CoreType`=?,`WorldUUID`=?,`X`=?,`Y`=?,`Z`=?"+
 																			" ON DUPLICATE KEY UPDATE `CoreUUID`=?,`EmpireUUID`=?,`CoreType`=?,`WorldUUID`=?,`X`=?,`Y`=?,`Z`=?;");
 			       
-				for (Core myCore : myCores.values()){
+				for (ICore myCore : myCores.values()){
 					
 			        stmnt.setString(1, myCore.getUUID().toString());
 			        stmnt.setString(2, myCore.getEmpireUUID().toString());
@@ -295,8 +296,8 @@ public class EmpiresDAL {
 		}		
 	}
 	
-	public void createOrUpdateCore(Core myCore){
-		HashMap<UUID,Core> myCores = new HashMap<UUID,Core>();
+	public void createOrUpdateCore(ICore myCore){
+		HashMap<UUID,ICore> myCores = new HashMap<UUID,ICore>();
 		myCores.put(myCore.getUUID(), myCore);
 		createOrUpdateCores(myCores);
 	}
@@ -311,7 +312,7 @@ public class EmpiresDAL {
 
 
 
-	public void deleteCore(Core myCore) {
+	public void deleteCore(ICore myCore) {
 		Connection connection = null;
 		try {
 			connection = connectionPool.getConnection(); 
