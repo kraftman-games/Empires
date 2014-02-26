@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
@@ -74,6 +75,10 @@ public class Event_EntityExplode implements Listener{
 				myFallingBlock.setDropItem(false);
 			}
 		//}
+	}
+	@EventHandler
+	public void on(BlockFormEvent event) {
+		Bukkit.broadcastMessage("Block Formed");
 	}
 	
 
