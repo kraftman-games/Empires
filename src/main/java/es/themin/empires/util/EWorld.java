@@ -11,6 +11,7 @@ import org.bukkit.World;
 
 import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
+import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.PlaceType;
 
 public class EWorld {
@@ -173,7 +174,7 @@ public class EWorld {
 	}
 	
 	
-	public boolean isNearEnemyCore(Core myCore){
+	public boolean isNearEnemyCore(ICore myCore){
 		int range = getGridSize();
 		
 		Integer X = myCore.getLocation().getBlockX();
@@ -190,7 +191,7 @@ public class EWorld {
 		return false;
 	}
 
-	public boolean isEdgeOfEmpire(Core myCore) {
+	public boolean isEdgeOfEmpire(ICore myCore) {
 		//get all nearby cores
 		
 		int areaSize = myCore.getAreaSize();
@@ -242,7 +243,7 @@ public class EWorld {
 	 * @param myCore
 	 * @return
 	 */
-	public boolean isInsideEmpire(Core myCore) {
+	public boolean isInsideEmpire(ICore myCore) {
 		
 		int areaSize = myCore.getAreaSize();
 		int x = myCore.getLocation().getBlockX();
@@ -266,7 +267,7 @@ public class EWorld {
 	 * @param myPoint
 	 * @return
 	 */
-	public boolean isInEmpire(Core myCore, Point myPoint){
+	public boolean isInEmpire(ICore myCore, Point myPoint){
 		
 		int x = (int) myPoint.getX();
 		int z = (int) myPoint.getY();
@@ -276,7 +277,7 @@ public class EWorld {
 			return false;
 		}
 		
-		for (Core myFriendlyCore : myEmpireCores.values()){
+		for (ICore myFriendlyCore : myEmpireCores.values()){
 			if (myFriendlyCore != myCore){
 				int areaSize = myFriendlyCore.getAreaSize();
 				int x1 = myFriendlyCore.getLocation().getBlockX()-areaSize;
@@ -301,7 +302,7 @@ public class EWorld {
 		return myUUID;
 	}
 
-	public boolean coreLocationIsValid(EPlayer myEPlayer, Core myCore) {
+	public boolean coreLocationIsValid(EPlayer myEPlayer, ICore myCore) {
 		
 		// check if its too close to another empire
 		if (myCore.getPlaceType() == PlaceType.OUTSIDE || myCore.getPlaceType() == PlaceType.EDGE){
@@ -335,7 +336,7 @@ public class EWorld {
 		return true;
 	}
 	
-	public boolean coresOverlap( Core myCore){
+	public boolean coresOverlap( ICore myCore){
 		HashMap<UUID, Core> myCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), myCore.getLocation());
 		
 		if (myCores == null){

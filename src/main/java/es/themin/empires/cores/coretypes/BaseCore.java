@@ -12,7 +12,7 @@ import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.PlaceType;
 
-public class BaseCore  extends Core implements ICore {
+public class BaseCore  extends Core {
 
 	public BaseCore(UUID empireUUID, Location myLocation) {
 		super( empireUUID, myLocation);

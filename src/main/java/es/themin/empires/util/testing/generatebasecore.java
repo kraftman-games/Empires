@@ -23,7 +23,7 @@ public class generatebasecore extends SubCommand{
 		
 		Core myCore = CoreFactory.CreateCore(myEPlayer.getEmpireUUID(), myEPlayer.getLocation(), CoreType.BASE);
 		
-		Bukkit.getServer().getLogger().info(myEPlayer.getEmpireUUID().toString());
+		
 		myApi.generateCore(myEPlayer, myCore);
 		
 		return false;

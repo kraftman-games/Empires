@@ -15,7 +15,7 @@ import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.PlaceType;
 import es.themin.empires.schematics.Schematic;
 
-public class Core {
+public class Core implements ICore{
 	
 	/* TODO
 	* add a recovery cost per core
