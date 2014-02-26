@@ -71,6 +71,7 @@ public class Event_EntityExplode implements Listener{
 				Location l2 = b.getLocation();
 				FallingBlock myFallingBlock = w.spawnFallingBlock(l2, m, d);
 				myFallingBlock.setVelocity(new Vector(x,y,z));
+				myFallingBlock.setDropItem(false);
 			}
 		//}
 	}
