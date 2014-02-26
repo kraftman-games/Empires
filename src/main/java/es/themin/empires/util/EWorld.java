@@ -319,7 +319,7 @@ public class EWorld {
 			}
 		}
 		
-		
+		Debug.Console(myCore.getPlaceType().toString());
 		if (myCore.getPlaceType() == PlaceType.INSIDE){
 			if (!isInsideEmpire(myCore)){
 				myEPlayer.sendMessage("Cannot place outside of empire");
