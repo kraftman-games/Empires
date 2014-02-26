@@ -128,7 +128,7 @@ public class EmpiresDAL {
 					 
 					 Location myLocation = new Location(myWorld,X,Y,Z);
 					 UUID myEmpireUUID = UUID.fromString(results.getString("EmpireUUID"));
-					 Core myCore = CoreFactory.CreateCore(myEmpireUUID, myLocation, myCoreType);
+					 ICore myCore = CoreFactory.CreateCore(myEmpireUUID, myLocation, myCoreType);
 					 myCore.setUUID(myCoreUuid);
 					 
 					myCores.put(myCore.getUUID(), myCore);

@@ -7,6 +7,7 @@ import es.themin.empires.Debug;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreFactory;
+import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
@@ -22,7 +23,7 @@ public class GenerateCore extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
-		Core myCore = null;
+		ICore myCore = null;
 		Debug.Console(args[1]);
 		CoreType myType = null;
 		

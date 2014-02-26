@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.cores.Core;
+import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
 import es.themin.empires.wars.Battle;
@@ -533,7 +534,7 @@ public class Empire {
 		return coreLimits.get(type);
 	}
 
-	public boolean canExpand(EPlayer myEPlayer, Core myCore) {
+	public boolean canExpand(EPlayer myEPlayer, ICore myCore) {
 		//check the empire is in a state where it can expand
 		if (getEmpireState() != EmpireState.BATTLEREADY){
 			if (getEmpireState() == EmpireState.ATWAR){

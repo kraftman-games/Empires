@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.bukkit.Location;
 
 import es.themin.empires.enums.CoreType;
+import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.PlaceType;
 
 public interface ICore {
@@ -23,4 +24,7 @@ public interface ICore {
 	public boolean isInArea(Integer locX, Integer locZ);
 	public boolean isInCore(int x, int y, int z);
 	public void build();
+	public EmpirePermission getPlacePermission();
+	public void setEmpireUUID(UUID uuid);
+	public void setUUID(UUID randomUUID);
 }

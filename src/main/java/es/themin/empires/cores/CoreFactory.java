@@ -12,7 +12,7 @@ import es.themin.empires.enums.CoreType;
 public class CoreFactory {
 
 	
-	public static Core CreateCore(UUID empireUUID, Location myLocation, CoreType myCoreType){
+	public static ICore CreateCore(UUID empireUUID, Location myLocation, CoreType myCoreType){
 		
 		Integer xInteger = myLocation.getBlockX();
 		Integer yInteger = myLocation.getBlockY();
@@ -20,7 +20,7 @@ public class CoreFactory {
 		
 		Location myLocation2 = new Location(myLocation.getWorld(), xInteger, yInteger, zInteger);
 		
-		Core myCore = null;
+		ICore myCore = null;
 		
 		
 		switch (myCoreType) {

@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreFactory;
+import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EPlayer;
@@ -21,7 +22,7 @@ public class generatebasecore extends SubCommand{
 	public boolean onCommand(Player player, String[] args) {
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
-		Core myCore = CoreFactory.CreateCore(myEPlayer.getEmpireUUID(), myEPlayer.getLocation(), CoreType.BASE);
+		ICore myCore = CoreFactory.CreateCore(myEPlayer.getEmpireUUID(), myEPlayer.getLocation(), CoreType.BASE);
 		
 		
 		myApi.generateCore(myEPlayer, myCore);

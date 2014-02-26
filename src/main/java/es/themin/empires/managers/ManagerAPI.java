@@ -244,7 +244,7 @@ public class ManagerAPI {
 
 
 
-	public void generateCore(EPlayer myEPlayer, Core myCore) {
+	public void generateCore(EPlayer myEPlayer, ICore myCore) {
 		
 		Empire myEmpire = getEmpire(myEPlayer);
 		EWorld myWorld = getWorld(myEPlayer);
@@ -281,7 +281,7 @@ public class ManagerAPI {
 
 
 
-	private boolean playerCanAffordCore(EPlayer myEPlayer, Core myCore) {
+	private boolean playerCanAffordCore(EPlayer myEPlayer, ICore myCore) {
 	/* so this will depend on how we charge players,
 	 * does it come out of their empire account
 	 * out of their inventory
