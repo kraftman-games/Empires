@@ -19,6 +19,7 @@ public class CoreBlock {
 	    this.data = data;
 	    
 	}
+	
 
 	public int getOffsetX() {
 		return offsetX;

@@ -20,17 +20,21 @@ public class CoreFactory {
 		
 		Location myLocation2 = new Location(myLocation.getWorld(), xInteger, yInteger, zInteger);
 		
+		Core myCore = null;
 		
 		
 		switch (myCoreType) {
 		case BASE:
-			return new BaseCore( empireUUID,  myLocation2);
+			myCore = new BaseCore( empireUUID,  myLocation2);
 		case GRIEF:
-			return new GriefCore( empireUUID,  myLocation2);
+			myCore = new GriefCore( empireUUID,  myLocation2);
 		case CELL:
-			return new CellCore( empireUUID,  myLocation2);
+			myCore = new CellCore( empireUUID,  myLocation2);
 		default:
-			return null;
+			
 		}
+		myCore.setUUID(UUID.randomUUID());
+		
+		return myCore;
 	}
 }
