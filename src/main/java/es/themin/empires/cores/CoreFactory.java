@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 
+import es.themin.empires.Debug;
 import es.themin.empires.cores.coretypes.BaseCore;
 import es.themin.empires.cores.coretypes.CellCore;
 import es.themin.empires.cores.coretypes.GriefCore;
@@ -26,10 +27,13 @@ public class CoreFactory {
 		switch (myCoreType) {
 		case BASE:
 			myCore = new BaseCore( empireUUID,  myLocation2);
+			Debug.Console("after base core creation" +myCore.getPlaceType().toString());
 		case GRIEF:
 			myCore = new GriefCore( empireUUID,  myLocation2);
+			Debug.Console("after grief core creation" +myCore.getPlaceType().toString());
 		case CELL:
 			myCore = new CellCore( empireUUID,  myLocation2);
+			Debug.Console("after cell core creation" +myCore.getPlaceType().toString());
 		default:
 			
 		}

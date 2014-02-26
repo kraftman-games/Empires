@@ -3,6 +3,7 @@ package es.themin.empires.util.testing;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import es.themin.empires.Debug;
 import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreFactory;
@@ -23,7 +24,7 @@ public class generatebasecore extends SubCommand{
 		EPlayer myEPlayer = myApi.getEPlayer(player);
 		
 		ICore myCore = CoreFactory.CreateCore(myEPlayer.getEmpireUUID(), myEPlayer.getLocation(), CoreType.BASE);
-		
+		Debug.Console("after creation: "+myCore.getPlaceType().toString());
 		
 		myApi.generateCore(myEPlayer, myCore);
 		
