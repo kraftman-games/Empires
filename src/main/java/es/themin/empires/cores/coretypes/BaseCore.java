@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
+import es.themin.empires.Debug;
 import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreBlock;
 import es.themin.empires.cores.ICore;
@@ -17,7 +18,7 @@ public class BaseCore  extends Core {
 	public BaseCore(UUID empireUUID, Location myLocation) {
 		super( empireUUID, myLocation);
 
-
+		Debug.Console("Generatign base core");
 		coreType = CoreType.BASE;
 		coreSize = 2;
 		areaSize = 32;
