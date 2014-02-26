@@ -28,12 +28,15 @@ public class CoreFactory {
 		case BASE:
 			myCore = new BaseCore( empireUUID,  myLocation2);
 			Debug.Console("after base core creation" +myCore.getPlaceType().toString());
+			break;
 		case GRIEF:
 			myCore = new GriefCore( empireUUID,  myLocation2);
 			Debug.Console("after grief core creation" +myCore.getPlaceType().toString());
+			break;
 		case CELL:
 			myCore = new CellCore( empireUUID,  myLocation2);
 			Debug.Console("after cell core creation" +myCore.getPlaceType().toString());
+			break;
 		default:
 			
 		}
