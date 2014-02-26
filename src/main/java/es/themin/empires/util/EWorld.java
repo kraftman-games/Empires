@@ -1,6 +1,7 @@
 package es.themin.empires.util;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class EWorld {
 	private Integer GridSize = 400;
 	private World world;
 	private String name;
+	private ArrayList<RegenBlock> regenblocks;
 	
 	//TODO: IMPORTANT. check if the core its overlapping is itself
 
@@ -44,6 +46,7 @@ public class EWorld {
 		CoreGrid = new HashMap<Point, HashMap<UUID, Core>>();
 		Cores = new HashMap<UUID, Core>();
 		myUUID = uuid;
+		this.regenblocks = new ArrayList<RegenBlock>();
 	}
 
 	public Integer getGridSize() {
@@ -395,6 +398,21 @@ public class EWorld {
 
 	public HashMap<UUID, Core> getCores(Location newLocation) {
 		return getCores(newLocation.getBlockX(), newLocation.getBlockZ());
+	}
+	public void regenAllBlocks() {
+		for (RegenBlock b : regenblocks) {
+			b.regen();
+		}
+	}
+	public void addRegenBlocks(ArrayList<RegenBlock> blocks) {
+		for (RegenBlock b :blocks) {
+			regenblocks.add(b);
+		}
+	}
+	public void removeRegenBlocks(ArrayList<RegenBlock> blocks) {
+		for (RegenBlock b :blocks) {
+			regenblocks.remove(b);
+		}
 	}
 	
 	
