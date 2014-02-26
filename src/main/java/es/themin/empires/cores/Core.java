@@ -179,7 +179,7 @@ public class Core implements ICore{
 	}
 	
 	public PlaceType getPlaceType() {
-		return placeType;
+		return this.placeType;
 	}
 
 	public void setPlaceType(PlaceType placeType) {
