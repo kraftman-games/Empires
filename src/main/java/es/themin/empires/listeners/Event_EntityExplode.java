@@ -62,9 +62,9 @@ public class Event_EntityExplode implements Listener{
 			//Handles if the event happened inside an empire
 			for (Block b : event.blockList()) {
 				event.setYield(0);
-				float x = (float) -2 + (float)(Math.random() * 4);
+				float x = (float) -0.5 + (float)(Math.random() * 1);
 				float y = (float) -1 + (float)(Math.random() * 2);
-				float z = (float) -2 + (float)(Math.random() * 4);
+				float z = (float) -0.5 + (float)(Math.random() * 1);
 				@SuppressWarnings("deprecation")
 				byte d = b.getData();
 				Material m = b.getType();
