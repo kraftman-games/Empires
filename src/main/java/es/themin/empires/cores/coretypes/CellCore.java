@@ -21,7 +21,7 @@ public class CellCore extends Core implements ICore  {
 		coreType = CoreType.CELL;
 		coreSize = 2;
 		areaSize = 8;
-		placeType = PlaceType.INSIDE;
+		setPlaceType(PlaceType.INSIDE);
 		
 		byte d = 0x0;
 		

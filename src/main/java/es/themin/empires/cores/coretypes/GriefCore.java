@@ -21,7 +21,7 @@ public class GriefCore extends Core implements ICore{
 		coreType = CoreType.GRIEF;
 		coreSize = 2;
 		areaSize = 16;
-		placeType = PlaceType.EDGE;
+		setPlaceType(PlaceType.EDGE);
 		
 		byte d = 0x0;
 	    coreBlocks = new ArrayList<CoreBlock>();

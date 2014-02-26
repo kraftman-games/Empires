@@ -22,7 +22,7 @@ public class BaseCore  extends Core {
 		coreType = CoreType.BASE;
 		coreSize = 2;
 		areaSize = 32;
-		placeType = PlaceType.OUTSIDE;
+		setPlaceType(PlaceType.OUTSIDE);
 		placeCost = 10;
 		
 		byte d = 0x0;

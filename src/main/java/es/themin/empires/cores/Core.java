@@ -33,7 +33,7 @@ public class Core implements ICore{
 	protected Integer coreSize;
 	protected Integer areaSize;
 	protected ArrayList<CoreBlock> schematic;
-	protected PlaceType placeType;
+	private PlaceType placeType = PlaceType.OUTSIDE;
 	protected int destroyCost = 0;
 	protected int placeCost = 0;
 	
