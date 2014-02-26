@@ -39,7 +39,7 @@ public class Event_EntityExplode implements Listener{
 		World w = l1.getWorld();
 		
 		final EWorld ew = api.getEWorld(w.getUID());
-		/*if (ew == null || ew.getCores(l1.getBlockX(), l1.getBlockZ()).isEmpty()) {
+		//if (ew == null || ew.getCores(l1.getBlockX(), l1.getBlockZ()).isEmpty()) {
 			//Handles the event if it occured outside an empire
 			final ArrayList<RegenBlock> blocks = RegenBlock.parseBlocks(event.blockList());
 			ew.addRegenBlocks(blocks);
@@ -59,7 +59,7 @@ public class Event_EntityExplode implements Listener{
 				}
 				
 			} ,400L);
-		}else {*/
+			/*}else {
 			//Handles if the event happened inside an empire
 			for (Block b : event.blockList()) {
 				event.setYield(0);
@@ -74,7 +74,7 @@ public class Event_EntityExplode implements Listener{
 				myFallingBlock.setVelocity(new Vector(x,y,z));
 				myFallingBlock.setDropItem(false);
 			}
-		//}
+		}*/
 	}
 	@EventHandler
 	public void on(BlockFormEvent event) {
