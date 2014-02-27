@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -106,8 +107,8 @@ public class EmpiresDAL {
 		return myEmpires;
 	}
 
-	public HashMap<UUID,ICore> loadCores() {
-		HashMap<UUID,ICore> myCores = new HashMap<UUID,ICore>();
+	public ConcurrentHashMap<UUID,ICore> loadCores() {
+		ConcurrentHashMap<UUID,ICore> myCores = new ConcurrentHashMap<UUID,ICore>();
 		Connection connection = null;
 		try {
 			connection = connectionPool.getConnection(); 
@@ -249,7 +250,7 @@ public class EmpiresDAL {
 		createOrUpdatePlayers(myPlayers);
 	}
 	
-	public void createOrUpdateCores(HashMap<UUID,ICore> myCores){
+	public void createOrUpdateCores(ConcurrentHashMap<UUID,ICore> myCores){
 		Connection myConnection = null;
 		try {
 			myConnection = connectionPool.getConnection(); // fetch a connection
@@ -297,7 +298,7 @@ public class EmpiresDAL {
 	}
 	
 	public void createOrUpdateCore(ICore myCore){
-		HashMap<UUID,ICore> myCores = new HashMap<UUID,ICore>();
+		ConcurrentHashMap<UUID,ICore> myCores = new ConcurrentHashMap<UUID,ICore>();
 		myCores.put(myCore.getUUID(), myCore);
 		createOrUpdateCores(myCores);
 	}

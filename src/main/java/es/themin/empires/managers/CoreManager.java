@@ -2,6 +2,7 @@ package es.themin.empires.managers;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import es.themin.empires.EmpiresDAL;
 import es.themin.empires.cores.Core;
@@ -11,11 +12,11 @@ import es.themin.empires.util.Empire;
 
 public class CoreManager implements IManager{
 
-	private HashMap<UUID,ICore> cores = new HashMap<UUID,ICore>();
+	private ConcurrentHashMap<UUID,ICore> cores = new ConcurrentHashMap<UUID,ICore>();
 	private EmpiresDAL empiresDAL = null;
 	
 	
-	public CoreManager(EmpiresDAL myEmpiresDAL, HashMap<UUID, ICore> myCores) {
+	public CoreManager(EmpiresDAL myEmpiresDAL, ConcurrentHashMap<UUID, ICore> myCores) {
 		empiresDAL = myEmpiresDAL;
 		cores = myCores;
 	}
@@ -80,7 +81,7 @@ public class CoreManager implements IManager{
 		return filteredCores;
 	}
 
-	public HashMap<UUID, ICore> getCores() {
+	public ConcurrentHashMap<UUID, ICore> getCores() {
 		return cores;
 	}
 }

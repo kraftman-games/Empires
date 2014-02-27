@@ -3,6 +3,7 @@ package es.themin.empires.managers;
 import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.jolbox.bonecp.BoneCP;
 
@@ -36,7 +37,7 @@ public class ManagerFactory {
 	}
 
 	public static CoreManager CreateCoreManager(EmpiresDAL myEmpiresDAL) {
-		HashMap<UUID, ICore> cores = new HashMap<UUID,ICore>();
+		ConcurrentHashMap<UUID, ICore> cores = new ConcurrentHashMap<UUID,ICore>();
 		CoreManager myCoreManager = new  CoreManager(myEmpiresDAL, cores);
 		return myCoreManager;
 	}
