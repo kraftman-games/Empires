@@ -3,6 +3,7 @@ package es.themin.empires.managers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -62,9 +63,12 @@ public class ManagerAPI {
 	}
 
 	private void addCoresToWorlds() {
-		for(ICore myCore : Cores.getCores().values()){
-			EWorld myWorld = Worlds.getWorld(myCore.getLocation().getWorld().getUID());
-			myWorld.addCore(myCore);
+		ConcurrentHashMap<UUID, ICore> myCores = Cores.getCores();
+		if (myCores != null && !myCores.isEmpty()){
+			for(ICore myCore : Cores.getCores().values()){
+				EWorld myWorld = Worlds.getWorld(myCore.getLocation().getWorld().getUID());
+				myWorld.addCore(myCore);
+			}
 		}
 	}
 
