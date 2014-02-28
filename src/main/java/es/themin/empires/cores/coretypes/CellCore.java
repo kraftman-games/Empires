@@ -19,31 +19,21 @@ public class CellCore extends Core implements ICore  {
 
 
 		coreType = CoreType.CELL;
-		coreSize = 2;
-		areaSize = 8;
+		coreSize = 4;
+		areaSize = 4;
 		setPlaceType(PlaceType.INSIDE);
 		
 		byte d = 0x0;
 		
 		 	coreBlocks = new ArrayList<CoreBlock>();
-		    coreBlocks.add(new CoreBlock(0,-1,0,Material.IRON_BLOCK,d));
-		    coreBlocks.add(new CoreBlock(0,-1,1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(0,-1,-1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(1,-1,0,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(1,-1,-1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(1,-1,1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(-1,-1,0,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(-1,-1,1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(-1,-1,-1,Material.BRICK,d));
-		    
-		    coreBlocks.add(new CoreBlock(0,1,1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(0,1,-1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(1,1,0,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(1,1,-1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(1,1,1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(-1,1,0,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(-1,1,1,Material.BRICK,d));
-		    coreBlocks.add(new CoreBlock(-1,1,-1,Material.BRICK,d));
+		 	
+		 	for (int y = -1; y <= 2; y++){
+			 	for (int i = -2; i <= 2; i=i+4){
+			 		for (int j = -2; j <= 2; j=j+4){
+			 			coreBlocks.add(new CoreBlock(i,-1,j,Material.OBSIDIAN,d));
+				 	}
+			 	}
+		 	}
 		
 	}
 	
