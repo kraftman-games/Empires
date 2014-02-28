@@ -182,7 +182,7 @@ public class Core implements ICore{
 		return this.placeType;
 	}
 
-	public void setPlaceType(PlaceType placeType) {
+	protected void setPlaceType(PlaceType placeType) {
 		this.placeType = placeType;
 	}
 	public void build2() {

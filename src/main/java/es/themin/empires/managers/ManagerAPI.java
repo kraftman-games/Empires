@@ -472,7 +472,6 @@ public class ManagerAPI {
 		EWorld myEWorld = getEWorld(myEPlayer.getWorld().getUID());
 		
 		if (myEPlayer.getLastLocationCheck() < (time - 1000)){
-			Debug.Console("Checking "+myEPlayer.getName()+"'s location");
 			if (newLocation.equals(myEPlayer.getLastLocation())){
 				//they havent moved
 			} else {
