@@ -163,6 +163,8 @@ public class EWorld {
 		if (allCores == null){
 			return null;
 		}
+		
+		Debug.Console(allCores.size()+" cores found");
 		//only create this if allcores isnt null
 		ConcurrentHashMap<UUID, ICore> friendlyCores = new ConcurrentHashMap<UUID, ICore>();
 		
