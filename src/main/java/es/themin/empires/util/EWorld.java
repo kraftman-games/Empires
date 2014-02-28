@@ -157,16 +157,16 @@ public class EWorld {
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
 		ConcurrentHashMap<UUID, ICore> allCores = CoreGrid.get(gridPoint);
 		ConcurrentHashMap<UUID, ICore> friendlyCores = new ConcurrentHashMap<UUID, ICore>();
-//		
-//		if (allCores == null){
-//			return null;
-//		}
-//		
-//		for (ICore myCore : allCores.values()){
-//			if (myCore.getEmpireUUID().equals(myEmpireUUID)){
-//				friendlyCores.put(myCore.getUUID(), myCore);
-//			}
-//		}
+		
+		if (allCores == null){
+			return null;
+		}
+		
+		for (ICore myCore : allCores.values()){
+			if (myCore.getEmpireUUID().equals(myEmpireUUID)){
+				friendlyCores.put(myCore.getUUID(), myCore);
+			}
+		}
 		return friendlyCores;
 	}
 	
@@ -250,6 +250,8 @@ public class EWorld {
 		int x = myCore.getLocation().getBlockX();
 		int z = myCore.getLocation().getBlockZ();
 		
+		
+		//check each corner of the grid is inside the empire
 		for (int i = x-areaSize;i <= x + areaSize; i +=areaSize){
 			for (int j = z-areaSize;j <= z + areaSize; z += areaSize){
 				Point myPoint = new Point(i,j);
