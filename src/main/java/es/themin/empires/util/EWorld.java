@@ -157,16 +157,16 @@ public class EWorld {
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
 		ConcurrentHashMap<UUID, ICore> allCores = CoreGrid.get(gridPoint);
 		ConcurrentHashMap<UUID, ICore> friendlyCores = new ConcurrentHashMap<UUID, ICore>();
-		
-		if (allCores == null){
-			return null;
-		}
-		
-		for (ICore myCore : allCores.values()){
-			if (myCore.getEmpireUUID().equals(myEmpireUUID)){
-				friendlyCores.put(myCore.getUUID(), myCore);
-			}
-		}
+//		
+//		if (allCores == null){
+//			return null;
+//		}
+//		
+//		for (ICore myCore : allCores.values()){
+//			if (myCore.getEmpireUUID().equals(myEmpireUUID)){
+//				friendlyCores.put(myCore.getUUID(), myCore);
+//			}
+//		}
 		return friendlyCores;
 	}
 	
