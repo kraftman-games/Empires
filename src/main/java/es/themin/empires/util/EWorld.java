@@ -155,15 +155,20 @@ public class EWorld {
 	
 	public ConcurrentHashMap<UUID, ICore> getFriendlyCoresInGrid(UUID myEmpireUUID, int x, int z){
 		Point gridPoint = new Point((int)Math.floor(x/GridSize),(int)Math.floor(z/GridSize));
+		
 		ConcurrentHashMap<UUID, ICore> allCores = CoreGrid.get(gridPoint);
-		ConcurrentHashMap<UUID, ICore> friendlyCores = new ConcurrentHashMap<UUID, ICore>();
+		
+		Debug.Console("loaded new friendly cores list");
 		
 		if (allCores == null){
 			return null;
 		}
+		//only create this if allcores isnt null
+		ConcurrentHashMap<UUID, ICore> friendlyCores = new ConcurrentHashMap<UUID, ICore>();
 		
 		for (ICore myCore : allCores.values()){
 			if (myCore.getEmpireUUID().equals(myEmpireUUID)){
+				Debug.Console("iterating through cores");
 				friendlyCores.put(myCore.getUUID(), myCore);
 			}
 		}
@@ -254,8 +259,7 @@ public class EWorld {
 		//check each corner of the grid is inside the empire
 		for (int i = x-areaSize;i <= x + areaSize; i +=areaSize){
 			for (int j = z-areaSize;j <= z + areaSize; z += areaSize){
-				Point myPoint = new Point(i,j);
-				if (!isInEmpire(myCore, myPoint)){
+				if (!isInEmpire(myCore, i,j)){
 					return false;
 				}
 			}
@@ -270,10 +274,7 @@ public class EWorld {
 	 * @param myPoint
 	 * @return
 	 */
-	public boolean isInEmpire(ICore myCore, Point myPoint){
-		
-		int x = (int) myPoint.getX();
-		int z = (int) myPoint.getY();
+	public boolean isInEmpire(ICore myCore, int x, int z){
 		
 		ConcurrentHashMap<UUID, ICore> myEmpireCores = getFriendlyCoresInGrid(myCore.getEmpireUUID(), x, z);
 		if (myEmpireCores == null ){
@@ -322,6 +323,8 @@ public class EWorld {
 			}
 		}
 		
+		
+		//INSIDE TYPES DONT WORK
 		Debug.Console(myCore.getPlaceType().toString());
 		if (myCore.getPlaceType() == PlaceType.INSIDE){
 			if (!isInsideEmpire(myCore)){
