@@ -21,7 +21,7 @@ public class CellCore extends Core implements ICore  {
 		coreType = CoreType.CELL;
 		coreSize = 2;
 		areaSize = 8;
-		setPlaceType(PlaceType.INSIDE);
+		setPlaceType(PlaceType.OUTSIDE);
 		
 		byte d = 0x0;
 		
@@ -47,11 +47,6 @@ public class CellCore extends Core implements ICore  {
 		
 	}
 	
-	public void build(){
-		super.build();
-		
-		//set some timer for release
-		
-	}
+	
 
 }
