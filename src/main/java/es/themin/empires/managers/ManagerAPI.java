@@ -473,9 +473,10 @@ public class ManagerAPI {
 		
 		if (myEPlayer.getLastLocationCheck() < (time - 1000)){
 			if (newLocation.equals(myEPlayer.getLastLocation())){
-				//they havent moved
+				//they havnt moved, reset the timer
+				myEPlayer.setLastLocationCheck(time);
 			} else {
-				//Debug.Console(myEPlayer.getName()+" has moved to new block: X: "+newLocation.getBlockX()+" Z: "+newLocation.getBlockZ());
+				
 				UUID empireUuid = myEWorld.getEmpireUUID(newLocation);
 				String locationName = "Wilderness";
 				if (empireUuid != null){
