@@ -27,11 +27,11 @@ public class CellCore extends Core implements ICore  {
 		
 		 	coreBlocks = new ArrayList<CoreBlock>();
 		 	
-		 	for (int y = -1; y <= 3; y++){
+		 	for (int y = -1; y <= 5; y++){
 			 	for (int i = -5; i <= 5; i++){
 			 		for (int j = -5; j <= 5; j++){
-			 			if(i==-5 || i==5 || j==-5 || j ==5){
-			 				coreBlocks.add(new CoreBlock(i,-1,j,Material.OBSIDIAN,d));
+			 			if(i==-5 || i==5 || j==-5 || j ==5 || y==-1){
+			 				coreBlocks.add(new CoreBlock(i,y,j,Material.OBSIDIAN,d));
 			 			}
 				 	}
 			 	}
