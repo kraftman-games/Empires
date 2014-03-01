@@ -20,17 +20,19 @@ public class CellCore extends Core implements ICore  {
 
 		coreType = CoreType.CELL;
 		coreSize = 0;
-		areaSize = 4;
+		areaSize = 5;
 		setPlaceType(PlaceType.INSIDE);
 		
 		byte d = 0x0;
 		
 		 	coreBlocks = new ArrayList<CoreBlock>();
 		 	
-		 	for (int y = -1; y <= 2; y++){
-			 	for (int i = -2; i <= 2; i=i+4){
-			 		for (int j = -2; j <= 2; j=j+4){
-			 			coreBlocks.add(new CoreBlock(i,-1,j,Material.OBSIDIAN,d));
+		 	for (int y = -1; y <= 3; y++){
+			 	for (int i = -5; i <= 5; i++){
+			 		for (int j = -5; j <= 5; j++){
+			 			if(i==-5 || i==5 || j==-5 || j ==5){
+			 				coreBlocks.add(new CoreBlock(i,-1,j,Material.OBSIDIAN,d));
+			 			}
 				 	}
 			 	}
 		 	}
