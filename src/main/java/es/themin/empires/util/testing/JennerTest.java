@@ -44,6 +44,9 @@ public class JennerTest extends SubCommand{
 		bootsmeta.setColor(Color.GREEN);
 		boots.setItemMeta(bootsmeta);
 		
+		ItemStack bow = new ItemStack(Material.BOW, 1);
+
+		
 		skele.setCustomName(player.getName() + "'s archer");
 		skele.setCustomNameVisible(true);
 		
@@ -52,6 +55,7 @@ public class JennerTest extends SubCommand{
 		w.dropItem(skele.getLocation(), chest);
 		w.dropItem(skele.getLocation(), leg);
 		w.dropItem(skele.getLocation(), boots);
+		w.dropItem(skele.getLocation(), bow);
 		return false;
 				
 		
