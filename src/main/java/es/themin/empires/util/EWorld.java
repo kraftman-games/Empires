@@ -259,8 +259,8 @@ public class EWorld {
 		
 		
 		//check each corner of the grid is inside the empire
-		for (int i = -areaSize;i <= areaSize; i +=areaSize){
-			for (int j = -areaSize;j <= areaSize; z += areaSize){
+		for (int i = -areaSize;i <= areaSize; i=i+(areaSize*2)){
+			for (int j = -areaSize;j <= areaSize; j = j+(areaSize*2)){
 				Debug.Console("Checking points x: "+ i + " z: "+j);
 				if (!isInEmpire(myCore, x+i,z+j)){
 					return false;
