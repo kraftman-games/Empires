@@ -1,5 +1,6 @@
 package es.themin.empires.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ public class ArcherListener implements Listener{
 	
 	@EventHandler
 	public void onEntityAttackEvent(EntityTargetLivingEntityEvent event) {
+		Bukkit.broadcastMessage("Entity: " + event.getEntity().getType()+ " Target: " + event.getTarget().getType());
 		if (event.getEntity().getType() == EntityType.SKELETON) {
 			Skeleton skele = (Skeleton) event.getEntity();
 			if (event.getTarget().getType() == EntityType.PLAYER) {
