@@ -28,7 +28,7 @@ public class UtilityTesting implements CommandExecutor{
 		commands.add(new generatebasecore(api));
 		commands.add(new GenerateCore(api));
 		commands.add(new showedges(api));
-		
+		commands.add(new JennerTest());
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

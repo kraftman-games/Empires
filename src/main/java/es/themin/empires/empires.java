@@ -24,6 +24,7 @@ import es.themin.empires.cmds.ally.AllyCommandStem;
 import es.themin.empires.cmds.empire.EmpireCommand;
 import es.themin.empires.cmds.war.WarCommand;
 import es.themin.empires.enums.ConfirmType;
+import es.themin.empires.listeners.ArcherListener;
 import es.themin.empires.listeners.BlockListener;
 import es.themin.empires.listeners.ChatListener;
 import es.themin.empires.listeners.CraftListener;
@@ -98,6 +99,7 @@ public final class empires extends JavaPlugin {
 		pm.registerEvents(new ChatListener(myAPI), this);
 		pm.registerEvents(new WorldListener(myAPI), this);
 		pm.registerEvents(new Event_EntityExplode(myAPI), this);
+		pm.registerEvents(new ArcherListener(), this);
     	
     }
     

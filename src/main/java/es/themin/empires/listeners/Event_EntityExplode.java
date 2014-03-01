@@ -8,9 +8,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
@@ -41,7 +43,7 @@ public class Event_EntityExplode implements Listener{
 		final EWorld ew = api.getEWorld(w.getUID());
 		//if (ew == null || ew.getCores(l1.getBlockX(), l1.getBlockZ()).isEmpty()) {
 			//Handles the event if it occured outside an empire
-			final ArrayList<RegenBlock> blocks = RegenBlock.parseBlocks(event.blockList());
+			/*final ArrayList<RegenBlock> blocks = RegenBlock.parseBlocks(event.blockList());
 			ew.addRegenBlocks(blocks);
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
@@ -58,8 +60,8 @@ public class Event_EntityExplode implements Listener{
 					ew.removeRegenBlocks(blocks);
 				}
 				
-			} ,400L);
-			/*}else {
+			} ,400L);*/
+			//}else {
 			//Handles if the event happened inside an empire
 			for (Block b : event.blockList()) {
 				event.setYield(0);
@@ -74,12 +76,7 @@ public class Event_EntityExplode implements Listener{
 				myFallingBlock.setVelocity(new Vector(x,y,z));
 				myFallingBlock.setDropItem(false);
 			}
-		}*/
+		//}
 	}
-	@EventHandler
-	public void on(BlockFormEvent event) {
-		Bukkit.broadcastMessage("Block Formed");
-	}
-	
 
 }
