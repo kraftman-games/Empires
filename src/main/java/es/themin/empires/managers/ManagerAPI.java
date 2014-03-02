@@ -476,7 +476,6 @@ public class ManagerAPI {
 				//they havnt moved, reset the timer
 				myEPlayer.setLastLocationCheck(time);
 			} else {
-				
 				UUID empireUuid = myEWorld.getEmpireUUID(newLocation);
 				String locationName = "Wilderness";
 				if (empireUuid != null){
