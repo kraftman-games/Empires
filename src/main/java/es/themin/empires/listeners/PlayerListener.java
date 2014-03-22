@@ -11,14 +11,14 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 
 public class PlayerListener implements Listener{
 	
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public PlayerListener(ManagerAPI myAPI){
+	public PlayerListener(ManagerBL myAPI){
 		myApi = myAPI;
 	}
 	

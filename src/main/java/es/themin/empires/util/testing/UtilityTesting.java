@@ -12,15 +12,15 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.empires;
 import es.themin.empires.cmds.SubCommand;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 
 public class UtilityTesting implements CommandExecutor{
 	
 	private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 	private empires myPlugin;
-	ManagerAPI myApi = null;
+	ManagerBL myApi = null;
 	
-	public UtilityTesting(ManagerAPI api){
+	public UtilityTesting(ManagerBL api){
 		myApi = api;
 		
 		commands.add(new newemp(api));

@@ -3,15 +3,15 @@ package es.themin.empires.util.testing;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.cmds.SubCommand;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 
 public class emp extends SubCommand{
 	
-	ManagerAPI myaApi;
+	ManagerBL myaApi;
 	
-	public emp(ManagerAPI api) {
+	public emp(ManagerBL api) {
 		myaApi = api;
 	}
 

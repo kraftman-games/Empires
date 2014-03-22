@@ -29,7 +29,7 @@ import es.themin.empires.listeners.CraftListener;
 import es.themin.empires.listeners.Event_EntityExplode;
 import es.themin.empires.listeners.PlayerListener;
 import es.themin.empires.listeners.WorldListener;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.managers.ManagerFactory;
 import es.themin.empires.schematics.Schematic;
 import es.themin.empires.schematics.base.Schematic_Base_20;
@@ -43,7 +43,7 @@ public final class empires extends JavaPlugin {
  
 	
 	//stuff we definatly need here
-	private ManagerAPI myAPI = null;
+	private ManagerBL myAPI = null;
 	BoneCP connectionPool = null;
 	public UtilManager utils;
 	
@@ -117,7 +117,7 @@ public final class empires extends JavaPlugin {
 		}
     }
     
-    public void loadCommands(ManagerAPI myAPI) {
+    public void loadCommands(ManagerBL myAPI) {
 		
 		EmpireCommand empire_ce = new EmpireCommand(myAPI);
 		getCommand("empire").setExecutor(empire_ce);

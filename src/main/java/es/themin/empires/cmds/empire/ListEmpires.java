@@ -2,14 +2,14 @@ package es.themin.empires.cmds.empire;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 
 public class ListEmpires extends EmpireSubCommand{
 
-	private ManagerAPI myApi;
+	private ManagerBL myApi;
 	
-	public ListEmpires(ManagerAPI api) {
+	public ListEmpires(ManagerBL api) {
 		myApi = api;
 	}
 

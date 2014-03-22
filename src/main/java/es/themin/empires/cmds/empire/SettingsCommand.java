@@ -4,16 +4,16 @@ import org.bukkit.ChatColor;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 
 public class SettingsCommand extends EmpireSubCommand{
 
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public SettingsCommand(ManagerAPI api) {
+	public SettingsCommand(ManagerBL api) {
 		myApi = api;
 	}
 

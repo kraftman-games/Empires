@@ -4,14 +4,14 @@ import org.bukkit.ChatColor;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 
 public class ToggleChat extends EmpireSubCommand{
 	
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public ToggleChat(ManagerAPI api) {
+	public ToggleChat(ManagerBL api) {
 		myApi = api;
 	}
 

@@ -23,7 +23,7 @@ import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 import es.themin.empires.util.Rank;
 
-public class ManagerAPI {
+public class ManagerBL {
 
 	private CoreManager Cores = null;
 	private PlayerManager Players = null;
@@ -32,7 +32,7 @@ public class ManagerAPI {
 	private WorldManager Worlds = null;
 	private ArrayList<IManager> Managers = null;
 	
-	public ManagerAPI(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager, SettingsManager mySettingsManager, WorldManager myWorldManager ){
+	public ManagerBL(CoreManager myCoreManager, PlayerManager myPlayerManager, EmpireManager myEmpireManager, SettingsManager mySettingsManager, WorldManager myWorldManager ){
 		Cores = myCoreManager;
 		Players = myPlayerManager;
 		Empires = myEmpireManager;

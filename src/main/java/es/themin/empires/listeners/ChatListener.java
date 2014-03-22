@@ -4,15 +4,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 
 @SuppressWarnings("deprecation")
 public class ChatListener implements Listener{
 	
-	private ManagerAPI myApi;
+	private ManagerBL myApi;
 	
-	public ChatListener(ManagerAPI myAPI) {
+	public ChatListener(ManagerBL myAPI) {
 		myApi = myAPI;
 	}
 	

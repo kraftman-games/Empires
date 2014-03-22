@@ -8,14 +8,14 @@ import es.themin.empires.cmds.SubCommand;
 import es.themin.empires.cores.CoreFactory;
 import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 
 public class GenerateCore extends SubCommand{
 
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public GenerateCore(ManagerAPI api) {
+	public GenerateCore(ManagerBL api) {
 		myApi = api;
 	}
 

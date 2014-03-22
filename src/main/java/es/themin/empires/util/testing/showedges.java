@@ -3,15 +3,15 @@ package es.themin.empires.util.testing;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.cmds.SubCommand;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 
 public class showedges  extends SubCommand {
 
 	
-private ManagerAPI myApi = null;
+private ManagerBL myApi = null;
 	
-	public showedges(ManagerAPI api) {
+	public showedges(ManagerBL api) {
 		myApi = api;
 	}
 

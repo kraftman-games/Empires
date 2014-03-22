@@ -12,14 +12,14 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EWorld;
 
 public class Event_EntityExplode implements Listener{
 	
-	private ManagerAPI api;
+	private ManagerBL api;
 	private Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Empires");
-	public Event_EntityExplode(ManagerAPI api) {
+	public Event_EntityExplode(ManagerBL api) {
 		this.api = api;
 	}
 	

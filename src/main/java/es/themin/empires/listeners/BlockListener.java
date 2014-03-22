@@ -10,13 +10,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 
 public class BlockListener implements Listener {
 
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public BlockListener(ManagerAPI myAPI){
+	public BlockListener(ManagerBL myAPI){
 		myApi = myAPI;
 	}
 	private static HashMap<Block, Material> burnt = new HashMap<Block, Material>();

@@ -13,15 +13,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.testing.Recipes;
 
 public class CraftListener implements Listener{
 	
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public CraftListener(ManagerAPI myAPI) {
+	public CraftListener(ManagerBL myAPI) {
 		myApi = myAPI;
 	}
 	

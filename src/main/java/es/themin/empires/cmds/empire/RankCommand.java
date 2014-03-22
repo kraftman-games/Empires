@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 
 public class RankCommand extends EmpireSubCommand{
@@ -13,9 +13,9 @@ public class RankCommand extends EmpireSubCommand{
 	
 	//public EmpirePermission[] eps = {EmpirePermission.INVITE, EmpirePermission.ALLY, EmpirePermission.ATTACK, EmpirePermission.KICK_PLAYER, EmpirePermission.PLACE_ALTER, EmpirePermission.PLACE_AMPLIFIER, EmpirePermission.SET_FLAG, EmpirePermission.UPGRADE_CORE };
 	
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public RankCommand(ManagerAPI api) {
+	public RankCommand(ManagerBL api) {
 		myApi = api;
 	}
 

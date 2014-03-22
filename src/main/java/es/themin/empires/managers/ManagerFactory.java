@@ -56,7 +56,7 @@ public class ManagerFactory {
 	}
 	
 	
-	public static ManagerAPI createManagerAPI(BoneCP connectionPool){
+	public static ManagerBL createManagerAPI(BoneCP connectionPool){
 		
 		EmpiresDAL myEmpiresDAL = new EmpiresDAL(connectionPool);
 		
@@ -67,7 +67,7 @@ public class ManagerFactory {
 		WorldManager myWorldManager = CreateWorldManager(myEmpiresDAL);
 		
 		
-		return new ManagerAPI(myCoreManager, myPlayerManager,myEmpireManager, mySettingsManager, myWorldManager);
+		return new ManagerBL(myCoreManager, myPlayerManager,myEmpireManager, mySettingsManager, myWorldManager);
 		
 	}
 }

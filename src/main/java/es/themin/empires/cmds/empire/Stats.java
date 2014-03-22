@@ -10,15 +10,15 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 
 public class Stats extends EmpireSubCommand{
 
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public Stats(ManagerAPI api) {
+	public Stats(ManagerBL api) {
 		myApi = api;
 	}
 

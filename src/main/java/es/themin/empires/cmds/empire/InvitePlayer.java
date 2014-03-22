@@ -6,16 +6,16 @@ import org.bukkit.entity.Player;
 
 import es.themin.empires.cmds.EmpireSubCommand;
 import es.themin.empires.enums.EmpirePermission;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.Empire;
 import es.themin.empires.util.MsgManager;
 
 public class InvitePlayer extends EmpireSubCommand{
 
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public InvitePlayer(ManagerAPI api) {
+	public InvitePlayer(ManagerBL api) {
 		myApi = api;
 	}
 

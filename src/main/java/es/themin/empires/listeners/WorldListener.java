@@ -5,12 +5,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkPopulateEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 
 public class WorldListener implements Listener{
 
-	private ManagerAPI myApi = null;
-	public WorldListener(ManagerAPI myAPI){
+	private ManagerBL myApi = null;
+	public WorldListener(ManagerBL myAPI){
 		myApi = myAPI;
 	}
 	

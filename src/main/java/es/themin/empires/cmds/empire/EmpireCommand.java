@@ -9,16 +9,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import es.themin.empires.cmds.EmpireSubCommand;
-import es.themin.empires.managers.ManagerAPI;
+import es.themin.empires.managers.ManagerBL;
 import es.themin.empires.util.EPlayer;
 
 
 public class EmpireCommand implements CommandExecutor{
 	private static ArrayList<EmpireSubCommand> commands = new ArrayList<EmpireSubCommand>();
 	
-	private ManagerAPI myApi = null;
+	private ManagerBL myApi = null;
 	
-	public EmpireCommand(ManagerAPI api){
+	public EmpireCommand(ManagerBL api){
 		myApi = api;
 		commands.add(new ListEmpires(api));
 		commands.add(new RankCommand(api));
