@@ -452,7 +452,7 @@ public class ManagerBL {
 			Empire myEmpire = getEmpire(empireUUID);
 			Boolean showEdges = true;
 			if (myEmpire.getEmpireState() != EmpireState.ATWAR){
-				Debug.Console("empires not at war duirng showedges");
+				Debug.Console("empires not at war during showedges");
 								
 				
 				for(ICore myCore : myCores.values()){
@@ -474,43 +474,63 @@ public class ManagerBL {
 			if (newLocation.equals(myEPlayer.getLastLocation())){
 				//they havnt moved, reset the timer
 				myEPlayer.setLastLocationCheck(time);
-			} else {
-				UUID empireUuid = myEWorld.getEmpireUUID(newLocation);
-				String locationName = "Wilderness";
-				if (empireUuid != null){
-					Empire myEmpire = getEmpire(empireUuid);
-					locationName = myEmpire.getName();
-					
-					if (myEPlayer.getEmpireUUID() != null && !empireUuid.equals(myEPlayer.getEmpireUUID())){
-						
-						//loop through special cores to see if they do anything
-						HashMap<UUID, ICore> myCores = myEWorld.getCores(newLocation);
-						if (myCores != null && !myCores.isEmpty()){
-							for (ICore myCore : myCores.values()){
-								if (myCore.getType() == CoreType.CELL){
-									myCore.build();
-								}
-							}
-						}
-						
-					}
-				}
-				if (myEPlayer.getLastLocationName() != locationName){
-					myEPlayer.sendMessage("~"+locationName);
-					myEPlayer.setLastLocationName(locationName);
-				}
-				
+				return;
+			}
 			
-				
-				
-				myEPlayer.setLastLocation(newLocation);
+			UpdatePlayerCores(myEPlayer, myEWorld, newLocation);			
+			
+			UUID empireUuid = myEWorld.getEmpireUUID(newLocation);
+			String locationName = "Wilderness";
+			if (empireUuid != null){
+				Empire myEmpire = getEmpire(empireUuid);
+				locationName = myEmpire.getName();
 			}
 			
 			
+			//announce the new location to the player
+			if (myEPlayer.getLastLocationName() != locationName){
+				myEPlayer.sendMessage("~"+locationName);
+				myEPlayer.setLastLocationName(locationName);
+			}
+			
+			myEPlayer.setLastLocation(newLocation);
+		
 			myEPlayer.setLastLocationCheck(time);
 		}
 		
 	}
+	private void UpdatePlayerCores(EPlayer myEPlayer, EWorld myEWorld, Location newLocation) {
+		if (myEPlayer.getEmpireUUID() != null){
+			HashMap<UUID, ICore> myCores = myEWorld.getCores(newLocation);
+			
+			HashMap<UUID,ICore> playerCores = myEPlayer.getInCores();
+			
+			//onleave the old cores
+			for (ICore myCore : playerCores.values()){
+				if (!myCores.containsKey(myCore.getUUID())){
+					myCore.OnLeave(myEPlayer);
+				}
+			}
+			
+			//onenter the new cores
+			for(ICore myCore : myCores.values()){
+				if (!playerCores.containsKey(myCore.getUUID())){
+					myCore.OnEnter(myEPlayer);
+				} else {
+					//and update the ones that are already there
+					myCore.OnUpdate(myEPlayer);
+				}
+			}
+			
+			myEPlayer.setInCores(playerCores);
+			
+			
+		}
+		
+	}
+
+
+
 	public void regenAllBlocks() {
 		for (EWorld world : Worlds.getWorlds().values()) {
 			world.regenAllBlocks();

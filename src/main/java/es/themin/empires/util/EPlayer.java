@@ -1,5 +1,7 @@
 package es.themin.empires.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -7,6 +9,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
+
+import es.themin.empires.cores.ICore;
 
 public class EPlayer {
 
@@ -21,8 +25,19 @@ public class EPlayer {
 	
 	private Location lastLocation;
 	private String lastLocationName;
+	private HashMap<UUID,ICore> inCores;
 	
 	
+	
+	
+	public HashMap<UUID,ICore> getInCores() {
+		return inCores;
+	}
+
+	public void setInCores(HashMap<UUID,ICore> inCores) {
+		this.inCores = inCores;
+	}
+
 	public long getLastLocationCheck() {
 		return lastLocationCheck;
 	}

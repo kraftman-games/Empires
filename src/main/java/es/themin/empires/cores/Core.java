@@ -2,6 +2,7 @@
 package es.themin.empires.cores;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Location;
@@ -14,6 +15,7 @@ import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpirePermission;
 import es.themin.empires.enums.PlaceType;
 import es.themin.empires.schematics.Schematic;
+import es.themin.empires.util.EPlayer;
 
 public class Core implements ICore{
 	
@@ -30,6 +32,7 @@ public class Core implements ICore{
 	private UUID empireUUID;
 	private Schematic schem;
 	protected ArrayList<CoreBlock> coreBlocks;
+	protected HashMap<UUID, EPlayer> players;
 	protected Integer coreSize;
 	protected Integer areaSize;
 	protected ArrayList<CoreBlock> schematic;
@@ -335,6 +338,33 @@ public class Core implements ICore{
 				}
 			}
 		}
+	}
+
+
+
+	@Override
+	public void OnEnter(EPlayer myEPlayer) {
+		//some event triggered when player enters the core
+	}
+
+
+	@Override
+	public void OnLeave(EPlayer myEPlayer) {
+		//player leaving core region
+		
+	}
+
+
+	@Override
+	public HashMap<UUID, EPlayer> getPlayers() {
+		return this.players;
+	}
+
+
+	@Override
+	public void OnUpdate(EPlayer myEPlayer) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
