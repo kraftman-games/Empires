@@ -15,7 +15,6 @@ import org.bukkit.World;
 
 import com.jolbox.bonecp.BoneCP;
 
-import es.themin.empires.cores.Core;
 import es.themin.empires.cores.CoreFactory;
 import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;

@@ -8,8 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.jolbox.bonecp.BoneCP;
 
 import es.themin.empires.EmpiresDAL;
-import es.themin.empires.empires;
-import es.themin.empires.cores.Core;
 import es.themin.empires.cores.ICore;
 import es.themin.empires.util.EPlayer;
 import es.themin.empires.util.EWorld;
@@ -50,9 +48,6 @@ public class ManagerFactory {
 	}
 
 
-	public WarManager CreateWarManager(empires empires) {
-		return new WarManager(empires);
-	}
 	
 	public static SettingsManager CreateSettingsManager(EmpiresDAL myEmpiresDAL){
 		HashMap<String, String> settings = new HashMap<String,String>();

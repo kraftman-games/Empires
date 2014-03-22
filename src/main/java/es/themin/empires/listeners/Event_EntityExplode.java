@@ -1,25 +1,19 @@
 package es.themin.empires.listeners;
 
-import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockFormEvent;
-import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
 import es.themin.empires.managers.ManagerAPI;
 import es.themin.empires.util.EWorld;
-import es.themin.empires.util.RegenBlock;
 
 public class Event_EntityExplode implements Listener{
 	

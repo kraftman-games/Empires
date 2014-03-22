@@ -5,7 +5,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import es.themin.empires.EmpiresDAL;
-import es.themin.empires.cores.Core;
 import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.util.Empire;

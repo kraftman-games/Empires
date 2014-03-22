@@ -9,12 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import es.themin.empires.cores.Core;
 import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.CoreType;
 import es.themin.empires.enums.EmpireState;
-import es.themin.empires.wars.Battle;
-import es.themin.empires.wars.War;
 
 public class Empire {
 	
@@ -29,17 +26,7 @@ public class Empire {
 	private String ownerprefix;
 	private String defaultprefix;
 	private EmpireState empireState = EmpireState.BATTLEREADY;
-	private int warwins;
-	private int warlosses;
-	private int battlewins;
-	private int battlelosses;
-	private ArrayList<War> wars;
-	private ArrayList<Empire> allies;
-	private HashMap<Empire, Long> exallies;
-	private HashMap<Empire, Long> exenemies;
-	private Long lastbattleloss;
-	private Long lastbattlewin;
-	private HashMap<Empire, Long> allyrequests;
+	
 	private HashMap<Long,String> timeline;
 	private Boolean edgesShown = false;
 	
@@ -59,17 +46,6 @@ public class Empire {
 		this.ID = UUID.randomUUID();
 		this.name = empireName;
 		this.owner = myUUID;
-		this.warwins = 0;
-		this.warlosses = 0;
-		this.battlelosses = 0;
-		this.battlewins = 0;
-		this.wars = new ArrayList<War>();
-		this.allies = new ArrayList<Empire>();
-		this.exallies = new HashMap<Empire, Long>();
-		this.exenemies = new HashMap<Empire, Long>();
-		this.lastbattleloss = (long) 0;
-		this.lastbattlewin = (long) 0;
-		this.allyrequests = new HashMap<Empire,Long>();
 		this.timeline = new HashMap<Long,String>();
 		
 		coreLimits =  new HashMap<CoreType, Integer>();
@@ -90,17 +66,7 @@ public class Empire {
 		this.ID = empireUUID;
 		this.name = empireName;
 		this.owner = myUUID;
-		this.warwins = 0;
-		this.warlosses = 0;
-		this.battlelosses = 0;
-		this.battlewins = 0;
-		this.wars = new ArrayList<War>();
-		this.allies = new ArrayList<Empire>();
-		this.exallies = new HashMap<Empire, Long>();
-		this.exenemies = new HashMap<Empire, Long>();
-		this.lastbattleloss = (long) 0;
-		this.lastbattlewin = (long) 0;
-		this.allyrequests = new HashMap<Empire,Long>();
+		
 		this.timeline = new HashMap<Long,String>();
 		
 		//temp
@@ -278,49 +244,6 @@ public class Empire {
 		this.defaultprefix = s;
 	}
 
-//	public boolean canPlayerAttack(Empire playerEmpire) {
-//		//Empire playerEmpire = Players.loadEPlayer(myPlayer.getUniqueId()).getEmpire();
-//		if (!this.isProtected()){
-//			if (this.isAtWar()){
-//				if (playerEmpire == this.getEnemyEmpire()){
-//					return true;
-//				}
-//				else {
-//					//myPlayer.sendMessage("This war is not yours to fight!");
-//					return false;
-//				}
-//				
-//			} else if (playerEmpire.isProtected){
-//				//myPlayer.sendMessage("You cannot attack an empire until yours is rebuilt!");
-//				return false;
-//			}
-//		} else {
-//			//myPlayer.sendMessage("There is no honor in attack this fallen empire");
-//			return false;
-//		}
-//		return false;
-//	}
-	
-	/**
-	 * sets up a war between two empires
-	 * @param eventPlayerEmpire
-	 */
-	/*public void startWar(Empire eventPlayerEmpire) {
-		this.setAtWar(true);
-		eventPlayerEmpire.setAtWar(true);
-		this.setEnemyEmpire(eventPlayerEmpire);
-		eventPlayerEmpire.setEnemyEmpire(eventPlayerEmpire);
-		Save();
-	}
-	
-	public void endWar(Empire eventPlayerEmpire){
-		this.setAtWar(false);
-		eventPlayerEmpire.setAtWar(false);
-		this.setEnemyEmpire(null);
-		eventPlayerEmpire.setEnemyEmpire(null);
-		Save();
-	}*/
-	
 	public boolean playerHasARank(String player) {
 		for (Rank rank : ranks) {
 			if (rank.loadEPlayers().contains(player)) return true;
@@ -336,88 +259,10 @@ public class Empire {
 		this.empireState = empireState;
 	}
 	
-	public boolean isAtWar() {
-		if (wars.isEmpty()) return false;
-		return true;
-	}
-	/*public void setAtWar(boolean atWar) {
-		this.atWar = atWar;
-	}*/
-	public ArrayList<War> getWars() {
-		return wars;
-	}
-	public void addWar(War war) {
-		this.wars.add(war);
-	}
-	public void removeWar(War war) {
-		this.wars.remove(war);
-	}
+
 	
 	
-	public boolean isInABattle() {
-		if (isAtWar()) {
-			for (War war : this.wars) {
-				if (war.hasBattleOnGoing()) return true;
-			}
-		}
-		return false;
-	}
-	public Battle getCurrentBattle() {
-		if (isAtWar()) {
-			for (War war : this.wars) {
-				if (war.hasBattleOnGoing()) {
-					return war.getOnGoingBattle();
-				}
-			}
-		}
-		return null;
-	}
-	public ArrayList<Empire> getAllies() {
-		return allies;
-	}
-	public void addAlly(Empire empire) {
-		allies.add(empire);
-	}
-	public void removeAlly(Empire empire) {
-		allies.remove(empire);
-	}
-	public boolean hasAllies() {
-		if (!(allies.isEmpty())) return true;
-		return false;
-	}
-	public boolean isAlliedWith(Empire empire) {
-		if (allies.contains(empire)) return true;
-		return false;
-	}
-	public boolean isAtWarWith(Empire empire) {
-		if (isAtWar()) {
-			for (War war : wars) {
-				if (war.getAllEmpiresOnTeam1().contains(this) && war.getAllEmpiresOnTeam2().contains(empire)) return true;
-				else if (war.getAllEmpiresOnTeam2().contains(this) && war.getAllEmpiresOnTeam1().contains(empire)) return true;
-			}
-		}
-		return false;
-	}
-	public War getWarAgainst(Empire empire) {
-		if (isAtWar()) {
-			for (War war : wars) {
-				if (war.getAllEmpiresOnTeam1().contains(this) && war.getAllEmpiresOnTeam2().contains(empire)) return war;
-				else if (war.getAllEmpiresOnTeam2().contains(this) && war.getAllEmpiresOnTeam1().contains(empire)) return war;
-			}
-		}
-		return null;
-	}
-	public boolean isInBattleWith(Empire empire) {
-		if (isAtWarWith(empire)) {
-			War war = getWarAgainst(empire);
-			if (war.hasBattleOnGoing()) {
-				Battle battle = war.getOnGoingBattle();
-				if (battle.getAllEmpiresOnTeam1().contains(this) && battle.getAllEmpiresOnTeam2().contains(empire)) return true;
-				if (battle.getAllEmpiresOnTeam2().contains(this) && battle.getAllEmpiresOnTeam1().contains(empire)) return true;
-			}
-		}
-		return false;
-	}
+	
 	public int getNumberOfOnlinePlayers(){
 		int number = 0;
 		for (Player player : Bukkit.getOnlinePlayers()) {
@@ -428,96 +273,7 @@ public class Empire {
 		}
 		return number;
 	}
-	public void addBattleWins(int i) {
-		this.battlewins = this.battlewins + i;
-	}
-	public void addBattleLosses(int i) {
-		this.battlelosses = this.battlelosses + i;
-	}
-	public HashMap<UUID,EPlayer> getOnlinePlayers() {
-		HashMap<UUID,EPlayer> list = new HashMap<UUID,EPlayer>();
-		
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			EPlayer myEPlayer = onlinePlayers.get(player.getUniqueId());
-			if (myEPlayer != null){
-				list.put(myEPlayer.getUUID(), myEPlayer);
-			}
-		}
-		
-		return list;
-	}
-	public void setLastBattleLoss(Long l) {
-		this.lastbattleloss = l;
-	}
-	public Long getLastBattleLoss() {
-		return lastbattleloss;
-	}
-	public void setLastBattleWin(Long l) {
-		this.lastbattlewin = l;
-	}
-	public Long getLastBattleWin() {
-		return lastbattlewin;
-	}
-	public boolean exAlliesContains(Empire e) {
-		if (this.exallies.containsKey(e)) return true;
-		return false;
-	}public Long getLastAllianceWith(Empire e) {
-		if (exAlliesContains(e)){
-			return this.exallies.get(e);
-		}
-		return null;
-	}
-	public void addExAlly(Empire e) {
-		this.exallies.put(e, System.currentTimeMillis());
-	}
-	public void addExAlly(Empire e, Long l) {
-		this.exallies.put(e, l);
-	}public void removeExAlly(Empire e) {
-		if (exAlliesContains(e)) {
-			this.exallies.remove(e);
-		}
-	}
-	public void addWarLosses(int i) {
-		this.warlosses = warlosses + i;
-	}
-	public void addWarWins(int i) {
-		this.warwins = warwins + i;
-	}public boolean exEnemiesContains(Empire e) {
-		if (this.exenemies.containsKey(e)) return true;
-		return false;
-	}
-	public void addExEnemy(Empire e) {
-		this.exenemies.put(e, System.currentTimeMillis());
-	}
-	public void addExEnemy(Empire e, Long l) {
-		this.exenemies.put(e, l);
-	}
-	public Long getLastEnemyWith(Empire e) {
-		if (exEnemiesContains(e)) {
-			return this.exenemies.get(e);
-		}
-		return null;
-	}
-	public void removeExEnemy(Empire e) {
-		if (exEnemiesContains(e)) {
-			this.exenemies.remove(e);
-		}
-	}
-	public HashMap<Empire,Long> getAllianceRequests() {
-		return this.allyrequests;
-	}
-	public void addAllyRequest(Empire e) {
-		if (!this.allyrequests.containsKey(e)) {
-			this.allyrequests.put(e, System.currentTimeMillis());
-		}
-	}
-	public boolean hasAllyRequestFrom(Empire e) {
-		if (this.allyrequests.containsKey(e)) return true;
-		return false;
-	}
-	public void removeAllyRequest(Empire e) {
-		this.allyrequests.remove(e);
-	}
+	
 	public HashMap<Long,String> getTimeLine() {
 		return timeline;
 	}

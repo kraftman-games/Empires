@@ -3,7 +3,6 @@ package es.themin.empires.util;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,7 +10,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import es.themin.empires.Debug;
-import es.themin.empires.cores.Core;
 import es.themin.empires.cores.ICore;
 import es.themin.empires.enums.PlaceType;
 
